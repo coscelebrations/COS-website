@@ -544,6 +544,13 @@
       overflow: hidden;
     }
 
+    .review-hint {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      font-style: italic;
+      margin-top: 0.5rem;
+    }
+
     .carousel-container {
       max-width: 900px;
       margin: 0 auto;
@@ -561,22 +568,87 @@
       text-align: center;
       opacity: 0;
       transition: opacity 0.6s ease;
+      cursor: pointer;
     }
 
     .review-card.active {
       opacity: 1;
     }
 
-    .review-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.25rem, 3vw, 1.75rem);
-      font-style: italic;
-      color: var(--charcoal);
-      line-height: 1.7;
+    .review-content {
+      position: relative;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin-bottom: 2rem;
-      max-width: 700px;
+      max-width: 800px;
       margin-left: auto;
       margin-right: auto;
+      padding: 2rem;
+      background: white;
+      border: 1px solid var(--blush);
+      border-radius: 4px;
+      transition: all 0.4s ease;
+    }
+
+    .review-card:hover .review-content {
+      border-color: var(--rose);
+      box-shadow: 0 10px 40px rgba(114, 47, 55, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .review-preview,
+    .review-full {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+      font-style: italic;
+      color: var(--charcoal);
+      line-height: 1.8;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - 4rem);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .review-preview {
+      opacity: 1;
+    }
+
+    .review-full {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+    }
+
+    .review-card:hover .review-preview {
+      opacity: 0;
+    }
+
+    .review-card:hover .review-full {
+      opacity: 1;
+    }
+
+    /* Adjust content height on hover to accommodate full text */
+    .review-card:hover .review-content {
+      min-height: auto;
+      height: auto;
+    }
+
+    .review-full {
+      position: relative;
+      transform: none;
+      top: auto;
+      left: auto;
+    }
+
+    .review-preview {
+      position: relative;
+      transform: none;
+      top: auto;
+      left: auto;
     }
 
     .review-author {
@@ -588,7 +660,7 @@
 
     .author-name {
       font-family: 'Montserrat', sans-serif;
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 500;
       color: var(--charcoal);
       letter-spacing: 0.05em;
@@ -749,44 +821,167 @@
     <div class="section-header">
       <p class="eyebrow">What Couples Say</p>
       <h2>Real Weddings, Real Reactions</h2>
+      <p class="review-hint">Hover to read full review</p>
     </div>
     <div class="carousel-container">
       <div class="carousel-track">
+
+        <!-- Review 1 - Liz (Corey) -->
         <div class="review-card">
-          <p class="review-text">"People came up to us, both old and young, and told us they had never seen a dance floor so full all night at a wedding."</p>
+          <div class="review-content">
+            <p class="review-preview">"Corey is THE BEST wedding DJ! The dance portion of our wedding was truly epic..."</p>
+            <p class="review-full">"Corey is THE BEST wedding DJ! If you're reading this and on the fence about booking Corey at COS Celebrations, stop reading and book him! The dance portion of our wedding was truly epic. We had the drummer and Corey surprised us with his sax and it was show stopping! Corey helped make our wedding day run so smoothly. His emcee skills, calm demeanor, professional manner, and genuine care in making sure our day was perfect was something we'll never forget."</p>
+          </div>
+          <div class="review-author">
+            <span class="author-name">Liz</span>
+            <span class="author-dj">DJ Corey • Sax + Drummer</span>
+          </div>
+        </div>
+
+        <!-- Review 2 - Tyler (Corey) -->
+        <div class="review-card">
+          <div class="review-content">
+            <p class="review-preview">"People came up to us and told us they had never seen a dance floor so full all night at a wedding..."</p>
+            <p class="review-full">"COS celebrations and Corey did an absolutely perfect job for my wedding at Casa Marina in Jacksonville. People came up to us, both old and young, and told us they had never seen a dance floor so full all night at a wedding. He brought a saxophone and played it as part of the music during the dancing which was electric. Corey truly wanted our night to be perfect and was invested in making sure the dance floor was always rocking. He was the best I have ever seen at a wedding."</p>
+          </div>
           <div class="review-author">
             <span class="author-name">Tyler</span>
-            <span class="author-dj">DJ Corey</span>
+            <span class="author-dj">DJ Corey • Casa Marina, Jacksonville</span>
           </div>
         </div>
+
+        <!-- Review 3 - Chelsea N (Corey) -->
         <div class="review-card">
-          <p class="review-text">"For the next 2 hours not a single person was sitting down. At the end of the night people were demanding a third encore."</p>
+          <div class="review-content">
+            <p class="review-preview">"Corey was the only vendor who proactively reached out to review the timeline with our planner..."</p>
+            <p class="review-full">"Our wedding planner even noted that Corey was the only vendor who proactively reached out to review the timeline with her, ensuring that every detail flowed seamlessly. As an MC, Corey was outstanding. He kept the evening moving effortlessly. On top of his professionalism as a DJ and MC, Corey is an incredibly talented saxophonist. Many of our guests commented on how amazing the live saxophone music was."</p>
+          </div>
           <div class="review-author">
-            <span class="author-name">Bobby</span>
-            <span class="author-dj">DJ Greg</span>
+            <span class="author-name">Chelsea N</span>
+            <span class="author-dj">DJ Corey • Proactive Coordination</span>
           </div>
         </div>
+
+        <!-- Review 4 - Hailey C (CJ) -->
         <div class="review-card">
-          <p class="review-text">"We honestly consider CJ more than just our DJ; he's now a friend and part of our family."</p>
+          <div class="review-content">
+            <p class="review-preview">"We honestly consider CJ more than just our DJ; he's now a friend and part of our family..."</p>
+            <p class="review-full">"We can't recommend DJ CJ enough! The dance floor was packed the entire night—our guests couldn't get enough! CJ has a special talent for reading the room and keeping everyone engaged, from our youngest guests to our grandparents. We honestly consider CJ more than just our DJ; he's now a friend and part of our family."</p>
+          </div>
           <div class="review-author">
             <span class="author-name">Hailey C</span>
-            <span class="author-dj">DJ CJ</span>
+            <span class="author-dj">DJ CJ • All Ages Dancing</span>
           </div>
         </div>
+
+        <!-- Review 5 - Erin (CJ) -->
         <div class="review-card">
-          <p class="review-text">"We had DJ Noah running the show and DJ Corey on sax, and they absolutely made our wedding."</p>
+          <div class="review-content">
+            <p class="review-preview">"CJ had all guests aged from 9-86 DANCING..."</p>
+            <p class="review-full">"We had such a great experience with COS Celebrations booking CJ to DJ at our wedding! CJ was super professional and organized. He reached out months in advance to get to know us and what kind of music we want played. CJ also reached out to our venue to coordinate with them to make a timeline for the day. He also had all guests aged from 9-86 DANCING."</p>
+          </div>
+          <div class="review-author">
+            <span class="author-name">Erin</span>
+            <span class="author-dj">DJ CJ • Ages 9-86 Dancing!</span>
+          </div>
+        </div>
+
+        <!-- Review 6 - Margaret R (CJ) -->
+        <div class="review-card">
+          <div class="review-content">
+            <p class="review-preview">"DJ CJ brought amazing energy and kept everyone on the dance floor all night long..."</p>
+            <p class="review-full">"DJ CJ and Tyler brought amazing energy and vibes to our party - the music was incredible and kept everyone on the dance floor all night long. CJ did a fantastic job of reading the crowd and keeping the energy high the whole time. The photo booth was also a huge hit."</p>
+          </div>
+          <div class="review-author">
+            <span class="author-name">Margaret R</span>
+            <span class="author-dj">DJ CJ • Reading the Crowd</span>
+          </div>
+        </div>
+
+        <!-- Review 7 - Bobby (Greg) -->
+        <div class="review-card">
+          <div class="review-content">
+            <p class="review-preview">"For the next 2 hours not a single person was sitting down. People were demanding a third encore..."</p>
+            <p class="review-full">"Let me start by saying, if you're looking for a DJ for your wedding, party or whatever. STOP LOOKING… These guys are THE GUYS. Around 9:30 my wife noticed that the energy wasn't where it should be. She promptly went over to Greg and said, 'forget about our playlist, get the party going again'… The guy absolutely WENT OFF. For the next 2 hours not a single person was sitting down. At the end of the night people were demanding a third encore."</p>
+          </div>
+          <div class="review-author">
+            <span class="author-name">Bobby</span>
+            <span class="author-dj">DJ Greg • Jekyll Island</span>
+          </div>
+        </div>
+
+        <!-- Review 8 - Amelia (Greg) -->
+        <div class="review-card">
+          <div class="review-content">
+            <p class="review-preview">"He stole the show. Every single guest told me how fantastic he was..."</p>
+            <p class="review-full">"I had Greg Capozzi play saxophone at my ceremony and cocktail hour and DJ at my reception. He stole the show. Every single guest told me how fantastic he was and how he was the best DJ they have ever seen at a wedding. His saxophone skills were incredible. He went above and beyond and contacted the venues to make sure they were all set the week of the wedding, coordinated with the staff on his own, and even captured some videos and photos and sent them to me after the wedding."</p>
+          </div>
+          <div class="review-author">
+            <span class="author-name">Amelia</span>
+            <span class="author-dj">DJ Greg • Ceremony + Cocktail Sax</span>
+          </div>
+        </div>
+
+        <!-- Review 9 - Cole B (Greg) -->
+        <div class="review-card">
+          <div class="review-content">
+            <p class="review-preview">"The most complimented part of our wedding was our DJ, Greg. The man can make a saxophone sing..."</p>
+            <p class="review-full">"In the days and weeks following our wedding, I think the most complimented part of the day was our DJ, Greg. He was attentive and enthusiastic to hear our suggestions on the atmosphere we wanted to create, and boy did he deliver! The man can make a saxophone sing. The cold sparks were such a great addition, I can't imagine our wedding without them or Greg absolutely shredding on sax."</p>
+          </div>
+          <div class="review-author">
+            <span class="author-name">Cole B</span>
+            <span class="author-dj">DJ Greg • Most Complimented Vendor</span>
+          </div>
+        </div>
+
+        <!-- Review 10 - Courtney K (Noah + Corey) -->
+        <div class="review-card">
+          <div class="review-content">
+            <p class="review-preview">"We had DJ Noah running the show and DJ Corey on sax, and they absolutely made our wedding..."</p>
+            <p class="review-full">"We seriously cannot say enough good things about COS Celebrations! We had DJ Noah running the show and DJ Corey on sax, and they absolutely made our wedding. Noah kept the party going without ever feeling cheesy or over the top. One of our favorite moments was the private last dance Noah suggested. It gave us a chance to soak in the day."</p>
+          </div>
           <div class="review-author">
             <span class="author-name">Courtney K</span>
-            <span class="author-dj">DJ Noah</span>
+            <span class="author-dj">DJ Noah + Corey • Private Last Dance</span>
           </div>
         </div>
+
+        <!-- Review 11 - Jordyn P (Noah) -->
         <div class="review-card">
-          <p class="review-text">"When the weather didn't cooperate for our cold spark ending Marc didn't say no, he pulled his sleeves up and said let's do it."</p>
+          <div class="review-content">
+            <p class="review-preview">"Multiple guests mentioned how great the DJ was. He didn't even break a sweat when there wasn't a day of coordinator..."</p>
+            <p class="review-full">"Noah was absolutely amazing!!! The wedding was everything we wanted it to be and Noah helped make it even better. Multiple guests mentioned how great the DJ was that night and even the next day. He was very attentive and great with communication. He was prepared with everything day of and didn't even break a sweat when there wasn't a day of coordinator."</p>
+          </div>
+          <div class="review-author">
+            <span class="author-name">Jordyn P</span>
+            <span class="author-dj">DJ Noah • No Coordinator Needed</span>
+          </div>
+        </div>
+
+        <!-- Review 12 - Rochelle D (Marc) -->
+        <div class="review-card">
+          <div class="review-content">
+            <p class="review-preview">"When the weather didn't cooperate for our cold spark ending, Marc pulled his sleeves up and said let's do it..."</p>
+            <p class="review-full">"We had a wonderful experience with Marc as our DJ. When the weather didn't cooperate for our cold spark ending Marc didn't say no, he pulled his sleeves up and said let's do it. It was a once in a lifetime chance to get what we really wanted and he made it happen."</p>
+          </div>
           <div class="review-author">
             <span class="author-name">Rochelle D</span>
-            <span class="author-dj">DJ Marc</span>
+            <span class="author-dj">DJ Marc • Problem Solver</span>
           </div>
         </div>
+
+        <!-- Review 13 - Haiden W (Marc) -->
+        <div class="review-card">
+          <div class="review-content">
+            <p class="review-preview">"COS was slightly over our budget, but we decided to go for it and I'm so glad we did. Worth every penny..."</p>
+            <p class="review-full">"Working with COS Celebrations was a dream!! We booked with DJ Marc and he was incredible. He brought so much life to our wedding day! When we were looking around, COS was slightly over our budget, but we decided to go for it and I'm so glad we did. It was worth every penny!!"</p>
+          </div>
+          <div class="review-author">
+            <span class="author-name">Haiden W</span>
+            <span class="author-dj">DJ Marc • Worth Every Penny</span>
+          </div>
+        </div>
+
       </div>
       <div class="carousel-dots"></div>
     </div>
