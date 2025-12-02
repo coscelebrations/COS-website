@@ -537,6 +537,98 @@
       opacity: 0.5;
     }
 
+    /* Reviews Carousel */
+    .reviews {
+      padding: 6rem 2rem;
+      background: var(--soft-pink);
+      overflow: hidden;
+    }
+
+    .carousel-container {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .review-card {
+      min-width: 100%;
+      padding: 3rem 2rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .review-card.active {
+      opacity: 1;
+    }
+
+    .review-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-style: italic;
+      color: var(--charcoal);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .review-author {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .author-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      letter-spacing: 0.05em;
+    }
+
+    .author-dj {
+      font-size: 0.85rem;
+      color: var(--merlot);
+      font-weight: 400;
+      letter-spacing: 0.1em;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--rose);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .carousel-dot.active {
+      background: var(--merlot);
+      transform: scale(1.2);
+    }
+
+    .carousel-dot:hover {
+      background: var(--merlot);
+      transform: scale(1.1);
+    }
+
     /* Mobile Responsive */
     @media (max-width: 768px) {
       nav {
@@ -652,6 +744,54 @@
     </div>
   </section>
 
+  <!-- Reviews Carousel -->
+  <section class="reviews">
+    <div class="section-header">
+      <p class="eyebrow">What Couples Say</p>
+      <h2>Real Weddings, Real Reactions</h2>
+    </div>
+    <div class="carousel-container">
+      <div class="carousel-track">
+        <div class="review-card">
+          <p class="review-text">"People came up to us, both old and young, and told us they had never seen a dance floor so full all night at a wedding."</p>
+          <div class="review-author">
+            <span class="author-name">Tyler</span>
+            <span class="author-dj">DJ Corey</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <p class="review-text">"For the next 2 hours not a single person was sitting down. At the end of the night people were demanding a third encore."</p>
+          <div class="review-author">
+            <span class="author-name">Bobby</span>
+            <span class="author-dj">DJ Greg</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <p class="review-text">"We honestly consider CJ more than just our DJ; he's now a friend and part of our family."</p>
+          <div class="review-author">
+            <span class="author-name">Hailey C</span>
+            <span class="author-dj">DJ CJ</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <p class="review-text">"We had DJ Noah running the show and DJ Corey on sax, and they absolutely made our wedding."</p>
+          <div class="review-author">
+            <span class="author-name">Courtney K</span>
+            <span class="author-dj">DJ Noah</span>
+          </div>
+        </div>
+        <div class="review-card">
+          <p class="review-text">"When the weather didn't cooperate for our cold spark ending Marc didn't say no, he pulled his sleeves up and said let's do it."</p>
+          <div class="review-author">
+            <span class="author-name">Rochelle D</span>
+            <span class="author-dj">DJ Marc</span>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-dots"></div>
+    </div>
+  </section>
+
   <!-- Packages -->
   <section class="services" id="pricing">
     <div class="section-header">
@@ -731,6 +871,87 @@
     </div>
     <p class="footer-copy">© 2025 COS Celebrations. All rights reserved. | St. Augustine, FL</p>
   </footer>
+
+  <script>
+    // Reviews Carousel Auto-scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const track = document.querySelector('.carousel-track');
+      const cards = document.querySelectorAll('.review-card');
+      const dotsContainer = document.querySelector('.carousel-dots');
+
+      let currentIndex = 0;
+      const totalCards = cards.length;
+      const autoScrollInterval = 5000; // 5 seconds
+      let autoScrollTimer;
+
+      // Create dots
+      for (let i = 0; i < totalCards; i++) {
+        const dot = document.createElement('button');
+        dot.classList.add('carousel-dot');
+        dot.setAttribute('aria-label', `Go to review ${i + 1}`);
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+
+      const dots = document.querySelectorAll('.carousel-dot');
+
+      // Initialize first slide
+      function init() {
+        cards[0].classList.add('active');
+        dots[0].classList.add('active');
+        startAutoScroll();
+      }
+
+      // Go to specific slide
+      function goToSlide(index) {
+        // Remove active class from all
+        cards.forEach(card => card.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        // Update current index
+        currentIndex = index;
+
+        // Transform track
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // Add active class to current
+        cards[currentIndex].classList.add('active');
+        dots[currentIndex].classList.add('active');
+
+        // Reset auto-scroll timer
+        resetAutoScroll();
+      }
+
+      // Next slide
+      function nextSlide() {
+        const nextIndex = (currentIndex + 1) % totalCards;
+        goToSlide(nextIndex);
+      }
+
+      // Start auto-scroll
+      function startAutoScroll() {
+        autoScrollTimer = setInterval(nextSlide, autoScrollInterval);
+      }
+
+      // Reset auto-scroll
+      function resetAutoScroll() {
+        clearInterval(autoScrollTimer);
+        startAutoScroll();
+      }
+
+      // Pause on hover
+      track.addEventListener('mouseenter', () => {
+        clearInterval(autoScrollTimer);
+      });
+
+      track.addEventListener('mouseleave', () => {
+        startAutoScroll();
+      });
+
+      // Initialize carousel
+      init();
+    });
+  </script>
 
 </body>
 </html>
