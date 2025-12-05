@@ -125,6 +125,64 @@
       color: white !important;
     }
 
+    /* Dropdown Menu */
+    .nav-links li {
+      position: relative;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-toggle {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .dropdown-toggle::after {
+      content: '▾';
+      font-size: 0.7rem;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      min-width: 200px;
+      padding: 0.5rem 0;
+      margin-top: 0.5rem;
+      border: 1px solid var(--blush);
+      border-radius: 2px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-menu a:hover {
+      background: var(--soft-pink);
+      color: var(--merlot);
+    }
+
     /* Hero Section */
     .hero {
       min-height: 100vh;
@@ -739,11 +797,17 @@
       <span>Luxury Event Entertainment</span>
     </a>
     <ul class="nav-links">
-      <li><a href="/services/weddings/">Weddings</a></li>
-      <li><a href="#services">Services</a></li>
+      <li class="dropdown">
+        <a href="#services" class="dropdown-toggle">Services</a>
+        <div class="dropdown-menu">
+          <a href="/services/weddings/">Weddings</a>
+          <a href="/services/corporate/">Corporate Events</a>
+          <a href="/services/private-parties/">Private Parties</a>
+        </div>
+      </li>
       <li><a href="#about">About</a></li>
       <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#contact" class="nav-cta">Get Quote</a></li>
+      <li><a href="/contact/" class="nav-cta">Contact</a></li>
     </ul>
   </nav>
 
@@ -776,11 +840,18 @@
         <span class="trust-label">Preferred Venues</span>
       </div>
       <div class="trust-item">
-        <span class="trust-number">$1,400</span>
+        <span class="trust-number">$1,500</span>
         <span class="trust-label">Starting Price</span>
       </div>
     </div>
   </div>
+
+  <!-- Introduction Section -->
+  <section style="padding: 5rem 2rem; background: var(--cream);">
+    <div style="max-width: 900px; margin: 0 auto; font-size: 1.05rem; line-height: 1.9; color: var(--text-soft);">
+      <p>Looking for a <strong style="color: var(--charcoal); font-weight: 500;">wedding DJ</strong> who brings more than just a playlist? COS Celebrations pioneered the DJ + live musician model in North Florida — and we've been making weddings unforgettable ever since. With over 500 five-star reviews and performances at the region's most prestigious venues from <a href="/jacksonville-wedding-dj/" style="color: var(--merlot); text-decoration: none; border-bottom: 1px solid var(--rose);">Jacksonville</a> to <a href="/tampa-wedding-dj/" style="color: var(--merlot); text-decoration: none; border-bottom: 1px solid var(--rose);">Tampa</a>, we deliver the energy of a live concert combined with the precision of a professional DJ. Our founder toured with Usher, Alicia Keys, and T-Pain across 35+ countries before bringing that world-class experience home to <a href="/st-augustine-wedding-dj/" style="color: var(--merlot); text-decoration: none; border-bottom: 1px solid var(--rose);">St. Augustine</a>. Whether you're planning an elegant ballroom reception, a waterfront celebration, or an intimate gathering, we bring the same level of expertise and enthusiasm to every wedding. Starting at just $1,500, we make luxury entertainment accessible without compromising on quality. We're not here to make your wedding about us — we're here to make your celebration exactly what you envisioned, with the added magic of live saxophone weaving through your favorite songs. That's the COS difference, and that's why couples across North Florida keep choosing us for their most important day.</p>
+    </div>
+  </section>
 
   <!-- What Makes Us Different -->
   <section class="differentiator" id="about">
@@ -997,17 +1068,18 @@
     </div>
     <div class="packages-grid">
       <div class="package-card">
-        <h3 class="package-name">Essential</h3>
-        <div class="package-price">$1,400</div>
+        <h3 class="package-name">Deluxe</h3>
+        <div class="package-price">$1,500</div>
         <ul class="package-features">
           <li>4 Hours of Entertainment</li>
           <li>Professional DJ/MC</li>
           <li>Premium Sound System</li>
-          <li>Online Planning Portal</li>
+          <li>Elegant DJ Setup</li>
+          <li>COS Music + Timeline App</li>
         </ul>
         <a href="#contact" class="btn btn-secondary">Learn More</a>
       </div>
-      <div class="package-card featured">
+      <div class="package-card">
         <h3 class="package-name">Complete Wedding</h3>
         <div class="package-price">$1,900</div>
         <ul class="package-features">
@@ -1015,11 +1087,12 @@
           <li>Ceremony Coverage</li>
           <li>Professional DJ/MC</li>
           <li>Premium Sound System</li>
-          <li>Online Planning Portal</li>
+          <li>Elegant DJ Setup</li>
+          <li>COS Music + Timeline App</li>
         </ul>
-        <a href="#contact" class="btn btn-primary">Learn More</a>
+        <a href="#contact" class="btn btn-secondary">Learn More</a>
       </div>
-      <div class="package-card">
+      <div class="package-card featured">
         <h3 class="package-name">Premium</h3>
         <div class="package-price">$2,400</div>
         <ul class="package-features">
@@ -1028,8 +1101,10 @@
           <li>Choose 2 Add-Ons</li>
           <li>Professional DJ/MC</li>
           <li>Premium Sound System</li>
+          <li>Elegant DJ Setup</li>
+          <li>COS Music + Timeline App</li>
         </ul>
-        <a href="#contact" class="btn btn-secondary">Learn More</a>
+        <a href="#contact" class="btn btn-primary">Learn More</a>
       </div>
     </div>
   </section>
@@ -1039,12 +1114,12 @@
     <p class="eyebrow">Serving North & Central Florida</p>
     <h2>Where We Celebrate</h2>
     <div class="areas-list">
-      <a href="/jacksonville-wedding-dj/">Jacksonville</a>
-      <a href="/st-augustine-wedding-dj/">St. Augustine</a>
+      <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--charcoal);">Jacksonville</span>
+      <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--charcoal);">St. Augustine</span>
       <a href="/ponte-vedra-wedding-dj/">Ponte Vedra</a>
       <a href="/amelia-island-wedding-dj/">Amelia Island</a>
       <a href="/orlando-wedding-dj/">Orlando</a>
-      <a href="/tampa-wedding-dj/">Tampa</a>
+      <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--charcoal);">Tampa</span>
     </div>
   </section>
 
@@ -1053,7 +1128,8 @@
     <p class="eyebrow">Let's Talk</p>
     <h2>Ready to Start Planning?</h2>
     <p>Check our availability for your date and let's create something unforgettable together.</p>
-    <a href="tel:904-615-7132" class="btn btn-primary">Call (904) 615-7132</a>
+    <a href="/contact/" class="btn btn-primary">Request Information</a>
+    <p style="margin-top: 1.5rem; font-size: 0.95rem;">Or call us directly: <a href="tel:904-615-7132" style="color: var(--merlot); text-decoration: none; font-weight: 500;">(904) 615-7132</a></p>
   </section>
 
   <!-- Footer -->
