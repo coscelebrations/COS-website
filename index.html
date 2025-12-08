@@ -634,21 +634,39 @@
     /* CTA Section */
     .final-cta {
       padding: 6rem 2rem;
-      background: var(--cream);
+      background: linear-gradient(rgba(45, 42, 43, 0.75), rgba(45, 42, 43, 0.75)),
+                  url('/images/lightner-museum-wedding-dance-floor-st-augustine.webp') center/cover no-repeat;
       text-align: center;
+      color: white;
+    }
+
+    .final-cta .eyebrow {
+      color: var(--rose);
     }
 
     .final-cta h2 {
       font-size: clamp(2rem, 4vw, 2.75rem);
       margin-bottom: 1rem;
+      color: white;
     }
 
     .final-cta p {
-      color: var(--text-soft);
+      color: rgba(255, 255, 255, 0.9);
       margin-bottom: 2rem;
       max-width: 500px;
       margin-left: auto;
       margin-right: auto;
+    }
+
+    .final-cta .btn-secondary {
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--charcoal);
+      border: none;
+    }
+
+    .final-cta .btn-secondary:hover {
+      background: white;
+      color: var(--merlot);
     }
 
     /* Footer */
