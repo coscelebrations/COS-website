@@ -21,28 +21,33 @@
 | Jacksonville | ✅ Done | ✅ |
 | St. Augustine | ✅ Done | ✅ |
 | Ponte Vedra | ✅ Done | ✅ |
-| Contact | ✅ Done | N/A |
-| Services/Weddings | ✅ Done | N/A |
 | Amelia Island | ✅ Done | ✅ |
+| Contact | ✅ Done | N/A |
+| Pricing | ✅ Done | N/A |
+| Services/Weddings | ✅ Done | N/A |
+| Services/Corporate | ✅ Done | N/A |
+| Services/Private Parties | ✅ Done | N/A |
 | Orlando | ❌ Not created | - |
 | Tampa | ❌ Not created | - |
 
 ### Recent Wins
+- Awards section added to homepage (8 awards with elegant badge styling)
+- Standalone /pricing/ page created (routes to service categories)
+- Services dropdown nav working on all pages
+- Corporate & Private Party service pages complete
 - Floating CTA button added (appears after scrolling past hero)
 - New logo (webp, 14KB) on all pages
 - Mobile hamburger menu on all pages
 - PageSpeed: 90s mobile, 99 desktop, 99 accessibility
-- DJEP form REMOVED from homepage (was killing performance)
-- Dance floor background image added to:
-  - Homepage CTA section
-  - Contact page hero
-  - Image: `lightner-museum-wedding-dance-floor-st-augustine.webp` (1200px, 74KB)
+- DJEP form REMOVED from all pages except /contact/ (breaks dropdown nav)
+- Dance floor background image added to Homepage CTA, Contact hero
 
 ### Priority Next Steps
-1. **Create remaining city pages:** Amelia Island, Orlando, Tampa
+1. **Create remaining city pages:** Orlando, Tampa
 2. **Build page generator script** (questionnaire → auto-generates HTML)
 3. **Create venue pages:** River House, Timuquana, Epping Forest, etc.
 4. **When ready:** Connect coscelebrations.com domain to Netlify + 301 redirects
+5. **Favicons** for both COS and AE sites
 
 ### Key Rules to Remember
 - DJEP forms ONLY on /contact/ page (kills PageSpeed elsewhere)
@@ -383,51 +388,42 @@ These are the technical limits for meta data. Google displays based on pixel wid
 - Use floating CTA button + styled buttons linking to /contact/ on other pages
 - This maintains 90s+ performance and 99 accessibility
 
-### ⚠️ DJEP Scripts Break Nav Dropdowns (CRITICAL FIX)
+### ⚠️ DJEP Scripts Break Nav Dropdowns (CRITICAL - NO FIX POSSIBLE)
 
 **Problem Discovered (Dec 8, 2025):**
-- DJEP scripts were breaking the Services dropdown menu on corporate/private party pages
+- DJEP scripts break the Services dropdown menu on any page they're on
 - Dropdown would flash briefly then disappear
-- Issue: DJEP JavaScript manipulates DOM elements and interferes with dropdown functionality
+- Issue: DJEP JavaScript uses `document.write()` which manipulates DOM and interferes with dropdown functionality
 
 **Symptoms:**
 - Dropdown CSS shows element briefly on page load, then disappears
 - Hover doesn't work on pages with DJEP forms
 - Works fine on pages without DJEP forms
 
-**Solution - Lazy Load DJEP Scripts:**
-Instead of loading DJEP scripts directly, wrap them to load AFTER the page is ready:
+**Attempted Fix (FAILED):**
+- Tried lazy loading DJEP scripts using `window.addEventListener('load', ...)`
+- This fixed the dropdown BUT broke the form completely
+- Reason: `document.write()` only works during initial page parse, not after page load
 
+**FINAL SOLUTION:**
+⚠️ **DJEP forms can ONLY exist on /contact/ page**
+- All other pages must use CTA buttons linking to /contact/
+- There is no way to have DJEP forms and working dropdown nav on the same page
+- This is a fundamental limitation of DJEP's use of `document.write()`
+
+**Implementation:**
 ```html
-<!-- BEGIN DJEVENTPLANNER CODE -->
-<div id="djep-form-container"></div>
-<script>
-  // Load DJEP scripts after page load to prevent them from affecting nav
-  window.addEventListener('load', function() {
-    var container = document.getElementById('djep-form-container');
-    var script1 = document.createElement('script');
-    script1.src = 'https://cosplanning.com/check_req_info_form.js';
-    container.appendChild(script1);
-
-    var script2 = document.createElement('script');
-    script2.src = 'https://cosplanning.com/request_information.asp?djidnumber=25191&source=jswebsite&action=get_responsive_code';
-    container.appendChild(script2);
-  });
-</script>
-<noscript><a href="https://cosplanning.com/request_information.asp?djidnumber=25191">Click Here For Request Information Form</a></noscript>
-<!-- END DJEVENTPLANNER CODE -->
+<!-- On corporate/private party pages, use this instead of DJEP form: -->
+<a href="/contact/" class="cta-btn">Request a Quote</a>
 ```
 
-**Why This Works:**
-- `window.addEventListener('load', ...)` waits until page is fully loaded
-- By then, nav dropdown is already rendered and interactive
-- DJEP scripts load into their container without affecting nav
-- Form still works normally
+**Pages with CTA buttons (no DJEP):**
+- /services/corporate/index.html ✅
+- /services/private-parties/index.html ✅
+- Any future service pages
 
-**Apply This Fix To:**
-- /services/corporate/index.html ✅ Fixed
-- /services/private-parties/index.html ✅ Fixed
-- Any future pages that need DJEP forms + dropdown nav
+**Page with DJEP form (only one):**
+- /contact/index.html ✅ (dropdown nav works here because no conflict)
 
 ### Future Technical Tasks
 - [ ] Add favicon (32x32 .ico or .png)
@@ -875,7 +871,64 @@ Every city page MUST have an "Also Serving" section near the bottom with links t
 
 ## SESSION LOG
 
-**December 8, 2025:**
+**December 8, 2025 (Afternoon Session):**
+
+### COS CELEBRATIONS - PRICING PAGE, AWARDS, NAV FIXES
+
+- **STANDALONE PRICING PAGE CREATED:**
+  - URL: /pricing/
+  - Hub page routing users to appropriate service category
+  - Three pricing cards: Weddings ($1,500 – $3,000+), Corporate (Starting at $600), Private Parties (Starting at $600)
+  - Weddings card marked as "Most Popular" with featured styling
+  - Added "Couples typically invest" label above wedding price range
+  - Price font reduced to 2rem with white-space: nowrap for single line display
+
+- **DJEP FORM CONFLICT - FINAL RESOLUTION:**
+  - Previous lazy-load fix broke the form (document.write only works during initial page parse)
+  - **Final solution:** Removed DJEP forms from corporate/private party pages entirely
+  - Replaced with simple CTA button linking to /contact/ where the main DJEP form lives
+  - This allows dropdown nav to work AND preserves form functionality on contact page
+  - **Rule going forward:** DJEP form ONLY on /contact/ page, all other pages use CTA buttons
+
+- **NAV UPDATES - ALL PAGES:**
+  - Changed all pages to link to /pricing/ instead of /#pricing
+  - Changed Services dropdown toggle from `<a href="...">` to `<span>` on all pages
+  - Prevents clicking Services from navigating anywhere (hover still shows dropdown)
+  - No more "javascript:void(0)" showing in browser status bar
+  - Pages updated: index, corporate, private-parties, pricing, weddings, jacksonville, st-augustine, ponte-vedra, amelia-island, contact
+
+- **AWARDS SECTION ADDED TO HOMEPAGE:**
+  - Positioned after trust bar (500+ reviews, 35+ countries, etc.)
+  - "Award-Winning Entertainment" header in small caps
+  - White pill-shaped badges with gold star icons
+  - Subtle gold hover effect on badges
+  - Awards included:
+    - Couple's Choice DJ — WeddingWire
+    - Couple's Choice Musicians — WeddingWire
+    - Best of DJs — The Knot
+    - Best of Musicians — The Knot
+    - Best Overall Design — Southern Bride
+    - Trendsetter Award — Southern Bride
+    - Top Entertainment in the 904 — Premier Bride
+    - Best Wedding Entertainment — Jacksonville Magazine
+  - **SEO benefit:** E-E-A-T signals (authority/trust), local SEO reinforcement
+
+- **HOMEPAGE TITLE SHORTENED (SEO FIX):**
+  - Old: "COS Celebrations | Wedding DJ + Live Saxophone | Jacksonville, St. Augustine, Orlando" (796px - too long)
+  - New: "Wedding DJ + Live Saxophone | Jacksonville + St. Augustine | COS Celebrations" (~550px)
+  - Keywords first (better for SEO), brand name at end
+  - Orlando still covered in meta description and city pages
+
+- **FILES CHANGED:**
+  - /pricing/index.html (NEW)
+  - /index.html (awards section, title fix)
+  - /services/corporate/index.html (DJEP removed, CTA button, form-container centered)
+  - /services/private-parties/index.html (DJEP removed, CTA button, form-container centered)
+  - All nav pages (Services dropdown now uses span, links to /pricing/)
+
+---
+
+**December 8, 2025 (Morning Session):**
 
 ### COS CELEBRATIONS - NEW SERVICE PAGES & NAV UPDATES
 - **CORPORATE EVENTS PAGE CREATED:**
