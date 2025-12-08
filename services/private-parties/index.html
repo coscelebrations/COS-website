@@ -325,6 +325,23 @@
       font-size: 0.95rem;
     }
 
+    .cta-btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--merlot);
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      background: var(--merlot-dark);
+    }
+
     footer {
       padding: 3rem 2rem;
       background: var(--charcoal);
@@ -464,7 +481,7 @@
         </div>
       </li>
       <li><a href="/#about">About</a></li>
-      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/pricing/">Pricing</a></li>
       <li><a href="/contact/" class="nav-cta">Contact</a></li>
     </ul>
     <div class="hamburger" onclick="toggleMenu()">
@@ -527,23 +544,7 @@
         <p>Tell us about your party and we'll get back to you within 24 hours.</p>
       </div>
 
-      <!-- BEGIN DJEVENTPLANNER CODE -->
-      <div id="djep-form-container"></div>
-      <script>
-        // Load DJEP scripts after page load to prevent them from affecting nav
-        window.addEventListener('load', function() {
-          var container = document.getElementById('djep-form-container');
-          var script1 = document.createElement('script');
-          script1.src = 'https://cosplanning.com/check_req_info_form.js';
-          container.appendChild(script1);
-
-          var script2 = document.createElement('script');
-          script2.src = 'https://cosplanning.com/request_information.asp?djidnumber=25191&source=jswebsite&action=get_responsive_code';
-          container.appendChild(script2);
-        });
-      </script>
-      <noscript><a href="https://cosplanning.com/request_information.asp?djidnumber=25191">Click Here For Request Information Form</a></noscript>
-      <!-- END DJEVENTPLANNER CODE -->
+      <a href="/contact/" class="cta-btn">Request a Quote</a>
     </div>
   </section>
 

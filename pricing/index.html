@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact COS Celebrations | Wedding DJ Quote Request</title>
-  <meta name="description" content="Request a quote for your wedding. COS Celebrations serves Jacksonville, St. Augustine, Ponte Vedra, and beyond. Call (904) 615-7132 or fill out our form.">
+  <title>Pricing | COS Celebrations</title>
+  <meta name="description" content="Entertainment pricing for weddings, corporate events, and private parties in North & Central Florida. Wedding packages start at $1,500. Corporate and private events from $600.">
+  <link rel="canonical" href="https://coscelebrations.com/pricing/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -18,17 +19,12 @@
       --cream: #FFFBFA;
       --charcoal: #2D2A2B;
       --text-soft: #4A4547;
-      --gold-accent: #C9A962;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
     }
 
     body {
@@ -55,7 +51,6 @@
       color: var(--merlot);
     }
 
-    /* Navigation */
     nav {
       position: fixed;
       top: 0;
@@ -69,27 +64,6 @@
       background: rgba(255, 251, 250, 0.95);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--blush);
-    }
-
-    .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: var(--merlot);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-    }
-
-    .logo span {
-      font-weight: 400;
-      color: var(--text-soft);
-      font-size: 0.9rem;
-      display: block;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.6rem;
-      margin-top: 2px;
     }
 
     .logo-img {
@@ -115,50 +89,6 @@
 
     .nav-links a:hover {
       color: var(--merlot);
-    }
-
-    .nav-cta {
-      background: var(--merlot);
-      color: white !important;
-      padding: 0.75rem 1.5rem;
-      border-radius: 2px;
-    }
-
-    .nav-cta:hover {
-      background: var(--merlot-dark);
-      color: white !important;
-    }
-
-    /* Hamburger Menu */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 28px;
-      height: 20px;
-      cursor: pointer;
-      z-index: 101;
-    }
-
-    .hamburger span {
-      display: block;
-      height: 3px;
-      width: 100%;
-      background: var(--merlot);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
     }
 
     /* Dropdown Menu */
@@ -219,152 +149,166 @@
       color: var(--merlot);
     }
 
-    /* Hero Section */
+    .nav-cta {
+      background: var(--merlot);
+      color: white !important;
+      padding: 0.75rem 1.5rem;
+      border-radius: 2px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      cursor: pointer;
+      z-index: 101;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: var(--merlot);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
     .hero {
-      min-height: 50vh;
+      min-height: 40vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 10rem 2rem 4rem;
-      background: linear-gradient(rgba(45, 42, 43, 0.7), rgba(45, 42, 43, 0.7)),
-                  url('/images/lightner-museum-wedding-dance-floor-st-augustine.webp') center/cover no-repeat;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero .eyebrow {
-      color: var(--rose);
+      background: linear-gradient(180deg, var(--soft-pink) 0%, var(--cream) 100%);
     }
 
     .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 700px;
-      animation: fadeUp 1s ease-out;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      max-width: 800px;
     }
 
     .hero h1 {
       font-size: clamp(2.5rem, 6vw, 3.5rem);
-      color: white;
-      margin-bottom: 1rem;
-      line-height: 1.15;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.9);
-      line-height: 1.8;
-    }
-
-    /* Contact Section */
-    .contact-section {
-      padding: 4rem 2rem;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .contact-intro {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .contact-intro h2 {
-      font-size: 2rem;
       color: var(--charcoal);
       margin-bottom: 1rem;
     }
 
-    .contact-intro p {
+    .hero p {
+      font-size: 1.1rem;
       color: var(--text-soft);
-      font-size: 1rem;
-      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
-    .contact-methods {
+    .pricing-section {
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
-      margin-bottom: 3rem;
+      margin-top: 2rem;
     }
 
-    .contact-method {
-      text-align: center;
-      padding: 2rem;
+    .pricing-card {
       background: white;
       border: 1px solid var(--blush);
+      padding: 2.5rem;
+      text-align: center;
       transition: all 0.3s ease;
     }
 
-    .contact-method:hover {
+    .pricing-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     }
 
-    .contact-method h3 {
-      font-size: 1.3rem;
-      color: var(--merlot);
-      margin-bottom: 0.5rem;
+    .pricing-card.featured {
+      border: 2px solid var(--merlot);
+      position: relative;
     }
 
-    .contact-method p {
-      color: var(--text-soft);
-      font-size: 0.95rem;
-      margin-bottom: 1rem;
+    .pricing-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--merlot);
+      color: white;
+      padding: 0.25rem 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
 
-    .contact-method a {
-      color: var(--merlot);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
-    }
-
-    .contact-method a:hover {
-      color: var(--merlot-dark);
-    }
-
-    .form-container {
-      background: white;
-      padding: 3rem;
-      border: 1px solid var(--blush);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-    }
-
-    .form-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .form-header h2 {
+    .pricing-card h3 {
       font-size: 1.8rem;
       color: var(--charcoal);
       margin-bottom: 0.5rem;
     }
 
-    .form-header p {
+    .pricing-card .price-label {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.25rem;
+      font-style: italic;
+    }
+
+    .pricing-card .price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--merlot);
+      margin-bottom: 1rem;
+      white-space: nowrap;
+    }
+
+    .pricing-card .price span {
+      font-size: 1rem;
+      color: var(--text-soft);
+    }
+
+    .pricing-card p {
       color: var(--text-soft);
       font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
     }
 
-    /* Minimal form container styling */
-    .form-container > * {
-      max-width: 100%;
+    .pricing-card .btn {
+      display: inline-block;
+      padding: 0.875rem 2rem;
+      background: var(--merlot);
+      color: white;
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      border-radius: 2px;
     }
 
-    /* Footer */
+    .pricing-card .btn:hover {
+      background: var(--merlot-dark);
+    }
+
     footer {
       padding: 3rem 2rem;
       background: var(--charcoal);
@@ -390,7 +334,6 @@
       color: rgba(255,255,255,0.7);
       text-decoration: none;
       font-size: 0.85rem;
-      transition: color 0.3s ease;
     }
 
     .footer-links a:hover {
@@ -402,7 +345,6 @@
       opacity: 0.5;
     }
 
-    /* Mobile Responsive */
     @media (max-width: 768px) {
       nav {
         padding: 1rem 1.5rem;
@@ -422,7 +364,6 @@
         flex-direction: column;
         padding: 1rem 0;
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        border-top: 1px solid var(--blush);
       }
 
       .nav-links.active {
@@ -439,24 +380,45 @@
         padding: 1rem;
       }
 
-      .nav-cta {
-        margin: 0.5rem 1.5rem;
-        text-align: center;
+      .dropdown-menu {
+        position: static;
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+        overflow: hidden;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background: var(--soft-pink);
+        transition: all 0.3s ease;
+      }
+
+      .dropdown:hover .dropdown-menu {
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+      }
+
+      .dropdown.open .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        max-height: 200px;
+      }
+
+      .dropdown-toggle::after {
+        content: ' ▼';
+        font-size: 0.6rem;
+      }
+
+      .dropdown.open .dropdown-toggle::after {
+        content: ' ▲';
       }
 
       .hero {
         padding: 7rem 1.5rem 3rem;
       }
 
-      .contact-section {
-        padding: 3rem 1.5rem;
-      }
-
-      .form-container {
-        padding: 2rem 1.5rem;
-      }
-
-      .contact-methods {
+      .pricing-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -464,10 +426,9 @@
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav>
     <a href="/" class="logo">
-      <img src="/images/cos-celebrations-logo.webp" alt="COS Celebrations - Luxury Event Entertainment" class="logo-img">
+      <img src="/images/cos-celebrations-logo.webp" alt="COS Celebrations" class="logo-img">
     </a>
     <ul class="nav-links">
       <li class="dropdown">
@@ -489,76 +450,75 @@
     </div>
   </nav>
 
-  <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
-      <p class="eyebrow">Let's Start Planning</p>
-      <h1>Get in Touch</h1>
-      <p>Ready to check availability for your wedding? Fill out the form below or give us a call — we'd love to hear about your celebration.</p>
+      <p class="eyebrow">Investment</p>
+      <h1>Pricing</h1>
+      <p>Professional entertainment for every occasion. Select your event type below for detailed pricing.</p>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="contact-section">
-
-    <!-- Quick Contact Methods -->
-    <div class="contact-methods">
-      <div class="contact-method">
-        <h3>Call Us</h3>
-        <p>Ready to chat? We're here to help.</p>
-        <a href="tel:904-615-7132">(904) 615-7132</a>
+  <section class="pricing-section">
+    <div class="pricing-grid">
+      <div class="pricing-card featured">
+        <h3>Weddings</h3>
+        <p class="price-label">Couples typically invest</p>
+        <div class="price">$1,500 – $3,000+</div>
+        <p>Luxury DJ and live musician entertainment for your wedding day. Includes professional MC, curated playlists, and our planning app. Add live saxophone, uplighting, photo booths, and more.</p>
+        <a href="/services/weddings/" class="btn">View Wedding Packages</a>
       </div>
-
-      <div class="contact-method">
-        <h3>Based in St. Augustine</h3>
-        <p>Serving North & Central Florida</p>
-        <p style="margin: 0; font-weight: 500;">Jacksonville • St. Augustine<br>Ponte Vedra • Amelia Island<br>Orlando • Tampa</p>
+      <div class="pricing-card">
+        <h3>Corporate Events</h3>
+        <div class="price">Starting at $600</div>
+        <p>Professional entertainment for holiday parties, company celebrations, awards ceremonies, and corporate gatherings. Polished, brand-appropriate music and seamless execution.</p>
+        <a href="/services/corporate/" class="btn">View Corporate Pricing</a>
+      </div>
+      <div class="pricing-card">
+        <h3>Private Parties</h3>
+        <div class="price">Starting at $600</div>
+        <p>Birthday parties, anniversaries, graduations, and milestone celebrations. The same professional equipment and attention to detail we bring to weddings.</p>
+        <a href="/services/private-parties/" class="btn">View Party Pricing</a>
       </div>
     </div>
-
-    <!-- Contact Form -->
-    <div class="form-container">
-      <div class="form-header">
-        <h2>Request Information</h2>
-        <p>Fill out the form below and we'll get back to you within 24 hours.</p>
-      </div>
-
-      <!-- BEGIN DJEVENTPLANNER CODE -->
-      <script src="https://cosplanning.com/check_req_info_form.js"></script>
-      <script src="https://cosplanning.com/request_information.asp?djidnumber=25191&source=jswebsite&action=get_responsive_code"></script>
-      <noscript><a href="https://cosplanning.com/request_information.asp?djidnumber=25191">Click Here For Request Information Form</a></noscript>
-      <!-- END DJEVENTPLANNER CODE -->
-    </div>
-
   </section>
 
-  <!-- Footer -->
   <footer>
     <div class="footer-logo">COS Celebrations</div>
     <div class="footer-links">
-      <a href="/services/luxury-weddings/">Weddings</a>
-      <a href="/#pricing">Pricing</a>
-      <a href="/jacksonville-wedding-dj/">Jacksonville</a>
-      <a href="/st-augustine-wedding-dj/">St. Augustine</a>
-      <a href="/ponte-vedra-wedding-dj/">Ponte Vedra</a>
-      <a href="/amelia-island-wedding-dj/">Amelia Island</a>
+      <a href="/">Home</a>
+      <a href="/services/weddings/">Weddings</a>
+      <a href="/services/corporate/">Corporate</a>
+      <a href="/services/private-parties/">Private Parties</a>
       <a href="/contact/">Contact</a>
     </div>
     <p class="footer-copy">© 2025 COS Celebrations. All rights reserved. | St. Augustine, FL</p>
   </footer>
 
   <script>
-    // Hamburger Menu Toggle
     function toggleMenu() {
       document.querySelector('.hamburger').classList.toggle('active');
       document.querySelector('.nav-links').classList.toggle('active');
     }
 
-    // Close menu when clicking a link
+    // Mobile dropdown toggle for Services
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdown = document.querySelector('.dropdown');
+
+    dropdownToggle.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        dropdown.classList.toggle('open');
+      }
+    });
+
     document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
+      link.addEventListener('click', (e) => {
+        if (link.classList.contains('dropdown-toggle') && window.innerWidth <= 768) {
+          return;
+        }
         document.querySelector('.hamburger').classList.remove('active');
         document.querySelector('.nav-links').classList.remove('active');
+        dropdown.classList.remove('open');
       });
     });
   </script>
