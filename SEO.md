@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 7, 2025
+## Last Updated: December 8, 2025
 
 ---
 
@@ -23,7 +23,7 @@
 | Ponte Vedra | ✅ Done | ✅ |
 | Contact | ✅ Done | N/A |
 | Services/Weddings | ✅ Done | N/A |
-| Amelia Island | ❌ Not created | - |
+| Amelia Island | ✅ Done | ✅ |
 | Orlando | ❌ Not created | - |
 | Tampa | ❌ Not created | - |
 
@@ -382,6 +382,52 @@ These are the technical limits for meta data. Google displays based on pixel wid
 - Keep DJEP form ONLY on /contact/ page
 - Use floating CTA button + styled buttons linking to /contact/ on other pages
 - This maintains 90s+ performance and 99 accessibility
+
+### ⚠️ DJEP Scripts Break Nav Dropdowns (CRITICAL FIX)
+
+**Problem Discovered (Dec 8, 2025):**
+- DJEP scripts were breaking the Services dropdown menu on corporate/private party pages
+- Dropdown would flash briefly then disappear
+- Issue: DJEP JavaScript manipulates DOM elements and interferes with dropdown functionality
+
+**Symptoms:**
+- Dropdown CSS shows element briefly on page load, then disappears
+- Hover doesn't work on pages with DJEP forms
+- Works fine on pages without DJEP forms
+
+**Solution - Lazy Load DJEP Scripts:**
+Instead of loading DJEP scripts directly, wrap them to load AFTER the page is ready:
+
+```html
+<!-- BEGIN DJEVENTPLANNER CODE -->
+<div id="djep-form-container"></div>
+<script>
+  // Load DJEP scripts after page load to prevent them from affecting nav
+  window.addEventListener('load', function() {
+    var container = document.getElementById('djep-form-container');
+    var script1 = document.createElement('script');
+    script1.src = 'https://cosplanning.com/check_req_info_form.js';
+    container.appendChild(script1);
+
+    var script2 = document.createElement('script');
+    script2.src = 'https://cosplanning.com/request_information.asp?djidnumber=25191&source=jswebsite&action=get_responsive_code';
+    container.appendChild(script2);
+  });
+</script>
+<noscript><a href="https://cosplanning.com/request_information.asp?djidnumber=25191">Click Here For Request Information Form</a></noscript>
+<!-- END DJEVENTPLANNER CODE -->
+```
+
+**Why This Works:**
+- `window.addEventListener('load', ...)` waits until page is fully loaded
+- By then, nav dropdown is already rendered and interactive
+- DJEP scripts load into their container without affecting nav
+- Form still works normally
+
+**Apply This Fix To:**
+- /services/corporate/index.html ✅ Fixed
+- /services/private-parties/index.html ✅ Fixed
+- Any future pages that need DJEP forms + dropdown nav
 
 ### Future Technical Tasks
 - [ ] Add favicon (32x32 .ico or .png)
@@ -828,6 +874,56 @@ Every city page MUST have an "Also Serving" section near the bottom with links t
 ---
 
 ## SESSION LOG
+
+**December 8, 2025:**
+
+### COS CELEBRATIONS - NEW SERVICE PAGES & NAV UPDATES
+- **CORPORATE EVENTS PAGE CREATED:**
+  - URL: /services/corporate/
+  - Title: "Corporate Event Entertainment North & Central Florida | COS Celebrations"
+  - 200+ word intro targeting corporate event DJ + live musicians in Jacksonville, St. Augustine, Orlando, Tampa
+  - Event type cards: Holiday Parties, Company Celebrations, Awards Ceremonies, Product Launches, Team Building, Conferences & Galas
+  - Pricing: Starting at $600
+  - DJEP form integrated (with lazy load fix)
+- **PRIVATE PARTIES PAGE CREATED:**
+  - URL: /services/private-parties/
+  - Title: "Private Party Entertainment North & Central Florida | COS Celebrations"
+  - 200+ word intro targeting private party DJ + live entertainment
+  - Event type cards: Birthday Parties, Anniversary Parties, Graduation Parties, Retirement Parties, Holiday Gatherings, Any Celebration
+  - Pricing: Starting at $600
+  - DJEP form integrated (with lazy load fix)
+- **HOMEPAGE PRICING OVERHAUL:**
+  - Changed from package-based pricing ($1,500/$1,900/$2,400 cards) to boutique "build your experience" approach
+  - New header: "Your Experience, Your Investment"
+  - Price range: $1,500 – $3,000
+  - "What's Always Included" section with checkmarks
+  - Enhancement cards: Live Musicians (featured), Ceremony & Cocktail Hour, Lighting Design, Special Effects (cold sparks, dancing on clouds, CO2), Photo & Video Experiences, Live Streaming, Custom Touches
+  - Removed redundant "Why Couples Choose Us" and "Philosophy Banner" sections
+- **SERVICES DROPDOWN NAV ADDED TO ALL PAGES:**
+  - Services dropdown with: Weddings, Corporate Events, Private Parties
+  - Updated on: Homepage, Jacksonville, St. Augustine, Ponte Vedra, Amelia Island, Contact, Corporate, Private Parties
+  - Desktop: Hover to show dropdown
+  - Mobile: Tap to toggle dropdown
+- **AMELIA ISLAND CITY PAGE CREATED:**
+  - URL: /amelia-island-wedding-dj/
+  - Nearly 100 weddings experience highlighted
+  - Venues: Ritz-Carlton, Omni, Walker's Landing, Golf Club, The Pavilion, Ribault Club
+- **CRITICAL BUG FIX - DJEP SCRIPTS BREAKING DROPDOWN:**
+  - DJEP scripts were interfering with nav dropdown (dropdown would flash then disappear)
+  - **Solution:** Lazy load DJEP scripts using `window.addEventListener('load', ...)`
+  - Scripts now load after page is ready, preventing interference with nav
+  - Documented fix in SEO.md for future reference
+- **FILES CHANGED:**
+  - /index.html (pricing overhaul, nav dropdown, removed redundant sections)
+  - /services/corporate/index.html (NEW)
+  - /services/private-parties/index.html (NEW)
+  - /amelia-island-wedding-dj/index.html (NEW + nav dropdown)
+  - /jacksonville-wedding-dj/index.html (nav dropdown)
+  - /st-augustine-wedding-dj/index.html (nav dropdown)
+  - /ponte-vedra-wedding-dj/index.html (nav dropdown)
+  - /contact/index.html (nav dropdown)
+
+---
 
 **December 7, 2025 (Late Night Session):**
 
