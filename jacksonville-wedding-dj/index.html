@@ -124,6 +124,38 @@
       color: white !important;
     }
 
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      cursor: pointer;
+      z-index: 101;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: var(--merlot);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
     /* Hero Section */
     .hero {
       min-height: 70vh;
@@ -429,8 +461,40 @@
         padding: 1rem 1.5rem;
       }
 
+      .hamburger {
+        display: flex;
+      }
+
       .nav-links {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border-top: 1px solid var(--blush);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links li {
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 1rem;
+      }
+
+      .nav-cta {
+        margin: 0.5rem 1.5rem;
+        text-align: center;
       }
 
       .hero {
@@ -461,6 +525,11 @@
       <li><a href="/#pricing">Pricing</a></li>
       <li><a href="/contact/" class="nav-cta">Contact</a></li>
     </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </nav>
 
   <!-- Hero -->
@@ -686,6 +755,22 @@
     </div>
     <p class="footer-copy">© 2025 COS Celebrations. All rights reserved. | St. Augustine, FL</p>
   </footer>
+
+  <script>
+    // Hamburger Menu Toggle
+    function toggleMenu() {
+      document.querySelector('.hamburger').classList.toggle('active');
+      document.querySelector('.nav-links').classList.toggle('active');
+    }
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.hamburger').classList.remove('active');
+        document.querySelector('.nav-links').classList.remove('active');
+      });
+    });
+  </script>
 
 </body>
 </html>
