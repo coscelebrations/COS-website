@@ -598,6 +598,103 @@
       font-weight: 600;
     }
 
+    /* Investment Section */
+    .investment-section {
+      padding: 6rem 2rem;
+      background: var(--cream);
+    }
+
+    .investment-section .section-header {
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+
+    .included-section {
+      background: var(--soft-pink);
+      padding: 3rem;
+      margin-bottom: 4rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .included-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      font-size: 0.95rem;
+      color: var(--text-soft);
+    }
+
+    .included-item::before {
+      content: '✓';
+      color: var(--merlot);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .enhancements-section {
+      max-width: 1100px;
+      margin: 0 auto 4rem;
+    }
+
+    .enhancement-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .enhancement-card {
+      padding: 2rem;
+      background: white;
+      border: 1px solid var(--blush);
+      transition: all 0.3s ease;
+    }
+
+    .enhancement-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+      border-color: var(--rose);
+    }
+
+    .enhancement-card.featured {
+      border-color: var(--merlot);
+      background: linear-gradient(to bottom, var(--soft-pink) 0%, white 100%);
+    }
+
+    .enhancement-card h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--merlot);
+      margin-bottom: 0.75rem;
+    }
+
+    .enhancement-card p {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    .enhancement-card em {
+      color: var(--merlot);
+      font-style: italic;
+    }
+
+    .pricing-cta {
+      text-align: center;
+      padding: 3rem;
+      background: var(--soft-pink);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
     /* Areas Section */
     .areas {
       padding: 5rem 2rem;
@@ -950,12 +1047,37 @@
 
       .dropdown-menu {
         position: static;
-        opacity: 1;
-        visibility: visible;
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+        overflow: hidden;
         transform: none;
         box-shadow: none;
         border: none;
         background: var(--soft-pink);
+        transition: all 0.3s ease;
+      }
+
+      /* Disable hover on mobile - only use click/tap */
+      .dropdown:hover .dropdown-menu {
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+      }
+
+      .dropdown.open .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        max-height: 200px;
+      }
+
+      .dropdown-toggle::after {
+        content: ' ▼';
+        font-size: 0.6rem;
+      }
+
+      .dropdown.open .dropdown-toggle::after {
+        content: ' ▲';
       }
 
       .hero {
@@ -966,7 +1088,7 @@
         gap: 2rem;
       }
 
-      .diff-grid, .packages-grid, .apart-grid {
+      .diff-grid, .packages-grid, .apart-grid, .enhancement-grid {
         grid-template-columns: 1fr;
       }
 
@@ -977,6 +1099,22 @@
 
       .hero-image-centered {
         max-width: 280px;
+      }
+
+      .included-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .included-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .enhancement-card {
+        padding: 1.5rem;
+      }
+
+      .pricing-cta {
+        padding: 2rem 1.5rem;
       }
     }
   </style>
@@ -990,7 +1128,7 @@
     </a>
     <ul class="nav-links">
       <li class="dropdown">
-        <a href="#services" class="dropdown-toggle">Services</a>
+        <span class="dropdown-toggle">Services</span>
         <div class="dropdown-menu">
           <a href="/services/weddings/">Weddings</a>
           <a href="/services/corporate/">Corporate Events</a>
@@ -1074,41 +1212,6 @@
   <section style="padding: 5rem 2rem; background: var(--cream);">
     <div style="max-width: 900px; margin: 0 auto; font-size: 1.05rem; line-height: 1.9; color: var(--text-soft);">
       <p>Looking for a <strong style="color: var(--charcoal); font-weight: 500;">wedding DJ</strong> who brings more than just a playlist? COS Celebrations pioneered the DJ + live musician model in North Florida — and we've been making weddings unforgettable ever since. With over 500 five-star reviews and performances at the region's most prestigious venues from <a href="/jacksonville-wedding-dj/" style="color: var(--merlot); text-decoration: none; border-bottom: 1px solid var(--rose);">Jacksonville</a> to <a href="/tampa-wedding-dj/" style="color: var(--merlot); text-decoration: none; border-bottom: 1px solid var(--rose);">Tampa</a>, we deliver the energy of a live concert combined with the precision of a professional DJ. Our founder has toured 35+ countries and shared the stage with artists like Usher, Alicia Keys, and Big Gigantic before bringing that world-class experience home to <a href="/st-augustine-wedding-dj/" style="color: var(--merlot); text-decoration: none; border-bottom: 1px solid var(--rose);">St. Augustine</a>. Whether you're planning an elegant ballroom reception, a waterfront celebration, or an intimate gathering, we bring the same level of expertise and enthusiasm to every wedding. Starting at just $1,500, we make luxury entertainment accessible without compromising on quality. We're not here to make your wedding about us — we're here to make your celebration exactly what you envisioned, with the added magic of live saxophone weaving through your favorite songs. That's the COS difference, and that's why couples across North Florida keep choosing us for their most important day.</p>
-    </div>
-  </section>
-
-  <!-- What Makes Us Different -->
-  <section class="differentiator" id="about">
-    <div class="section-header">
-      <p class="eyebrow">Why Couples Choose Us</p>
-      <h2>Not Your Average Wedding DJ</h2>
-      <p>We pioneered the DJ + live musician model in the Southeast — and there's a reason venues keep recommending us.</p>
-    </div>
-    <div class="diff-grid">
-      <div class="diff-card">
-        <div class="diff-icon">🎷</div>
-        <h3>World-Class Musicianship</h3>
-        <p>Our founder has toured 35+ countries and shared the stage with artists like Usher, Alicia Keys, and Big Gigantic. That stage experience translates to unforgettable live moments at your wedding.</p>
-      </div>
-      <div class="diff-card">
-        <div class="diff-icon">🎧</div>
-        <h3>DJ + Live Instruments</h3>
-        <p>Imagine your first dance with live saxophone weaving through the music. We blend DJ precision with live performance energy — something a speaker can't replicate.</p>
-      </div>
-      <div class="diff-card">
-        <div class="diff-icon">💝</div>
-        <h3>It's YOUR Event</h3>
-        <p>No ego. No spotlight-stealing. We're here to amplify your celebration — not make it about us. Your vision, your music, your moment.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Philosophy Banner -->
-  <section class="philosophy">
-    <div class="philosophy-content">
-      <p class="eyebrow">Our Promise</p>
-      <h2>"It's Not About Us — It's Your Event"</h2>
-      <p>We've seen too many entertainers make weddings about themselves. We took a different path. Every decision we make — from song selection to how we interact with your guests — centers on you and what you envisioned for your day.</p>
     </div>
   </section>
 
@@ -1283,53 +1386,74 @@
     </div>
   </section>
 
-  <!-- Packages -->
-  <section class="services" id="pricing">
+  <!-- Investment Section -->
+  <section class="investment-section" id="pricing">
     <div class="section-header">
       <p class="eyebrow">Investment</p>
-      <h2>Simple, Transparent Pricing</h2>
-      <p>No hidden fees. No confusing packages. Just honest pricing so you can plan with confidence.</p>
+      <h2>Your Experience, Your Investment</h2>
+      <p>Our couples typically invest <strong style="color: var(--merlot);">$1,500 – $3,000</strong> depending on the experience they create. Every wedding is different, and we build your package around what matters most to you—not the other way around.</p>
     </div>
-    <div class="packages-grid">
-      <div class="package-card">
-        <h3 class="package-name">Deluxe</h3>
-        <div class="package-price">$1,500</div>
-        <ul class="package-features">
-          <li>4 Hours of Entertainment</li>
-          <li>Professional DJ/MC</li>
-          <li>Premium Sound System</li>
-          <li>Elegant DJ Setup</li>
-          <li>COS Music + Timeline App</li>
-        </ul>
-        <a href="#contact" class="btn btn-secondary">Learn More</a>
+
+    <!-- What's Always Included -->
+    <div class="included-section">
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--charcoal); margin-bottom: 1.5rem; text-align: center;">What's Always Included</h3>
+      <div class="included-grid">
+        <div class="included-item">Professional DJ and MC services</div>
+        <div class="included-item">Premium sound system sized for your venue</div>
+        <div class="included-item">Wireless microphones for toasts and announcements</div>
+        <div class="included-item">COS Music + Timeline planning app</div>
+        <div class="included-item">Pre-wedding consultations</div>
+        <div class="included-item">Elegant DJ setup that blends with your décor</div>
       </div>
-      <div class="package-card">
-        <h3 class="package-name">Complete Wedding</h3>
-        <div class="package-price">$1,900</div>
-        <ul class="package-features">
-          <li>5 Hours of Entertainment</li>
-          <li><strong style="font-weight: 600; color: var(--merlot);">Ceremony Coverage</strong></li>
-          <li>Professional DJ/MC</li>
-          <li>Premium Sound System</li>
-          <li>Elegant DJ Setup</li>
-          <li>COS Music + Timeline App</li>
-        </ul>
-        <a href="#contact" class="btn btn-secondary">Learn More</a>
+    </div>
+
+    <!-- Enhance Your Celebration -->
+    <div class="enhancements-section">
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--charcoal); margin-bottom: 2rem; text-align: center;">Enhance Your Celebration</h3>
+
+      <div class="enhancement-grid">
+        <div class="enhancement-card featured">
+          <h4>Live Musicians</h4>
+          <p>Add world-class musicians to any part of your day—ceremony, cocktail hour, or reception. Saxophone, piano, violin, cello, harp, drums, and more. Live performance blended seamlessly with your playlist. <em>This is what sets COS apart.</em></p>
+        </div>
+
+        <div class="enhancement-card">
+          <h4>Ceremony & Cocktail Hour</h4>
+          <p>Complete ceremony coverage with officiant mic, processional and recessional music, and cocktail hour ambiance. We handle every transition so you don't have to think about it.</p>
+        </div>
+
+        <div class="enhancement-card">
+          <h4>Lighting Design</h4>
+          <p>Intelligent uplighting programmed to your music. Dance floor lighting that responds to the energy in the room. Moving head lights for that concert-level experience.</p>
+        </div>
+
+        <div class="enhancement-card">
+          <h4>Special Effects</h4>
+          <p>Cold spark fountains for jaw-dropping entrances or first dance moments. Dancing on clouds for a dreamy first dance. CO2 jets to take the energy through the roof.</p>
+        </div>
+
+        <div class="enhancement-card">
+          <h4>Photo & Video Experiences</h4>
+          <p>Photo booths, 360 video booths, and audio guestbooks that capture moments in ways your guests will actually use.</p>
+        </div>
+
+        <div class="enhancement-card">
+          <h4>Live Streaming</h4>
+          <p>Pro-level streaming for guests who can't be there—real production with multiple angles, not a phone propped on a table.</p>
+        </div>
+
+        <div class="enhancement-card">
+          <h4>Custom Touches</h4>
+          <p>Custom monogram projection, dance floor rentals, and anything else that makes your celebration yours.</p>
+        </div>
       </div>
-      <div class="package-card featured">
-        <h3 class="package-name">Premium</h3>
-        <div class="package-price">$2,400</div>
-        <ul class="package-features">
-          <li>5 Hours of Entertainment</li>
-          <li><strong style="font-weight: 600; color: var(--merlot);">Ceremony Coverage</strong></li>
-          <li>Choose 2 Add-Ons</li>
-          <li>Professional DJ/MC</li>
-          <li>Premium Sound System</li>
-          <li>Elegant DJ Setup</li>
-          <li>COS Music + Timeline App</li>
-        </ul>
-        <a href="#contact" class="btn btn-primary">Learn More</a>
-      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="pricing-cta">
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--charcoal); margin-bottom: 1rem;">Let's Talk About Your Wedding</h3>
+      <p style="color: var(--text-soft); max-width: 600px; margin: 0 auto 2rem;">Every couple gets a custom proposal based on your venue, guest count, and vision. No pressure, no generic quotes—just an honest conversation about what will make your night unforgettable.</p>
+      <a href="/contact/" class="btn btn-primary">Start the Conversation</a>
     </div>
   </section>
 
@@ -1393,11 +1517,28 @@
       document.querySelector('.nav-links').classList.toggle('active');
     }
 
-    // Close menu when clicking a link
+    // Mobile dropdown toggle for Services
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdown = document.querySelector('.dropdown');
+
+    dropdownToggle.addEventListener('click', (e) => {
+      // Check if we're on mobile (hamburger is visible)
+      if (window.innerWidth <= 768) {
+        e.preventDefault(); // Stop the link from navigating
+        dropdown.classList.toggle('open');
+      }
+    });
+
+    // Close menu when clicking a link (but not the dropdown toggle on mobile)
     document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
+      link.addEventListener('click', (e) => {
+        // Don't close if it's the dropdown toggle on mobile
+        if (link.classList.contains('dropdown-toggle') && window.innerWidth <= 768) {
+          return;
+        }
         document.querySelector('.hamburger').classList.remove('active');
         document.querySelector('.nav-links').classList.remove('active');
+        dropdown.classList.remove('open');
       });
     });
 

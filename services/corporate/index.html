@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact COS Celebrations | Wedding DJ Quote Request</title>
-  <meta name="description" content="Request a quote for your wedding. COS Celebrations serves Jacksonville, St. Augustine, Ponte Vedra, and beyond. Call (904) 615-7132 or fill out our form.">
+  <title>Corporate Event Entertainment North & Central Florida | COS Celebrations</title>
+  <meta name="description" content="Professional DJ and live musicians for corporate events in Jacksonville, St. Augustine, Orlando & Tampa. Holiday parties, company celebrations, awards ceremonies. Starting at $600.">
+  <link rel="canonical" href="https://coscelebrations.com/services/corporate/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -18,17 +19,12 @@
       --cream: #FFFBFA;
       --charcoal: #2D2A2B;
       --text-soft: #4A4547;
-      --gold-accent: #C9A962;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
     }
 
     body {
@@ -55,7 +51,6 @@
       color: var(--merlot);
     }
 
-    /* Navigation */
     nav {
       position: fixed;
       top: 0;
@@ -69,27 +64,6 @@
       background: rgba(255, 251, 250, 0.95);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--blush);
-    }
-
-    .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: var(--merlot);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-    }
-
-    .logo span {
-      font-weight: 400;
-      color: var(--text-soft);
-      font-size: 0.9rem;
-      display: block;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.6rem;
-      margin-top: 2px;
     }
 
     .logo-img {
@@ -115,50 +89,6 @@
 
     .nav-links a:hover {
       color: var(--merlot);
-    }
-
-    .nav-cta {
-      background: var(--merlot);
-      color: white !important;
-      padding: 0.75rem 1.5rem;
-      border-radius: 2px;
-    }
-
-    .nav-cta:hover {
-      background: var(--merlot-dark);
-      color: white !important;
-    }
-
-    /* Hamburger Menu */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 28px;
-      height: 20px;
-      cursor: pointer;
-      z-index: 101;
-    }
-
-    .hamburger span {
-      display: block;
-      height: 3px;
-      width: 100%;
-      background: var(--merlot);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(6px, 6px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
     }
 
     /* Dropdown Menu */
@@ -219,7 +149,44 @@
       color: var(--merlot);
     }
 
-    /* Hero Section */
+    .nav-cta {
+      background: var(--merlot);
+      color: white !important;
+      padding: 0.75rem 1.5rem;
+      border-radius: 2px;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      cursor: pointer;
+      z-index: 101;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: var(--merlot);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
     .hero {
       min-height: 50vh;
       display: flex;
@@ -227,113 +194,103 @@
       justify-content: center;
       text-align: center;
       padding: 10rem 2rem 4rem;
-      background: linear-gradient(rgba(45, 42, 43, 0.7), rgba(45, 42, 43, 0.7)),
-                  url('/images/lightner-museum-wedding-dance-floor-st-augustine.webp') center/cover no-repeat;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero .eyebrow {
-      color: var(--rose);
+      background: linear-gradient(180deg, var(--soft-pink) 0%, var(--cream) 100%);
     }
 
     .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 700px;
-      animation: fadeUp 1s ease-out;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      max-width: 800px;
     }
 
     .hero h1 {
       font-size: clamp(2.5rem, 6vw, 3.5rem);
-      color: white;
-      margin-bottom: 1rem;
-      line-height: 1.15;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
     }
 
-    .hero p {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.9);
-      line-height: 1.8;
+    .hero h1 em {
+      font-style: italic;
+      color: var(--merlot);
     }
 
-    /* Contact Section */
-    .contact-section {
+    .content-section {
       padding: 4rem 2rem;
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
-    .contact-intro {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    .contact-intro h2 {
-      font-size: 2rem;
-      color: var(--charcoal);
-      margin-bottom: 1rem;
-    }
-
-    .contact-intro p {
+    .intro-text {
+      font-size: 1.05rem;
+      line-height: 1.9;
       color: var(--text-soft);
-      font-size: 1rem;
-      line-height: 1.8;
+      margin-bottom: 2rem;
     }
 
-    .contact-methods {
+    .intro-text strong {
+      color: var(--charcoal);
+      font-weight: 500;
+    }
+
+    .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3rem;
+      gap: 1.5rem;
+      margin: 3rem 0;
     }
 
-    .contact-method {
-      text-align: center;
+    .service-card {
       padding: 2rem;
       background: white;
       border: 1px solid var(--blush);
+      text-align: center;
       transition: all 0.3s ease;
     }
 
-    .contact-method:hover {
+    .service-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
 
-    .contact-method h3 {
+    .service-card h3 {
       font-size: 1.3rem;
       color: var(--merlot);
       margin-bottom: 0.5rem;
     }
 
-    .contact-method p {
+    .service-card p {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+    }
+
+    .pricing-box {
+      background: var(--soft-pink);
+      padding: 2rem;
+      text-align: center;
+      margin: 3rem 0;
+      border-left: 4px solid var(--merlot);
+    }
+
+    .pricing-box h3 {
+      font-size: 1.5rem;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-box .price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      color: var(--merlot);
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-box p {
       color: var(--text-soft);
       font-size: 0.95rem;
-      margin-bottom: 1rem;
     }
 
-    .contact-method a {
-      color: var(--merlot);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
-    }
-
-    .contact-method a:hover {
-      color: var(--merlot-dark);
+    .form-section {
+      padding: 4rem 2rem;
+      max-width: 700px;
+      margin: 0 auto;
     }
 
     .form-container {
@@ -359,12 +316,6 @@
       font-size: 0.95rem;
     }
 
-    /* Minimal form container styling */
-    .form-container > * {
-      max-width: 100%;
-    }
-
-    /* Footer */
     footer {
       padding: 3rem 2rem;
       background: var(--charcoal);
@@ -390,7 +341,6 @@
       color: rgba(255,255,255,0.7);
       text-decoration: none;
       font-size: 0.85rem;
-      transition: color 0.3s ease;
     }
 
     .footer-links a:hover {
@@ -402,7 +352,6 @@
       opacity: 0.5;
     }
 
-    /* Mobile Responsive */
     @media (max-width: 768px) {
       nav {
         padding: 1rem 1.5rem;
@@ -422,7 +371,6 @@
         flex-direction: column;
         padding: 1rem 0;
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        border-top: 1px solid var(--blush);
       }
 
       .nav-links.active {
@@ -439,16 +387,11 @@
         padding: 1rem;
       }
 
-      .nav-cta {
-        margin: 0.5rem 1.5rem;
-        text-align: center;
-      }
-
       .hero {
         padding: 7rem 1.5rem 3rem;
       }
 
-      .contact-section {
+      .content-section {
         padding: 3rem 1.5rem;
       }
 
@@ -456,7 +399,7 @@
         padding: 2rem 1.5rem;
       }
 
-      .contact-methods {
+      .services-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -464,14 +407,13 @@
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav>
     <a href="/" class="logo">
-      <img src="/images/cos-celebrations-logo.webp" alt="COS Celebrations - Luxury Event Entertainment" class="logo-img">
+      <img src="/images/cos-celebrations-logo.webp" alt="COS Celebrations" class="logo-img">
     </a>
     <ul class="nav-links">
       <li class="dropdown">
-        <a href="/#services" class="dropdown-toggle">Services</a>
+        <a href="javascript:void(0)" class="dropdown-toggle">Services</a>
         <div class="dropdown-menu">
           <a href="/services/weddings/">Weddings</a>
           <a href="/services/corporate/">Corporate Events</a>
@@ -489,78 +431,96 @@
     </div>
   </nav>
 
-  <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
-      <p class="eyebrow">Let's Start Planning</p>
-      <h1>Get in Touch</h1>
-      <p>Ready to check availability for your wedding? Fill out the form below or give us a call — we'd love to hear about your celebration.</p>
+      <p class="eyebrow">Corporate Entertainment</p>
+      <h1>Corporate Event Entertainment<br><em>North & Central Florida</em></h1>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="contact-section">
+  <section class="content-section">
+    <div class="intro-text">
+      <p>Looking for a <strong>corporate event DJ or live musicians in Jacksonville, St. Augustine, Orlando, or Tampa</strong> who understands that professional events require professional entertainment? COS Celebrations brings the same attention to detail we're known for at weddings to your company's celebrations. Whether you're planning an annual holiday party, employee appreciation event, product launch, or awards ceremony, we deliver polished entertainment that matches your brand's image. No cheesy games or awkward MC moments—just smooth music programming, professional sound, and an experienced team that knows how to read a corporate crowd. We've worked with companies throughout North and Central Florida and understand that your event reflects on your organization. From background music during cocktail networking to a packed dance floor at the holiday party, we tailor our approach to what your event actually needs. Pricing starts at $600 for most corporate events, with custom quotes based on your timeline, venue, and any add-ons like uplighting or live musicians.</p>
+    </div>
 
-    <!-- Quick Contact Methods -->
-    <div class="contact-methods">
-      <div class="contact-method">
-        <h3>Call Us</h3>
-        <p>Ready to chat? We're here to help.</p>
-        <a href="tel:904-615-7132">(904) 615-7132</a>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Holiday Parties</h3>
+        <p>Year-end celebrations that actually get people on the dance floor.</p>
       </div>
-
-      <div class="contact-method">
-        <h3>Based in St. Augustine</h3>
-        <p>Serving North & Central Florida</p>
-        <p style="margin: 0; font-weight: 500;">Jacksonville • St. Augustine<br>Ponte Vedra • Amelia Island<br>Orlando • Tampa</p>
+      <div class="service-card">
+        <h3>Company Celebrations</h3>
+        <p>Anniversaries, milestones, and employee appreciation events.</p>
+      </div>
+      <div class="service-card">
+        <h3>Awards Ceremonies</h3>
+        <p>Professional MC services and seamless audio for presentations.</p>
+      </div>
+      <div class="service-card">
+        <h3>Product Launches</h3>
+        <p>Set the right tone with curated music and polished production.</p>
+      </div>
+      <div class="service-card">
+        <h3>Team Building Events</h3>
+        <p>Keep the energy up without being over the top.</p>
+      </div>
+      <div class="service-card">
+        <h3>Conferences & Galas</h3>
+        <p>Background music, breakout sessions, and evening entertainment.</p>
       </div>
     </div>
 
-    <!-- Contact Form -->
+    <div class="pricing-box">
+      <h3>Corporate Event Pricing</h3>
+      <div class="price">Starting at $600</div>
+      <p>Custom quotes based on event length, venue, and services needed. Add-ons available including uplighting, live musicians, and premium sound systems for larger venues.</p>
+    </div>
+  </section>
+
+  <section class="form-section">
     <div class="form-container">
       <div class="form-header">
-        <h2>Request Information</h2>
-        <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+        <h2>Request a Quote</h2>
+        <p>Tell us about your corporate event and we'll get back to you within 24 hours.</p>
       </div>
 
       <!-- BEGIN DJEVENTPLANNER CODE -->
-      <script src="https://cosplanning.com/check_req_info_form.js"></script>
-      <script src="https://cosplanning.com/request_information.asp?djidnumber=25191&source=jswebsite&action=get_responsive_code"></script>
+      <div id="djep-form-container"></div>
+      <script>
+        // Load DJEP scripts after page load to prevent them from affecting nav
+        window.addEventListener('load', function() {
+          var container = document.getElementById('djep-form-container');
+          var script1 = document.createElement('script');
+          script1.src = 'https://cosplanning.com/check_req_info_form.js';
+          container.appendChild(script1);
+
+          var script2 = document.createElement('script');
+          script2.src = 'https://cosplanning.com/request_information.asp?djidnumber=25191&source=jswebsite&action=get_responsive_code';
+          container.appendChild(script2);
+        });
+      </script>
       <noscript><a href="https://cosplanning.com/request_information.asp?djidnumber=25191">Click Here For Request Information Form</a></noscript>
       <!-- END DJEVENTPLANNER CODE -->
     </div>
-
   </section>
 
-  <!-- Footer -->
   <footer>
     <div class="footer-logo">COS Celebrations</div>
     <div class="footer-links">
-      <a href="/services/luxury-weddings/">Weddings</a>
-      <a href="/#pricing">Pricing</a>
-      <a href="/jacksonville-wedding-dj/">Jacksonville</a>
-      <a href="/st-augustine-wedding-dj/">St. Augustine</a>
-      <a href="/ponte-vedra-wedding-dj/">Ponte Vedra</a>
-      <a href="/amelia-island-wedding-dj/">Amelia Island</a>
+      <a href="/">Home</a>
+      <a href="/services/weddings/">Weddings</a>
+      <a href="/services/corporate/">Corporate</a>
+      <a href="/services/private-parties/">Private Parties</a>
       <a href="/contact/">Contact</a>
     </div>
     <p class="footer-copy">© 2025 COS Celebrations. All rights reserved. | St. Augustine, FL</p>
   </footer>
 
   <script>
-    // Hamburger Menu Toggle
     function toggleMenu() {
       document.querySelector('.hamburger').classList.toggle('active');
       document.querySelector('.nav-links').classList.toggle('active');
     }
-
-    // Close menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelector('.hamburger').classList.remove('active');
-        document.querySelector('.nav-links').classList.remove('active');
-      });
-    });
   </script>
 
 </body>
