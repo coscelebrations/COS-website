@@ -626,7 +626,6 @@
       </div>
 
       <!-- BEGIN DJEVENTPLANNER CODE -->
-      <script src='https://cosplanning.com/check_req_info_form.js'></script>
       <form method="post" action="https://cosplanning.com/request_information.asp" onSubmit="return submitIt(this);" name="reqinfoform" class="djep-form">
         <input type='hidden' name='checkdate' value=''>
         <input type='hidden' name='djidnumber' value='25191'>
@@ -1042,6 +1041,8 @@
     <p class="footer-copy">© 2025 COS Celebrations. All rights reserved. | St. Augustine, FL</p>
   </footer>
 
+  <!-- Load DJEP form validation script deferred -->
+  <script src='https://cosplanning.com/check_req_info_form.js' defer></script>
   <script>
     // Hamburger Menu Toggle
     function toggleMenu() {
@@ -1056,6 +1057,13 @@
         document.querySelector('.nav-links').classList.remove('active');
       });
     });
+
+    // Fallback validation if DJEP script fails
+    if (typeof submitIt === 'undefined') {
+      window.submitIt = function(form) {
+        return form.first_name.value && form.last_name.value && form.email.value;
+      };
+    }
   </script>
 
 </body>
