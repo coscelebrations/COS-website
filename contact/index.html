@@ -364,6 +364,107 @@
       max-width: 100%;
     }
 
+    /* DJEP Form Styles */
+    .djep-form {
+      border: 1px solid var(--blush);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .djep-header {
+      background: var(--merlot);
+      color: white;
+      padding: 1.25rem 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    .djep-body {
+      background: var(--soft-pink);
+      padding: 2rem 1.5rem;
+    }
+
+    .djep-field {
+      margin-bottom: 1.25rem;
+    }
+
+    .djep-field label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+
+    .djep-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--blush);
+      border-radius: 2px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      background: white;
+      transition: border-color 0.3s ease;
+    }
+
+    .djep-input:focus {
+      border-color: var(--merlot);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(114, 47, 55, 0.1);
+    }
+
+    .djep-select {
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--blush);
+      border-radius: 2px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      background: white;
+      cursor: pointer;
+    }
+
+    .djep-select:focus {
+      border-color: var(--merlot);
+      outline: none;
+    }
+
+    .djep-select-full {
+      width: 100%;
+    }
+
+    .djep-date-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .djep-date-row .djep-select {
+      flex: 1;
+    }
+
+    .djep-submit {
+      width: 100%;
+      padding: 1rem 2rem;
+      margin-top: 1rem;
+      background: var(--merlot);
+      color: white;
+      border: none;
+      border-radius: 2px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .djep-submit:hover {
+      background: var(--merlot-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(114, 47, 55, 0.3);
+    }
+
     /* Footer */
     footer {
       padding: 3rem 2rem;
@@ -480,6 +581,7 @@
       </li>
       <li><a href="/#about">About</a></li>
       <li><a href="/pricing/">Pricing</a></li>
+      <li><a href="/vip-login/">VIP Login</a></li>
       <li><a href="/contact/" class="nav-cta">Contact</a></li>
     </ul>
     <div class="hamburger" onclick="toggleMenu()">
@@ -524,9 +626,402 @@
       </div>
 
       <!-- BEGIN DJEVENTPLANNER CODE -->
-      <script src="https://cosplanning.com/check_req_info_form.js"></script>
-      <script src="https://cosplanning.com/request_information.asp?djidnumber=25191&source=jswebsite&action=get_responsive_code"></script>
-      <noscript><a href="https://cosplanning.com/request_information.asp?djidnumber=25191">Click Here For Request Information Form</a></noscript>
+      <script src='https://cosplanning.com/check_req_info_form.js'></script>
+      <form method="post" action="https://cosplanning.com/request_information.asp" onSubmit="return submitIt(this);" name="reqinfoform" class="djep-form">
+        <input type='hidden' name='checkdate' value=''>
+        <input type='hidden' name='djidnumber' value='25191'>
+        <input type='hidden' name='action' value='add_information_request'>
+
+        <div class="djep-header">Request Information</div>
+        <div class="djep-body">
+
+          <div class="djep-field">
+            <label>Date Of Event</label>
+            <div class="djep-date-row">
+              <select name="month" class="djep-select">
+                <option value="43">Month</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+              <select name="day" class="djep-select">
+                <option value="43">Day</option>
+                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                <option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
+                <option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>
+                <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option>
+                <option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
+              </select>
+              <select name="year" class="djep-select">
+                <option value="43">Year</option>
+                <option value="2025" selected>2025</option><option value="2026">2026</option><option value="2027">2027</option><option value="2028">2028</option>
+                <option value="2029">2029</option><option value="2030">2030</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="djep-field">
+            <label for="first_name">First Name</label>
+            <input type="text" class="djep-input" id="first_name" name="first_name">
+          </div>
+
+          <div class="djep-field">
+            <label for="last_name">Last Name</label>
+            <input type="text" class="djep-input" id="last_name" name="last_name">
+          </div>
+
+          <div class="djep-field">
+            <label for="email">Email Address</label>
+            <input type="email" class="djep-input" id="email" name="email">
+          </div>
+
+          <div class="djep-field">
+            <label for="telephone">Best Number To Reach You</label>
+            <input type="tel" class="djep-input" id="telephone" name="telephone">
+          </div>
+
+          <div class="djep-field">
+            <label for="event_location_id">Event Location (Venue)</label>
+            <select name="event_location_id" class="djep-select djep-select-full" id="event_location_id">
+<option value="0">Please Select A Venue...</option>
+<option value="1">(Private Residence / Not Found In List)</option>
+<option value="377469">128 South - Wilmington, NC</option>
+<option value="377440">1908 Grand - Gainesville, FL</option>
+<option value="377541">241 St. George St. - Saint Augustine, FL</option>
+<option value="377310">310 Lakeside - Orlando, FL</option>
+<option value="377274">5701 Venue - Gainesville, FL</option>
+<option value="377324">9 Aviles - Saint Augustine, FL</option>
+<option value="377314">A. W. Jones Heritage Center - Saint Simons Island, GA</option>
+<option value="377263">A1A Ale Works - Saint Augustine, FL</option>
+<option value="377383">A1A Beachside Diner - St. Augustine, FL</option>
+<option value="377409">Adam w Herbert University Center - Jacksonville, FL</option>
+<option value="377494">All 4 One Farms - Jacksonville, FL</option>
+<option value="377407">Alpine Groves Park - Switzerland, FL</option>
+<option value="377245">Amici's - Milano Ballroom - Saint Augustine Beach, FL</option>
+<option value="377129">Amore Events Venue - Deltona, FL</option>
+<option value="377489">Ancient City Farmstead - Saint Augustine, FL</option>
+<option value="377617">Art & History Museums of Maitland - Maitland, FL</option>
+<option value="377130">Aunt Kate's - Saint Augustine, FL</option>
+<option value="377134">Austin Cary in Gainesville - Gainesville, FL</option>
+<option value="377247">Azaleana Manor - Orange Park, FL</option>
+<option value="377316">Bannerville Oaks Farm - Palatka, FL</option>
+<option value="377328">Barn at Cottonwood Ranch - Callahan, FL</option>
+<option value="377370">Barn at Lakeside Ranch - Hawthorne, FL</option>
+<option value="377444">Bayfront Marin House - Saint Augustine, FL</option>
+<option value="377453">Bella Collina - Montverde, FL</option>
+<option value="377213">Belle Oaks Barn - Brooker, FL</option>
+<option value="377273">Best Western Gateway Grand Gainesville - Gainesville, FL</option>
+<option value="377015">Bethesda Center & Park - Jacksonville, FL</option>
+<option value="377334">Bing's Landing - Palm Coast, FL</option>
+<option value="377546">Blue Jay Listening Room - Jacksonville Beach, FL</option>
+<option value="377571">Boardwalk Beach Hotel & Convention Center - Panama City, FL</option>
+<option value="377216">Bowing Oaks - Jacksonville, FL</option>
+<option value="377471">Brannan's Barn - Jacksonville, FL</option>
+<option value="377285">Brick and Beam - Jacksonville, FL</option>
+<option value="377123">Bullard Farm & Pavillion - Altoona, FL</option>
+<option value="377207">C Bar Ranch - Alachua, FL</option>
+<option value="377322">Caldwell Dairy Barn - Flagler Beach, FL</option>
+<option value="377171">Casa Marina - Jacksonville Beach, FL</option>
+<option value="377318">Casa Monica - Saint Augustine, FL</option>
+<option value="377398">Cedar Lodge on Honey Creek - Waverly, GA</option>
+<option value="377288">Celebration Hotel - Kissimmee, FL</option>
+<option value="377189">Channel Side - Palm Coast, FL</option>
+<option value="377465">Chez L'Amour - Saint Augustine, FL</option>
+<option value="377585">Circle Square Cultural Center - Ocala, FL</option>
+<option value="377603">Citri San Marco - Jacksonville, FL</option>
+<option value="377297">Clay Theatre - Green Cove Springs, FL</option>
+<option value="377182">Clermont Historical Village - Clermont, FL</option>
+<option value="377119">Club Continental - Orange Park, FL</option>
+<option value="377376">Colab Farms - Stuart, FL</option>
+<option value="377186">Colonial Oak - Saint Augustine, FL</option>
+<option value="377466">Congaree and Penn - Jacksonville, FL</option>
+<option value="377372">Cooper's Hawk - Jacksonville, FL</option>
+<option value="377439">Cosmopolitan Ballroom - Jacksonville, FL</option>
+<option value="377438">Coventry Oaks Farm - Jacksonville, FL</option>
+<option value="377385">Cowford Chophouse - Jacksonville, FL</option>
+<option value="377350">Crane Cottage - Jekyll Island, GA</option>
+<option value="377169">Crooked River State Park - Saint Marys, GA</option>
+<option value="377526">Cross Creek Ranch - Dover, FL</option>
+<option value="377278">Crosswater Hall at Nocatee - Ponte Vedra Beach, FL</option>
+<option value="377341">Crowne Plaza Jacksonville Airport - Jacksonville, FL</option>
+<option value="377138">Crystal Ballroom Casselberry - Casselberry, FL</option>
+<option value="377214">Crystal Ballroom Lake Mary - Lake Mary, FL</option>
+<option value="377112">Crystal Ballroom St. Augustine - St Augustine, FL</option>
+<option value="377326">Cummer Museum of Art & Gardens - Jacksonville, FL</option>
+<option value="377544">Daughter's Barn at Cedar Ridge - Folkston, GA</option>
+<option value="377507">Dave & Buster's Jacksonville - Jacksonville, FL</option>
+<option value="377394">Davis Island Garden Club - Tampa, FL</option>
+<option value="377233">Deer Creek Country Club - Jacksonville, FL</option>
+<option value="377422">Deerwood Country Club - Jacksonville, FL</option>
+<option value="377098">DeSoto Savannah - Savannah, GA</option>
+<option value="377259">Dolphin Plaza Hanna Park - Atlantic Beach, FL</option>
+<option value="377191">Double Tree by Hilton Jacksonville Riverfront - Jacksonville, FL</option>
+<option value="377441">Dr. Phillips House - Orlando, FL</option>
+<option value="377215">Dubsdread Golf Course - Orlando, FL</option>
+<option value="377225">Elite Ballroom - Palm Coast, FL</option>
+<option value="377210">Embassy Suites Saint Augustine Beach - Saint Augustine Beach, FL</option>
+<option value="377268">Embassy Suites Baymeadows - Jacksonville, FL</option>
+<option value="377091">Epping Forest Yacht Club - Jacksonville, FL</option>
+<option value="377200">Estrella Cocina - Jacksonville, FL</option>
+<option value="377371">Ever After Farms Stockyard Barn - Okeechobee, FL</option>
+<option value="377126">Ever After Farms Vineyard Wedding Barn - Pomona Park, FL</option>
+<option value="377198">Fairfield Inn & Suites - Jacksonville, FL</option>
+<option value="377573">Falcon's Fire Golf Course - Kissimmee, FL</option>
+<option value="377527">Fern Oak Estate - Pomona Park, FL</option>
+<option value="377192">Five Points Chapel - Jacksonville, FL</option>
+<option value="377196">Flagler College - Saint Augustine, FL</option>
+<option value="376987">Fountain Of Youth - Saint Augustine, FL</option>
+<option value="377276">Gainey Pines - Bryceville, FL</option>
+<option value="377212">Glass Factory - Jacksonville, FL</option>
+<option value="377094">Golden Ocala Golf & Equestrian Club - Ocala, FL</option>
+<option value="377284">Governor's House - Saint Augustine, FL</option>
+<option value="377173">Granville Farms - Lake Helen, FL</option>
+<option value="377217">Guy Harvey - Saint Augustine Beach, FL</option>
+<option value="377201">Hammock Beach Resort - Palm Coast, FL</option>
+<option value="377256">Hammock Dunes - Palm Coast, FL</option>
+<option value="377430">Hampton Inn - Jacksonville Beach, FL</option>
+<option value="377401">Hanna Park - Atlantic Beach, FL</option>
+<option value="377382">Harmony Gardens - De Leon Springs, FL</option>
+<option value="377358">Heritage Plantation Clubhouse - Vero Beach, FL</option>
+<option value="377363">Hidden Hills Country Club - Jacksonville, FL</option>
+<option value="377185">Hidden Lakes Country Club - New Smyrna Beach, FL</option>
+<option value="377332">Highland Manor - Apopka, FL</option>
+<option value="377180">Hilliard Mansion - Hilliard, FL</option>
+<option value="377572">Hilton Garden Inn Ft. Walton Beach - Fort Walton Beach, FL</option>
+<option value="377252">Hilton Garden Inn Palm Coast Town Center - Palm Coast, FL</option>
+<option value="377569">Hilton Jacksonville at Mayo Clinic - Jacksonville, FL</option>
+<option value="377583">Hilton Melbourne - Melbourne, FL</option>
+<option value="377289">Hilton Vacation Club Mystic Dunes Orlando - Kissimmee, FL</option>
+<option value="377523">Historic Venue 1902 - Sanford, FL</option>
+<option value="377589">Hope Pavilion - Ponte Vedra Beach, FL</option>
+<option value="377490">Hyatt Place St. Augustine / Vilano Beach - Saint Augustine, FL</option>
+<option value="377306">Hyatt Regency Jacksonville Riverfront - Jacksonville, FL</option>
+<option value="377384">Intuition Aleworks - Jacksonville, FL</option>
+<option value="377515">Isleworth Golf & Country Club - Windermere, FL</option>
+<option value="377327">Itchetucknee Springs Campground - Fort White, FL</option>
+<option value="377202">J&L Rustic Barn - Lake City, FL</option>
+<option value="377319">Jacksonville Center for the Performing Arts - Jacksonville, FL</option>
+<option value="377267">Jacksonville Golf & Country Club - Jacksonville, FL</option>
+<option value="377518">Jacksonville Public Library Main - Jacksonville, FL</option>
+<option value="377286">Jacksonville Zoo - Jacksonville, FL</option>
+<option value="377255">Jekyll Island Club Resort - Jekyll Island, GA</option>
+<option value="377446">Josephine - Jacksonville, FL</option>
+<option value="377149">JW Marriott Orlando Bonnet Creek - Orlando, FL</option>
+<option value="377625">Karpeles Grand - Jacksonville, FL</option>
+<option value="377096">Kelly Farm Events - St Augustine, FL</option>
+<option value="377193">La Venture Grove - Jacksonville, FL</option>
+<option value="377559">Lavender on the Lake - Saint Cloud, FL</option>
+<option value="377008">Lightner Museum - St Augustine, FL</option>
+<option value="377344">Living Waters Worship Center - Green Cove Springs, FL</option>
+<option value="377240">Lodge & Club - Ponte Vedra Beach, FL</option>
+<option value="377431">Maggiano's Little Italy - Jacksonville, FL</option>
+<option value="377097">Magnolia Gardens - Charleston, SC</option>
+<option value="377181">Magnolia Point Country Club - Green Cove Springs, FL</option>
+<option value="377218">Mandarin Garden Club - Jacksonville, FL</option>
+<option value="377235">Manor at 12 Oaks Farm - Green Cove Springs, FL</option>
+<option value="377299">Margaritaville Resort Orlando - Kissimmee, FL</option>
+<option value="377093">Marsh Landing Country Club - Ponte Vedra Beach, FL</option>
+<option value="377351">Marywood Retreat and Conference Center - Jacksonville, FL</option>
+<option value="377321">Mavi Waterfront Bar & Grill - Jacksonville Beach, FL</option>
+<option value="377582">MidFlorida Events Center - Port Saint Lucie, FL</option>
+<option value="377313">Murabella Amenity Center - Saint Augustine, FL</option>
+<option value="377092">Museum Of Arts and Sciences - Daytona Beach, FL</option>
+<option value="377381">Mystics Dunes Resort and Golf Club - Kissimmee, FL</option>
+<option value="377564">North Rail - Sanderson, FL</option>
+<option value="377293">Northeast Florida Marlin Club - Saint Augustine, FL</option>
+<option value="377415">Oak Lane Weddings and Events - Alachua, FL</option>
+<option value="377333">Oakleaf Plantation - Orange Park, FL</option>
+<option value="377336">Ocean Blue House - Ponte Vedra, FL</option>
+<option value="377253">Ocean Breeze Conference Center (Mayport) - Jacksonville, FL</option>
+<option value="377554">Ocean Center - Daytona Beach, FL</option>
+<option value="377335">Ocean Club of Amelia - Fernandina Beach, FL</option>
+<option value="377172">Ocoee Lakeshore Center - Ocoee, FL</option>
+<option value="377302">Odd Birds - Saint Augustine, FL</option>
+<option value="377241">Oldest House - Saint Augustine, FL</option>
+<option value="377188">OMNI Amelia Island - Fernandina Beach, FL</option>
+<option value="377133">OMNI Hotel Orlando - Championsgate, FL</option>
+<option value="377183">OMNI Jacksonville - Jacksonville, FL</option>
+<option value="377498">One Ocean Resort & Spa - Atlantic Beach, FL</option>
+<option value="377461">Orlando Museum of Art - Orlando, FL</option>
+<option value="377355">Ortega River Club - Jacksonville, FL</option>
+<option value="377379">Oyster Bay Yacht Club - Fernandina Beach, FL</option>
+<option value="377291">Palm Valley Barn - Ponte Vedra Beach, FL</option>
+<option value="377221">Pena-Peck House - Saint Augustine, FL</option>
+<option value="377279">Perry Lane Hotel - Savannah, GA</option>
+<option value="377320">Pine Grove Barn at Shadd Farms - Lake Butler, FL</option>
+<option value="377457">Plantation Oaks Farms - Callahan, FL</option>
+<option value="377282">Plantation on Crystal River - Crystal River, FL</option>
+<option value="377393">Pogo's Kitchen - Fernandina Beach, FL</option>
+<option value="377222">Ponte Vedra Inn & Club - Ponte Vedra Beach, FL</option>
+<option value="377271">Queens Harbor - Jacksonville, FL</option>
+<option value="377574">Raintree Restaurant - Saint Augustine, FL</option>
+<option value="377246">Ramallah American Club - Jacksonville, FL</option>
+<option value="377501">Ravine Gardens - Palatka, FL</option>
+<option value="377340">Renaissance St. Augustine Historic Downtown Hotel - Saint Augustine, FL</option>
+<option value="377170">Rhythm Factory - Jacksonville, FL</option>
+<option value="377272">Ribault Club - Jacksonville, FL</option>
+<option value="376994">Ritz-Carlton, Amelia Island - Fernandina Beach, FL</option>
+<option value="377012">River House - St Augustine, FL</option>
+<option value="377329">Riverside House - Jacksonville, FL</option>
+<option value="377581">RiverTown Amenity Center - St. Johns, FL</option>
+<option value="377391">Riverview Club - Saint Augustine, FL</option>
+<option value="377270">Rod & Gun Club - Saint Augustine, FL</option>
+<option value="377362">Rodman Plantation - Palatka, FL</option>
+<option value="377121">Roosevelt Room - Saint Augustine, FL</option>
+<option value="377110">Rosen Plaza Orlando - Orlando, FL</option>
+<option value="377566">Rustic Oaks Ranch - High Springs, FL</option>
+<option value="377631">Sabrage St Augustine - Saint Augustine, FL</option>
+<option value="377283">Saint Francis Barracks - Saint Augustine, FL</option>
+<option value="377301">Salt Water Cowboys - Saint Augustine Beach, FL</option>
+<option value="377605">San Jose Country Club - Jacksonville, FL</option>
+<option value="377206">San Marco Preservation Hall - Jacksonville, FL</option>
+<option value="377606">Sandbar Amelia Island - Fernandina Beach, FL</option>
+<option value="377244">Sanford Civic Center - Sanford, FL</option>
+<option value="377264">Sanford Garden Club - Sanford, FL</option>
+<option value="377460">Sawgrass Country Club - Ponte Vedra Beach, FL</option>
+<option value="377195">Sawgrass Marriott - Ponte Vedra Beach, FL</option>
+<option value="377315">Sawgrass Village - Ponte Vedra Beach, FL</option>
+<option value="377378">Serenata Beach Club - Ponte Vedra Beach, FL</option>
+<option value="377300">Shearwater - Saint Augustine, FL</option>
+<option value="377269">Shearwater Amenities Center - Saint Augustine, FL</option>
+<option value="377323">Sheraton Jacksonville Hotel - Jacksonville, FL</option>
+<option value="377131">Signia Orlando Hotel - Orlando, FL</option>
+<option value="377250">Silver Springs State Park - Silver Springs, FL</option>
+<option value="377312">Sonesta Resort Hilton Head Island - Hilton Head Island, SC</option>
+<option value="377177">Southern Charm Ranch - Keystone Heights, FL</option>
+<option value="377137">St Augustine Ocean & Racquet Club - St Augustine Beach, FL</option>
+<option value="377203">St Johns Golf & Country Club - Saint Augustine, FL</option>
+<option value="377590">St. Augustine Lighthouse - St. Augustine, FL</option>
+<option value="377389">St. Augustine Yacht Club - St. Augustine, FL</option>
+<option value="377090">Sugar Pointe Estate - Yulee, FL</option>
+<option value="377433">Summer House - Fernandina Beach, FL</option>
+<option value="377434">Tampa Museum of Art - Tampa, FL</option>
+<option value="377160">The Abbey - Orlando, FL</option>
+<option value="377528">The Addison of Boca Raton - Boca Raton, FL</option>
+<option value="377435">The Amelia Island River Club - Fernandina Beach, FL</option>
+<option value="377592">The Assembly Room at Art 'n Motion - Saint Augustine, FL</option>
+<option value="377508">The Barn at Deep Creek - Gainesville, FL</option>
+<option value="377298">The Barn at Rembert Farms - Alachua, FL</option>
+<option value="377500">The Barn at Southern Oaks - Umatilla, FL</option>
+<option value="377325">The Blanche Lake City - Lake City, FL</option>
+<option value="377437">The Bungalow - Ponte Vedra Beach, FL</option>
+<option value="377533">The Capen House - Winter Park, FL</option>
+<option value="377445">The Country Club of Orlando - Orlando, FL</option>
+<option value="377205">The Fig Room - Jacksonville Beach, FL</option>
+<option value="377345">The Garden Club of Jacksonville - Jacksonville, FL</option>
+<option value="377242">The Glen Venue - Glen Saint Mary, FL</option>
+<option value="377545">The Grove at Orange Park Country Club - Orange Park, FL</option>
+<option value="377303">The Horse Stamp Inn - Waverly, GA</option>
+<option value="377292">The Hunter Barn - Waynesville, GA</option>
+<option value="377499">The Iron Vine - Sanderson, FL</option>
+<option value="377610">The King and Prince Beach & Golf Resort - Saint Simons Island, GA</option>
+<option value="377236">The Lark - Jacksonville, FL</option>
+<option value="377542">The Morgan Center - Jekyll Island, GA</option>
+<option value="377223">The Palencia Club - Saint Augustine, FL</option>
+<option value="377455">The Palm Mansion - Umatilla, FL</option>
+<option value="377128">The Patterson - Valdosta, GA</option>
+<option value="377426">The Perch - Saint Augustine, FL</option>
+<option value="377553">The Prime F. Osborn III Convention Center - Jacksonville, FL</option>
+<option value="377373">The Reef Restaurant - Saint Augustine, FL</option>
+<option value="377443">The River Club - Jacksonville, FL</option>
+<option value="377600">The Royal Crest Room - Saint Cloud, FL</option>
+<option value="377532">The Thomas Center - Gainesville, FL</option>
+<option value="377106">The Waterfront Inn - The Villages, FL</option>
+<option value="377502">The Yards - Ponte Vedra Beach, FL</option>
+<option value="377412">Tiffany's - Jacksonville, FL</option>
+<option value="377111">Timuquana Country Club - Jacksonville, FL</option>
+<option value="376963">To Be Determined</option>
+<option value="377266">Tortuga Jacks - Jekyll Island, GA</option>
+<option value="377317">TPC Sawgrass - Ponte Vedra Beach, FL</option>
+<option value="377017">Treasury On The Plaza - St. Augustine, FL</option>
+<option value="377187">Tringali Barn - Saint Augustine, FL</option>
+<option value="377251">Tucker's Farmhouse - Green Cove Springs, FL</option>
+<option value="377176">Tuscan Rose Vineyards - Callahan, FL</option>
+<option value="377429">Valley Smoke Restaurant - Ponte Vedra Beach, FL</option>
+<option value="377265">Valley View - Alachua, FL</option>
+<option value="377369">Venue 841 - Jacksonville, FL</option>
+<option value="377436">Victoria 1883 - New Smyrna Beach, FL</option>
+<option value="377467">Villa Festa - De Land, FL</option>
+<option value="377497">Viva Ballroom - Palm Coast, FL</option>
+<option value="377520">Voodoo Brewing Co. - Jacksonville, FL</option>
+<option value="377232">Walker's Landing - Fernandina Beach, FL</option>
+<option value="376984">White Room - Saint Augustine, FL</option>
+<option value="377477">Whitewood Ranch - De Leon Springs, FL</option>
+<option value="377275">Winter Park Events Center - Winter Park, FL</option>
+<option value="377174">Winter Park Farmers' Market - Winter Park, FL</option>
+<option value="377151">Winterbourne Inn - Orange Park, FL</option>
+<option value="377175">WinterClub - Winter Park, FL</option>
+<option value="377287">Women's Club of Orange Park - Orange Park, FL</option>
+<option value="377307">Woodland Meadows - Palatka, FL</option>
+<option value="377395">World Equestrian Center - Ocala, FL</option>
+<option value="377277">World Golf Hall of Fame - Saint Augustine, FL</option>
+<option value="377227">World Golf Village Renaissance - Saint Augustine, FL</option>
+<option value="377308">Ximenez-Fatio House - Saint Augustine, FL</option>
+            </select>
+          </div>
+
+          <div class="djep-field">
+            <label>If your venue is not listed above:</label>
+            <input type="text" class="djep-input" name="event_location_name" placeholder="Venue Name">
+            <input type="text" class="djep-input" name="event_location_city" placeholder="City" style="margin-top: 0.5rem;">
+          </div>
+
+          <div class="djep-field">
+            <label for="event_type">Type Of Event</label>
+            <select name="event_type" class="djep-select djep-select-full" id="event_type">
+              <option value="">Please select...</option>
+              <option>Wedding</option>
+              <option>Corporate Event</option>
+              <option>Photo Booth</option>
+              <option>Dance Floor</option>
+              <option>Other (Private Event with DJ or Musician)</option>
+            </select>
+          </div>
+
+          <div class="djep-field">
+            <label for="question_2">Who Do You Want To Work With?</label>
+            <select name="question_2" class="djep-select djep-select-full" id="question_2">
+              <option value="">Please select...</option>
+              <option>Not Sure</option>
+              <option>Corey Peterson (Owner/Founder)</option>
+              <option>CJ Kostaras</option>
+              <option>Greg Capozzi</option>
+              <option>Noah Colbert-Santana</option>
+              <option>Marc Bourgeois</option>
+              <option>Khalil Stultz</option>
+            </select>
+            <input type="hidden" name="q2_required" value="TRUE">
+          </div>
+
+          <div class="djep-field">
+            <label for="question_3">What Services Are You Interested In?</label>
+            <input type="text" class="djep-input" name="question_3" id="question_3" placeholder="DJ, Musician, Lighting, Photo Booth, etc.">
+            <input type="hidden" name="q3_required" value="TRUE">
+          </div>
+
+          <div class="djep-field">
+            <label for="question_4">Any Additional Comments</label>
+            <input type="text" class="djep-input" name="question_4" id="question_4">
+          </div>
+
+          <div class="djep-field">
+            <label for="question_5">How Did You Hear About Us?</label>
+            <input type="text" class="djep-input" name="question_5" id="question_5">
+          </div>
+
+          <button type="submit" name="submit" class="djep-submit">Submit Request</button>
+        </div>
+      </form>
       <!-- END DJEVENTPLANNER CODE -->
     </div>
 
