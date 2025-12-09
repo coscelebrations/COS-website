@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 8, 2025
+## Last Updated: December 9, 2025
 
 ---
 
@@ -9,10 +9,11 @@
 
 ## 🚀 CURRENT STATE & NEXT STEPS
 
-### Where We Left Off (Dec 7, 2025 - Late Night)
+### Where We Left Off (Dec 9, 2025)
 - Working on **COS static site** (Netlify) - NOT the WordPress site
 - All work happens in `/Users/coreypeterson/cos-website/`
 - Preview at: https://cool-jelly-73d5c0.netlify.app/
+- Local dev server: `python3 -m http.server 8000` then visit http://localhost:8000
 
 ### COS Static Site Status
 | Page | Status | Cross-Links |
@@ -42,6 +43,16 @@
 - DJEP form REMOVED from all pages except /contact/ (breaks dropdown nav)
 - Dance floor background image added to Homepage CTA, Contact hero
 
+### Dec 9, 2025 Session
+- **Treasury wedding photos added:** 12 photos from Jeanette+Dean wedding (Walls of Jericho Photography)
+  - Geo-tagged originals with exiftool (Treasury on the Plaza coordinates)
+  - Optimized WebP versions in `/images/treasury-wedding-st-augustine/`
+- **St. Augustine page:** Added Treasury venue photo (grand entrance from vault with monogram)
+- **Homepage:** Added Corey MC photo as underlay on "MCs Who Lead" card
+- **Pricing consistency:** Removed specific dollar amounts from add-ons, updated to "Couples typically invest $1,500-$3,000+"
+- **Mobile fix:** Fixed "Start the Conversation" button overlap on homepage
+- **New image:** `corey-peterson-wedding-dj-mc-river-house-st-augustine.webp` (Bow Tie Photography)
+
 ### Priority Next Steps
 1. **Create remaining city pages:** Orlando, Tampa
 2. **Build page generator script** (questionnaire → auto-generates HTML)
@@ -52,9 +63,35 @@
 ### Key Rules to Remember
 - DJEP forms ONLY on /contact/ page (kills PageSpeed elsewhere)
 - Every city page needs "Also Serving" section with links to OTHER cities
-- Images: WebP format, 700px width, under 100KB (content images)
-- Background images: 1200px width, under 150KB is fine
 - One internal link per page (first mention only)
+
+### Image Optimization Rules (ALWAYS FOLLOW)
+When adding ANY image to the site, automatically optimize before use:
+| Use Case | Max Width | Max File Size | Format |
+|----------|-----------|---------------|--------|
+| Content/card images | 800px | 100KB | WebP |
+| Hero/background images | 1200px | 150KB | WebP |
+| Thumbnails | 400px | 50KB | WebP |
+
+**Checklist for every image:**
+1. Convert to WebP format
+2. Resize to appropriate max width (see table)
+3. Compress to target file size (quality 80-85)
+4. Use SEO-friendly filename with keywords (e.g., `treasury-wedding-dj-st-augustine.webp`)
+5. Add descriptive alt text with location + service keywords
+6. Add `loading="lazy"` attribute (except hero images)
+7. Credit photographer if known
+
+**Python snippet for quick optimization:**
+```python
+from PIL import Image
+img = Image.open('input.jpg')
+max_width = 800  # adjust per use case
+if img.width > max_width:
+    ratio = max_width / img.width
+    img = img.resize((max_width, int(img.height * ratio)), Image.LANCZOS)
+img.save('output.webp', 'WEBP', quality=82)
+```
 
 ### Images Currently in Use
 | Image | Size | Location |
@@ -62,6 +99,28 @@
 | cos-celebrations-logo.webp | 14KB | All pages (nav) |
 | corey-peterson-jacksonville-wedding-dj-saxophone.webp | 50KB | Homepage hero |
 | lightner-museum-wedding-dance-floor-st-augustine.webp | 74KB | Homepage CTA, Contact hero |
+| corey-peterson-wedding-dj-mc-river-house-st-augustine.webp | 43KB | Homepage MC card (underlay) |
+| wedding-grand-entrance-uplighting-treasury.webp | 56KB | St. Augustine page (Treasury venue) |
+
+### Treasury Wedding Photo Library (Staged)
+Location: `/images/treasury-wedding-st-augustine/`
+Photographer: Walls of Jericho Photography
+All optimized to 800px width, WebP format.
+
+| File | Size | Best Use |
+|------|------|----------|
+| treasury-on-the-plaza-wedding-venue-st-augustine.webp | 228K→optimized | St. Aug page - venue exterior |
+| st-augustine-plaza-wedding-party-spanish-moss.webp | 691K→optimized | St. Aug page - iconic location |
+| bridge-of-lions-wedding-portrait-st-augustine.webp | 182K→optimized | St. Aug page - landmark |
+| wedding-dj-monogram-lighting-treasury-st-augustine.webp | 117KB | DJ services - shows lighting |
+| wedding-grand-entrance-uplighting-treasury.webp | 56KB | **IN USE** - St. Aug page |
+| wedding-reception-dance-floor-uplighting-st-augustine.webp | optimized | DJ services - party vibe |
+| packed-wedding-dance-floor-st-augustine-dj.webp | optimized | DJ services - energy |
+| bride-dancing-monogram-projection-treasury.webp | optimized | DJ services - monogram |
+| sparkler-exit-wedding-st-augustine.webp | optimized | Homepage/hero option |
+| couple-portrait-treasury-on-the-plaza-window.webp | optimized | Homepage/gallery |
+| wedding-couple-silhouette-treasury-st-augustine.webp | optimized | Hero/artistic |
+| bride-groom-treasury-lobby-st-augustine.webp | optimized | Venue showcase |
 
 ---
 

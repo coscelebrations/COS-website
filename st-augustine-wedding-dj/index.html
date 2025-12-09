@@ -227,7 +227,8 @@
       justify-content: center;
       text-align: center;
       padding: 10rem 2rem 4rem;
-      background: linear-gradient(180deg, var(--soft-pink) 0%, var(--cream) 100%);
+      background: linear-gradient(rgba(248, 240, 240, 0.85), rgba(255, 251, 250, 0.9)),
+                  url('/images/treasury-wedding-st-augustine/bridge-of-lions-wedding-portrait-st-augustine.webp') center/cover no-repeat;
       position: relative;
       overflow: hidden;
     }
@@ -242,7 +243,7 @@
       background-image:
         radial-gradient(circle at 20% 80%, var(--rose) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, var(--blush) 0%, transparent 40%);
-      opacity: 0.4;
+      opacity: 0.3;
     }
 
     .hero-content {
@@ -395,6 +396,66 @@
       font-size: 0.9rem;
       color: var(--text-soft);
       line-height: 1.6;
+    }
+
+    .venue-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .venue-featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .venue-featured .venue-image {
+      height: 300px;
+      grid-row: 1 / 4;
+    }
+
+    .venue-featured .venue-images {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      grid-row: 1 / 5;
+    }
+
+    .venue-featured .venue-images .venue-image {
+      height: 180px;
+      grid-row: auto;
+    }
+
+    .venue-featured h3 {
+      margin-top: 0;
+    }
+
+    .photo-credit {
+      font-size: 0.75rem !important;
+      font-style: italic;
+      opacity: 0.7;
+      margin-top: 0.5rem !important;
+    }
+
+    @media (max-width: 768px) {
+      .venue-featured {
+        grid-template-columns: 1fr;
+      }
+      .venue-featured .venue-image {
+        grid-row: auto;
+        height: 220px;
+      }
+      .venue-featured .venue-images {
+        grid-row: auto;
+      }
+      .venue-featured .venue-images .venue-image {
+        height: 180px;
+      }
     }
 
     .pricing-highlight {
@@ -654,9 +715,14 @@
     <p>Being based in St. Augustine means we know these venues intimately — and they know us:</p>
 
     <div class="venues-list">
-      <div class="venue-item">
+      <div class="venue-item venue-featured">
+        <img src="/images/treasury-wedding-st-augustine/wedding-grand-entrance-uplighting-treasury.webp"
+             alt="Wedding grand entrance from vault at Treasury on the Plaza St. Augustine - couple entering reception with monogram projection and cheering guests"
+             class="venue-image"
+             loading="lazy">
         <h3>Treasury on the Plaza</h3>
         <p>Our most-performed venue. We know every detail of this stunning 1927 bank building — from the ceremony setup in the main ballroom to the iconic grand entrance from the vault. The room flip during cocktail hour requires perfect timing and coordination, which we've mastered over countless weddings here.</p>
+        <p class="photo-credit">Photo: Walls of Jericho Photography</p>
       </div>
 
       <div class="venue-item">
@@ -722,9 +788,10 @@
     <div class="pricing-highlight">
       <p class="eyebrow" style="color: var(--rose);">Investment</p>
       <h2>St. Augustine Wedding DJ Pricing</h2>
-      <p>As St. Augustine locals, we offer the best value in the city. Weddings start at just $1,500 for 4 hours of professional DJ/MC services with no travel fees. Most couples choose our Premium package at $2,400, which includes 5 hours, ceremony coverage, and 2 add-ons of your choice.</p>
-      <div class="price-display">Starting at $1,500</div>
-      <a href="/#pricing" class="btn btn-primary" style="background: white; color: var(--merlot);">View All Packages</a>
+      <p>As St. Augustine locals, we offer the best value in the city — no travel fees, ever. Packages include professional DJ/MC, premium sound, and our planning app. Add live saxophone, uplighting, cold sparks, and more.</p>
+      <p class="price-label" style="font-size: 0.9rem; opacity: 0.9; margin-bottom: 0.25rem;">Couples typically invest</p>
+      <div class="price-display">$1,500 – $3,000+</div>
+      <a href="/pricing/" class="btn btn-primary" style="background: white; color: var(--merlot);">View All Packages</a>
     </div>
 
     <h2>What Makes St. Augustine Wedding DJ Pricing Fair</h2>
@@ -746,19 +813,19 @@
 
     <div class="features-grid" style="margin-top: 2rem;">
       <div class="feature-card">
-        <h3>Live Saxophone - $500</h3>
+        <h3>Live Saxophone</h3>
         <p>Our most popular add-on. Live performance during first dance, ceremony, or peak dance times. Perfect for historic venues.</p>
       </div>
       <div class="feature-card">
-        <h3>Uplighting - $500</h3>
+        <h3>Uplighting</h3>
         <p>Transform historic architecture with intelligent LED uplighting. Especially stunning at Treasury on the Plaza and Lightner Museum.</p>
       </div>
       <div class="feature-card">
-        <h3>Cold Sparks - $500+</h3>
+        <h3>Cold Sparks</h3>
         <p>Safe indoor pyrotechnics for your first dance or grand exit. Creates incredible photos against St. Augustine's historic backdrops.</p>
       </div>
       <div class="feature-card">
-        <h3>Additional Musicians - $400-600</h3>
+        <h3>Additional Musicians</h3>
         <p>Add piano, percussion, or additional instruments. We have talented local musicians ready to elevate your celebration.</p>
       </div>
     </div>

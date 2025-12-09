@@ -383,6 +383,66 @@
       line-height: 1.7;
     }
 
+    .apart-card.mc-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(248, 240, 240, 0.92) 0%, rgba(248, 240, 240, 0.88) 100%);
+      overflow: hidden;
+    }
+
+    .apart-card.mc-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('/images/corey-peterson-wedding-dj-mc-river-house-st-augustine.webp');
+      background-size: cover;
+      background-position: center top;
+      opacity: 0.15;
+      z-index: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .apart-card.mc-card:hover::before {
+      opacity: 0.25;
+    }
+
+    .apart-card.mc-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .apart-card.sax-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(248, 240, 240, 0.92) 0%, rgba(248, 240, 240, 0.88) 100%);
+      overflow: hidden;
+    }
+
+    .apart-card.sax-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('/images/corey-peterson-saxophone-ceremony-hammock-beach.webp');
+      background-size: cover;
+      background-position: center top;
+      opacity: 0.15;
+      z-index: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .apart-card.sax-card:hover::before {
+      opacity: 0.25;
+    }
+
+    .apart-card.sax-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
     /* Trust Bar */
     .trust-bar {
       padding: 3rem 2rem;
@@ -1174,6 +1234,22 @@
       .pricing-cta {
         padding: 2rem 1.5rem;
       }
+
+      .pricing-cta h3 {
+        font-size: 1.5rem !important;
+      }
+
+      .pricing-cta p {
+        font-size: 0.9rem;
+      }
+
+      .pricing-cta .btn {
+        display: block;
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+        box-sizing: border-box;
+      }
     }
   </style>
 </head>
@@ -1226,12 +1302,12 @@
       <h2>What Sets Us Apart</h2>
     </div>
     <div class="apart-grid">
-      <div class="apart-card">
+      <div class="apart-card sax-card">
         <div class="apart-icon">🎹</div>
         <h3>Musician's Ear</h3>
         <p>Most DJs mix tracks. We read the room like musicians — because we are. Every song choice, every transition, every moment is intentional.</p>
       </div>
-      <div class="apart-card">
+      <div class="apart-card mc-card">
         <div class="apart-icon">🎤</div>
         <h3>MCs Who Lead, Not Cheese</h3>
         <p>We keep your reception moving without the corny DJ clichés. No "1-2-3 everybody say hey!" — just smooth, confident guidance that keeps guests engaged.</p>
