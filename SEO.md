@@ -53,10 +53,31 @@
   - Full venue dropdown (~250 venues) - shows market presence
   - Deferred DJEP validation script to bottom of page for better mobile performance
   - Added fallback validation in case external script fails
+- **Reviews carousel redesigned:**
+  - Slimmed down from bulky hover-expand cards to compact quote format
+  - Stars + short quote + author/DJ inline
+  - Arrow navigation added alongside dots
+  - 9 best quotes selected from original 13
+- **Hero section updated:**
+  - Changed from standalone sax image below text to background image underlay
+  - Using `packed-wedding-dance-floor-st-augustine-dj.webp` from Treasury wedding
+  - Soft pink/cream gradient overlay (85-88% opacity) for text readability
+  - More modern look, less "boxy"
+- **Social media links added:**
+  - Footer: Instagram, Facebook, TikTok, YouTube (SVG icons)
+  - Hero: Instagram icon + @coscelebrations below CTA buttons
+  - All links: `target="_blank" rel="noopener"` for security
+- **Social URLs:**
+  - Instagram: https://instagram.com/coscelebrations
+  - Facebook: https://facebook.com/coscelebrations
+  - TikTok: https://tiktok.com/@coscelebrations
+  - YouTube: https://youtube.com/@coscelebrations
 - **Key learnings:**
   - DJEP JavaScript embeds can't be styled (Bootstrap CSS override)
   - Solution: Use inline HTML form code instead of JS embed
   - Always defer external scripts when possible
+  - Social links help E-E-A-T (shows established business)
+  - CSS background images don't need alt text but lose SEO value - fine for decorative use
 
 ### Dec 9, 2025 Session (Earlier)
 - **Treasury wedding photos added:** 12 photos from Jeanette+Dean wedding (Walls of Jericho Photography)

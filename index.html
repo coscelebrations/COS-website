@@ -7,7 +7,7 @@
   <meta name="description" content="Luxury wedding DJ and live saxophone entertainment in Jacksonville, St. Augustine, Orlando, and Tampa. 500+ five-star reviews. Starting at $1,400.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="image" href="/images/corey-peterson-jacksonville-wedding-dj-saxophone.webp">
+  <link rel="preload" as="image" href="/images/treasury-wedding-st-augustine/packed-wedding-dance-floor-st-augustine-dj.webp">
   <link rel="preload" as="image" href="/images/cos-celebrations-logo.webp">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -230,7 +230,8 @@
       justify-content: center;
       text-align: center;
       padding: 8rem 2rem 4rem;
-      background: linear-gradient(180deg, var(--soft-pink) 0%, var(--cream) 100%);
+      background: linear-gradient(135deg, rgba(248, 240, 240, 0.88) 0%, rgba(255, 251, 250, 0.85) 100%),
+                  url('/images/treasury-wedding-st-augustine/packed-wedding-dance-floor-st-augustine-dj.webp') center center / cover no-repeat;
       position: relative;
       overflow: hidden;
     }
@@ -242,10 +243,10 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-image: 
+      background-image:
         radial-gradient(circle at 20% 80%, var(--rose) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, var(--blush) 0%, transparent 40%);
-      opacity: 0.4;
+      opacity: 0.3;
     }
 
     .hero-content {
@@ -296,6 +297,27 @@
       height: auto;
       border-radius: 4px;
       box-shadow: 0 20px 50px rgba(114, 47, 55, 0.2);
+    }
+
+    .hero-instagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--merlot);
+      font-size: 0.85rem;
+      font-weight: 400;
+      text-decoration: none;
+      margin-top: 2rem;
+      transition: opacity 0.3s ease;
+    }
+
+    .hero-instagram:hover {
+      opacity: 0.7;
+    }
+
+    .hero-instagram svg {
+      flex-shrink: 0;
     }
 
     .hero-cta {
@@ -919,157 +941,133 @@
       color: white;
     }
 
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-social a {
+      color: rgba(255,255,255,0.7);
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      color: white;
+      transform: translateY(-2px);
+    }
+
     .footer-copy {
       font-size: 0.75rem;
       opacity: 0.5;
     }
 
-    /* Reviews Carousel */
+    /* Reviews Section - Compact */
     .reviews {
-      padding: 6rem 2rem;
+      padding: 4rem 2rem;
       background: var(--soft-pink);
       overflow: hidden;
     }
 
-    .review-hint {
-      font-size: 0.85rem;
-      color: var(--text-soft);
-      font-style: italic;
-      margin-top: 0.5rem;
+    .reviews .section-header {
+      margin-bottom: 2rem;
     }
 
     .carousel-container {
-      max-width: 900px;
+      max-width: 700px;
       margin: 0 auto;
       position: relative;
     }
 
     .carousel-track {
       display: flex;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.5s ease;
     }
 
     .review-card {
       min-width: 100%;
-      padding: 3rem 2rem;
+      padding: 0 1rem;
       text-align: center;
       opacity: 0;
-      transition: opacity 0.6s ease;
-      cursor: pointer;
+      transition: opacity 0.5s ease;
     }
 
     .review-card.active {
       opacity: 1;
     }
 
-    .review-content {
-      position: relative;
-      min-height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 2rem;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 2rem;
-      background: white;
-      border: 1px solid var(--blush);
-      border-radius: 4px;
-      transition: all 0.4s ease;
+    .review-stars {
+      color: var(--gold-accent);
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
     }
 
-    .review-card:hover .review-content {
-      border-color: var(--rose);
-      box-shadow: 0 10px 40px rgba(114, 47, 55, 0.15);
-      transform: translateY(-3px);
-    }
-
-    .review-preview,
-    .review-full {
+    .review-text {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
       font-style: italic;
       color: var(--charcoal);
-      line-height: 1.8;
-      margin: 0;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: calc(100% - 4rem);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .review-preview {
-      opacity: 1;
-    }
-
-    .review-full {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-    }
-
-    .review-card:hover .review-preview {
-      opacity: 0;
-    }
-
-    .review-card:hover .review-full {
-      opacity: 1;
-    }
-
-    /* Adjust content height on hover to accommodate full text */
-    .review-card:hover .review-content {
-      min-height: auto;
-      height: auto;
-    }
-
-    .review-full {
-      position: relative;
-      transform: none;
-      top: auto;
-      left: auto;
-    }
-
-    .review-preview {
-      position: relative;
-      transform: none;
-      top: auto;
-      left: auto;
+      line-height: 1.7;
+      margin: 0 0 1.25rem 0;
     }
 
     .review-author {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
       gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .author-name {
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       font-weight: 500;
       color: var(--charcoal);
-      letter-spacing: 0.05em;
+    }
+
+    .author-divider {
+      color: var(--rose);
     }
 
     .author-dj {
       font-size: 0.85rem;
       color: var(--merlot);
       font-weight: 400;
-      letter-spacing: 0.1em;
+    }
+
+    .carousel-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .carousel-arrow {
+      background: none;
+      border: none;
+      color: var(--merlot);
+      font-size: 1.25rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: opacity 0.3s ease;
+    }
+
+    .carousel-arrow:hover {
+      opacity: 0.7;
     }
 
     .carousel-dots {
       display: flex;
-      justify-content: center;
-      gap: 0.75rem;
-      margin-top: 2rem;
+      gap: 0.5rem;
     }
 
     .carousel-dot {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--rose);
       cursor: pointer;
@@ -1080,12 +1078,10 @@
 
     .carousel-dot.active {
       background: var(--merlot);
-      transform: scale(1.2);
     }
 
     .carousel-dot:hover {
       background: var(--merlot);
-      transform: scale(1.1);
     }
 
     /* Floating CTA Button */
@@ -1289,13 +1285,14 @@
       <p class="eyebrow">Your Wedding Soundtrack, Performed Live</p>
       <h1>North + Central Florida<br><em>Wedding DJ + Live Musicians</em></h1>
       <p class="hero-subtitle">Most DJs learned on controllers. Our founder started on piano at age 4 and picked up saxophone shortly after — then took that sax on tour across 35+ countries, sharing the stage with artists like Usher, Alicia Keys, Big Gigantic, and Vulfpeck. Performing at Grammy parties and being backstage with world-class hosts taught him what great MC work actually sounds like — confident, smooth, never cheesy. That musician's ear and MC experience means better song selection, smoother transitions, and someone who actually <strong>reads the room</strong> — not just a playlist. Want live <strong>saxophone</strong> or <strong>piano</strong> during your reception? We're one of the only wedding DJ companies that performs it ourselves.</p>
-      <div class="hero-image-centered">
-        <img src="/images/corey-peterson-jacksonville-wedding-dj-saxophone.webp" alt="Corey Peterson, Jacksonville wedding DJ and saxophonist, holding saxophone in front of DJ booth" loading="lazy">
-      </div>
       <div class="hero-cta">
         <a href="#contact" class="btn btn-primary">Check Availability</a>
         <a href="#services" class="btn btn-secondary">See Packages</a>
       </div>
+      <a href="https://instagram.com/coscelebrations" target="_blank" rel="noopener" class="hero-instagram" aria-label="Follow us on Instagram">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>@coscelebrations</span>
+      </a>
     </div>
   </section>
 
@@ -1393,174 +1390,111 @@
     </div>
   </section>
 
-  <!-- Reviews Carousel -->
+  <!-- Reviews Section -->
   <section class="reviews">
     <div class="section-header">
       <p class="eyebrow">What Couples Say</p>
       <h2>Real Weddings, Real Reactions</h2>
-      <p class="review-hint">Hover to read full review</p>
     </div>
     <div class="carousel-container">
       <div class="carousel-track">
 
-        <!-- Review 1 - Liz (Corey) -->
         <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"Corey is THE BEST wedding DJ! The dance portion of our wedding was truly epic..."</p>
-            <p class="review-full">"Corey is THE BEST wedding DJ! If you're reading this and on the fence about booking Corey at COS Celebrations, stop reading and book him! The dance portion of our wedding was truly epic. We had the drummer and Corey surprised us with his sax and it was show stopping! Corey helped make our wedding day run so smoothly. His emcee skills, calm demeanor, professional manner, and genuine care in making sure our day was perfect was something we'll never forget."</p>
-          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The dance portion of our wedding was truly epic. Corey surprised us with his sax and it was show stopping!"</p>
           <div class="review-author">
             <span class="author-name">Liz</span>
-            <span class="author-dj">DJ Corey • Sax + Drummer</span>
+            <span class="author-divider">•</span>
+            <span class="author-dj">DJ Corey</span>
           </div>
         </div>
 
-        <!-- Review 2 - Tyler (Corey) -->
         <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"People came up to us and told us they had never seen a dance floor so full all night at a wedding..."</p>
-            <p class="review-full">"COS celebrations and Corey did an absolutely perfect job for my wedding at Casa Marina in Jacksonville. People came up to us, both old and young, and told us they had never seen a dance floor so full all night at a wedding. He brought a saxophone and played it as part of the music during the dancing which was electric. Corey truly wanted our night to be perfect and was invested in making sure the dance floor was always rocking. He was the best I have ever seen at a wedding."</p>
-          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"People told us they had never seen a dance floor so full all night at a wedding. He was the best I have ever seen."</p>
           <div class="review-author">
             <span class="author-name">Tyler</span>
-            <span class="author-dj">DJ Corey • Casa Marina, Jacksonville</span>
+            <span class="author-divider">•</span>
+            <span class="author-dj">DJ Corey</span>
           </div>
         </div>
 
-        <!-- Review 3 - Chelsea N (Corey) -->
         <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"Corey was the only vendor who proactively reached out to review the timeline with our planner..."</p>
-            <p class="review-full">"Our wedding planner even noted that Corey was the only vendor who proactively reached out to review the timeline with her, ensuring that every detail flowed seamlessly. As an MC, Corey was outstanding. He kept the evening moving effortlessly. On top of his professionalism as a DJ and MC, Corey is an incredibly talented saxophonist. Many of our guests commented on how amazing the live saxophone music was."</p>
-          </div>
-          <div class="review-author">
-            <span class="author-name">Chelsea N</span>
-            <span class="author-dj">DJ Corey • Proactive Coordination</span>
-          </div>
-        </div>
-
-        <!-- Review 4 - Hailey C (CJ) -->
-        <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"We honestly consider CJ more than just our DJ; he's now a friend and part of our family..."</p>
-            <p class="review-full">"We can't recommend DJ CJ enough! The dance floor was packed the entire night—our guests couldn't get enough! CJ has a special talent for reading the room and keeping everyone engaged, from our youngest guests to our grandparents. We honestly consider CJ more than just our DJ; he's now a friend and part of our family."</p>
-          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"We honestly consider CJ more than just our DJ; he's now a friend and part of our family."</p>
           <div class="review-author">
             <span class="author-name">Hailey C</span>
-            <span class="author-dj">DJ CJ • All Ages Dancing</span>
+            <span class="author-divider">•</span>
+            <span class="author-dj">DJ CJ</span>
           </div>
         </div>
 
-        <!-- Review 5 - Erin (CJ) -->
         <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"CJ had all guests aged from 9-86 DANCING..."</p>
-            <p class="review-full">"We had such a great experience with COS Celebrations booking CJ to DJ at our wedding! CJ was super professional and organized. He reached out months in advance to get to know us and what kind of music we want played. CJ also reached out to our venue to coordinate with them to make a timeline for the day. He also had all guests aged from 9-86 DANCING."</p>
-          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"CJ had all guests aged from 9-86 DANCING."</p>
           <div class="review-author">
             <span class="author-name">Erin</span>
-            <span class="author-dj">DJ CJ • Ages 9-86 Dancing!</span>
+            <span class="author-divider">•</span>
+            <span class="author-dj">DJ CJ</span>
           </div>
         </div>
 
-        <!-- Review 6 - Margaret R (CJ) -->
         <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"DJ CJ brought amazing energy and kept everyone on the dance floor all night long..."</p>
-            <p class="review-full">"DJ CJ and Tyler brought amazing energy and vibes to our party - the music was incredible and kept everyone on the dance floor all night long. CJ did a fantastic job of reading the crowd and keeping the energy high the whole time. The photo booth was also a huge hit."</p>
-          </div>
-          <div class="review-author">
-            <span class="author-name">Margaret R</span>
-            <span class="author-dj">DJ CJ • Reading the Crowd</span>
-          </div>
-        </div>
-
-        <!-- Review 7 - Bobby (Greg) -->
-        <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"For the next 2 hours not a single person was sitting down. People were demanding a third encore..."</p>
-            <p class="review-full">"Let me start by saying, if you're looking for a DJ for your wedding, party or whatever. STOP LOOKING… These guys are THE GUYS. Around 9:30 my wife noticed that the energy wasn't where it should be. She promptly went over to Greg and said, 'forget about our playlist, get the party going again'… The guy absolutely WENT OFF. For the next 2 hours not a single person was sitting down. At the end of the night people were demanding a third encore."</p>
-          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"For the next 2 hours not a single person was sitting down. People were demanding a third encore."</p>
           <div class="review-author">
             <span class="author-name">Bobby</span>
-            <span class="author-dj">DJ Greg • Jekyll Island</span>
+            <span class="author-divider">•</span>
+            <span class="author-dj">DJ Greg</span>
           </div>
         </div>
 
-        <!-- Review 8 - Amelia (Greg) -->
         <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"He stole the show. Every single guest told me how fantastic he was..."</p>
-            <p class="review-full">"I had Greg Capozzi play saxophone at my ceremony and cocktail hour and DJ at my reception. He stole the show. Every single guest told me how fantastic he was and how he was the best DJ they have ever seen at a wedding. His saxophone skills were incredible. He went above and beyond and contacted the venues to make sure they were all set the week of the wedding, coordinated with the staff on his own, and even captured some videos and photos and sent them to me after the wedding."</p>
-          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"He stole the show. Every single guest told me how fantastic he was and how he was the best DJ they have ever seen."</p>
           <div class="review-author">
             <span class="author-name">Amelia</span>
-            <span class="author-dj">DJ Greg • Ceremony + Cocktail Sax</span>
+            <span class="author-divider">•</span>
+            <span class="author-dj">DJ Greg</span>
           </div>
         </div>
 
-        <!-- Review 9 - Cole B (Greg) -->
         <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"The most complimented part of our wedding was our DJ, Greg. The man can make a saxophone sing..."</p>
-            <p class="review-full">"In the days and weeks following our wedding, I think the most complimented part of the day was our DJ, Greg. He was attentive and enthusiastic to hear our suggestions on the atmosphere we wanted to create, and boy did he deliver! The man can make a saxophone sing. The cold sparks were such a great addition, I can't imagine our wedding without them or Greg absolutely shredding on sax."</p>
-          </div>
-          <div class="review-author">
-            <span class="author-name">Cole B</span>
-            <span class="author-dj">DJ Greg • Most Complimented Vendor</span>
-          </div>
-        </div>
-
-        <!-- Review 10 - Courtney K (Noah + Corey) -->
-        <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"We had DJ Noah running the show and DJ Corey on sax, and they absolutely made our wedding..."</p>
-            <p class="review-full">"We seriously cannot say enough good things about COS Celebrations! We had DJ Noah running the show and DJ Corey on sax, and they absolutely made our wedding. Noah kept the party going without ever feeling cheesy or over the top. One of our favorite moments was the private last dance Noah suggested. It gave us a chance to soak in the day."</p>
-          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Noah kept the party going without ever feeling cheesy or over the top. The private last dance he suggested was perfect."</p>
           <div class="review-author">
             <span class="author-name">Courtney K</span>
-            <span class="author-dj">DJ Noah + Corey • Private Last Dance</span>
+            <span class="author-divider">•</span>
+            <span class="author-dj">DJ Noah</span>
           </div>
         </div>
 
-        <!-- Review 11 - Jordyn P (Noah) -->
         <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"Multiple guests mentioned how great the DJ was. He didn't even break a sweat when there wasn't a day of coordinator..."</p>
-            <p class="review-full">"Noah was absolutely amazing!!! The wedding was everything we wanted it to be and Noah helped make it even better. Multiple guests mentioned how great the DJ was that night and even the next day. He was very attentive and great with communication. He was prepared with everything day of and didn't even break a sweat when there wasn't a day of coordinator."</p>
-          </div>
-          <div class="review-author">
-            <span class="author-name">Jordyn P</span>
-            <span class="author-dj">DJ Noah • No Coordinator Needed</span>
-          </div>
-        </div>
-
-        <!-- Review 12 - Rochelle D (Marc) -->
-        <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"When the weather didn't cooperate for our cold spark ending, Marc pulled his sleeves up and said let's do it..."</p>
-            <p class="review-full">"We had a wonderful experience with Marc as our DJ. When the weather didn't cooperate for our cold spark ending Marc didn't say no, he pulled his sleeves up and said let's do it. It was a once in a lifetime chance to get what we really wanted and he made it happen."</p>
-          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"When the weather didn't cooperate, Marc pulled his sleeves up and said let's do it. He made it happen."</p>
           <div class="review-author">
             <span class="author-name">Rochelle D</span>
-            <span class="author-dj">DJ Marc • Problem Solver</span>
+            <span class="author-divider">•</span>
+            <span class="author-dj">DJ Marc</span>
           </div>
         </div>
 
-        <!-- Review 13 - Haiden W (Marc) -->
         <div class="review-card">
-          <div class="review-content">
-            <p class="review-preview">"COS was slightly over our budget, but we decided to go for it and I'm so glad we did. Worth every penny..."</p>
-            <p class="review-full">"Working with COS Celebrations was a dream!! We booked with DJ Marc and he was incredible. He brought so much life to our wedding day! When we were looking around, COS was slightly over our budget, but we decided to go for it and I'm so glad we did. It was worth every penny!!"</p>
-          </div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"COS was slightly over our budget, but we decided to go for it. Worth every penny!"</p>
           <div class="review-author">
             <span class="author-name">Haiden W</span>
-            <span class="author-dj">DJ Marc • Worth Every Penny</span>
+            <span class="author-divider">•</span>
+            <span class="author-dj">DJ Marc</span>
           </div>
         </div>
 
       </div>
-      <div class="carousel-dots"></div>
+      <div class="carousel-nav">
+        <button class="carousel-arrow" onclick="prevReview()">←</button>
+        <div class="carousel-dots"></div>
+        <button class="carousel-arrow" onclick="nextReview()">→</button>
+      </div>
     </div>
   </section>
 
@@ -1668,10 +1602,23 @@
   <footer>
     <div class="footer-logo">COS Celebrations</div>
     <div class="footer-links">
-      <a href="/services/luxury-weddings/">Weddings</a>
-      <a href="/wedding-dj-pricing/">Pricing</a>
-      <a href="#">Reviews</a>
-      <a href="#">Contact</a>
+      <a href="/services/weddings/">Weddings</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="/contact/">Contact</a>
+    </div>
+    <div class="footer-social">
+      <a href="https://instagram.com/coscelebrations" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://facebook.com/coscelebrations" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+      </a>
+      <a href="https://tiktok.com/@coscelebrations" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+      </a>
+      <a href="https://youtube.com/@coscelebrations" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+      </a>
     </div>
     <p class="footer-copy">© 2025 COS Celebrations. All rights reserved. | St. Augustine, FL</p>
   </footer>
@@ -1720,83 +1667,92 @@
       });
     });
 
-    // Reviews Carousel Auto-scroll
-    document.addEventListener('DOMContentLoaded', function() {
+    // Reviews Carousel
+    let reviewIndex = 0;
+    let reviewTimer;
+
+    function nextReview() {
+      const cards = document.querySelectorAll('.review-card');
+      const dots = document.querySelectorAll('.carousel-dot');
       const track = document.querySelector('.carousel-track');
+
+      cards[reviewIndex].classList.remove('active');
+      dots[reviewIndex].classList.remove('active');
+
+      reviewIndex = (reviewIndex + 1) % cards.length;
+
+      track.style.transform = `translateX(-${reviewIndex * 100}%)`;
+      cards[reviewIndex].classList.add('active');
+      dots[reviewIndex].classList.add('active');
+
+      resetReviewTimer();
+    }
+
+    function prevReview() {
+      const cards = document.querySelectorAll('.review-card');
+      const dots = document.querySelectorAll('.carousel-dot');
+      const track = document.querySelector('.carousel-track');
+
+      cards[reviewIndex].classList.remove('active');
+      dots[reviewIndex].classList.remove('active');
+
+      reviewIndex = (reviewIndex - 1 + cards.length) % cards.length;
+
+      track.style.transform = `translateX(-${reviewIndex * 100}%)`;
+      cards[reviewIndex].classList.add('active');
+      dots[reviewIndex].classList.add('active');
+
+      resetReviewTimer();
+    }
+
+    function goToReview(index) {
+      const cards = document.querySelectorAll('.review-card');
+      const dots = document.querySelectorAll('.carousel-dot');
+      const track = document.querySelector('.carousel-track');
+
+      cards[reviewIndex].classList.remove('active');
+      dots[reviewIndex].classList.remove('active');
+
+      reviewIndex = index;
+
+      track.style.transform = `translateX(-${reviewIndex * 100}%)`;
+      cards[reviewIndex].classList.add('active');
+      dots[reviewIndex].classList.add('active');
+
+      resetReviewTimer();
+    }
+
+    function resetReviewTimer() {
+      clearInterval(reviewTimer);
+      reviewTimer = setInterval(nextReview, 5000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
       const cards = document.querySelectorAll('.review-card');
       const dotsContainer = document.querySelector('.carousel-dots');
-
-      let currentIndex = 0;
-      const totalCards = cards.length;
-      const autoScrollInterval = 5000; // 5 seconds
-      let autoScrollTimer;
+      const track = document.querySelector('.carousel-track');
 
       // Create dots
-      for (let i = 0; i < totalCards; i++) {
+      for (let i = 0; i < cards.length; i++) {
         const dot = document.createElement('button');
         dot.classList.add('carousel-dot');
         dot.setAttribute('aria-label', `Go to review ${i + 1}`);
-        dot.addEventListener('click', () => goToSlide(i));
+        dot.addEventListener('click', () => goToReview(i));
         dotsContainer.appendChild(dot);
       }
 
-      const dots = document.querySelectorAll('.carousel-dot');
-
       // Initialize first slide
-      function init() {
-        cards[0].classList.add('active');
-        dots[0].classList.add('active');
-        startAutoScroll();
-      }
-
-      // Go to specific slide
-      function goToSlide(index) {
-        // Remove active class from all
-        cards.forEach(card => card.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
-
-        // Update current index
-        currentIndex = index;
-
-        // Transform track
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-        // Add active class to current
-        cards[currentIndex].classList.add('active');
-        dots[currentIndex].classList.add('active');
-
-        // Reset auto-scroll timer
-        resetAutoScroll();
-      }
-
-      // Next slide
-      function nextSlide() {
-        const nextIndex = (currentIndex + 1) % totalCards;
-        goToSlide(nextIndex);
-      }
+      cards[0].classList.add('active');
+      document.querySelectorAll('.carousel-dot')[0].classList.add('active');
 
       // Start auto-scroll
-      function startAutoScroll() {
-        autoScrollTimer = setInterval(nextSlide, autoScrollInterval);
-      }
-
-      // Reset auto-scroll
-      function resetAutoScroll() {
-        clearInterval(autoScrollTimer);
-        startAutoScroll();
-      }
+      reviewTimer = setInterval(nextReview, 5000);
 
       // Pause on hover
-      track.addEventListener('mouseenter', () => {
-        clearInterval(autoScrollTimer);
-      });
-
+      track.addEventListener('mouseenter', () => clearInterval(reviewTimer));
       track.addEventListener('mouseleave', () => {
-        startAutoScroll();
+        reviewTimer = setInterval(nextReview, 5000);
       });
-
-      // Initialize carousel
-      init();
     });
   </script>
 
