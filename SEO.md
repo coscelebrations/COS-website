@@ -23,8 +23,9 @@
 | St. Augustine | ✅ Done | ✅ |
 | Ponte Vedra | ✅ Done | ✅ |
 | Amelia Island | ✅ Done | ✅ |
-| Contact | ✅ Done | N/A |
+| Contact | ✅ Done (restyled form) | N/A |
 | Pricing | ✅ Done | N/A |
+| VIP Login | ✅ Done | N/A |
 | Services/Weddings | ✅ Done | N/A |
 | Services/Corporate | ✅ Done | N/A |
 | Services/Private Parties | ✅ Done | N/A |
@@ -43,15 +44,32 @@
 - DJEP form REMOVED from all pages except /contact/ (breaks dropdown nav)
 - Dance floor background image added to Homepage CTA, Contact hero
 
-### Dec 9, 2025 Session
+### Dec 9, 2025 Session (Continued)
+- **VIP Login page created:** `/vip-login/index.html`
+  - Styled DJEP login form (merlot header, soft-pink body)
+  - Added VIP Login to nav on ALL pages
+- **Contact form restyled:**
+  - Replaced JavaScript embed with inline HTML for custom styling
+  - Full venue dropdown (~250 venues) - shows market presence
+  - Deferred DJEP validation script to bottom of page for better mobile performance
+  - Added fallback validation in case external script fails
+- **Key learnings:**
+  - DJEP JavaScript embeds can't be styled (Bootstrap CSS override)
+  - Solution: Use inline HTML form code instead of JS embed
+  - Always defer external scripts when possible
+
+### Dec 9, 2025 Session (Earlier)
 - **Treasury wedding photos added:** 12 photos from Jeanette+Dean wedding (Walls of Jericho Photography)
   - Geo-tagged originals with exiftool (Treasury on the Plaza coordinates)
   - Optimized WebP versions in `/images/treasury-wedding-st-augustine/`
-- **St. Augustine page:** Added Treasury venue photo (grand entrance from vault with monogram)
-- **Homepage:** Added Corey MC photo as underlay on "MCs Who Lead" card
+- **St. Augustine page:** Added Treasury venue photo (grand entrance from vault with monogram), hero background (Bridge of Lions)
+- **Homepage:** Added Corey MC photo as underlay on "MCs Who Lead" card, Corey sax photo on "Musician's Ear" card
 - **Pricing consistency:** Removed specific dollar amounts from add-ons, updated to "Couples typically invest $1,500-$3,000+"
 - **Mobile fix:** Fixed "Start the Conversation" button overlap on homepage
-- **New image:** `corey-peterson-wedding-dj-mc-river-house-st-augustine.webp` (Bow Tie Photography)
+- **New images:**
+  - `corey-peterson-wedding-dj-mc-river-house-st-augustine.webp` (43KB, Bow Tie Photography)
+  - `corey-peterson-saxophone-ceremony-hammock-beach.webp` (70KB, Natalie Jeans Photography)
+  - `bridge-of-lions-wedding-portrait-st-augustine.webp` (68KB, hero background)
 
 ### Priority Next Steps
 1. **Create remaining city pages:** Orlando, Tampa
@@ -100,7 +118,9 @@ img.save('output.webp', 'WEBP', quality=82)
 | corey-peterson-jacksonville-wedding-dj-saxophone.webp | 50KB | Homepage hero |
 | lightner-museum-wedding-dance-floor-st-augustine.webp | 74KB | Homepage CTA, Contact hero |
 | corey-peterson-wedding-dj-mc-river-house-st-augustine.webp | 43KB | Homepage MC card (underlay) |
+| corey-peterson-saxophone-ceremony-hammock-beach.webp | 70KB | Homepage Sax card (underlay) |
 | wedding-grand-entrance-uplighting-treasury.webp | 56KB | St. Augustine page (Treasury venue) |
+| bridge-of-lions-wedding-portrait-st-augustine.webp | 68KB | St. Augustine page (hero background) |
 
 ### Treasury Wedding Photo Library (Staged)
 Location: `/images/treasury-wedding-st-augustine/`
