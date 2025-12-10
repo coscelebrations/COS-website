@@ -1,0 +1,8 @@
+# 301 Redirects from old WordPress URLs to new static site
+/contacts/ /contact/ 301
+/wedding-dj-pricing/ /pricing/ 301
+/services/luxury-weddings/ /services/weddings/ 301
+/services/corporate-events-private-party/ /services/corporate/ 301
+/services/additional-add-ons/ /services/weddings/ 301
+/our-team/ / 301
+/category/blog/ / 301
