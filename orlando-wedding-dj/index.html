@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jacksonville Wedding DJ + Live Musicians | COS Celebrations</title>
-  <meta name="description" content="Premier Jacksonville wedding DJ with live musicians. 500+ five-star reviews. Performed at Timuquana Country Club, Epping Forest, Casa Marina. Starting at $1,500.">
+  <title>Orlando Wedding DJ + Live Musicians | COS Celebrations</title>
+  <meta name="description" content="Premier Orlando wedding DJ with live saxophone. 500+ five-star reviews. Performed at Bella Collina, Country Club of Orlando, Paradise Cove. Starting at $1,500.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
   <style>
     :root {
       --soft-pink: #F8F0F0;
@@ -32,7 +33,7 @@
     }
 
     body {
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-weight: 300;
       color: var(--charcoal);
       background: var(--cream);
@@ -41,7 +42,7 @@
     }
 
     h1, h2, h3 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
       font-weight: 400;
       letter-spacing: 0.02em;
     }
@@ -71,27 +72,6 @@
       border-bottom: 1px solid var(--blush);
     }
 
-    .logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: var(--merlot);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-    }
-
-    .logo span {
-      font-weight: 400;
-      color: var(--text-soft);
-      font-size: 0.9rem;
-      display: block;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.6rem;
-      margin-top: 2px;
-    }
-
     .logo-img {
       height: 60px;
       width: auto;
@@ -103,7 +83,7 @@
       list-style: none;
     }
 
-    .nav-links a {
+    .nav-links a, .nav-links span {
       font-size: 0.8rem;
       font-weight: 400;
       letter-spacing: 0.1em;
@@ -321,7 +301,7 @@
 
     .intro-text strong {
       color: var(--charcoal);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     h2 {
@@ -513,7 +493,6 @@
       color: white;
     }
 
-    
     .footer-social {
       display: flex;
       justify-content: center;
@@ -578,6 +557,31 @@
         text-align: center;
       }
 
+      .dropdown-menu {
+        position: static;
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+        overflow: hidden;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background: var(--soft-pink);
+        transition: all 0.3s ease;
+      }
+
+      .dropdown:hover .dropdown-menu {
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+      }
+
+      .dropdown.open .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        max-height: 200px;
+      }
+
       .hero {
         padding: 7rem 1.5rem 3rem;
       }
@@ -623,85 +627,90 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
-      <p class="eyebrow">Jacksonville's Premier Wedding Entertainment</p>
-      <h1>Jacksonville Wedding DJ<br><em>+ Live Musicians</em></h1>
+      <p class="eyebrow">Orlando's Premier Wedding Entertainment</p>
+      <h1>Orlando Wedding DJ<br><em>+ Live Musicians</em></h1>
     </div>
   </section>
 
   <!-- Main Content -->
   <section class="content-section">
     <div class="intro-text">
-      <p>Looking for a <strong>Jacksonville wedding DJ</strong> who brings more than just a playlist? COS Celebrations pioneered the DJ + live musician model in North Florida — and we've been making Jacksonville weddings unforgettable ever since. With over 500 five-star reviews and performances at Jacksonville's most prestigious venues, we deliver the energy of a live concert combined with the precision of a professional DJ. Our founder has toured 35+ countries and shared the stage with artists like Usher, Alicia Keys, and Big Gigantic before bringing that world-class experience home to Jacksonville. Whether you're planning an elegant ballroom reception at Timuquana Country Club, a waterfront celebration at Epping Forest Yacht Club, or an intimate gathering at Casa Marina, we bring the same level of expertise and enthusiasm to every wedding. Starting at just $1,500, we make luxury entertainment accessible without compromising on quality. We're not here to make your wedding about us — we're here to make your celebration exactly what you envisioned, with the added magic of live saxophone weaving through your favorite songs. That's the COS difference, and that's why couples across Jacksonville keep choosing us for their most important day.</p>
+      <p>Looking for an <strong>Orlando wedding DJ</strong> who brings more than just a playlist? COS Celebrations brings the DJ + live musician experience that's made us North Florida's most sought-after wedding entertainment company — now serving Orlando and Central Florida. With over <strong>500 five-star reviews</strong> and performances at Orlando's most stunning venues, we deliver the energy of a live concert combined with the precision of a professional DJ. Our founder has toured <strong>35+ countries</strong> and shared the stage with artists like <strong>Usher, Alicia Keys</strong>, and Big Gigantic before bringing that world-class experience to your Orlando wedding. Whether you're planning an elegant celebration at Bella Collina, a lakeside reception at Paradise Cove, or a modern affair at Lake Nona Wave Hotel, we bring the same level of expertise and passion to every event. Starting at just $1,500, we make luxury entertainment accessible without compromising on quality.</p>
     </div>
 
-    <h2>Why Jacksonville Couples Choose COS Celebrations</h2>
+    <h2>Why Orlando Couples Choose COS</h2>
 
     <div class="features-grid">
       <div class="feature-card">
-        <h3>World-Class Experience</h3>
-        <p>Our founder performed with major artists across 35+ countries. That touring experience translates into flawless execution and unforgettable moments at your Jacksonville wedding.</p>
+        <h3>World-Class Musicians</h3>
+        <p>Our founder performed with major artists across 35+ countries. That touring experience translates into flawless execution and unforgettable moments at your Orlando wedding.</p>
       </div>
 
       <div class="feature-card">
-        <h3>DJ + Live Musicians</h3>
-        <p>We pioneered the DJ + live saxophone model in the Southeast. Imagine your first dance with live sax — something speakers simply can't replicate.</p>
+        <h3>DJ + Live Saxophone</h3>
+        <p>We pioneered the DJ + live saxophone model in Florida. Imagine your first dance with live sax weaving through the music — something speakers simply can't replicate.</p>
       </div>
 
       <div class="feature-card">
-        <h3>Your Event, Your Way</h3>
-        <p>No ego. No spotlight-stealing. Our "It's not about us, it's YOUR event" philosophy means every decision centers on your vision.</p>
+        <h3>It's Your Day, Not Ours</h3>
+        <p>No ego. No spotlight-stealing. No cheesy DJ antics. Our philosophy means every decision centers on your vision — we're here to elevate, not dominate.</p>
       </div>
 
       <div class="feature-card">
         <h3>500+ Five-Star Reviews</h3>
-        <p>Jacksonville couples consistently praise our professionalism, music selection, and ability to keep dance floors packed all night long.</p>
+        <p>Couples consistently praise our professionalism, music selection, and ability to keep dance floors packed from the first song to the last.</p>
       </div>
 
       <div class="feature-card">
-        <h3>Preferred Vendor Status</h3>
-        <p>We're preferred or recommended at Jacksonville's top venues because planners and coordinators trust us to deliver excellence every time.</p>
+        <h3>Reads the Room</h3>
+        <p>A musician's ear means we know when to build energy and when to pull back. We adjust in real-time based on what your guests actually want.</p>
       </div>
 
       <div class="feature-card">
         <h3>Transparent Pricing</h3>
-        <p>No hidden fees, no bait-and-switch. Jacksonville weddings start at $1,500 with clear, straightforward pricing you can plan around.</p>
+        <p>No hidden fees, no bait-and-switch. Orlando weddings start at $1,500 with clear, straightforward pricing you can plan around.</p>
       </div>
     </div>
 
-    <h2>Jacksonville Wedding Venues We Love</h2>
+    <h2>Orlando Wedding Venues We Love</h2>
 
-    <p>We've performed at Jacksonville's finest wedding venues and know exactly how to make each space shine:</p>
+    <p>We've performed at Orlando's finest wedding venues and know exactly how to make each space shine:</p>
 
     <div class="venues-list">
       <div class="venue-item">
-        <h3>Timuquana Country Club</h3>
-        <p>One of Jacksonville's most elegant country club venues. We're a preferred vendor here and have created countless memorable celebrations in their stunning ballroom.</p>
+        <h3>Bella Collina</h3>
+        <p>Tuscan-inspired luxury in the rolling hills of Montverde. The dramatic architecture and lakeside setting create the perfect backdrop for our DJ + live musician experience.</p>
       </div>
 
       <div class="venue-item">
-        <h3>Epping Forest Yacht Club</h3>
-        <p>Waterfront elegance meets Jacksonville charm. The yacht club's breathtaking river views provide the perfect backdrop for our DJ + saxophone combination.</p>
+        <h3>Country Club of Orlando</h3>
+        <p>Classic elegance in the heart of Orlando. The timeless ballroom and manicured grounds pair beautifully with sophisticated entertainment.</p>
       </div>
 
       <div class="venue-item">
-        <h3>Casa Marina Hotel</h3>
-        <p>Historic Jacksonville Beach venue with incredible ocean proximity. We've kept countless dance floors packed here with both classic and contemporary hits.</p>
+        <h3>Paradise Cove</h3>
+        <p>Lakefront charm with stunning sunset views. The outdoor pavilion and water views make this venue magic — especially with live saxophone during golden hour.</p>
       </div>
 
       <div class="venue-item">
-        <h3>The Treasury on the Plaza</h3>
-        <p>Though located in St. Augustine, many Jacksonville couples choose this stunning 1927 bank building for its iconic architecture and downtown location.</p>
+        <h3>Cypress Grove Estate House</h3>
+        <p>Historic Orlando estate with Spanish moss and natural beauty. The intimate atmosphere is perfect for couples who want elegance without pretense.</p>
       </div>
 
       <div class="venue-item">
-        <h3>And Many More</h3>
-        <p>From private estates to hotel ballrooms, we've performed at virtually every wedding venue in the Jacksonville area and bring venue-specific expertise to each event.</p>
+        <h3>Bella Cosa</h3>
+        <p>Modern luxury meets Orlando charm. The sleek indoor spaces and outdoor areas give couples flexibility — and we know how to work both seamlessly.</p>
+      </div>
+
+      <div class="venue-item">
+        <h3>Lake Nona Wave Hotel</h3>
+        <p>Contemporary sophistication in one of Orlando's most exciting neighborhoods. The modern aesthetic pairs perfectly with our premium entertainment approach.</p>
       </div>
     </div>
 
-    <h2>Wedding DJ Services in Jacksonville</h2>
+    <h2>Wedding DJ Services in Orlando</h2>
 
-    <p>Every Jacksonville wedding is unique, which is why we offer flexible packages that fit your vision and budget:</p>
+    <p>Every Orlando wedding is unique, which is why we offer flexible packages that fit your vision and budget:</p>
 
     <div class="features-grid" style="margin-top: 2rem;">
       <div class="feature-card">
@@ -711,7 +720,7 @@
 
       <div class="feature-card">
         <h3>Live Saxophone</h3>
-        <p>Our signature service — live sax performance during key moments like your first dance, grand entrance, or peak dance floor times. Adds $500 to any package.</p>
+        <p>Our signature service — live sax performance during key moments like your first dance, grand entrance, or peak dance floor times.</p>
       </div>
 
       <div class="feature-card">
@@ -726,12 +735,12 @@
 
       <div class="feature-card">
         <h3>Lighting & Effects</h3>
-        <p>From elegant uplighting to dramatic cold sparks, we offer add-ons that transform any Jacksonville venue into your dream celebration space.</p>
+        <p>From elegant uplighting to dramatic cold sparks, we offer add-ons that transform any Orlando venue into your dream celebration space.</p>
       </div>
 
       <div class="feature-card">
-        <h3>COS Music + Timeline App</h3>
-        <p>Our exclusive planning platform makes wedding planning effortless. Build your timeline, select songs, and communicate everything in one place.</p>
+        <h3>COS Planning App</h3>
+        <p>Our exclusive planning platform makes wedding planning effortless. Build your timeline, select songs, and communicate with your DJ — all in one place.</p>
       </div>
     </div>
   </section>
@@ -740,44 +749,43 @@
   <section class="content-section alt-bg">
     <div class="pricing-highlight">
       <p class="eyebrow" style="color: var(--rose);">Investment</p>
-      <h2>Jacksonville Wedding DJ Pricing</h2>
-      <p>Jacksonville weddings start at just $1,500 for 4 hours of professional DJ/MC services. Most couples choose our Complete Wedding package at $1,900, which includes 5 hours and ceremony coverage.</p>
+      <h2>Orlando Wedding DJ Pricing</h2>
+      <p>Most Orlando couples invest $1,500 – $3,000 depending on hours of coverage and add-ons. Every quote is customized to your venue and vision.</p>
       <div class="price-display">Starting at $1,500</div>
-      <a href="/#pricing" class="btn btn-primary" style="background: white; color: var(--merlot);">View All Packages</a>
+      <a href="/contact/" class="btn btn-primary" style="background: white; color: var(--merlot);">Get Your Custom Quote</a>
     </div>
 
-    <h2>What Makes Jacksonville Wedding DJ Pricing Fair</h2>
+    <h2>What's Included</h2>
 
-    <p>We believe in transparent pricing because you deserve to plan with confidence. Here's what's included in every Jacksonville wedding package:</p>
+    <p>Every Orlando wedding package includes:</p>
 
     <ul style="margin: 2rem 0; line-height: 2; color: var(--text-soft);">
-      <li><strong>No Travel Fees:</strong> Jacksonville is part of our primary service area — you never pay extra for us to come to you</li>
-      <li><strong>Professional Equipment:</strong> Premium sound system, wireless microphones, backup equipment — all included</li>
-      <li><strong>Experienced Entertainers:</strong> Our DJs aren't just button-pushers — they're trained musicians and performers</li>
-      <li><strong>Planning Tools:</strong> Access to our online portal for timeline building and music selection</li>
-      <li><strong>Venue Coordination:</strong> We proactively reach out to your venue and coordinator to ensure flawless execution</li>
+      <li><strong>Professional DJ and MC services</strong> — experienced entertainers, not button-pushers</li>
+      <li><strong>Premium sound system</strong> — sized appropriately for your venue and guest count</li>
+      <li><strong>Wireless microphones</strong> — for toasts, announcements, and officiant</li>
+      <li><strong>COS Music + Timeline App</strong> — plan your music and schedule in one place</li>
+      <li><strong>Pre-wedding consultations</strong> — we get to know you before the big day</li>
+      <li><strong>Venue coordination</strong> — we communicate directly with your venue and planner</li>
     </ul>
 
-    <h2>Add-Ons That Elevate Jacksonville Weddings</h2>
-
-    <p>Want to take your celebration to the next level? Popular add-ons include:</p>
+    <h2>Popular Add-Ons for Orlando Weddings</h2>
 
     <div class="features-grid" style="margin-top: 2rem;">
       <div class="feature-card">
-        <h3>Live Saxophone - $500</h3>
-        <p>Our most popular add-on. Live performance during first dance, peak dance times, or ceremony.</p>
+        <h3>Live Saxophone</h3>
+        <p>Our most requested add-on. Live performance during ceremony, cocktail hour, first dance, or reception.</p>
       </div>
       <div class="feature-card">
-        <h3>Uplighting - $500</h3>
-        <p>Transform any venue with intelligent LED uplighting that matches your wedding colors perfectly.</p>
+        <h3>Uplighting</h3>
+        <p>Transform any venue with intelligent LED uplighting that matches your wedding colors.</p>
       </div>
       <div class="feature-card">
-        <h3>Cold Sparks - $500+</h3>
-        <p>Safe indoor pyrotechnics for your first dance or grand exit. Creates stunning photo opportunities.</p>
+        <h3>Cold Sparks</h3>
+        <p>Safe indoor pyrotechnics for dramatic first dance or grand exit moments. Stunning on camera.</p>
       </div>
       <div class="feature-card">
-        <h3>Photo Booth - $500</h3>
-        <p>Keep guests entertained with unlimited prints and digital sharing options.</p>
+        <h3>Dancing on Clouds</h3>
+        <p>Low-lying fog effect for a dreamy, romantic first dance. Photographs beautifully.</p>
       </div>
     </div>
   </section>
@@ -785,46 +793,39 @@
   <!-- Service Area -->
   <section class="content-section">
     <div class="areas-served">
-      <h3>Serving All of Jacksonville & Beyond</h3>
-      <p>Based in St. Augustine, we serve Jacksonville and the surrounding areas with no travel fees. We're just as comfortable at a downtown Jacksonville hotel as we are at a beach venue in Jacksonville Beach or Atlantic Beach.</p>
+      <h3>Serving Orlando & Central Florida</h3>
+      <p>Based in St. Augustine, we travel throughout Central Florida for weddings. Orlando, Winter Park, Lake Nona, Windermere, Celebration — wherever your venue, we'll be there.</p>
       <p><strong>Also Serving:</strong></p>
       <div class="city-links">
+        <a href="/jacksonville-wedding-dj/">Jacksonville</a>
         <a href="/st-augustine-wedding-dj/">St. Augustine</a>
+        <a href="/tampa-wedding-dj/">Tampa</a>
         <a href="/ponte-vedra-wedding-dj/">Ponte Vedra</a>
         <a href="/amelia-island-wedding-dj/">Amelia Island</a>
-        <a href="/orlando-wedding-dj/">Orlando</a>
-        <a href="/tampa-wedding-dj/">Tampa</a>
       </div>
     </div>
-
-    <h2>What Jacksonville Couples Are Saying</h2>
-
-    <p style="color: var(--text-soft); font-size: 1.05rem; line-height: 1.8; margin: 2rem 0;">Don't just take our word for it — Jacksonville couples consistently praise our professionalism, energy, and ability to read the room. From Casa Marina to Timuquana Country Club, we've kept dance floors packed and created moments couples remember for a lifetime. Check out our 500+ five-star reviews on Wedding Wire, The Knot, and Google to see why we're Jacksonville's top-rated wedding DJ company.</p>
 
     <h2>Frequently Asked Questions</h2>
 
     <div style="margin: 2rem 0;">
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How far in advance should we book?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Jacksonville couples typically book 12-18 months in advance, especially for peak wedding season (April-June, October-November). However, we occasionally have availability for shorter timelines — reach out to check your date.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you charge travel fees for Orlando weddings?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">We include travel in your custom quote based on your specific venue location. Most Orlando venues fall within our standard service area.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you charge travel fees for Jacksonville weddings?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">No — Jacksonville is part of our primary service area. You'll never pay a travel fee for any venue in Jacksonville, Jacksonville Beach, or the surrounding areas.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How far in advance should we book?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Orlando couples typically book 12-18 months in advance, especially for peak season (spring and fall). However, we occasionally have availability for shorter timelines — reach out to check your date.</p>
 
       <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Can we meet our DJ before the wedding?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Absolutely. We schedule planning calls to discuss your vision, music preferences, and timeline. Many Jacksonville couples also appreciate our COS Music + Timeline App where you can communicate directly with your DJ.</p>
+      <p style="color: var(--text-soft); line-height: 1.8;">Absolutely. We schedule video calls to discuss your vision, music preferences, and timeline. You'll also have direct communication through our planning app.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">What if we want live saxophone but have a tight budget?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Our Essential package at $1,500 gives you professional DJ services, then you can add live sax for $500 — total investment of $2,000, which is still incredibly competitive for Jacksonville wedding entertainment.</p>
-
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you only play requests?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">We blend your must-play songs with our expertise in reading the room. You control the vibe, we handle the execution — that balance is why Jacksonville couples trust us to keep dance floors full.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">What makes COS different from other Orlando wedding DJs?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">A lot of companies say they do what we do. A little research will show you the difference — world-class musicians, 500+ five-star reviews, and an approach that puts your wedding first. We encourage you to compare.</p>
     </div>
   </section>
 
   <!-- Final CTA -->
   <section class="final-cta" id="contact">
     <p class="eyebrow">Ready to Start Planning?</p>
-    <h2>Check Availability for Your Jacksonville Wedding</h2>
+    <h2>Check Availability for Your Orlando Wedding</h2>
     <p>Let's create something unforgettable together. Reach out today to check availability and receive a custom quote for your celebration.</p>
     <a href="/contact/" class="btn btn-primary">Request Information</a>
     <p style="margin-top: 1.5rem; font-size: 0.95rem;">Or call us directly: <a href="tel:904-615-7132" style="color: var(--merlot); text-decoration: none; font-weight: 500;">(904) 615-7132</a></p>
@@ -834,12 +835,9 @@
   <footer>
     <div class="footer-logo">COS Celebrations</div>
     <div class="footer-links">
-      <a href="/services/luxury-weddings/">Weddings</a>
-      <a href="/#pricing">Pricing</a>
-      <a href="/jacksonville-wedding-dj/">Jacksonville</a>
-      <a href="/st-augustine-wedding-dj/">St. Augustine</a>
-      <a href="/ponte-vedra-wedding-dj/">Ponte Vedra</a>
-      <a href="/amelia-island-wedding-dj/">Amelia Island</a>
+      <a href="/services/weddings/">Weddings</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="/contact/">Contact</a>
     </div>
     <div class="footer-social">
       <a href="https://instagram.com/coscelebrations" target="_blank" rel="noopener" aria-label="Instagram">
@@ -865,11 +863,23 @@
       document.querySelector('.nav-links').classList.toggle('active');
     }
 
+    // Mobile dropdown toggle
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+
+    dropdownToggle.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        dropdown.classList.toggle('open');
+      }
+    });
+
     // Close menu when clicking a link
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('click', () => {
         document.querySelector('.hamburger').classList.remove('active');
         document.querySelector('.nav-links').classList.remove('active');
+        dropdown.classList.remove('open');
       });
     });
   </script>
