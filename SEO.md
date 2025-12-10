@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 9, 2025
+## Last Updated: December 10, 2025
 
 ---
 
@@ -9,28 +9,50 @@
 
 ## 🚀 CURRENT STATE & NEXT STEPS
 
-### Where We Left Off (Dec 9, 2025)
+### Where We Left Off (Dec 10, 2025)
 - Working on **COS static site** (Netlify) - NOT the WordPress site
 - All work happens in `/Users/coreypeterson/cos-website/`
 - Preview at: https://cool-jelly-73d5c0.netlify.app/
 - Local dev server: `python3 -m http.server 8000` then visit http://localhost:8000
 
+### ⚠️ DOMAIN CONNECTION - IN PROGRESS
+**Status:** Site is ready, Netlify has a bug preventing domain add via UI.
+
+**To complete the launch:**
+1. In GoDaddy: Change nameservers back to GoDaddy defaults
+2. Wait 5-10 min for nameserver change to propagate
+3. In GoDaddy DNS, update:
+   - **A record** `@` → `75.2.60.5`
+   - **CNAME** `www` → `cool-jelly-73d5c0.netlify.app`
+4. Once DNS points to Netlify, try adding domain in Netlify UI again
+5. If still blocked, site should work anyway - Netlify will auto-provision SSL
+
+**Also:** Remove the test line from `/etc/hosts` before going live:
+```
+sudo nano /etc/hosts
+# Delete the line: 75.2.60.5 coscelebrations.com
+```
+
+**After launch:**
+- Submit sitemap to Google Search Console: https://coscelebrations.com/sitemap.xml
+- Verify 301 redirects are working (old WordPress URLs → new pages)
+
 ### COS Static Site Status
-| Page | Status | Cross-Links |
-|------|--------|-------------|
-| Homepage | ✅ Done | N/A |
-| Jacksonville | ✅ Done | ✅ |
-| St. Augustine | ✅ Done | ✅ |
-| Ponte Vedra | ✅ Done | ✅ |
-| Amelia Island | ✅ Done | ✅ |
-| Contact | ✅ Done (restyled form) | N/A |
-| Pricing | ✅ Done | N/A |
-| VIP Login | ✅ Done | N/A |
-| Services/Weddings | ✅ Done | N/A |
-| Services/Corporate | ✅ Done | N/A |
-| Services/Private Parties | ✅ Done | N/A |
-| Orlando | ❌ Not created | - |
-| Tampa | ❌ Not created | - |
+| Page | Status | Cross-Links | Social Links |
+|------|--------|-------------|--------------|
+| Homepage | ✅ Done | N/A | ✅ |
+| Jacksonville | ✅ Done | ✅ | ✅ |
+| St. Augustine | ✅ Done | ✅ | ✅ |
+| Ponte Vedra | ✅ Done | ✅ | ✅ |
+| Amelia Island | ✅ Done | ✅ | ✅ |
+| Orlando | ✅ Done | ✅ | ✅ |
+| Tampa | ✅ Done | ✅ | ✅ |
+| Contact | ✅ Done | N/A | ✅ |
+| Pricing | ✅ Done | N/A | ✅ |
+| VIP Login | ✅ Done | N/A | ✅ |
+| Services/Weddings | ✅ Done | N/A | ✅ |
+| Services/Corporate | ✅ Done | N/A | ✅ |
+| Services/Private Parties | ✅ Done | N/A | ✅ |
 
 ### Recent Wins
 - Awards section added to homepage (8 awards with elegant badge styling)
@@ -40,9 +62,45 @@
 - Floating CTA button added (appears after scrolling past hero)
 - New logo (webp, 14KB) on all pages
 - Mobile hamburger menu on all pages
-- PageSpeed: 90s mobile, 99 desktop, 99 accessibility
+- PageSpeed: 91 mobile, 99 desktop after optimizations
 - DJEP form REMOVED from all pages except /contact/ (breaks dropdown nav)
 - Dance floor background image added to Homepage CTA, Contact hero
+
+### Dec 10, 2025 Session
+- **Orlando city page created:** `/orlando-wedding-dj/index.html`
+  - Venues: Bella Collina, Country Club of Orlando, Paradise Cove, Cypress Grove Estate House, Bella Cosa, Lake Nona Wave Hotel
+- **Tampa city page created:** `/tampa-wedding-dj/index.html`
+  - Venues: The Orlo House, Armature Works, The Estate, Don CeSar, The Ringling Ca' d'Zan
+- **Social links added to ALL pages** (footer: IG/FB/TikTok/YouTube)
+- **SEO files created:**
+  - `sitemap.xml` - all 13 pages with priority levels
+  - `robots.txt` - allows all, points to sitemap
+  - `_redirects` - 301 redirects from old WordPress URLs
+- **301 Redirects configured:**
+  - /contacts/ → /contact/
+  - /wedding-dj-pricing/ → /pricing/
+  - /services/luxury-weddings/ → /services/weddings/
+  - /services/corporate-events-private-party/ → /services/corporate/
+  - /services/additional-add-ons/ → /services/weddings/
+  - /our-team/ → /
+  - /category/blog/ → /
+- **Performance optimizations:**
+  - Google Fonts load async (media="print" trick)
+  - System font fallbacks for instant text display
+  - Hero background compressed 191KB → 43KB (77% reduction)
+  - CTA background compressed 74KB → 54KB
+  - `fetchpriority="high"` on critical image preloads
+  - Mobile PageSpeed improved to 91 (green)
+- **Homepage improvements:**
+  - Bold "scan points" added to hero paragraph for skimmers
+  - `.hero-subtitle strong` styled with font-weight: 600 + charcoal color
+- **Weddings page:**
+  - New Fountain of Youth cold sparks photo added
+  - Pricing section rewritten (cleaner, less salesy)
+- **New images added:** 14 Fountain of Youth wedding photos (Yasmine + Sergio)
+  - Photographer: Tyler Gets Weird
+  - All geotagged to Fountain of Youth, St. Augustine
+  - Optimized: ~53MB → ~835KB total
 
 ### Dec 9, 2025 Session (Continued)
 - **VIP Login page created:** `/vip-login/index.html`
@@ -93,11 +151,12 @@
   - `bridge-of-lions-wedding-portrait-st-augustine.webp` (68KB, hero background)
 
 ### Priority Next Steps
-1. **Create remaining city pages:** Orlando, Tampa
-2. **Build page generator script** (questionnaire → auto-generates HTML)
-3. **Create venue pages:** River House, Timuquana, Epping Forest, etc.
-4. **When ready:** Connect coscelebrations.com domain to Netlify + 301 redirects
+1. **LAUNCH:** Connect coscelebrations.com domain (see instructions above)
+2. **Submit sitemap** to Google Search Console after launch
+3. **Build page generator script** (questionnaire → auto-generates HTML)
+4. **Create venue pages:** River House, Timuquana, Epping Forest, etc.
 5. **Favicons** for both COS and AE sites
+6. **Final performance pass** (self-host fonts, critical CSS) if needed
 
 ### Key Rules to Remember
 - DJEP forms ONLY on /contact/ page (kills PageSpeed elsewhere)
