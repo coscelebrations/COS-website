@@ -47,6 +47,9 @@
 | Services/Weddings | ✅ Done | N/A | ✅ |
 | Services/Corporate | ✅ Done | N/A | ✅ |
 | Services/Private Parties | ✅ Done | N/A | ✅ |
+| Treasury on the Plaza | ✅ Done | ✅ | ✅ |
+| Lightner Museum | ✅ Done | ✅ | ✅ |
+| Epping Forest Yacht Club | ✅ Done | ✅ | ✅ |
 
 ### Recent Wins
 - Awards section added to homepage (8 awards with elegant badge styling)
@@ -60,10 +63,22 @@
 - DJEP form REMOVED from all pages except /contact/ (breaks dropdown nav)
 - Dance floor background image added to Homepage CTA, Contact hero
 
+### Dec 11, 2025 Session (Evening)
+- **Epping Forest Yacht Club venue page created:** `/epping-forest-yacht-club-wedding-dj/`
+  - 7 photos from Liz & Joel wedding (She Exposure)
+  - Featured venue card with photo added to Jacksonville page
+  - EXIF credits + visible credit on page
+- **Weddings page add-on cards redesigned:**
+  - Removed bullet lists, now compact title + one-liner format
+  - 3x3 grid layout
+  - Split musicians into Ceremony/Cocktail (piano, violin, harp) and Reception (sax, drums, trumpet, full fusion)
+  - Removed Photography (will feature elsewhere later)
+- **Removed duplicate "View venue page" links** from all venue cards (cleaner, better SEO - no duplicate anchor text)
+
 ### Dec 11, 2025 Session (Continued - Afternoon)
 - **"Enhance Your Celebration" cards fixed:** Merged "Special Effects" + "Custom Touches" into one card. Now 6 cards (3+3 even layout)
 - **Internal links made invisible:** All city cross-links and internal page links now styled as regular text (no merlot color, no underlines, no hover effects). SEO value preserved, but competitors can't see linking strategy at a glance.
-  - Updated: Homepage, all 6 city pages, Lightner, Treasury
+  - Updated: Homepage, all 6 city pages, Lightner, Treasury, Epping Forest
 - **Lightner photo credits added:**
   - Photographer: The Locke Agency (Lizzy & Hunter wedding)
   - EXIF data updated on all 12 photos
