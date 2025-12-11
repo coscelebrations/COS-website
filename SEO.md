@@ -86,6 +86,11 @@
 - Get photographer credit for Lightner Museum photos (Lizzy & Hunter wedding)
 - Fix "Enhance Your Celebration" cards layout (7 cards = uneven)
 - Consider better favicon with saxophone graphic
+- **SEO improvements (page quality at 90%):**
+  - Fix duplicate anchor text (multiple links with same text)
+  - Add schema markup (LocalBusiness, Service, Reviews JSON-LD)
+  - Review heading structure (H2/H3 hierarchy)
+  - Check alt text on all images
 
 ### Dec 10, 2025 Session
 - **Orlando city page created:** `/orlando-wedding-dj/index.html`
