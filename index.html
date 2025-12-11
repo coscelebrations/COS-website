@@ -59,10 +59,71 @@
       color: var(--merlot);
     }
 
+    /* Christmas Lights */
+    .christmas-lights {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      z-index: 101;
+      pointer-events: none;
+    }
+
+    .string-lights {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+    }
+
+    .string-lights::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--charcoal);
+    }
+
+    .bulb {
+      width: 12px;
+      height: 18px;
+      border-radius: 50%;
+      position: relative;
+      animation: glow-lights 1.5s ease-in-out infinite alternate;
+    }
+
+    .bulb::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 10px;
+      background: var(--charcoal);
+    }
+
+    .bulb:nth-child(4n+1) { background: var(--merlot); box-shadow: 0 0 10px var(--merlot), 0 0 20px var(--merlot); animation-delay: 0s; }
+    .bulb:nth-child(4n+2) { background: var(--rose); box-shadow: 0 0 10px var(--rose), 0 0 20px var(--rose); animation-delay: 0.3s; }
+    .bulb:nth-child(4n+3) { background: var(--gold-accent); box-shadow: 0 0 10px var(--gold-accent), 0 0 20px var(--gold-accent); animation-delay: 0.6s; }
+    .bulb:nth-child(4n+4) { background: var(--blush); box-shadow: 0 0 10px var(--blush), 0 0 20px var(--blush); animation-delay: 0.9s; }
+
+    @keyframes glow-lights {
+      0% { opacity: 0.6; filter: brightness(0.8); }
+      100% { opacity: 1; filter: brightness(1.2); }
+    }
+
     /* Navigation */
     nav {
       position: fixed;
-      top: 0;
+      top: 50px;
       left: 0;
       right: 0;
       z-index: 100;
@@ -1273,7 +1334,6 @@
           <a href="/services/private-parties/">Private Parties</a>
         </div>
       </li>
-      <li><a href="#about">About</a></li>
       <li><a href="/pricing/">Pricing</a></li>
       <li><a href="/vip-login/">VIP Login</a></li>
       <li><a href="/contact/" class="nav-cta">Contact</a></li>
@@ -1285,12 +1345,43 @@
     </div>
   </nav>
 
+  <!-- Christmas Lights -->
+  <div class="christmas-lights">
+    <div class="string-lights">
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+      <div class="bulb"></div>
+    </div>
+  </div>
+
   <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
       <p class="eyebrow">Your Wedding Soundtrack, Performed Live</p>
       <h1>North + Central Florida<br><em>Wedding DJ + Live Musicians</em></h1>
-      <p class="hero-subtitle">Most DJs learned on controllers. Our founder started on <strong>piano at age 4</strong> and picked up saxophone shortly after — then took that sax on tour across <strong>35+ countries</strong>, sharing the stage with artists like <strong>Usher, Alicia Keys</strong>, Big Gigantic, and Vulfpeck. Performing at <strong>Grammy parties</strong> and being backstage with world-class hosts taught him what great MC work actually sounds like — confident, smooth, never cheesy. That musician's ear and MC experience means better song selection, smoother transitions, and someone who actually <strong>reads the room</strong> — not just a playlist. Want live <strong>saxophone</strong> or <strong>piano</strong> during your reception? We're one of the only wedding DJ companies that performs it ourselves.</p>
+      <p class="hero-subtitle">Most DJs learned on controllers. Our founder started on <strong>piano at age 4</strong> and picked up saxophone shortly after — then took that sax on tour across <strong>35+ countries</strong>, sharing the stage with artists like <strong>Usher, Alicia Keys</strong>, Big Gigantic, and Vulfpeck. Performing at <strong>The Grammys and Grammy after-parties</strong> and being backstage with world-class hosts taught him what great MC work actually sounds like — confident, smooth, never cheesy. That musician's ear and MC experience means better song selection, smoother transitions, and someone who actually <strong>reads the room</strong> — not just a playlist. Want live <strong>saxophone</strong> or <strong>piano</strong> during your reception? We're one of the only wedding DJ companies that performs it ourselves.</p>
       <div class="hero-cta">
         <a href="#contact" class="btn btn-primary">Check Availability</a>
         <a href="#services" class="btn btn-secondary">See Packages</a>
@@ -1301,6 +1392,28 @@
       </a>
     </div>
   </section>
+
+  <!-- Trust Bar -->
+  <div class="trust-bar">
+    <div class="trust-content">
+      <div class="trust-item">
+        <span class="trust-number">500+</span>
+        <span class="trust-label">Five-Star Reviews</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-number">35+</span>
+        <span class="trust-label">Countries Toured</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-number">50+</span>
+        <span class="trust-label">Preferred Venues</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-number">2,000+</span>
+        <span class="trust-label">Events Performed</span>
+      </div>
+    </div>
+  </div>
 
   <!-- What Sets Us Apart -->
   <section class="sets-apart">
@@ -1325,28 +1438,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Trust Bar -->
-  <div class="trust-bar">
-    <div class="trust-content">
-      <div class="trust-item">
-        <span class="trust-number">500+</span>
-        <span class="trust-label">Five-Star Reviews</span>
-      </div>
-      <div class="trust-item">
-        <span class="trust-number">35+</span>
-        <span class="trust-label">Countries Toured</span>
-      </div>
-      <div class="trust-item">
-        <span class="trust-number">50+</span>
-        <span class="trust-label">Preferred Venues</span>
-      </div>
-      <div class="trust-item">
-        <span class="trust-number">$1,500</span>
-        <span class="trust-label">Starting Price</span>
-      </div>
-    </div>
-  </div>
 
   <!-- Awards Section -->
   <section class="awards">

@@ -60,6 +60,29 @@
 - DJEP form REMOVED from all pages except /contact/ (breaks dropdown nav)
 - Dance floor background image added to Homepage CTA, Contact hero
 
+### Dec 11, 2025 Session
+- **Treasury on the Plaza venue page created:** `/venues/treasury-on-the-plaza/index.html`
+  - Links from St. Augustine page (venue card only - single link for SEO best practice)
+  - Links from Jacksonville page
+- **Lightner Museum venue page created:** `/lightner-museum-wedding-dj/index.html`
+  - URL matches old WordPress URL for SEO continuity
+  - 12 photos optimized (Lizzy & Hunter wedding)
+  - **TODO: Get photographer credit for Lightner Museum photos**
+  - Added photo + link from St. Augustine page venue card
+- **Homepage updates:**
+  - Trust bar moved above "What Sets Us Apart" section
+  - "$1,500 Starting Price" changed to "2,000+ Events Performed"
+  - Christmas lights added (brand colors: merlot, rose, gold, blush)
+  - "Grammy parties" changed to "The Grammys and Grammy after-parties"
+  - **About link removed from nav** (will add back when team content is ready)
+- **Nav updates (all pages):**
+  - Removed About link from navigation on all 14 pages
+  - Nav now: Services (dropdown) | Pricing | VIP Login | Contact
+
+### TODO for later:
+- Create About section with team photos and bios
+- Get photographer credit for Lightner Museum photos (Lizzy & Hunter wedding)
+
 ### Dec 10, 2025 Session
 - **Orlando city page created:** `/orlando-wedding-dj/index.html`
   - Venues: Bella Collina, Country Club of Orlando, Paradise Cove, Cypress Grove Estate House, Bella Cosa, Lake Nona Wave Hotel

@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tampa Wedding DJ + Live Musicians | COS Celebrations</title>
-  <meta name="description" content="Premier Tampa wedding DJ with live saxophone. 500+ five-star reviews. Performed at The Orlo House, Don CeSar, Armature Works, The Ringling. Starting at $1,500.">
+  <title>Lightner Museum Wedding DJ | St. Augustine | COS Celebrations</title>
+  <meta name="description" content="Preferred wedding DJ at Lightner Museum in St. Augustine. 500+ five-star reviews. Live saxophone, uplighting, and premium sound for your Lightner wedding.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="/images/lightner-museum-wedding-st-augustine/lightner-museum-ballroom-uplighting-string-lights.jpg">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
   <style>
@@ -207,22 +208,10 @@
       justify-content: center;
       text-align: center;
       padding: 10rem 2rem 4rem;
-      background: linear-gradient(180deg, var(--soft-pink) 0%, var(--cream) 100%);
+      background: linear-gradient(rgba(45, 42, 43, 0.5), rgba(45, 42, 43, 0.5)),
+                  url('/images/lightner-museum-wedding-st-augustine/lightner-museum-ballroom-uplighting-string-lights.jpg') center/cover no-repeat;
       position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image:
-        radial-gradient(circle at 20% 80%, var(--rose) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, var(--blush) 0%, transparent 40%);
-      opacity: 0.4;
+      color: white;
     }
 
     .hero-content {
@@ -245,14 +234,25 @@
 
     .hero h1 {
       font-size: clamp(2.5rem, 6vw, 4rem);
-      color: var(--charcoal);
+      color: white;
       margin-bottom: 1.5rem;
       line-height: 1.15;
     }
 
     .hero h1 em {
       font-style: italic;
-      color: var(--merlot);
+      color: var(--rose);
+    }
+
+    .hero .eyebrow {
+      color: var(--rose);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin: 0 auto 2rem;
     }
 
     .btn {
@@ -279,6 +279,18 @@
       background: var(--merlot-dark);
       transform: translateY(-2px);
       box-shadow: 0 10px 30px rgba(114, 47, 55, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      margin-left: 1rem;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: var(--merlot);
     }
 
     /* Content Sections */
@@ -315,6 +327,32 @@
       margin-top: 0;
     }
 
+    /* Photo Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 3rem 0;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 2px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .gallery img.featured {
+      grid-column: span 2;
+      height: 350px;
+    }
+
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -346,82 +384,94 @@
       line-height: 1.7;
     }
 
-    .venues-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .venue-item {
-      padding: 1.5rem;
-      background: white;
-      border: 1px solid var(--blush);
-      transition: all 0.3s ease;
-    }
-
-    .venue-item:hover {
-      border-color: var(--rose);
-      transform: translateY(-3px);
-    }
-
-    .venue-item h3 {
-      font-size: 1.2rem;
-      color: var(--merlot);
-      margin-bottom: 0.5rem;
-    }
-
-    .venue-item p {
-      font-size: 0.9rem;
-      color: var(--text-soft);
-      line-height: 1.6;
-    }
-
-    .pricing-highlight {
-      background: var(--merlot);
-      color: white;
-      padding: 3rem 2rem;
-      text-align: center;
-      margin: 4rem 0;
-      border-radius: 4px;
-    }
-
-    .pricing-highlight h2 {
-      color: white;
-      margin-top: 0;
-    }
-
-    .pricing-highlight p {
-      font-size: 1.1rem;
-      opacity: 0.95;
-      margin-bottom: 1.5rem;
-    }
-
-    .price-display {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      font-weight: 500;
-      margin: 1rem 0;
-    }
-
-    .areas-served {
+    /* Venue Details */
+    .venue-details {
       background: var(--soft-pink);
       padding: 2rem;
       margin: 3rem 0;
       border-left: 4px solid var(--merlot);
     }
 
-    .areas-served h3 {
+    .venue-details h3 {
       font-size: 1.3rem;
       color: var(--merlot);
       margin-bottom: 1rem;
     }
 
-    .areas-served p {
+    .venue-details p {
       color: var(--text-soft);
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
+    .venue-details a {
+      color: var(--merlot);
+      text-decoration: none;
+    }
+
+    .venue-details a:hover {
+      text-decoration: underline;
+    }
+
+    /* Testimonial */
+    .testimonial {
+      background: var(--merlot);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      margin: 4rem 0;
+    }
+
+    .testimonial blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-style: italic;
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.5;
+    }
+
+    .testimonial cite {
+      font-style: normal;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    /* Services at Venue */
+    .venue-services {
+      background: white;
+      padding: 3rem;
+      margin: 3rem 0;
+      border: 1px solid var(--blush);
+    }
+
+    .venue-services h3 {
+      font-size: 1.5rem;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .service-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .service-item::before {
+      content: '✓';
+      color: var(--merlot);
+      font-weight: bold;
+    }
+
+    /* City Links */
     .city-links {
       display: flex;
       flex-wrap: wrap;
@@ -584,14 +634,33 @@
 
       .hero {
         padding: 7rem 1.5rem 3rem;
+        min-height: 60vh;
+      }
+
+      .btn-secondary {
+        margin-left: 0;
+        margin-top: 0.5rem;
       }
 
       .content-section {
         padding: 3rem 1.5rem;
       }
 
-      .features-grid, .venues-list {
+      .gallery {
         grid-template-columns: 1fr;
+      }
+
+      .gallery img.featured {
+        grid-column: span 1;
+        height: 250px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonial blockquote {
+        font-size: 1.4rem;
       }
     }
   </style>
@@ -627,201 +696,128 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
-      <p class="eyebrow">Tampa Bay's Premier Wedding Entertainment</p>
-      <h1>Tampa Wedding DJ<br><em>+ Live Musicians</em></h1>
+      <p class="eyebrow">Preferred Vendor</p>
+      <h1>Lightner Museum<br><em>Wedding DJ</em></h1>
+      <p>We've performed countless weddings in this stunning former Alcazar Hotel. The historic ballroom, dramatic architecture, and unique acoustics — we know them all.</p>
+      <a href="/contact/" class="btn btn-primary">Check Availability</a>
+      <a href="#gallery" class="btn btn-secondary">See Our Work</a>
     </div>
   </section>
 
   <!-- Main Content -->
   <section class="content-section">
     <div class="intro-text">
-      <p>Looking for a <strong>Tampa wedding DJ</strong> who brings more than just a playlist? COS Celebrations brings the DJ + live musician experience that's made us Florida's most sought-after wedding entertainment company — now serving Tampa Bay and the Gulf Coast. With over <strong>500 five-star reviews</strong> and performances at Tampa's most iconic venues, we deliver the energy of a live concert combined with the precision of a professional DJ. Our founder has toured <strong>35+ countries</strong> and shared the stage with artists like <strong>Usher, Alicia Keys</strong>, and Big Gigantic before bringing that world-class experience to your Tampa wedding. Whether you're planning a historic celebration at The Orlo House, a beachfront affair at Don CeSar, or a Sarasota masterpiece at The Ringling, we bring the same level of expertise and passion to every event. Starting at just $1,500, we make luxury entertainment accessible without compromising on quality.</p>
+      <p>The Lightner Museum isn't just one of St. Augustine's most photographed buildings — it's one of the most acoustically unique wedding venues in Florida. Originally the Alcazar Hotel, built in 1888 by Henry Flagler, this <strong>Spanish Renaissance Revival masterpiece</strong> features soaring ceilings, intricate Moorish details, and a grand ballroom that once housed the world's largest indoor swimming pool. As a <strong>preferred vendor at Lightner Museum</strong>, we've mastered how sound travels through the cavernous space, where to position speakers for optimal coverage during both ceremonies and receptions, and how to work seamlessly with their exceptional events team. When you book COS Celebrations for your Lightner wedding, you're getting a team that knows this historic venue inside and out.</p>
     </div>
 
-    <h2>Why Tampa Couples Choose COS</h2>
+    <h2 id="gallery">Real Lightner Museum Weddings</h2>
+    <p>Here's a look at some of the weddings we've had the privilege of being part of at Lightner Museum:</p>
+
+    <div class="gallery">
+      <img src="/images/lightner-museum-wedding-st-augustine/packed-dance-floor-lightner-museum-wedding-dj.jpg" alt="Packed dance floor at Lightner Museum wedding with purple uplighting" class="featured">
+      <img src="/images/lightner-museum-wedding-st-augustine/first-dance-lightner-museum-ballroom-string-lights.jpg" alt="First dance in Lightner Museum ballroom with string lights">
+      <img src="/images/lightner-museum-wedding-st-augustine/couple-portrait-lightner-museum-st-augustine-night.jpg" alt="Couple portrait outside Lightner Museum at night">
+      <img src="/images/lightner-museum-wedding-st-augustine/bride-crowd-surfing-lightner-museum-wedding.jpg" alt="Bride crowd surfing at Lightner Museum reception">
+      <img src="/images/lightner-museum-wedding-st-augustine/wedding-party-champagne-toast-lightner-museum.jpg" alt="Wedding party champagne toast at Lightner Museum" class="featured">
+    </div>
+
+    <h2>Why Lightner Couples Choose COS</h2>
 
     <div class="features-grid">
       <div class="feature-card">
-        <h3>World-Class Musicians</h3>
-        <p>Our founder performed with major artists across 35+ countries. That touring experience translates into flawless execution and unforgettable moments at your Tampa wedding.</p>
+        <h3>We Know the Acoustics</h3>
+        <p>Lightner's former swimming pool ballroom has unique acoustic properties. We've dialed in the perfect speaker placement and EQ settings for crystal-clear sound throughout the entire space.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Ceremony to Reception</h3>
+        <p>Whether your ceremony is in the courtyard or inside the ballroom, we handle the audio transitions seamlessly — from your vows to your first dance to the last song of the night.</p>
       </div>
 
       <div class="feature-card">
         <h3>DJ + Live Saxophone</h3>
-        <p>We pioneered the DJ + live saxophone model in Florida. Imagine your first dance with live sax weaving through the music — something speakers simply can't replicate.</p>
+        <p>Imagine live saxophone echoing through those historic halls during your first dance. The acoustics make live music sound incredible here — it's truly unforgettable.</p>
       </div>
 
       <div class="feature-card">
-        <h3>It's Your Day, Not Ours</h3>
-        <p>No ego. No spotlight-stealing. No cheesy DJ antics. Our philosophy means every decision centers on your vision — we're here to elevate, not dominate.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>500+ Five-Star Reviews</h3>
-        <p>Couples consistently praise our professionalism, music selection, and ability to keep dance floors packed from the first song to the last.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Reads the Room</h3>
-        <p>A musician's ear means we know when to build energy and when to pull back. We adjust in real-time based on what your guests actually want.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Transparent Pricing</h3>
-        <p>No hidden fees, no bait-and-switch. Tampa weddings start at $1,500 with clear, straightforward pricing you can plan around.</p>
-      </div>
-    </div>
-
-    <h2>Tampa Wedding Venues We Love</h2>
-
-    <p>We've performed at Tampa Bay's finest wedding venues and know exactly how to make each space shine:</p>
-
-    <div class="venues-list">
-      <div class="venue-item">
-        <h3>The Orlo House</h3>
-        <p>Historic South Tampa mansion with timeless elegance. The intimate rooms and lush grounds create the perfect setting for sophisticated entertainment.</p>
-      </div>
-
-      <div class="venue-item">
-        <h3>Armature Works</h3>
-        <p>Industrial-chic on Tampa's riverfront. The soaring ceilings and exposed brick pair beautifully with our premium sound and lighting design.</p>
-      </div>
-
-      <div class="venue-item">
-        <h3>The Estate</h3>
-        <p>Stunning estate venue with endless photo opportunities. The combination of indoor elegance and outdoor beauty makes every moment magical.</p>
-      </div>
-
-      <div class="venue-item">
-        <h3>Don CeSar</h3>
-        <p>The iconic "Pink Palace" on St. Pete Beach. There's nothing quite like live saxophone during sunset on the Gulf Coast.</p>
-      </div>
-
-      <div class="venue-item">
-        <h3>The Ringling Ca' d'Zan</h3>
-        <p>Venetian Gothic masterpiece in Sarasota. The dramatic architecture and bayfront setting demand entertainment that rises to the occasion — and we deliver.</p>
-      </div>
-    </div>
-
-    <h2>Wedding DJ Services in Tampa</h2>
-
-    <p>Every Tampa wedding is unique, which is why we offer flexible packages that fit your vision and budget:</p>
-
-    <div class="features-grid" style="margin-top: 2rem;">
-      <div class="feature-card">
-        <h3>Professional DJ/MC</h3>
-        <p>Expert emcee skills that keep your timeline flowing smoothly without being cheesy or over-the-top. We read the room and adjust accordingly.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Live Saxophone</h3>
-        <p>Our signature service — live sax performance during key moments like your first dance, grand entrance, or peak dance floor times.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Premium Sound System</h3>
-        <p>Crystal-clear audio for ceremonies, receptions, and everything in between. Your vows will be heard, your toasts will resonate, and your music will move people.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Ceremony Coverage</h3>
-        <p>Professional sound for your ceremony including wireless microphones, music coordination, and seamless transitions from processional to recessional.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Lighting & Effects</h3>
-        <p>From elegant uplighting to dramatic cold sparks, we offer add-ons that transform any Tampa venue into your dream celebration space.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>COS Planning App</h3>
-        <p>Our exclusive planning platform makes wedding planning effortless. Build your timeline, select songs, and communicate with your DJ — all in one place.</p>
+        <h3>Lighting Transforms the Space</h3>
+        <p>Lightner's architecture is stunning on its own — but strategic uplighting transforms it into something magical. We know exactly which columns and archways to highlight.</p>
       </div>
     </div>
   </section>
 
-  <!-- Pricing Section -->
-  <section class="content-section alt-bg">
-    <div class="pricing-highlight">
-      <p class="eyebrow" style="color: var(--rose);">Investment</p>
-      <h2>Tampa Wedding DJ Pricing</h2>
-      <p>Most Tampa couples invest $1,500 – $3,000 depending on hours of coverage and add-ons. Every quote is customized to your venue and vision.</p>
-      <div class="price-display">Starting at $1,500</div>
-      <a href="/contact/" class="btn btn-primary" style="background: white; color: var(--merlot);">Get Your Custom Quote</a>
-    </div>
+  <!-- Testimonial -->
+  <div class="testimonial">
+    <blockquote>"People told us they had never seen a dance floor so full all night at a wedding. He was the best I have ever seen."</blockquote>
+    <cite>— Tyler, Lightner Museum Wedding</cite>
+  </div>
 
-    <h2>What's Included</h2>
-
-    <p>Every Tampa wedding package includes:</p>
-
-    <ul style="margin: 2rem 0; line-height: 2; color: var(--text-soft);">
-      <li><strong>Professional DJ and MC services</strong> — experienced entertainers, not button-pushers</li>
-      <li><strong>Premium sound system</strong> — sized appropriately for your venue and guest count</li>
-      <li><strong>Wireless microphones</strong> — for toasts, announcements, and officiant</li>
-      <li><strong>COS Music + Timeline App</strong> — plan your music and schedule in one place</li>
-      <li><strong>Pre-wedding consultations</strong> — we get to know you before the big day</li>
-      <li><strong>Venue coordination</strong> — we communicate directly with your venue and planner</li>
-    </ul>
-
-    <h2>Popular Add-Ons for Tampa Weddings</h2>
-
-    <div class="features-grid" style="margin-top: 2rem;">
-      <div class="feature-card">
-        <h3>Live Saxophone</h3>
-        <p>Our most requested add-on. Live performance during ceremony, cocktail hour, first dance, or reception.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Uplighting</h3>
-        <p>Transform any venue with intelligent LED uplighting that matches your wedding colors.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Cold Sparks</h3>
-        <p>Safe indoor pyrotechnics for dramatic first dance or grand exit moments. Stunning on camera.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Dancing on Clouds</h3>
-        <p>Low-lying fog effect for a dreamy, romantic first dance. Photographs beautifully.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Service Area -->
+  <!-- Services Section -->
   <section class="content-section">
-    <div class="areas-served">
-      <h3>Serving Tampa Bay & Beyond</h3>
-      <p>Based in St. Augustine, we travel throughout the Tampa Bay area for weddings. Tampa, St. Petersburg, Clearwater, Sarasota, Bradenton — wherever your venue, we'll be there.</p>
-      <p><strong>Also Serving:</strong></p>
-      <div class="city-links">
-        <a href="/jacksonville-wedding-dj/">Jacksonville</a>
-        <a href="/st-augustine-wedding-dj/">St. Augustine</a>
-        <a href="/orlando-wedding-dj/">Orlando</a>
-        <a href="/ponte-vedra-wedding-dj/">Ponte Vedra</a>
-        <a href="/amelia-island-wedding-dj/">Amelia Island</a>
+    <h2>Our Lightner Museum Wedding Services</h2>
+
+    <p>Every Lightner wedding package can be customized to your vision. Here's what we offer:</p>
+
+    <div class="venue-services">
+      <h3>What's Included</h3>
+      <div class="service-list">
+        <div class="service-item">Professional DJ + MC</div>
+        <div class="service-item">Premium sound system</div>
+        <div class="service-item">Wireless microphones</div>
+        <div class="service-item">COS Planning App access</div>
+        <div class="service-item">Pre-wedding consultation</div>
+        <div class="service-item">Venue coordination</div>
       </div>
     </div>
 
-    <h2>Frequently Asked Questions</h2>
-
-    <div style="margin: 2rem 0;">
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you charge travel fees for Tampa weddings?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">We include travel in your custom quote based on your specific venue location. Most Tampa Bay venues fall within our standard service area.</p>
-
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How far in advance should we book?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Tampa couples typically book 12-18 months in advance, especially for peak season (spring and fall). However, we occasionally have availability for shorter timelines — reach out to check your date.</p>
-
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Can we meet our DJ before the wedding?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Absolutely. We schedule video calls to discuss your vision, music preferences, and timeline. You'll also have direct communication through our planning app.</p>
-
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">What makes COS different from other Tampa wedding DJs?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">A lot of companies say they do what we do. A little research will show you the difference — world-class musicians, 500+ five-star reviews, and an approach that puts your wedding first. We encourage you to compare.</p>
+    <div class="venue-services" style="margin-top: 2rem;">
+      <h3>Popular Add-Ons for Lightner</h3>
+      <div class="service-list">
+        <div class="service-item">Live saxophone</div>
+        <div class="service-item">Ceremony sound</div>
+        <div class="service-item">Uplighting package</div>
+        <div class="service-item">Custom monogram projection</div>
+        <div class="service-item">Cold sparks</div>
+        <div class="service-item">Dancing on clouds</div>
+      </div>
     </div>
+
+    <h2>About Lightner Museum</h2>
+
+    <div class="venue-details">
+      <h3>Venue Information</h3>
+      <p><strong>Location:</strong> 75 King Street, St. Augustine, FL 32084</p>
+      <p><strong>Capacity:</strong> Up to 250 guests</p>
+      <p><strong>Style:</strong> Historic museum, Spanish Renaissance Revival architecture, 1888</p>
+      <p><strong>Website:</strong> <a href="https://lightnermuseum.org" target="_blank" rel="noopener">lightnermuseum.org</a></p>
+    </div>
+
+    <p style="margin-top: 2rem; color: var(--text-soft);">The Lightner Museum occupies the former Alcazar Hotel, built by railroad magnate Henry Flagler in 1888. The building's most stunning feature is the grand ballroom — originally the hotel's indoor swimming pool, once billed as the largest in the world. Today, that pool has been converted into an elegant event space, with the original balconies now serving as seating areas overlooking the dance floor. The courtyard offers a magical setting for outdoor ceremonies, surrounded by Spanish moss-draped architecture and the historic charm that makes St. Augustine special. It's a venue that photographs beautifully and creates an atmosphere unlike any other.</p>
+
+    <h2>Other St. Augustine Venues We Serve</h2>
+
+    <p>Love St. Augustine but exploring other venue options? We're preferred or experienced at these nearby venues:</p>
+
+    <div class="city-links" style="margin-top: 1.5rem; font-size: 1rem;">
+      <a href="/venues/treasury-on-the-plaza/">Treasury on the Plaza</a>
+      <span style="color: var(--rose);">•</span>
+      <a href="/st-augustine-wedding-dj/">The White Room</a>
+      <span style="color: var(--rose);">•</span>
+      <a href="/st-augustine-wedding-dj/">Villa Blanca</a>
+      <span style="color: var(--rose);">•</span>
+      <a href="/st-augustine-wedding-dj/">The Fountain of Youth</a>
+      <span style="color: var(--rose);">•</span>
+      <a href="/st-augustine-wedding-dj/">Casa Monica</a>
+    </div>
+
+    <p style="margin-top: 2rem;"><a href="/st-augustine-wedding-dj/" style="color: var(--merlot);">View all St. Augustine wedding DJ services →</a></p>
   </section>
 
   <!-- Final CTA -->
   <section class="final-cta" id="contact">
     <p class="eyebrow">Ready to Start Planning?</p>
-    <h2>Check Availability for Your Tampa Wedding</h2>
-    <p>Let's create something unforgettable together. Reach out today to check availability and receive a custom quote for your celebration.</p>
+    <h2>Book Your Lightner Museum Wedding DJ</h2>
+    <p>Lightner dates book quickly, and so do we. Reach out today to check availability and receive a custom quote for your celebration.</p>
     <a href="/contact/" class="btn btn-primary">Request Information</a>
     <p style="margin-top: 1.5rem; font-size: 0.95rem;">Or call us directly: <a href="tel:904-615-7132" style="color: var(--merlot); text-decoration: none; font-weight: 500;">(904) 615-7132</a></p>
   </section>
