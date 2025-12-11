@@ -60,14 +60,25 @@
 - DJEP form REMOVED from all pages except /contact/ (breaks dropdown nav)
 - Dance floor background image added to Homepage CTA, Contact hero
 
-### Dec 11, 2025 Session
-- **Treasury on the Plaza venue page created:** `/venues/treasury-on-the-plaza/index.html`
+### Dec 11, 2025 Session (Continued - Afternoon)
+- **"Enhance Your Celebration" cards fixed:** Merged "Special Effects" + "Custom Touches" into one card. Now 6 cards (3+3 even layout)
+- **Internal links made invisible:** All city cross-links and internal page links now styled as regular text (no merlot color, no underlines, no hover effects). SEO value preserved, but competitors can't see linking strategy at a glance.
+  - Updated: Homepage, all 6 city pages, Lightner, Treasury
+- **Lightner photo credits added:**
+  - Photographer: The Locke Agency (Lizzy & Hunter wedding)
+  - EXIF data updated on all 12 photos
+  - Visible credit added to St. Augustine page venue card + Lightner page gallery
+- **Treasury URL fixed:** Moved from `/venues/treasury-on-the-plaza/` to `/treasury-on-the-plaza-wedding-dj/` to match old WordPress URL for SEO continuity
+  - Updated all internal links pointing to Treasury
+
+### Dec 11, 2025 Session (Morning)
+- **Treasury on the Plaza venue page created:** `/treasury-on-the-plaza-wedding-dj/index.html`
   - Links from St. Augustine page (venue card only - single link for SEO best practice)
   - Links from Jacksonville page
 - **Lightner Museum venue page created:** `/lightner-museum-wedding-dj/index.html`
   - URL matches old WordPress URL for SEO continuity
   - 12 photos optimized (Lizzy & Hunter wedding)
-  - **TODO: Get photographer credit for Lightner Museum photos**
+  - Photographer: The Locke Agency ✅
   - Added photo + link from St. Augustine page venue card
 - **Homepage updates:**
   - Trust bar moved above "What Sets Us Apart" section
@@ -83,11 +94,8 @@
 
 ### TODO for later:
 - Create About section with team photos and bios
-- Get photographer credit for Lightner Museum photos (Lizzy & Hunter wedding)
-- Fix "Enhance Your Celebration" cards layout (7 cards = uneven)
 - Consider better favicon with saxophone graphic
 - **SEO improvements (page quality at 90%):**
-  - Fix duplicate anchor text (multiple links with same text)
   - Add schema markup (LocalBusiness, Service, Reviews JSON-LD)
   - Review heading structure (H2/H3 hierarchy)
   - Check alt text on all images
