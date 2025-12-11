@@ -375,10 +375,10 @@
 
     /* Add-ons Grid */
     .addons-grid {
-      max-width: 1200px;
+      max-width: 1000px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
     }
 
@@ -386,63 +386,26 @@
       background: white;
       border: 1px solid var(--blush);
       border-radius: 4px;
-      padding: 2rem;
+      padding: 1.5rem;
       transition: all 0.3s ease;
     }
 
     .addon-card:hover {
       border-color: var(--rose);
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-
-    .addon-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1rem;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
     }
 
     .addon-card h3 {
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       color: var(--charcoal);
-    }
-
-    .badge {
-      background: var(--merlot);
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 12px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
     }
 
     .addon-card p {
       color: var(--text-soft);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-
-    .addon-features {
-      list-style: none;
-    }
-
-    .addon-features li {
-      padding: 0.5rem 0;
       font-size: 0.85rem;
-      color: var(--text-soft);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .addon-features li::before {
-      content: '✓';
-      color: var(--merlot);
-      font-weight: 600;
+      line-height: 1.5;
+      margin: 0;
     }
 
     /* Pricing Section */
@@ -627,7 +590,10 @@
         padding: 4rem 1.5rem;
       }
 
-      .addons-grid,
+      .addons-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
       .process-grid {
         grid-template-columns: 1fr;
       }
@@ -723,119 +689,48 @@
     </div>
     <div class="addons-grid">
       <div class="addon-card">
-        <div class="addon-header">
-          <h3>DJ + Live Musicians</h3>
-          <span class="badge">Popular</span>
-        </div>
-        <p>Our signature. Live saxophone, drums, or both—right alongside your DJ. Real musicians feeding off the crowd's energy.</p>
-        <ul class="addon-features">
-          <li>Live saxophone performance</li>
-          <li>Live drums performance</li>
-          <li>Seamless DJ integration</li>
-          <li>Real-time crowd interaction</li>
-        </ul>
+        <h3>Ceremony & Cocktail Musicians</h3>
+        <p>Live piano, violin, harp, guitar, or strings ensemble for your ceremony and cocktail hour.</p>
       </div>
 
       <div class="addon-card">
-        <div class="addon-header">
-          <h3>Lighting Design</h3>
-          <span class="badge">Popular</span>
-        </div>
-        <p>Uplighting sets the mood. Moving heads bring the concert. Every song is programmed with its own light show, live-edited in real time.</p>
-        <ul class="addon-features">
-          <li>Custom uplighting design</li>
-          <li>Moving head spotlights</li>
-          <li>Live-programmed light shows</li>
-          <li>Real-time editing</li>
-        </ul>
+        <h3>Live Reception Musicians</h3>
+        <p>Saxophone, drums, trumpet, trombone, guitar—or full fusion band alongside your DJ. Real musicians feeding off the crowd.</p>
       </div>
 
       <div class="addon-card">
-        <div class="addon-header">
-          <h3>Cold Spark Fountains</h3>
-        </div>
-        <p>That viral first dance moment. Safe, indoor-friendly spark fountains that look incredible on camera and even better in person.</p>
-        <ul class="addon-features">
-          <li>Safe for indoor use</li>
-          <li>Camera-ready effects</li>
-          <li>First dance enhancement</li>
-        </ul>
+        <h3>Lighting Design</h3>
+        <p>Uplighting sets the mood. Moving heads bring the concert. Every song programmed with its own light show.</p>
       </div>
 
       <div class="addon-card">
-        <div class="addon-header">
-          <h3>Dancing on Clouds</h3>
-        </div>
+        <h3>Cold Sparks</h3>
+        <p>That viral first dance moment. Safe, indoor-friendly spark fountains that look incredible on camera.</p>
+      </div>
+
+      <div class="addon-card">
+        <h3>Dancing on Clouds</h3>
         <p>Your first dance, floating on clouds. Dreamy, romantic, unforgettable.</p>
-        <ul class="addon-features">
-          <li>Low-lying fog effect</li>
-          <li>Romantic atmosphere</li>
-          <li>Perfect for first dance</li>
-        </ul>
       </div>
 
       <div class="addon-card">
-        <div class="addon-header">
-          <h3>Photo Booth + 360 Video</h3>
-        </div>
-        <p>Classic photo booth fun or the 360 video booth everyone's obsessed with. Your guests walk away with keepsakes.</p>
-        <ul class="addon-features">
-          <li>Classic or 360 video options</li>
-          <li>Instant digital sharing</li>
-          <li>Physical keepsakes</li>
-        </ul>
+        <h3>Photo Booth + 360</h3>
+        <p>Classic photo booth or the 360 video booth everyone's obsessed with. Guests walk away with keepsakes.</p>
       </div>
 
       <div class="addon-card">
-        <div class="addon-header">
-          <h3>Audio Guestbook</h3>
-        </div>
-        <p>Guests pick up the phone, leave a message. You keep their voices forever. The wedding detail everyone's talking about right now.</p>
-        <ul class="addon-features">
-          <li>Vintage phone aesthetic</li>
-          <li>Voice message recording</li>
-          <li>Permanent keepsakes</li>
-        </ul>
+        <h3>Audio Guestbook</h3>
+        <p>Guests pick up the phone, leave a message. You keep their voices forever.</p>
       </div>
 
       <div class="addon-card">
-        <div class="addon-header">
-          <h3>Photography</h3>
-          <span class="badge">Popular</span>
-        </div>
-        <p>Professional wedding photography that captures every moment. From getting ready to the last dance, we document your story with artistry and precision.</p>
-        <ul class="addon-features">
-          <li>Full-day coverage</li>
-          <li>Professional editing</li>
-          <li>High-resolution digital gallery</li>
-          <li>Engagement shoot included</li>
-        </ul>
+        <h3>Live Streaming</h3>
+        <p>Multi-camera professional streaming for guests who can't be there. No one misses a moment.</p>
       </div>
 
       <div class="addon-card">
-        <div class="addon-header">
-          <h3>Pro Live Streaming</h3>
-        </div>
-        <p>Grandma can't make it? We've got professional live streaming for your ceremony and beyond. Multi-camera setup with pro audio. No one misses a moment.</p>
-        <ul class="addon-features">
-          <li>Multi-camera production</li>
-          <li>Professional audio mixing</li>
-          <li>Full ceremony coverage</li>
-          <li>Private streaming link</li>
-        </ul>
-      </div>
-
-      <div class="addon-card">
-        <div class="addon-header">
-          <h3>Monograms</h3>
-        </div>
-        <p>Your names, your date, your design—projected beautifully for that personalized touch that makes the space uniquely yours.</p>
-        <ul class="addon-features">
-          <li>Custom design creation</li>
-          <li>Professional projection</li>
-          <li>Multiple placement options</li>
-          <li>Elegant aesthetic</li>
-        </ul>
+        <h3>Monograms</h3>
+        <p>Your names, your date—projected beautifully for that personalized touch.</p>
       </div>
     </div>
   </section>
