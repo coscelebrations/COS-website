@@ -115,6 +115,55 @@
   - Review heading structure (H2/H3 hierarchy)
   - Check alt text on all images
 
+---
+
+## 🤖 AI SEARCH OPTIMIZATION (Priority)
+
+As AI search (ChatGPT, Perplexity, Claude, Google AI Overviews) becomes a major traffic source, we need to optimize for BOTH traditional SEO and AI discoverability. These sometimes require different approaches.
+
+### How AI Search Differs from Traditional SEO
+| Traditional SEO | AI Search |
+|----------------|-----------|
+| Keywords & density | Clear, factual statements |
+| Backlinks | Entity recognition (consistent mentions across web) |
+| Technical optimization | Direct answers to questions |
+| Meta descriptions | Schema markup & structured data |
+| Click-through optimization | Reputation signals (reviews, awards, credentials) |
+
+### What AI Models Pull From
+1. **Structured, factual content** - Clear statements: "COS Celebrations is a Jacksonville wedding DJ company that has performed at over 2,000 events"
+2. **Entity recognition** - Consistent mentions across reviews, directories, social, press
+3. **Direct answers** - Content that reads like it's answering a question
+4. **Schema markup** - Helps AI understand what you are and what you offer
+5. **Reputation signals** - Reviews, awards, credentials stated plainly on site
+
+### Action Items for AI Optimization
+
+**On-site (HIGH PRIORITY):**
+- [ ] Add FAQ sections to key pages (naturally answers questions AI might be asked)
+- [ ] Implement comprehensive schema markup (LocalBusiness, Organization, Service, Review JSON-LD)
+- [ ] Rewrite key stats as full sentences: "COS Celebrations has performed at over 2,000 events" not just "2,000+ Events"
+- [ ] Add About page with clear, factual company info (founding story, credentials, service area, touring history)
+- [ ] Use question-based headings where natural ("Why choose a DJ with live musicians?")
+- [ ] Provide direct, quotable answers in first sentence after each heading
+
+**Off-site:**
+- [ ] Ensure consistent NAP (Name, Address, Phone) across all directories
+- [ ] Fully optimize Google Business Profile
+- [ ] Get mentioned/reviewed on wedding blogs, The Knot, WeddingWire
+- [ ] Any press or features help AI "trust" COS as an entity
+
+### When SEO and AI Optimization Conflict
+Sometimes we'll need to make trade-off decisions:
+- **Keyword density vs. natural language** → Lean toward natural (helps both, but AI prefers it)
+- **Short punchy copy vs. complete sentences** → Use both: punchy headlines, complete sentences in body
+- **Internal link anchor text** → Keep invisible styling but ensure descriptive text (helps both)
+- **Schema markup** → Always add it (helps both significantly)
+
+**General rule:** If it reads like a clear, authoritative answer a human would give, it works for both.
+
+---
+
 ### Dec 10, 2025 Session
 - **Orlando city page created:** `/orlando-wedding-dj/index.html`
   - Venues: Bella Collina, Country Club of Orlando, Paradise Cove, Cypress Grove Estate House, Bella Cosa, Lake Nona Wave Hotel
