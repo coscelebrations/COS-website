@@ -74,7 +74,9 @@
   - "$1,500 Starting Price" changed to "2,000+ Events Performed"
   - Christmas lights added (brand colors: merlot, rose, gold, blush)
   - "Grammy parties" changed to "The Grammys and Grammy after-parties"
+  - "COS Celebrations" added to hero paragraph for SEO
   - **About link removed from nav** (will add back when team content is ready)
+- **Favicon added:** SVG with "COS" on merlot background (all pages)
 - **Nav updates (all pages):**
   - Removed About link from navigation on all 14 pages
   - Nav now: Services (dropdown) | Pricing | VIP Login | Contact
@@ -82,6 +84,8 @@
 ### TODO for later:
 - Create About section with team photos and bios
 - Get photographer credit for Lightner Museum photos (Lizzy & Hunter wedding)
+- Fix "Enhance Your Celebration" cards layout (7 cards = uneven)
+- Consider better favicon with saxophone graphic
 
 ### Dec 10, 2025 Session
 - **Orlando city page created:** `/orlando-wedding-dj/index.html`
