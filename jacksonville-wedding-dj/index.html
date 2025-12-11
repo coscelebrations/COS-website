@@ -398,6 +398,35 @@
       line-height: 1.6;
     }
 
+    .venue-featured {
+      grid-column: span 2;
+    }
+
+    .venue-featured .venue-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+
+    .photo-credit {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      opacity: 0.7;
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .venue-featured {
+        grid-column: span 1;
+      }
+
+      .venue-featured .venue-image {
+        height: 200px;
+      }
+    }
+
     .pricing-highlight {
       background: var(--merlot);
       color: white;
@@ -673,9 +702,14 @@
         <p>One of Jacksonville's most elegant country club venues. We're a preferred vendor here and have created countless memorable celebrations in their stunning ballroom.</p>
       </div>
 
-      <div class="venue-item">
-        <h3>Epping Forest Yacht Club</h3>
-        <p>Waterfront elegance meets Jacksonville charm. The yacht club's breathtaking river views provide the perfect backdrop for our DJ + saxophone combination.</p>
+      <div class="venue-item venue-featured">
+        <img src="/images/epping-forest-wedding-jacksonville/first-dance-checkered-floor-epping-forest.jpg"
+             alt="First dance at Epping Forest Yacht Club wedding with checkered dance floor and string lights"
+             class="venue-image"
+             loading="lazy">
+        <h3><a href="/epping-forest-yacht-club-wedding-dj/" style="color: var(--merlot); text-decoration: none;">Epping Forest Yacht Club</a></h3>
+        <p>Waterfront elegance meets Jacksonville charm. This 1920s Mediterranean Revival estate on the St. Johns River is one of Jacksonville's most iconic wedding venues. We've performed countless celebrations here and know every detail—from outdoor ceremonies beneath moss-draped oaks to ballroom receptions overlooking the water.</p>
+        <p class="photo-credit">Photo: She Exposure</p>
       </div>
 
       <div class="venue-item">
