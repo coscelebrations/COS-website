@@ -15,27 +15,21 @@
 - Preview at: https://cool-jelly-73d5c0.netlify.app/
 - Local dev server: `python3 -m http.server 8000` then visit http://localhost:8000
 
-### ⚠️ DOMAIN CONNECTION - IN PROGRESS
-**Status:** Site is ready, Netlify has a bug preventing domain add via UI.
+### ✅ SITE IS LIVE! (Dec 10, 2025)
+**Domain:** https://coscelebrations.com
+**Netlify site:** cool-jelly-73d5c0.netlify.app
+**DNS:** Nameservers pointed to Netlify DNS
 
-**To complete the launch:**
-1. In GoDaddy: Change nameservers back to GoDaddy defaults
-2. Wait 5-10 min for nameserver change to propagate
-3. In GoDaddy DNS, update:
-   - **A record** `@` → `75.2.60.5`
-   - **CNAME** `www` → `cool-jelly-73d5c0.netlify.app`
-4. Once DNS points to Netlify, try adding domain in Netlify UI again
-5. If still blocked, site should work anyway - Netlify will auto-provision SSL
+**Completed:**
+- Domain connected via Netlify nameservers in GoDaddy
+- SSL certificate auto-provisioned
+- Sitemap submitted to Google Search Console
+- 301 redirects verified working
 
-**Also:** Remove the test line from `/etc/hosts` before going live:
-```
-sudo nano /etc/hosts
-# Delete the line: 75.2.60.5 coscelebrations.com
-```
-
-**After launch:**
-- Submit sitemap to Google Search Console: https://coscelebrations.com/sitemap.xml
-- Verify 301 redirects are working (old WordPress URLs → new pages)
+**Google Search Console:** https://search.google.com/search-console
+- Sitemap submitted: `sitemap.xml`
+- Expect indexing within 24-48 hours for main pages
+- Full SEO impact: 2-4 weeks
 
 ### COS Static Site Status
 | Page | Status | Cross-Links | Social Links |
@@ -151,12 +145,13 @@ sudo nano /etc/hosts
   - `bridge-of-lions-wedding-portrait-st-augustine.webp` (68KB, hero background)
 
 ### Priority Next Steps
-1. **LAUNCH:** Connect coscelebrations.com domain (see instructions above)
-2. **Submit sitemap** to Google Search Console after launch
-3. **Build page generator script** (questionnaire → auto-generates HTML)
-4. **Create venue pages:** River House, Timuquana, Epping Forest, etc.
-5. **Favicons** for both COS and AE sites
-6. **Final performance pass** (self-host fonts, critical CSS) if needed
+1. ✅ ~~LAUNCH: Connect coscelebrations.com domain~~ **DONE**
+2. ✅ ~~Submit sitemap to Google Search Console~~ **DONE**
+3. **Monitor Google Search Console** for indexing progress
+4. **Build page generator script** (questionnaire → auto-generates HTML)
+5. **Create venue pages:** River House, Timuquana, Epping Forest, etc.
+6. **Favicons** for both COS and AE sites
+7. **Final performance pass** (self-host fonts, critical CSS) if needed
 
 ### Key Rules to Remember
 - DJEP forms ONLY on /contact/ page (kills PageSpeed elsewhere)
