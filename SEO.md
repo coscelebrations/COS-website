@@ -128,7 +128,31 @@ Add a TXT record:
 - DJEP form REMOVED from all pages except /contact/ (breaks dropdown nav)
 - Dance floor background image added to Homepage CTA, Contact hero
 
-### Dec 12, 2025 Session - AI Search Optimization
+### Dec 12, 2025 Session (Afternoon) - DataForSEO & Performance
+- **DataForSEO Setup:**
+  - Account created, API credentials obtained
+  - Ran first site audit (50 pages crawled, 17 found)
+  - **Site Score: 99.01/100**
+  - Issues found: 5 titles too long, 10 render-blocking resources, 16 missing image titles
+- **Render-Blocking Fonts Fixed:**
+  - Added async font loading (`media="print" onload`) to 15 pages
+  - Homepage already had this, other pages were blocking
+- **Google Index Check via DataForSEO:**
+  - 34 pages currently indexed by Google
+  - Need to submit: Amelia Island, Epping Forest, Treasury venue pages
+  - Old WordPress pages still indexed (may need cleanup later)
+- **Performance vs SEO Tradeoff:**
+  - Christmas lights removed (25 DOM elements, animations hurt performance)
+  - Training card background removed (extra image load)
+  - Kept all SEO content (schema, FAQ, awards, press sections)
+  - **Final scores: 87/88/100/100** - acceptable tradeoff for SEO value
+- **Content Updates:**
+  - Southern Bride link updated to actual feature article URL
+  - Second Voyage Jacksonville interview added (#2 indicator)
+  - "200 events" → "500 events" in FAQ
+  - "guest count" → "timeline" in pricing CTA
+
+### Dec 12, 2025 Session (Morning) - AI Search Optimization
 - **FAQ Sections Added:**
   - Homepage: 6 comprehensive FAQs covering pricing, differentiation, live musicians, service areas, booking timeline, and preferred venues
   - Weddings page: 5 FAQs covering live instruments, timeline changes, no-cheese approach, music customization, and package inclusions
@@ -169,9 +193,11 @@ Add a TXT record:
 
 **Upcoming / TODOs:**
 - [ ] Build venue page generator workflow (fast + unique pages)
-- [ ] Set up DataForSEO for cross-referencing audits (awaiting registration email)
+- [x] Set up DataForSEO for cross-referencing audits ✅
 - [ ] Add FAQ schema + sections to remaining city pages
 - [ ] Add FAQ schema + sections to venue pages
+- [ ] Submit to Google Search Console: Amelia Island, Epping Forest, Treasury pages
+- [ ] Clean up old WordPress URLs from Google index (redirects or removal requests)
 
 **Why These Changes Matter for AI Search:**
 - FAQ sections provide direct answers to questions AI models pull from
