@@ -47,6 +47,49 @@ Design can be adjusted afterward. SEO/AI cannot be an afterthought.
 - SSL certificate auto-provisioned
 - Sitemap submitted to Google Search Console
 - 301 redirects verified working
+- MX records added for Google Workspace email (Dec 12, 2025)
+
+---
+
+## ⚠️ CRITICAL: Email MX Records for Netlify Domains
+
+**When you point nameservers to Netlify, email STOPS WORKING unless you add MX records manually.**
+
+Netlify only handles your website — it doesn't know about your email. You MUST add these records in Netlify DNS settings for any domain using Google Workspace email.
+
+**How to add (Netlify DNS → Add new record → MX):**
+
+| Name | Priority | Value |
+|------|----------|-------|
+| @ | 1 | ASPMX.L.GOOGLE.COM |
+| @ | 5 | ALT1.ASPMX.L.GOOGLE.COM |
+| @ | 5 | ALT2.ASPMX.L.GOOGLE.COM |
+| @ | 10 | ALT3.ASPMX.L.GOOGLE.COM |
+| @ | 10 | ALT4.ASPMX.L.GOOGLE.COM |
+
+**To verify MX records are working:** Go to mxtoolbox.com and enter your domain. You should see the Google servers listed.
+
+---
+
+### SPF Record (prevents spoofing)
+Add a TXT record:
+| Name | Value |
+|------|-------|
+| @ | v=spf1 include:_spf.google.com ~all |
+
+---
+
+### DMARC Record (monitors/blocks fake emails)
+Add a TXT record:
+| Name | Value |
+|------|-------|
+| _dmarc | v=DMARC1; p=none; rua=mailto:corey@coscelebrations.com |
+
+**Note:** `p=none` is monitoring mode. After a few weeks, change to `p=quarantine` for full protection.
+
+---
+
+**Remember this for:** AE Entertainment (affordable-entertainment.com) when you move it to Netlify!
 
 **Google Search Console:** https://search.google.com/search-console
 - Sitemap submitted: `sitemap.xml`
