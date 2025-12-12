@@ -278,7 +278,6 @@
       height: 18px;
       border-radius: 50%;
       position: relative;
-      animation: glow-lights 1.5s ease-in-out infinite alternate;
     }
 
     .bulb::before {
@@ -292,15 +291,10 @@
       background: var(--charcoal);
     }
 
-    .bulb:nth-child(4n+1) { background: var(--merlot); box-shadow: 0 0 10px var(--merlot), 0 0 20px var(--merlot); animation-delay: 0s; }
-    .bulb:nth-child(4n+2) { background: var(--rose); box-shadow: 0 0 10px var(--rose), 0 0 20px var(--rose); animation-delay: 0.3s; }
-    .bulb:nth-child(4n+3) { background: var(--gold-accent); box-shadow: 0 0 10px var(--gold-accent), 0 0 20px var(--gold-accent); animation-delay: 0.6s; }
-    .bulb:nth-child(4n+4) { background: var(--blush); box-shadow: 0 0 10px var(--blush), 0 0 20px var(--blush); animation-delay: 0.9s; }
-
-    @keyframes glow-lights {
-      0% { opacity: 0.6; filter: brightness(0.8); }
-      100% { opacity: 1; filter: brightness(1.2); }
-    }
+    .bulb:nth-child(4n+1) { background: var(--merlot); }
+    .bulb:nth-child(4n+2) { background: var(--rose); }
+    .bulb:nth-child(4n+3) { background: var(--gold-accent); }
+    .bulb:nth-child(4n+4) { background: var(--blush); }
 
     /* Navigation */
     nav {
@@ -385,6 +379,9 @@
       height: 20px;
       cursor: pointer;
       z-index: 101;
+      background: none;
+      border: none;
+      padding: 0;
     }
 
     .hamburger span {
@@ -1634,15 +1631,15 @@
       <li><a href="/vip-login/" title="Client login for wedding planning portal">VIP Login</a></li>
       <li><a href="/contact/" class="nav-cta" title="Contact COS Celebrations for a quote">Contact</a></li>
     </ul>
-    <div class="hamburger" onclick="toggleMenu()">
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
-    </div>
+    </button>
   </nav>
 
   <!-- Christmas Lights -->
-  <div class="christmas-lights">
+  <div class="christmas-lights" aria-hidden="true">
     <div class="string-lights">
       <div class="bulb"></div>
       <div class="bulb"></div>
@@ -2097,8 +2094,11 @@
 
     // Hamburger Menu Toggle
     function toggleMenu() {
-      document.querySelector('.hamburger').classList.toggle('active');
+      const hamburger = document.querySelector('.hamburger');
+      hamburger.classList.toggle('active');
       document.querySelector('.nav-links').classList.toggle('active');
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', !expanded);
     }
 
     // Mobile dropdown toggle for Services
