@@ -241,44 +241,6 @@
       color: var(--merlot);
     }
 
-    /* Christmas Lights - static, below hero */
-    .christmas-lights {
-      background: var(--charcoal);
-      padding: 1rem 0 0.5rem;
-      overflow: hidden;
-    }
-
-    .string-lights {
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-end;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .bulb {
-      width: 10px;
-      height: 16px;
-      border-radius: 50%;
-      position: relative;
-    }
-
-    .bulb::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 3px;
-      height: 10px;
-      background: var(--text-soft);
-    }
-
-    .bulb:nth-child(4n+1) { background: var(--merlot); }
-    .bulb:nth-child(4n+2) { background: var(--rose); }
-    .bulb:nth-child(4n+3) { background: var(--gold-accent); }
-    .bulb:nth-child(4n+4) { background: var(--blush); }
-
     /* Navigation */
     nav {
       position: fixed;
@@ -1634,27 +1596,6 @@
       </a>
     </div>
   </section>
-
-  <!-- Christmas Lights Divider -->
-  <div class="christmas-lights" aria-hidden="true">
-    <div class="string-lights">
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-      <div class="bulb"></div>
-    </div>
-  </div>
 
   <!-- Trust Bar -->
   <div class="trust-bar">
