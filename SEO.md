@@ -128,6 +128,29 @@ Add a TXT record:
 - DJEP form REMOVED from all pages except /contact/ (breaks dropdown nav)
 - Dance floor background image added to Homepage CTA, Contact hero
 
+### Dec 12, 2025 Session (Evening) - Header Tagline & Competitor Audit
+- **Header Tagline Added:**
+  - "Luxury Event Entertainment" centered in nav header
+  - Subtle styling (0.75rem, uppercase, soft gray)
+  - Hidden on mobile (<900px) to keep header clean
+  - Fills empty space between logo and nav links on desktop
+- **Christmas Lights Removed:**
+  - Tried static placement below hero - didn't render properly
+  - Removed CSS and HTML completely for cleaner codebase
+- **DataForSEO Competitor Audit (Rob Futrell):**
+  - Ran audit on robfutrell.com for comparison
+  - Rob's score: 97.9/100 vs COS: 99.01/100
+  - Rob's issues: 15 pages no favicon, 15 render-blocking resources, 9 duplicate content, 5 low content rate
+  - Key takeaway: COS is ahead on technical SEO
+- **Fresh COS Audit:**
+  - Re-ran audit after all changes
+  - **Score held at 99.01/100** ✅
+  - 0 render-blocking resources (async fonts working)
+- **PageSpeed Final Scores:**
+  - Mobile: 88/88/100/100
+  - Desktop: 98/89
+  - Acceptable tradeoff for SEO content value
+
 ### Dec 12, 2025 Session (Afternoon) - DataForSEO & Performance
 - **DataForSEO Setup:**
   - Account created, API credentials obtained
@@ -198,6 +221,12 @@ Add a TXT record:
 - [ ] Add FAQ schema + sections to venue pages
 - [ ] Submit to Google Search Console: Amelia Island, Epping Forest, Treasury pages
 - [ ] Clean up old WordPress URLs from Google index (redirects or removal requests)
+- [ ] **Create Pinterest Business Account** - High priority for wedding market
+  - Create business account (not personal)
+  - Claim website for analytics
+  - Boards to create: "Jacksonville Weddings", "St Augustine Weddings", "Live Wedding Musicians", "Wedding Reception Ideas", "Wedding Lighting Design"
+  - Pin best reception/dance floor photos with keyword-rich descriptions
+  - Target 5-10 pins per week initially
 
 **Why These Changes Matter for AI Search:**
 - FAQ sections provide direct answers to questions AI models pull from
