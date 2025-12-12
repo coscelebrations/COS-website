@@ -1,5 +1,27 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 10, 2025
+## Last Updated: December 12, 2025
+
+---
+
+## 🚨 RULE #1: SEO & AI OPTIMIZATION COMES FIRST
+
+**Every change to this website must be SEO and AI optimized by default.**
+
+When adding ANY new content, ALWAYS include:
+1. **Schema markup** (JSON-LD) - Add to page head for structured data
+2. **Full-sentence descriptions** - Hidden or visible, for AI to quote
+3. **Title/alt attributes** - On all links and images
+4. **Question-based headings** where appropriate - FAQs, sections
+5. **No unoptimized images** - WebP only, max 800px content / 1200px hero, under 100KB
+
+Design can be adjusted afterward. SEO/AI cannot be an afterthought.
+
+**Checklist before committing any new feature:**
+- [ ] Does it have schema markup if applicable?
+- [ ] Are there full sentences AI can quote?
+- [ ] Are images optimized (WebP, correct size, under 100KB)?
+- [ ] Do links have descriptive title attributes?
+- [ ] Is there hidden AI-readable content for stats/lists?
 
 ---
 
@@ -62,6 +84,65 @@
 - PageSpeed: 91 mobile, 99 desktop after optimizations
 - DJEP form REMOVED from all pages except /contact/ (breaks dropdown nav)
 - Dance floor background image added to Homepage CTA, Contact hero
+
+### Dec 12, 2025 Session - AI Search Optimization
+- **FAQ Sections Added:**
+  - Homepage: 6 comprehensive FAQs covering pricing, differentiation, live musicians, service areas, booking timeline, and preferred venues
+  - Weddings page: 5 FAQs covering live instruments, timeline changes, no-cheese approach, music customization, and package inclusions
+  - Jacksonville page: Already had inline FAQ section, added FAQPage schema
+- **Schema Markup Implemented (JSON-LD):**
+  - Homepage: LocalBusiness schema with full company info (address, phone, geo coordinates, social links, service catalog, awards, founder bio, aggregate rating) + FAQPage schema + press articles (subjectOf)
+  - Weddings page: Service schema + FAQPage schema
+  - Jacksonville page: Service schema for local page + FAQPage schema
+- **AI-Readable Stats Added:**
+  - Trust bar stats now have title attributes with full sentences
+  - Hidden (but crawlable) paragraph section with full-sentence versions of all stats for AI discoverability
+- **Meta Description Updated:**
+  - Homepage: Changed "$1,400" to "$1,500" to match current pricing
+- **CSS Added:**
+  - FAQ section styling for Homepage (white background, clean borders)
+  - FAQ section styling for Weddings page (soft-pink background, card-style questions)
+- **Image Optimization:**
+  - Converted all Epping Forest JPGs to WebP (848KB → 113KB, etc.)
+  - Converted all Lightner Museum JPGs to WebP
+  - Updated all HTML references from .jpg to .webp
+  - Deleted original JPG/PNG files to keep repo clean
+- **Awards Section Updated:**
+  - Added 2 new awards: Best DJ Service (Quality Business Awards), Best Entertainment Company (BusinessRate)
+  - Replaced star icons with trophy/medal SVG icons for visual variety
+  - Updated schema markup with new awards
+- **"As Seen In" / Press Section Added:**
+  - Southern Bride, Bold Journey, Voyage Jacksonville (x2), Old City PR
+  - Each link has descriptive title attribute
+  - Hidden AI-readable paragraphs describing each feature
+  - Added press articles to schema markup (subjectOf property)
+- **Title Attributes Added to ALL Links:**
+  - Audited homepage - found 28 links missing titles
+  - Added descriptive titles to nav, CTAs, city links, footer, social icons
+- **Weddings Page Nav Fixed:**
+  - Added missing VIP Login and Contact links to match homepage nav
+- **RULE #1 Added to SEO.md:**
+  - "SEO & AI Optimization Comes First" - every change must include schema, full sentences, optimized images, title attributes by default
+
+**Upcoming / TODOs:**
+- [ ] Build venue page generator workflow (fast + unique pages)
+- [ ] Set up DataForSEO for cross-referencing audits (awaiting registration email)
+- [ ] Add FAQ schema + sections to remaining city pages
+- [ ] Add FAQ schema + sections to venue pages
+
+**Why These Changes Matter for AI Search:**
+- FAQ sections provide direct answers to questions AI models pull from
+- Schema markup helps AI understand entity relationships and structured data
+- Full sentences (vs. just numbers) give AI quotable, context-rich content
+- These same optimizations also improve Google rich results and traditional SEO
+
+**Remaining AI Optimization TODOs:**
+- [ ] Add FAQ schema + sections to remaining city pages (St. Augustine, Ponte Vedra, Amelia Island, Orlando, Tampa)
+- [ ] Add FAQ schema + sections to venue pages (Treasury, Lightner, Epping Forest)
+- [ ] Create About page with clear factual company info when team photos ready
+- [ ] Off-site: Ensure consistent NAP across directories, optimize Google Business Profile
+
+---
 
 ### Dec 11, 2025 Session (Evening)
 - **Epping Forest Yacht Club venue page created:** `/epping-forest-yacht-club-wedding-dj/`
@@ -140,12 +221,12 @@ As AI search (ChatGPT, Perplexity, Claude, Google AI Overviews) becomes a major 
 ### Action Items for AI Optimization
 
 **On-site (HIGH PRIORITY):**
-- [ ] Add FAQ sections to key pages (naturally answers questions AI might be asked)
-- [ ] Implement comprehensive schema markup (LocalBusiness, Organization, Service, Review JSON-LD)
-- [ ] Rewrite key stats as full sentences: "COS Celebrations has performed at over 2,000 events" not just "2,000+ Events"
-- [ ] Add About page with clear, factual company info (founding story, credentials, service area, touring history)
-- [ ] Use question-based headings where natural ("Why choose a DJ with live musicians?")
-- [ ] Provide direct, quotable answers in first sentence after each heading
+- [x] Add FAQ sections to key pages (naturally answers questions AI might be asked) ✅ Dec 12 - Homepage, Weddings, Jacksonville
+- [x] Implement comprehensive schema markup (LocalBusiness, Organization, Service, Review JSON-LD) ✅ Dec 12 - Homepage, Weddings, Jacksonville
+- [x] Rewrite key stats as full sentences: "COS Celebrations has performed at over 2,000 events" not just "2,000+ Events" ✅ Dec 12 - Hidden AI-readable section + title attributes
+- [ ] Add About page with clear, factual company info (founding story, credentials, service area, touring history) - waiting for team photos
+- [x] Use question-based headings where natural ("Why choose a DJ with live musicians?") ✅ Dec 12 - FAQ headings are question-based
+- [x] Provide direct, quotable answers in first sentence after each heading ✅ Dec 12 - FAQ answers start with direct, quotable statements
 
 **Off-site:**
 - [ ] Ensure consistent NAP (Name, Address, Phone) across all directories
