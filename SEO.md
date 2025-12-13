@@ -45,6 +45,27 @@ Design can be adjusted afterward. SEO/AI cannot be an afterthought.
 
 ### Session Notes (Dec 13, 2025 - Evening) - Competitor Analysis & New Pages
 
+**AI Search Optimization:**
+- Added 3 new FAQ schema questions targeting AI search queries:
+  - "Who is the best wedding DJ in Jacksonville Florida?"
+  - "Can I have live saxophone with my wedding DJ?"
+  - "What is the best wedding entertainment company in St. Augustine?"
+- These match how people phrase questions to ChatGPT/Perplexity
+
+**⚠️ CRITICAL: City Pages Need Differentiation (SEO DEBT)**
+Currently, Jacksonville and Orlando pages (and likely others) have ~70% duplicate content - same structure, same feature cards, same selling points with just city names swapped. This is hurting SEO.
+
+**Why this happened:** Launched quickly to get pages live - understood and acceptable.
+
+**What needs to happen (when time allows):**
+- [ ] Add city-specific wedding photos to each page
+- [ ] Add city-specific testimonials from couples married in that city
+- [ ] Rewrite feature cards with different angles per city (don't just swap city names)
+- [ ] Add unique city-specific content (Jacksonville = river city vibe, Orlando = destination weddings)
+- [ ] Each page needs at least 30-40% unique content to avoid duplicate content penalties
+
+**Priority:** Medium-High. Not urgent, but should be addressed within next few weeks to avoid Google filtering pages.
+
 **Competitor Analysis Completed:**
 - Reviewed: Curate Entertainment, SCE Event Group, Elegant Music Group
 - Key insights applied to COS site
