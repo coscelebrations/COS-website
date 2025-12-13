@@ -31,11 +31,17 @@ Design can be adjusted afterward. SEO/AI cannot be an afterthought.
 
 ## 🚀 CURRENT STATE & NEXT STEPS
 
-### Where We Left Off (Dec 10, 2025)
+### Session Startup
+**When starting a new session, immediately:**
+1. Start local preview server: `cd /Users/coreypeterson/cos-website && python3 -m http.server 8000 --bind 0.0.0.0 &`
+2. Confirm running at http://127.0.0.1:8000
+3. Review this document for current state and priorities
+
+### Where We Left Off (Dec 13, 2025)
 - Working on **COS static site** (Netlify) - NOT the WordPress site
 - All work happens in `/Users/coreypeterson/cos-website/`
 - Preview at: https://cool-jelly-73d5c0.netlify.app/
-- Local dev server: `python3 -m http.server 8000` then visit http://localhost:8000
+- Local dev server: `python3 -m http.server 8000` then visit http://127.0.0.1:8000
 
 ### ✅ SITE IS LIVE! (Dec 10, 2025)
 **Domain:** https://coscelebrations.com
