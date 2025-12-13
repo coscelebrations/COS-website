@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 12, 2025
+## Last Updated: December 13, 2025
 
 ---
 
@@ -42,6 +42,21 @@ Design can be adjusted afterward. SEO/AI cannot be an afterthought.
 - All work happens in `/Users/coreypeterson/cos-website/`
 - Preview at: https://cool-jelly-73d5c0.netlify.app/
 - Local dev server: `python3 -m http.server 8000` then visit http://127.0.0.1:8000
+
+### Recent Changes (Dec 13, 2025)
+- **Accessibility fixes:** Star ratings have `aria-label="5 out of 5 stars"`, carousel arrows labeled
+- **New venue page:** Timuquana Country Club (`/timuquana-country-club-wedding-dj/`)
+- **11 optimized photos:** From Sara Purdy Photography (Winslow wedding)
+  - Location: `/images/timuquana-country-club-wedding/`
+  - All WebP, 1200px max, GPS tagged (30.1975, -81.6839), copyright: COS Celebrations
+- **Jacksonville page updated:** Timuquana now has featured card with sax photo
+- **Contact page:** City names now link to city pages (invisible links)
+- **Added .gitignore:** Raw photo folders excluded from git
+
+### Raw Photo Storage (NOT in git)
+When photographers send galleries, download to `/images/[venue-name]-wedding/` folder.
+Process best shots into `/images/[venue-name]-country-club-wedding/` or similar for site use.
+Raw folders are gitignored to keep repo size manageable.
 
 ### ✅ SITE IS LIVE! (Dec 10, 2025)
 **Domain:** https://coscelebrations.com
