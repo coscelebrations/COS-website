@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <title>Florida Wedding DJ + Live Saxophone | COS Celebrations</title>
   <meta name="description" content="Luxury wedding DJ and live saxophone entertainment in Jacksonville, St. Augustine, Orlando, and Tampa. 500+ five-star reviews. Starting at $1,500.">
 
@@ -1568,6 +1570,149 @@
         box-sizing: border-box;
       }
     }
+
+    /* Diagonal Section Dividers */
+    .diagonal-divider {
+      position: relative;
+      height: 80px;
+      overflow: hidden;
+    }
+
+    .diagonal-divider::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: inherit;
+      transform: skewY(-2.5deg);
+      transform-origin: top left;
+    }
+
+    /* Accent line on the diagonal edge - Rose (softer) */
+    .diagonal-divider.accent::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--rose);
+      transform: skewY(-2.5deg);
+      transform-origin: top left;
+      opacity: 0.6;
+    }
+
+    .diagonal-divider.accent.flip::after {
+      transform: skewY(2.5deg);
+      transform-origin: top right;
+    }
+
+    /* Merlot accent - bolder, for key sections */
+    .diagonal-divider.accent-merlot::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--merlot);
+      transform: skewY(-2.5deg);
+      transform-origin: top left;
+      opacity: 0.5;
+    }
+
+    .diagonal-divider.accent-merlot.flip::after {
+      transform: skewY(2.5deg);
+      transform-origin: top right;
+    }
+
+    /* Divider variants for different section transitions */
+    .diagonal-divider.cream-to-white::before {
+      background: linear-gradient(to bottom, var(--cream) 50%, white 50%);
+    }
+
+    .diagonal-divider.white-to-pink::before {
+      background: linear-gradient(to bottom, white 50%, var(--soft-pink) 50%);
+    }
+
+    .diagonal-divider.pink-to-cream::before {
+      background: linear-gradient(to bottom, var(--soft-pink) 50%, var(--cream) 50%);
+    }
+
+    .diagonal-divider.cream-to-merlot::before {
+      background: linear-gradient(to bottom, var(--cream) 50%, var(--merlot) 50%);
+    }
+
+    .diagonal-divider.merlot-to-white::before {
+      background: linear-gradient(to bottom, var(--merlot) 50%, white 50%);
+    }
+
+    .diagonal-divider.white-to-cream::before {
+      background: linear-gradient(to bottom, white 50%, var(--cream) 50%);
+    }
+
+    .diagonal-divider.cream-to-pink::before {
+      background: linear-gradient(to bottom, var(--cream) 50%, var(--soft-pink) 50%);
+    }
+
+    .diagonal-divider.pink-to-white::before {
+      background: linear-gradient(to bottom, var(--soft-pink) 50%, white 50%);
+    }
+
+    /* Flip direction for visual variety */
+    .diagonal-divider.flip::before {
+      transform: skewY(2.5deg);
+      transform-origin: top right;
+    }
+
+    @media (max-width: 768px) {
+      .diagonal-divider {
+        height: 50px;
+      }
+    }
+
+    /* Scroll-triggered fade-in animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered delays for cards/grid items */
+    .fade-in-stagger > * {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .fade-in-stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+    .fade-in-stagger.visible > *:nth-child(2) { transition-delay: 0.1s; }
+    .fade-in-stagger.visible > *:nth-child(3) { transition-delay: 0.2s; }
+    .fade-in-stagger.visible > *:nth-child(4) { transition-delay: 0.3s; }
+    .fade-in-stagger.visible > *:nth-child(5) { transition-delay: 0.4s; }
+    .fade-in-stagger.visible > *:nth-child(6) { transition-delay: 0.5s; }
+
+    .fade-in-stagger.visible > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in,
+      .fade-in-stagger > * {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1577,7 +1722,6 @@
     <a href="/" class="logo" title="COS Celebrations - Luxury Wedding DJ and Live Entertainment">
       <img src="/images/cos-celebrations-logo.webp" alt="COS Celebrations - Luxury Event Entertainment" class="logo-img">
     </a>
-    <span class="nav-tagline">Luxury Event Entertainment</span>
     <ul class="nav-links">
       <li class="dropdown">
         <span class="dropdown-toggle">Services</span>
@@ -1644,12 +1788,15 @@
     <p>COS Celebrations has performed at over 2,000 weddings and events since our founding, making us one of the most experienced wedding DJ companies in North Florida.</p>
   </div>
 
+  <!-- Diagonal Divider: Cream to White -->
+  <div class="diagonal-divider cream-to-white accent"></div>
+
   <!-- What Sets Us Apart -->
   <section class="sets-apart">
-    <div class="section-header">
+    <div class="section-header fade-in">
       <h2>What Sets Us Apart</h2>
     </div>
-    <div class="apart-grid">
+    <div class="apart-grid fade-in-stagger">
       <div class="apart-card sax-card">
         <div class="apart-icon">🎹</div>
         <h3>Musician's Ear</h3>
@@ -1668,12 +1815,15 @@
     </div>
   </section>
 
+  <!-- Diagonal Divider: White to Pink (before Awards - merlot) -->
+  <div class="diagonal-divider white-to-pink flip accent-merlot"></div>
+
   <!-- Awards Section -->
   <section class="awards">
-    <div class="awards-header">
+    <div class="awards-header fade-in">
       <p>Award-Winning Entertainment</p>
     </div>
-    <div class="awards-grid">
+    <div class="awards-grid fade-in-stagger">
       <div class="award-badge">
         <span class="award-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg></span>
         <span>Couple's Choice DJ — <span class="award-source">WeddingWire</span></span>
@@ -1739,6 +1889,9 @@
     </div>
   </section>
 
+  <!-- Diagonal Divider: Pink to Cream -->
+  <div class="diagonal-divider pink-to-cream accent"></div>
+
   <!-- Introduction Section -->
   <section style="padding: 5rem 2rem; background: var(--cream);">
     <div style="max-width: 900px; margin: 0 auto; font-size: 1.05rem; line-height: 1.9; color: var(--text-soft);">
@@ -1748,7 +1901,7 @@
 
   <!-- Reviews Section -->
   <section class="reviews">
-    <div class="section-header">
+    <div class="section-header fade-in">
       <p class="eyebrow">What Couples Say</p>
       <h2>Real Weddings, Real Reactions</h2>
     </div>
@@ -1854,9 +2007,12 @@
     </div>
   </section>
 
+  <!-- Diagonal Divider: White to Cream (before Pricing - merlot) -->
+  <div class="diagonal-divider white-to-cream flip accent-merlot"></div>
+
   <!-- Investment Section -->
   <section class="investment-section" id="pricing">
-    <div class="section-header">
+    <div class="section-header fade-in">
       <p class="eyebrow">Investment</p>
       <h2>Your Experience, Your Investment</h2>
       <p>Our couples typically invest <strong style="color: var(--merlot);">$1,500 – $3,000</strong> depending on the experience they create. Every wedding is different, and we build your package around what matters most to you—not the other way around.</p>
@@ -1920,6 +2076,9 @@
     </div>
   </section>
 
+  <!-- Diagonal Divider: Cream to Pink -->
+  <div class="diagonal-divider cream-to-pink accent"></div>
+
   <!-- Service Areas -->
   <section class="areas" id="services">
     <p class="eyebrow">Serving North & Central Florida</p>
@@ -1934,13 +2093,16 @@
     </div>
   </section>
 
+  <!-- Diagonal Divider: Pink to White (before FAQ - merlot) -->
+  <div class="diagonal-divider pink-to-white flip accent-merlot"></div>
+
   <!-- FAQ Section -->
   <section class="faq-section" id="faq">
-    <div class="section-header">
+    <div class="section-header fade-in">
       <p class="eyebrow">Common Questions</p>
       <h2>Frequently Asked Questions</h2>
     </div>
-    <div class="faq-container">
+    <div class="faq-container fade-in">
       <div class="faq-item">
         <h3 class="faq-question">How much does a wedding DJ cost in Jacksonville and St. Augustine?</h3>
         <p class="faq-answer">COS Celebrations wedding DJ packages start at $1,500 and most couples invest between $1,500 and $3,000 depending on hours of coverage and add-on services like live saxophone, lighting design, and photo booths. Our pricing includes professional DJ and MC services, premium sound equipment, wireless microphones, and access to our COS Music + Timeline planning app.</p>
@@ -2138,6 +2300,25 @@
       track.addEventListener('mouseleave', () => {
         reviewTimer = setInterval(nextReview, 5000);
       });
+
+      // Scroll-triggered fade-in animations
+      const fadeElements = document.querySelectorAll('.fade-in, .fade-in-stagger');
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+      };
+
+      const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      fadeElements.forEach(el => fadeObserver.observe(el));
     });
   </script>
 

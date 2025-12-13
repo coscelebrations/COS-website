@@ -37,13 +37,66 @@ Design can be adjusted afterward. SEO/AI cannot be an afterthought.
 2. Confirm running at http://127.0.0.1:8000
 3. Review this document for current state and priorities
 
-### Where We Left Off (Dec 13, 2025)
+### Where We Left Off (Dec 13, 2025 - Evening Session)
 - Working on **COS static site** (Netlify) - NOT the WordPress site
 - All work happens in `/Users/coreypeterson/cos-website/`
 - Preview at: https://cool-jelly-73d5c0.netlify.app/
 - Local dev server: `python3 -m http.server 8000` then visit http://127.0.0.1:8000
 
-### Recent Changes (Dec 13, 2025)
+### Session Notes (Dec 13, 2025 - Evening) - Competitor Analysis & New Pages
+
+**Competitor Analysis Completed:**
+- Reviewed: Curate Entertainment, SCE Event Group, Elegant Music Group
+- Key insights applied to COS site
+
+**Homepage Enhancements:**
+- **Diagonal section dividers added:** 6 dividers between major sections
+  - Mix of rose (soft transitions) and merlot (key sections) accent lines
+  - CSS-only, zero performance impact, GPU-accelerated
+  - Angles alternate direction for visual rhythm
+- **Scroll-triggered fade-in animations:** Added to section headers and card grids
+  - Uses IntersectionObserver (native, efficient)
+  - Respects `prefers-reduced-motion` for accessibility
+  - Staggered delays on card grids (0.1s between items)
+
+**New Team Pages Created (NOT YET IN NAV - waiting for bios/photos):**
+- `/team/djs/index.html` — Team page with leadership + DJs
+  - Leadership section: Corey (Founder & Lead DJ) + Kyle (Client Services Director)
+  - Corey's photo added (sax photo from homepage)
+  - DJ grid: Marc, CJ, Noah, Greg (2x2 layout)
+  - Placeholder initials for photos not yet added
+  - "Bio coming soon" placeholder text
+- `/team/musicians/index.html` — Live musicians capabilities (no names to protect vendor network)
+  - Solo instruments: Saxophone, Violin, Piano, Guitar, Drums, Trumpet
+  - Ensembles: String Duo/Trio, Jazz Trio, Acoustic Duo, Fusion Band
+  - Tags showing which part of wedding each suits (Ceremony, Cocktail, Reception)
+
+**Nav Updates:**
+- "Our Team" dropdown removed from homepage nav (pages not ready for public)
+- Team pages still accessible directly at `/team/djs/` and `/team/musicians/` for preview
+- Will add dropdown back when bios/photos complete
+
+**Team Roster (Current):**
+- Corey Peterson — Founder & Lead DJ (photo added)
+- Kyle — Client Services Director (engaged to Corey, runs company together)
+- Marc — DJ
+- CJ — DJ
+- Noah — DJ
+- Greg — DJ & Multi-Instrumentalist (sax, piano)
+- *Removed from list:* Ian, Khalil (not current DJs)
+
+**Strategy Decision:**
+- AE Entertainment link NOT added to COS site (protects luxury positioning)
+- AE links UP to COS (upgrade path), COS doesn't link DOWN to AE
+- Couples who need budget option will find AE via search anyway
+
+**TODO When Ready:**
+- [ ] Get team headshots (replace initials placeholders)
+- [ ] Write real bios for each team member
+- [ ] Add "Our Team" dropdown back to nav on all pages
+- [ ] Apply diagonal dividers to other pages if desired (homepage only for now)
+
+### Recent Changes (Dec 13, 2025 - Earlier)
 - **Accessibility fixes:** Star ratings have `aria-label="5 out of 5 stars"`, carousel arrows labeled
 - **New venue page:** Timuquana Country Club (`/timuquana-country-club-wedding-dj/`)
 - **11 optimized photos:** From Sara Purdy Photography (Winslow wedding)
@@ -1043,14 +1096,17 @@ Each city page should have:
 
 ## TEAM MEMBERS
 
-- Corey (Owner/DJ/Saxophonist)
-- CJ (DJ)
-- Greg (DJ/Saxophonist/Pianist)
-- Noah (DJ)
+**Current Active Team (Dec 2025):**
+- Corey Peterson (Founder/Lead DJ/Saxophonist)
+- Kyle (Client Services Director - engaged to Corey, runs company together)
 - Marc (DJ)
-- Ian (DJ)
-- Kyle (Team member - reviews/coordination)
-- Khalil (DJ/Saxophonist - Orlando)
+- CJ (DJ)
+- Noah (DJ)
+- Greg (DJ/Saxophonist/Pianist)
+
+**No longer with COS:**
+- Ian (removed Dec 2025)
+- Khalil (removed Dec 2025)
 
 ---
 
