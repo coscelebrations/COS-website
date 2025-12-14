@@ -45,10 +45,10 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How far in advance should we book a Jacksonville wedding DJ?",
+        "name": "How much does a wedding DJ cost in Jacksonville?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Jacksonville couples typically book 12-18 months in advance, especially for peak wedding season from April through June and October through November. However, we occasionally have availability for shorter timelines so reach out to check your date."
+          "text": "Jacksonville wedding DJ packages from COS Celebrations start at $1,500 for 4 hours of professional DJ and MC services. Most Jacksonville couples invest between $1,900 and $2,400, which includes ceremony coverage and additional hours. Live saxophone, uplighting, and other enhancements are available as add-ons."
         }
       },
       {
@@ -56,31 +56,39 @@
         "name": "Do you charge travel fees for Jacksonville weddings?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No, Jacksonville is part of our primary service area. You will never pay a travel fee for any venue in Jacksonville, Jacksonville Beach, or the surrounding areas."
+          "text": "Never. Jacksonville, Jacksonville Beach, Atlantic Beach, Neptune Beach, Ponte Vedra — the entire Duval County area is part of our primary service region. You'll never see a travel fee on your quote."
         }
       },
       {
         "@type": "Question",
-        "name": "Can we meet our DJ before the wedding?",
+        "name": "Which Jacksonville wedding venues do you work with?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Absolutely. We schedule planning calls to discuss your vision, music preferences, and timeline. Many Jacksonville couples also appreciate our COS Music + Timeline App where you can communicate directly with your DJ."
+          "text": "We've performed at virtually every wedding venue in Jacksonville, but our most frequent venues include Timuquana Country Club, Epping Forest Yacht Club, The River Club, Casa Marina, and private estates throughout Riverside, Ortega, and San Marco. We're a preferred vendor at several Jacksonville venues."
         }
       },
       {
         "@type": "Question",
-        "name": "What if we want live saxophone but have a tight budget?",
+        "name": "How far in advance should Jacksonville couples book?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Our packages start at $1,500 for professional DJ services, and live saxophone can be added to any package. Contact us for a custom quote - we work with a variety of budgets to make your Jacksonville wedding unforgettable."
+          "text": "Most Jacksonville couples book 9-12 months out, especially for peak season (April-June and October-November). Saturday weddings at popular venues like Timuquana fill our calendar fastest. That said, we occasionally have availability for shorter timelines."
         }
       },
       {
         "@type": "Question",
-        "name": "Do you only play song requests at Jacksonville weddings?",
+        "name": "Can we request specific songs?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We blend your must-play songs with our expertise in reading the room. You control the vibe, we handle the execution. That balance is why Jacksonville couples trust us to keep dance floors full."
+          "text": "Absolutely. You'll get access to our COS Music + Timeline app where you can build your playlist, flag must-plays, and note any do-not-plays. We blend your requests with our expertise in reading the room — you set the vibe, we execute it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's included in every Jacksonville wedding package?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Every package includes: professional DJ/MC services, premium sound system sized for your venue, wireless microphones for toasts and ceremony, backup equipment, access to our planning app, and direct communication with your DJ before the wedding. No hidden fees, no surprise charges."
         }
       }
     ]
@@ -449,62 +457,110 @@
     }
 
     .venues-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem;
+      margin: 3rem 0;
     }
 
     .venue-item {
-      padding: 1.5rem;
-      background: white;
-      border: 1px solid var(--blush);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 180px;
       transition: all 0.3s ease;
     }
 
     .venue-item:hover {
-      border-color: var(--rose);
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+    }
+
+    .venue-item:hover .venue-circle {
+      box-shadow: 0 15px 40px rgba(114, 47, 55, 0.25);
+      border-color: var(--merlot);
+      animation-play-state: paused;
+    }
+
+    .venue-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--rose);
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      background: var(--soft-pink);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .venue-item:nth-child(2) .venue-circle { animation-delay: -0.5s; }
+    .venue-item:nth-child(3) .venue-circle { animation-delay: -1s; }
+    .venue-item:nth-child(4) .venue-circle { animation-delay: -1.5s; }
+    .venue-item:nth-child(5) .venue-circle { animation-delay: -2s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .venue-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .venue-item h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--merlot);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .venue-item h3 a {
+      color: var(--merlot);
+      text-decoration: none;
     }
 
     .venue-item p {
-      font-size: 0.9rem;
+      display: none;
+    }
+
+    .venue-item .venue-tagline {
+      display: block;
+      font-size: 0.8rem;
       color: var(--text-soft);
-      line-height: 1.6;
+      line-height: 1.4;
     }
 
     .venue-featured {
-      grid-column: span 2;
+      max-width: 180px;
     }
 
     .venue-featured .venue-image {
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
-      border-radius: 2px;
-      margin-bottom: 1rem;
+      display: none;
     }
 
     .photo-credit {
-      font-size: 0.75rem;
-      color: var(--text-soft);
-      opacity: 0.7;
-      margin-top: 0.5rem;
+      display: none;
     }
 
     @media (max-width: 768px) {
-      .venue-featured {
-        grid-column: span 1;
+      .venues-list {
+        gap: 2rem;
       }
 
-      .venue-featured .venue-image {
-        height: 200px;
+      .venue-item {
+        max-width: 140px;
+      }
+
+      .venue-circle {
+        width: 110px;
+        height: 110px;
+      }
+
+      .venue-item h3 {
+        font-size: 1rem;
       }
     }
 
@@ -736,40 +792,30 @@
   <!-- Main Content -->
   <section class="content-section">
     <div class="intro-text">
-      <p>Looking for a <strong>Jacksonville wedding DJ</strong> who brings more than just a playlist? COS Celebrations pioneered the DJ + live musician model in North Florida — and we've been making Jacksonville weddings unforgettable ever since. With over 500 five-star reviews and performances at Jacksonville's most prestigious venues, we deliver the energy of a live concert combined with the precision of a professional DJ. Our founder has toured 35+ countries and shared the stage with artists like Usher, Alicia Keys, and Big Gigantic before bringing that world-class experience home to Jacksonville. Whether you're planning an elegant ballroom reception at Timuquana Country Club, a waterfront celebration at Epping Forest Yacht Club, or an intimate gathering at Casa Marina, we bring the same level of expertise and enthusiasm to every wedding. Starting at just $1,500, we make luxury entertainment accessible without compromising on quality. We're not here to make your wedding about us — we're here to make your celebration exactly what you envisioned, with the added magic of live saxophone weaving through your favorite songs. That's the COS difference, and that's why couples across Jacksonville keep choosing us for their most important day.</p>
+      <p>There's something about a Jacksonville wedding. Maybe it's the St. Johns River catching golden hour light behind your first dance at Epping Forest. Maybe it's the century-old oaks at Timuquana framing your ceremony like they've done for generations of Jacksonville families. Or maybe it's that this sprawling, diverse city produces couples who want a celebration that feels real, not rehearsed. <strong>COS Celebrations</strong> has been the wedding DJ of choice for Jacksonville couples who care about music, not cheese. Our founder grew up playing piano at 4 and took his saxophone on tour across <strong>35+ countries</strong> with artists like <strong>Usher and Alicia Keys</strong> before coming home to build something different. We pioneered the DJ + live saxophone model here in North Florida, and Jacksonville venues like Timuquana, Epping Forest, and The River Club keep calling us back because we deliver. With <strong>500+ five-star reviews</strong> and over 2,000 weddings behind us, we know what works. No ego. No spotlight-stealing. Just your wedding, your music, your way — with live sax weaving through the moments that matter.</p>
     </div>
 
     <h2>Why Jacksonville Couples Choose COS Celebrations</h2>
 
     <div class="features-grid">
       <div class="feature-card">
-        <h3>World-Class Experience</h3>
-        <p>Our founder performed with major artists across 35+ countries. That touring experience translates into flawless execution and unforgettable moments at your Jacksonville wedding.</p>
+        <h3>We Know Jacksonville Venues</h3>
+        <p>From the historic ballrooms along the St. Johns to oceanfront celebrations in Jacksonville Beach, we've performed at virtually every wedding venue in Duval County. We know which rooms have tricky acoustics, where to position speakers at Epping Forest, and how to work with Timuquana's timeline for sunset photos.</p>
       </div>
 
       <div class="feature-card">
-        <h3>DJ + Live Musicians</h3>
-        <p>We pioneered the DJ + live saxophone model in the Southeast. Imagine your first dance with live sax — something speakers simply can't replicate.</p>
+        <h3>River City Roots</h3>
+        <p>We're based just 40 minutes south in St. Augustine, which means Jacksonville is home turf — not a "destination" we charge extra for. No travel fees, ever. We show up early, stay late, and treat your Jacksonville wedding like the hometown celebration it is.</p>
       </div>
 
       <div class="feature-card">
-        <h3>Your Event, Your Way</h3>
-        <p>No ego. No spotlight-stealing. Our "It's not about us, it's YOUR event" philosophy means every decision centers on your vision.</p>
+        <h3>Your Crowd, Your Music</h3>
+        <p>Jacksonville weddings bring together everyone from San Marco old money to Riverside creatives to Beaches families. We read rooms for a living — knowing when to drop a Motown classic for the older crowd and when to hit the 2024 bangers that get your college friends moving. That's 2,000+ weddings of experience.</p>
       </div>
 
       <div class="feature-card">
-        <h3>500+ Five-Star Reviews</h3>
-        <p>Jacksonville couples consistently praise our professionalism, music selection, and ability to keep dance floors packed all night long.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Preferred Vendor Status</h3>
-        <p>We're preferred or recommended at Jacksonville's top venues because planners and coordinators trust us to deliver excellence every time.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Transparent Pricing</h3>
-        <p>No hidden fees, no bait-and-switch. Jacksonville weddings start at $1,500 with clear, straightforward pricing you can plan around.</p>
+        <h3>The Live Music Advantage</h3>
+        <p>Most DJs press play. We perform. Imagine your first dance with live saxophone — not a recording, but a musician reading the room and playing to the moment. It's the thing guests talk about for years, and it's something only COS brings to Jacksonville weddings.</p>
       </div>
     </div>
 
@@ -778,39 +824,54 @@
     <p>We've performed at Jacksonville's finest wedding venues and know exactly how to make each space shine:</p>
 
     <div class="venues-list">
-      <div class="venue-item venue-featured">
-        <img src="/images/timuquana-country-club-wedding/live-saxophone-wedding-reception-timuquana.webp"
-             alt="Live saxophone performance at Timuquana Country Club wedding reception"
-             class="venue-image"
-             loading="lazy">
-        <h3><a href="/timuquana-country-club-wedding-dj/" style="color: var(--merlot); text-decoration: none;">Timuquana Country Club</a></h3>
-        <p>One of Jacksonville's most elegant and historic country club venues. Established in 1923, Timuquana offers stunning waterfront views on the St. Johns River and a grand ballroom with Southern charm. We're a preferred vendor here and know exactly how to make your celebration unforgettable.</p>
-        <p class="photo-credit">Photo: Sara Purdy Photography</p>
-      </div>
-
-      <div class="venue-item venue-featured">
-        <img src="/images/epping-forest-wedding-jacksonville/first-dance-checkered-floor-epping-forest.webp"
-             alt="First dance at Epping Forest Yacht Club wedding with checkered dance floor and string lights"
-             class="venue-image"
-             loading="lazy">
-        <h3><a href="/epping-forest-yacht-club-wedding-dj/" style="color: var(--merlot); text-decoration: none;">Epping Forest Yacht Club</a></h3>
-        <p>Waterfront elegance meets Jacksonville charm. This 1920s Mediterranean Revival estate on the St. Johns River is one of Jacksonville's most iconic wedding venues. We've performed countless celebrations here and know every detail—from outdoor ceremonies beneath moss-draped oaks to ballroom receptions overlooking the water.</p>
-        <p class="photo-credit">Photo: She Exposure</p>
+      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/timuquana-country-club-wedding/live-saxophone-wedding-reception-timuquana.webp"
+               alt="Timuquana Country Club wedding"
+               loading="lazy">
+        </div>
+        <h3><a href="/timuquana-country-club-wedding-dj/">Timuquana Country Club</a></h3>
+        <span class="venue-tagline">Historic elegance on the St. Johns</span>
       </div>
 
       <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/epping-forest-wedding-jacksonville/first-dance-checkered-floor-epping-forest.webp"
+               alt="Epping Forest Yacht Club wedding"
+               loading="lazy">
+        </div>
+        <h3><a href="/epping-forest-yacht-club-wedding-dj/">Epping Forest Yacht Club</a></h3>
+        <span class="venue-tagline">Mediterranean Revival waterfront</span>
+      </div>
+
+      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="Casa Marina Hotel"
+               loading="lazy">
+        </div>
         <h3>Casa Marina Hotel</h3>
-        <p>Historic Jacksonville Beach venue with incredible ocean proximity. We've kept countless dance floors packed here with both classic and contemporary hits.</p>
+        <span class="venue-tagline">Oceanfront at Jax Beach</span>
       </div>
 
       <div class="venue-item">
-        <h3><a href="/treasury-on-the-plaza-wedding-dj/" style="color: var(--merlot); text-decoration: none;">Treasury on the Plaza</a></h3>
-        <p>Though located in St. Augustine, many Jacksonville couples choose this stunning 1927 bank building for its iconic architecture and downtown location. <a href="/treasury-on-the-plaza-wedding-dj/" style="color: var(--merlot); font-size: 0.85rem;">Learn more →</a></p>
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="The River Club"
+               loading="lazy">
+        </div>
+        <h3>The River Club</h3>
+        <span class="venue-tagline">Downtown riverfront sophistication</span>
       </div>
 
       <div class="venue-item">
-        <h3>And Many More</h3>
-        <p>From private estates to hotel ballrooms, we've performed at virtually every wedding venue in the Jacksonville area and bring venue-specific expertise to each event.</p>
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="More Jacksonville venues"
+               loading="lazy">
+        </div>
+        <h3>+ Many More</h3>
+        <span class="venue-tagline">Every Jax venue covered</span>
       </div>
     </div>
 
@@ -919,20 +980,23 @@
     <h2>Frequently Asked Questions</h2>
 
     <div style="margin: 2rem 0;">
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How far in advance should we book?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Jacksonville couples typically book 12-18 months in advance, especially for peak wedding season (April-June, October-November). However, we occasionally have availability for shorter timelines — reach out to check your date.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How much does a wedding DJ cost in Jacksonville?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Jacksonville wedding DJ packages from COS Celebrations start at $1,500 for 4 hours of professional DJ and MC services. Most Jacksonville couples invest between $1,900 and $2,400, which includes ceremony coverage and additional hours. Live saxophone, uplighting, and other enhancements are available as add-ons. We're transparent about pricing because Jacksonville couples deserve to plan with confidence.</p>
 
       <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you charge travel fees for Jacksonville weddings?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">No — Jacksonville is part of our primary service area. You'll never pay a travel fee for any venue in Jacksonville, Jacksonville Beach, or the surrounding areas.</p>
+      <p style="color: var(--text-soft); line-height: 1.8;">Never. Jacksonville, Jacksonville Beach, Atlantic Beach, Neptune Beach, Ponte Vedra — the entire Duval County area is part of our primary service region. You'll never see a travel fee on your quote.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Can we meet our DJ before the wedding?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Absolutely. We schedule planning calls to discuss your vision, music preferences, and timeline. Many Jacksonville couples also appreciate our COS Music + Timeline App where you can communicate directly with your DJ.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Which Jacksonville wedding venues do you work with?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">We've performed at virtually every wedding venue in Jacksonville, but our most frequent venues include Timuquana Country Club, Epping Forest Yacht Club, The River Club, Casa Marina, and private estates throughout Riverside, Ortega, and San Marco. We're a preferred vendor at several Jacksonville venues, which means coordinators specifically recommend us to their couples.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">What if we want live saxophone but have a tight budget?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Our packages start at $1,500 for professional DJ services, and live saxophone can be added to any package. Contact us for a custom quote — we work with a variety of budgets to make your Jacksonville wedding unforgettable.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How far in advance should Jacksonville couples book?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Most Jacksonville couples book 9-12 months out, especially for peak season (April-June and October-November). Saturday weddings at popular venues like Timuquana fill our calendar fastest. That said, we occasionally have availability for shorter timelines — it never hurts to ask.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you only play requests?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">We blend your must-play songs with our expertise in reading the room. You control the vibe, we handle the execution — that balance is why Jacksonville couples trust us to keep dance floors full.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Can we request specific songs?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Absolutely. You'll get access to our COS Music + Timeline app where you can build your playlist, flag must-plays, and note any do-not-plays. We blend your requests with our expertise in reading the room — you set the vibe, we execute it.</p>
+
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">What's included in every Jacksonville wedding package?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Every package includes: professional DJ/MC services, premium sound system sized for your venue, wireless microphones for toasts and ceremony, backup equipment, access to our planning app, and direct communication with your DJ before the wedding. No hidden fees, no surprise charges.</p>
     </div>
   </section>
 
