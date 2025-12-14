@@ -230,7 +230,7 @@
       justify-content: center;
       text-align: center;
       padding: 10rem 2rem 4rem;
-      background: linear-gradient(rgba(248, 240, 240, 0.85), rgba(255, 251, 250, 0.9)),
+      background: linear-gradient(rgba(248, 240, 240, 0.6), rgba(255, 251, 250, 0.75)),
                   url('/images/treasury-wedding-st-augustine/bridge-of-lions-wedding-portrait-st-augustine.webp') center/cover no-repeat;
       position: relative;
       overflow: hidden;
@@ -371,93 +371,103 @@
     }
 
     .venues-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem;
+      margin: 3rem 0;
     }
 
     .venue-item {
-      padding: 1.5rem;
-      background: white;
-      border: 1px solid var(--blush);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 180px;
       transition: all 0.3s ease;
     }
 
     .venue-item:hover {
-      border-color: var(--rose);
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+    }
+
+    .venue-item:hover .venue-circle {
+      box-shadow: 0 15px 40px rgba(114, 47, 55, 0.25);
+      border-color: var(--merlot);
+      animation-play-state: paused;
+    }
+
+    .venue-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--rose);
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      background: var(--soft-pink);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .venue-item:nth-child(2) .venue-circle { animation-delay: -0.5s; }
+    .venue-item:nth-child(3) .venue-circle { animation-delay: -1s; }
+    .venue-item:nth-child(4) .venue-circle { animation-delay: -1.5s; }
+    .venue-item:nth-child(5) .venue-circle { animation-delay: -2s; }
+    .venue-item:nth-child(6) .venue-circle { animation-delay: -2.5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .venue-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .venue-item h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--merlot);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .venue-item h3 a {
+      color: var(--merlot);
+      text-decoration: none;
     }
 
     .venue-item p {
-      font-size: 0.9rem;
+      display: none;
+    }
+
+    .venue-item .venue-tagline {
+      display: block;
+      font-size: 0.8rem;
       color: var(--text-soft);
-      line-height: 1.6;
-    }
-
-    .venue-image {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 2px;
-      margin-bottom: 1rem;
-    }
-
-    .venue-featured {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .venue-featured .venue-image {
-      height: 300px;
-      grid-row: 1 / 4;
-    }
-
-    .venue-featured .venue-images {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      grid-row: 1 / 5;
-    }
-
-    .venue-featured .venue-images .venue-image {
-      height: 180px;
-      grid-row: auto;
-    }
-
-    .venue-featured h3 {
-      margin-top: 0;
+      line-height: 1.4;
     }
 
     .photo-credit {
-      font-size: 0.75rem !important;
-      font-style: italic;
-      opacity: 0.7;
-      margin-top: 0.5rem !important;
+      display: none;
     }
 
     @media (max-width: 768px) {
-      .venue-featured {
-        grid-template-columns: 1fr;
+      .venues-list {
+        gap: 2rem;
       }
-      .venue-featured .venue-image {
-        grid-row: auto;
-        height: 220px;
+
+      .venue-item {
+        max-width: 140px;
       }
-      .venue-featured .venue-images {
-        grid-row: auto;
+
+      .venue-circle {
+        width: 110px;
+        height: 110px;
       }
-      .venue-featured .venue-images .venue-image {
-        height: 180px;
+
+      .venue-item h3 {
+        font-size: 1rem;
       }
     }
 
@@ -689,40 +699,30 @@
   <!-- Main Content -->
   <section class="content-section">
     <div class="intro-text">
-      <p>Looking for a <strong>St. Augustine wedding DJ</strong> who brings more than just a playlist? Based right here in St. Augustine, COS Celebrations pioneered the DJ + live musician model in North Florida — and we've been making St. Augustine weddings unforgettable ever since. With over 500 five-star reviews and preferred vendor status at the city's most prestigious venues, we deliver the energy of a live concert combined with the precision of a professional DJ. Our founder has toured 35+ countries and shared the stage with artists like Usher, Alicia Keys, and Big Gigantic before bringing that world-class experience home to St. Augustine. Whether you're planning an elegant ballroom reception at Treasury on the Plaza, a historic museum ceremony at the Lightner Museum, a multi-venue celebration at The White Room, or a waterfront gathering at River House, we bring the same level of expertise and enthusiasm to every wedding. Being based in St. Augustine means we know these venues intimately — from acoustics to logistics to that perfect spot for your grand entrance. Starting at just $1,500 with no travel fees, we make luxury entertainment accessible without compromising on quality. We're not here to make your wedding about us — we're here to make your celebration exactly what you envisioned, with the added magic of live musicians weaving through your favorite songs. That's the COS difference, and that's why couples across St. Augustine keep choosing us for their most important day.</p>
+      <p>Looking for a <strong>St. Augustine wedding DJ</strong> who actually lives here? This is our town. The coquina walls of the Castillo. The gas lamps flickering on St. George Street. The way the afternoon light hits Treasury's windows during cocktail hour. We didn't just choose St. Augustine — we built <strong>COS Celebrations</strong> here because this city deserves a wedding DJ company that actually understands it. Our founder grew up on piano, toured <strong>35+ countries</strong> playing saxophone with artists like <strong>Usher and Alicia Keys</strong>, then came home to create something St. Augustine didn't have: a DJ company run by real musicians. We're preferred vendors at Treasury on the Plaza, Lightner Museum, The White Room, and River House — not because we asked, but because venue coordinators watched us work and wanted us back. With <strong>500+ five-star reviews</strong> and over <strong>2,000 weddings</strong> behind us, we know what we're doing. No travel fees. In-person meetings whenever you want them. Packages starting at <strong>$1,500</strong>. And the kind of venue knowledge that only comes from being local — like knowing exactly when to time the vault entrance at Treasury, or how to handle the Lightner's unique acoustics. This is home. Let us show you what that means for your wedding.</p>
     </div>
 
     <h2>Why St. Augustine Couples Choose COS Celebrations</h2>
 
     <div class="features-grid">
       <div class="feature-card">
-        <h3>Based in St. Augustine</h3>
-        <p>We're not driving in from Jacksonville or Orlando. St. Augustine is our home, which means no travel fees, intimate venue knowledge, and the flexibility to meet in person whenever you need.</p>
+        <h3>Actually Local</h3>
+        <p>We're not driving in from Jacksonville or Orlando and calling ourselves "St. Augustine DJs." We live here, work here, and run into our couples at the Saturday farmer's market. That means in-person meetings, no travel fees, and the kind of responsiveness you only get from a neighbor.</p>
       </div>
 
       <div class="feature-card">
-        <h3>Preferred Vendor Status</h3>
-        <p>We're preferred or recommended at Treasury on the Plaza, Lightner Museum, The White Room, and River House. Venues trust us because we deliver consistent excellence.</p>
+        <h3>Preferred at the Big Four</h3>
+        <p>Treasury on the Plaza. Lightner Museum. The White Room. River House. We didn't ask to be preferred vendors — we earned it wedding after wedding. When venue coordinators recommend us by name, that's not marketing. That's reputation.</p>
       </div>
 
       <div class="feature-card">
-        <h3>DJ + Live Musicians</h3>
-        <p>We pioneered the DJ + live saxophone model in the Southeast. Add live piano, percussion, or additional instruments for a truly unforgettable celebration.</p>
+        <h3>Musicians First, DJs Second</h3>
+        <p>Our founder toured internationally as a saxophonist before building COS. That's why we pioneered the DJ + live musician model here. Your first dance with live sax isn't a gimmick — it's what happens when actual musicians run the company.</p>
       </div>
 
       <div class="feature-card">
-        <h3>World-Class Experience</h3>
-        <p>Our founder performed with major artists across 35+ countries. That touring experience translates into flawless execution and show-stopping moments.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>500+ Five-Star Reviews</h3>
-        <p>St. Augustine couples consistently praise our professionalism, music selection, venue coordination, and ability to keep dance floors packed all night.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Your Event, Your Way</h3>
-        <p>Our "It's not about us, it's YOUR event" philosophy means every decision centers on your vision. No ego, no spotlight-stealing, just your perfect day.</p>
+        <h3>Historic Venue Specialists</h3>
+        <p>St. Augustine's venues aren't cookie-cutter ballrooms. Treasury's vault entrance. Lightner's echoey stone. The White Room's rooftop wind. We've mastered the quirks that trip up out-of-town DJs, because we've done this hundreds of times in these exact rooms.</p>
       </div>
     </div>
 
@@ -731,49 +731,64 @@
     <p>Being based in St. Augustine means we know these venues intimately — and they know us:</p>
 
     <div class="venues-list">
-      <div class="venue-item venue-featured">
-        <img src="/images/treasury-wedding-st-augustine/wedding-grand-entrance-uplighting-treasury.webp"
-             alt="Wedding grand entrance from vault at Treasury on the Plaza St. Augustine - couple entering reception with monogram projection and cheering guests"
-             class="venue-image"
-             loading="lazy">
-        <h3><a href="/treasury-on-the-plaza-wedding-dj/" style="color: var(--merlot); text-decoration: none;">Treasury on the Plaza</a></h3>
-        <p>Our most-performed venue. We know every detail of this stunning 1927 bank building — from the ceremony setup in the main ballroom to the iconic grand entrance from the vault. The room flip during cocktail hour requires perfect timing and coordination, which we've mastered over countless weddings here.</p>
-        <p class="photo-credit">Photo: Walls of Jericho Photography</p>
-      </div>
-
-      <div class="venue-item venue-featured">
-        <img src="/images/lightner-museum-wedding-st-augustine/lightner-museum-ballroom-uplighting-string-lights.webp"
-             alt="Lightner Museum ballroom wedding reception with purple uplighting and string lights"
-             class="venue-image"
-             loading="lazy">
-        <h3><a href="/lightner-museum-wedding-dj/" style="color: var(--merlot); text-decoration: none;">Lightner Museum</a></h3>
-        <p>The museum's historic architecture and courtyard create a magical atmosphere. As a preferred vendor, we know exactly how to balance elegant ceremony music with the ballroom's unique acoustics for an unforgettable reception.</p>
-        <p class="photo-credit">Photo: The Locke Agency</p>
+      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/treasury-wedding-st-augustine/wedding-grand-entrance-uplighting-treasury.webp"
+               alt="Treasury on the Plaza wedding"
+               loading="lazy">
+        </div>
+        <h3><a href="/treasury-on-the-plaza-wedding-dj/">Treasury on the Plaza</a></h3>
+        <span class="venue-tagline">1927 bank building downtown</span>
       </div>
 
       <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/lightner-museum-wedding-st-augustine/lightner-museum-ballroom-uplighting-string-lights.webp"
+               alt="Lightner Museum wedding"
+               loading="lazy">
+        </div>
+        <h3><a href="/lightner-museum-wedding-dj/">Lightner Museum</a></h3>
+        <span class="venue-tagline">Historic courtyard & ballroom</span>
+      </div>
+
+      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="The White Room"
+               loading="lazy">
+        </div>
         <h3>The White Room</h3>
-        <p>With over 100 weddings performed here, we're masters of The White Room's multiple spaces. Whether you're celebrating at Villa Blanca, the Grand Ballroom, Rooftop, or Loft, we bring the energy that makes this iconic venue shine.</p>
+        <span class="venue-tagline">4 unique spaces downtown</span>
       </div>
 
       <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="River House"
+               loading="lazy">
+        </div>
         <h3>River House</h3>
-        <p>St. Augustine's premier waterfront venue. We're a preferred vendor here and have created countless memorable celebrations with perfect views of the Matanzas River.</p>
-      </div>
-
-      <div class="venue-item venue-featured">
-        <img src="/images/fountain-of-youth-wedding-st-augustine/bride-groom-cold-sparks-sax-fountain-of-youth.webp"
-             alt="Bride and groom dancing with cold sparks and live saxophone at Fountain of Youth wedding"
-             class="venue-image"
-             loading="lazy">
-        <h3><a href="/fountain-of-youth-wedding-dj/" style="color: var(--merlot); text-decoration: none;">Fountain of Youth</a></h3>
-        <p>A truly unique waterfront venue on the Intracoastal. Oak tree ceremonies, pavilion receptions, and cold sparks against the water make for unforgettable moments. We've mastered the acoustics of this stunning outdoor space.</p>
-        <p class="photo-credit">Photo: Tyler Gets Weird</p>
+        <span class="venue-tagline">Waterfront on the Matanzas</span>
       </div>
 
       <div class="venue-item">
-        <h3>And Many More</h3>
-        <p>From historic estates to beachfront venues, we've performed at virtually every wedding venue in St. Augustine and bring venue-specific expertise to each event.</p>
+        <div class="venue-circle">
+          <img src="/images/fountain-of-youth-wedding-st-augustine/bride-groom-cold-sparks-sax-fountain-of-youth.webp"
+               alt="Fountain of Youth wedding"
+               loading="lazy">
+        </div>
+        <h3><a href="/fountain-of-youth-wedding-dj/">Fountain of Youth</a></h3>
+        <span class="venue-tagline">Oak trees & Intracoastal views</span>
+      </div>
+
+      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="More St. Augustine venues"
+               loading="lazy">
+        </div>
+        <h3>+ Many More</h3>
+        <span class="venue-tagline">Every local venue covered</span>
       </div>
     </div>
 
@@ -884,20 +899,23 @@
     <h2>Frequently Asked Questions</h2>
 
     <div style="margin: 2rem 0;">
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How much does a wedding DJ cost in St. Augustine?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">St. Augustine wedding DJ packages from COS start at $1,500 for 4 hours of professional DJ and MC services. Most local couples invest between $1,900 and $2,800, which includes ceremony coverage, additional hours, and often live saxophone. Because we're based here, you'll never pay travel fees — that's money back in your pocket compared to out-of-town companies.</p>
+
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Are you actually based in St. Augustine?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Yes — this is our home, not just a market we serve. We live here, our office is here, and we've built relationships with every major venue in town. That means in-person meetings whenever you want, no travel fees ever, and the kind of local knowledge that makes a real difference on your wedding day.</p>
+
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Which St. Augustine venues are you preferred at?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">We're preferred vendors at Treasury on the Plaza, Lightner Museum, The White Room, and River House. But we've performed at virtually every venue in town — from the Villa Blanca to the Fountain of Youth to private estates on Anastasia Island. If it hosts weddings in St. Augustine, we've probably worked there.</p>
+
       <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How far in advance should we book?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">St. Augustine couples typically book 12-18 months in advance, especially for peak wedding season (April-June, October-November) and popular venues like Treasury on the Plaza and The White Room. However, we occasionally have availability for shorter timelines — reach out to check your date.</p>
+      <p style="color: var(--text-soft); line-height: 1.8;">St. Augustine is a destination wedding town, so popular dates book fast. Most couples secure us 9-14 months out, especially for peak season (March-May, September-November) and Saturday nights at Treasury or The White Room. That said, we occasionally have last-minute availability — always worth asking.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you charge travel fees for St. Augustine weddings?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Never. St. Augustine is our home base. Whether your wedding is downtown, at the beach, or anywhere in St. Augustine, you'll never pay a travel fee.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Can we meet in person before booking?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Absolutely — that's one of the perks of hiring local. We can grab coffee downtown, meet at your venue for a walkthrough, or sit down at our office. We want you to feel confident before you sign anything.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Can we meet our DJ in person before the wedding?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Absolutely! Being based locally is one of our biggest advantages. We can meet at our office, a coffee shop, or even walk through your venue together to discuss logistics and vision.</p>
-
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Have you performed at my venue before?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Very likely! We've performed at virtually every wedding venue in St. Augustine. We're preferred vendors at Treasury on the Plaza, Lightner Museum, The White Room, and River House, and we have extensive experience at countless other venues throughout the city.</p>
-
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">What makes you different from other St. Augustine wedding DJs?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">We pioneered the DJ + live musician model in the Southeast. Our founder toured professionally with major artists before settling in St. Augustine. We're not just DJs — we're trained musicians who bring concert-level performance to your wedding. Plus, being truly local means better coordination, no travel fees, and intimate venue knowledge.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">What's included in every St. Augustine wedding package?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Every package includes: professional DJ/MC services, premium sound system, wireless microphones for toasts and ceremony, backup equipment, our COS planning app, and direct communication with your DJ. No hidden fees, no surprise charges, and — because we're local — no travel fees.</p>
     </div>
   </section>
 
