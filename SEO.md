@@ -43,6 +43,38 @@ Design can be adjusted afterward. SEO/AI cannot be an afterthought.
 - Preview at: https://cool-jelly-73d5c0.netlify.app/
 - Local dev server: `python3 -m http.server 8000` then visit http://127.0.0.1:8000
 
+### Session Notes (Dec 13, 2025 - Late Night) - Fountain of Youth & Pricing Cleanup
+
+**New Venue Page Created:**
+- `/fountain-of-youth-wedding-dj/` - Full venue page for Fountain of Youth Archaeological Park
+- Hero: Cold sparks + live sax photo (Yasmine + Sergio wedding)
+- Gallery: 5 photos including ceremony oak trees and pavilion reception
+- Testimonial from couple
+- Photo credit: Tyler Gets Weird
+- Schema markup for venue-specific SEO
+- Added featured card on St. Augustine page (with photo)
+- Updated Treasury page link to point to new Fountain of Youth page
+
+**New Photos Optimized & Added:**
+- `fountain-of-youth-ceremony-oak-trees-st-augustine.webp` (124KB) - outdoor ceremony setup
+- `fountain-of-youth-pavilion-reception-st-augustine.webp` (95KB) - pavilion interior
+
+**Pricing Cleanup - Removed Addon Prices:**
+- Removed all addon pricing from city pages (Jacksonville, Amelia Island, Ponte Vedra)
+- Live Saxophone, Uplighting, Cold Sparks, Photo Booth, Live Piano - no longer show prices
+- Only base pricing remains: $1,500-$3,000 weddings, $600 private events
+- Keeps pricing flexibility and encourages contact for custom quotes
+
+**Favicon Updated (earlier today):**
+- Changed from "COS" text to white saxophone outline on merlot background
+- favicon.png (32x32), favicon-64.png (64x64), apple-touch-icon.png (180x180)
+
+**Team Pages Status:**
+- `/team/djs/` and `/team/musicians/` exist but NOT in nav yet
+- Need: Photo of Corey + Kyle together for leadership section
+- Need: Individual headshots and bios for all DJs
+- Current photos found: kyle.jpg (Desktop), CoreyWithMic.JPG (Desktop/Corey)
+
 ### Session Notes (Dec 13, 2025 - Evening) - Competitor Analysis & New Pages
 
 **AI Search Optimization:**
