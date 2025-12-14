@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 13, 2025
+## Last Updated: December 14, 2025
 
 ---
 
@@ -42,6 +42,74 @@ Design can be adjusted afterward. SEO/AI cannot be an afterthought.
 - All work happens in `/Users/coreypeterson/cos-website/`
 - Preview at: https://cool-jelly-73d5c0.netlify.app/
 - Local dev server: `python3 -m http.server 8000` then visit http://127.0.0.1:8000
+
+### Session Notes (Dec 14, 2025) - City Page Differentiation & AE SEO
+
+**City Page Rewrites Completed:**
+- Jacksonville and St. Augustine pages completely rewritten for unique content
+- Addressed the ~70% duplicate content issue flagged in previous sessions
+- Each page now has genuinely unique intro paragraphs, feature cards, and FAQs
+
+**Jacksonville Page Updates:**
+- New intro: "There's something about a Jacksonville wedding..." with St. Johns River, Timuquana oaks imagery
+- Reduced from 6 generic feature cards to 4 unique Jacksonville-focused cards:
+  - "We Know Jacksonville Venues" (local venue expertise)
+  - "River City Roots" (St. Augustine base, no travel fees)
+  - "Your Crowd, Your Music" (San Marco/Riverside/Beaches neighborhood references)
+  - "The Live Music Advantage" (live sax differentiator)
+- New FAQ section with Jacksonville-specific questions (pricing, venues, travel fees)
+- Removed Treasury on the Plaza (St. Augustine venue - shouldn't be on Jax page)
+- Added floating circle venue design with subtle CSS animation
+
+**St. Augustine Page Updates:**
+- New intro: "This is our town..." with coquina, gas lamps, St. George Street imagery
+- Reduced from 6 generic feature cards to 4 unique local-focused cards:
+  - "Actually Local" (farmer's market reference, neighbor responsiveness)
+  - "Preferred at the Big Four" (Treasury, Lightner, White Room, River House)
+  - "Musicians First, DJs Second" (founder's touring background)
+  - "Historic Venue Specialists" (Treasury vault, Lightner acoustics, White Room rooftop wind)
+- New FAQ section with St. Augustine-specific questions
+- Hero image overlay reduced (0.85/0.9 → 0.6/0.75) for better visibility
+- Added floating circle venue design matching Jacksonville
+
+**Floating Circle Venue Design (New Component):**
+- CSS-only circles with venue photos inside
+- Subtle floating animation (4s ease-in-out, staggered delays)
+- Pauses on hover with shadow effect
+- Short taglines below each venue (e.g., "1927 bank building downtown")
+- Mobile responsive (smaller circles on mobile)
+- Zero performance impact (CSS animations only)
+
+**Key SEO Phrases Preserved:**
+- "St. Augustine wedding DJ" / "Jacksonville wedding DJ" in opening sentences
+- "$1,500" starting price mentioned in intro
+- "500+ five-star reviews" and "2,000+ weddings" stats
+- Venue names for local SEO signals
+
+**AE Entertainment SEO Audit & Fixes:**
+- Ran DataForSEO audit on ae-djs.com (score: 96.14/100)
+- Created and deployed:
+  - sitemap.xml (9 pages with priorities)
+  - robots.txt (points to sitemap)
+  - favicon.png, favicon-64.png, apple-touch-icon.png (AE blue with "AE" text)
+  - favicon.svg (vector version)
+- Added favicon references to all 9 HTML pages
+- Pushed to Netlify - live at ae-djs.com
+
+**DataForSEO Credentials:**
+- Login: corey@coscelebrations.com
+- API access confirmed working
+
+**DMARC Reports:**
+- User receiving aggregate reports from Microsoft - this is normal
+- rua= tag in DMARC record causes email providers to send daily XML reports
+- Options: keep monitoring, remove rua= tag, or use DMARC reporting service
+- Still at p=none (monitoring mode) - should upgrade to p=quarantine after verification period
+
+**Still TODO for City Pages:**
+- [ ] Orlando page needs same treatment (unique intro, 4 cards, floating venues, unique FAQs)
+- [ ] Ponte Vedra, Amelia Island, Tampa pages need differentiation
+- [ ] Get real venue photos to replace logo placeholders in circle designs
 
 ### Session Notes (Dec 13, 2025 - Late Night) - Fountain of Youth & Pricing Cleanup
 
@@ -224,15 +292,15 @@ Add a TXT record:
 - Full SEO impact: 2-4 weeks
 
 ### COS Static Site Status
-| Page | Status | Cross-Links | Social Links |
-|------|--------|-------------|--------------|
-| Homepage | ✅ Done | N/A | ✅ |
-| Jacksonville | ✅ Done | ✅ | ✅ |
-| St. Augustine | ✅ Done | ✅ | ✅ |
-| Ponte Vedra | ✅ Done | ✅ | ✅ |
-| Amelia Island | ✅ Done | ✅ | ✅ |
-| Orlando | ✅ Done | ✅ | ✅ |
-| Tampa | ✅ Done | ✅ | ✅ |
+| Page | Status | Cross-Links | Social Links | Differentiated |
+|------|--------|-------------|--------------|----------------|
+| Homepage | ✅ Done | N/A | ✅ | N/A |
+| Jacksonville | ✅ Done | ✅ | ✅ | ✅ Dec 14 |
+| St. Augustine | ✅ Done | ✅ | ✅ | ✅ Dec 14 |
+| Ponte Vedra | ✅ Done | ✅ | ✅ | ❌ Needs work |
+| Amelia Island | ✅ Done | ✅ | ✅ | ❌ Needs work |
+| Orlando | ✅ Done | ✅ | ✅ | ❌ Needs work |
+| Tampa | ✅ Done | ✅ | ✅ | ❌ Needs work |
 | Contact | ✅ Done | N/A | ✅ |
 | Pricing | ✅ Done | N/A | ✅ |
 | VIP Login | ✅ Done | N/A | ✅ |
@@ -999,25 +1067,59 @@ These are the technical limits for meta data. Google displays based on pixel wid
 
 ⚠️ **Why This Matters:** Google penalizes sites with near-identical pages that just swap city names. Each city page must have genuinely unique content.
 
+### ✅ NEW PATTERN (Dec 2025) - Jacksonville & St. Augustine as Models
+
+**Structure for each city page:**
+1. **Unique intro paragraph (200+ words)** - Local imagery, specific landmarks, neighborhood references
+2. **4 feature cards** (not 6) - Each card unique to that city's angle
+3. **Floating circle venue section** - CSS animated circles with venue photos + short taglines
+4. **City-specific FAQs** (6 questions) - Include pricing FAQ with city name for SEO
+
+**City-Specific Angles (Use These):**
+| City | Angle | Unique Elements |
+|------|-------|-----------------|
+| St. Augustine | "This is our town" - home base, local expertise | Coquina, gas lamps, St. George St, farmer's market, "Actually Local" |
+| Jacksonville | River City, diverse neighborhoods | St. Johns River, San Marco/Riverside/Beaches, Timuquana oaks |
+| Ponte Vedra | Exclusivity, luxury, TPC preferred | Golf culture, country club elegance, TPC Sawgrass |
+| Amelia Island | Island destination, resort weddings | Ritz-Carlton, Omni, island escape vibe |
+| Orlando | Destination weddings, theme park area | Central Florida expansion, destination couples |
+| Tampa | Waterfront venues, travel fee market | Bay area, Don CeSar, waterfront |
+
+**Feature Card Patterns (4 per page, all unique):**
+- Card 1: Local venue knowledge angle
+- Card 2: Geographic/travel fee angle
+- Card 3: Crowd/music reading angle (with local neighborhood references)
+- Card 4: Live music differentiator
+
+**Floating Circle Venue CSS (Copy from Jacksonville/St. Augustine):**
+```css
+.venue-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+```
+
 ### What MUST Be Unique on Each City Page:
 
-1. **Opening paragraph (200+ words)** - Write fresh for each city. Don't copy/paste and swap "[CITY]"
-2. **Venue section** - Only list venues YOU'VE ACTUALLY WORKED in that city
-3. **City-specific angle** - What makes this city different?
-   - St. Augustine → "We're based here, no travel fees, local expertise"
-   - Ponte Vedra → "Elegance, exclusivity, TPC preferred status"
-   - Jacksonville → "Biggest market, variety of venues"
-   - Amelia Island → "Island destination, Ritz-Carlton, Omni"
-   - Orlando → "Travel fee applies, theme park area, destination weddings"
-   - Tampa → "Travel fee applies, waterfront venues"
-4. **FAQs** - Include at least 1-2 city-specific questions
+1. **Opening paragraph (200+ words)** - Write fresh for each city with local imagery
+2. **Feature cards** - 4 cards with city-specific angles (NOT generic 6-card template)
+3. **Venue section** - Only list venues YOU'VE ACTUALLY WORKED in that city
+4. **FAQs** - 6 questions including city-specific pricing and venues questions
 
-### What CAN Be Similar (But Vary the Wording):
+### SEO Phrases to Include (But Vary Context):
 
-- Pricing info (same prices, but phrase differently)
-- Services descriptions (rewrite, don't copy)
-- Bio/credentials (use different highlights each time)
-- CTAs and contact info
+Always include these but work them in naturally:
+- ✅ "[City] wedding DJ" - in opening sentence
+- ✅ "$1,500" starting price - somewhere in intro
+- ✅ "500+ five-star reviews" - in intro or feature card
+- ✅ "2,000+ weddings" - in intro or feature card
+- ✅ Venue names - for local SEO signals
 
 ### Template Phrases to AVOID Repeating Exactly:
 
@@ -1027,6 +1129,16 @@ Instead of copying these across every page, rewrite them fresh each time:
 - ❌ "We pioneered the DJ + live musician model in North Florida"
 
 Use the same IDEAS but different WORDS on each page.
+
+### City Pages Status:
+| City | Differentiated | Floating Circles | Unique FAQs |
+|------|---------------|------------------|-------------|
+| Jacksonville | ✅ Dec 14 | ✅ | ✅ |
+| St. Augustine | ✅ Dec 14 | ✅ | ✅ |
+| Orlando | ❌ Needs work | ❌ | ❌ |
+| Ponte Vedra | ❌ Needs work | ❌ | ❌ |
+| Amelia Island | ❌ Needs work | ❌ | ❌ |
+| Tampa | ❌ Needs work | ❌ | ❌ |
 
 ---
 
