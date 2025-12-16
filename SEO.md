@@ -82,6 +82,67 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
 
 ### Session Notes (Dec 15, 2025) - Orlando City Page & SEO Tools
 
+## 📊 GOOGLE SEARCH CONSOLE DATA (Dec 15, 2025)
+
+Real data from the last 28 days showing what people actually search for.
+
+### 🚨 PRIORITY: Tampa Page is a HUGE Opportunity
+
+| Page | Impressions | Clicks | Position | Action Needed |
+|------|-------------|--------|----------|---------------|
+| Tampa | **1,148** | 3 | 42 | **REWRITE NOW** - massive volume, terrible position |
+| Jacksonville | 568 | 3 | 26 | Improve - close to page 1 |
+| Orlando | 461 | 2 | 36 | Improve after Tampa |
+
+### High-Impression Keywords (0 Clicks = Opportunity)
+
+| Keyword | Impressions | Position | How to Fix |
+|---------|-------------|----------|------------|
+| wedding dj near me | 194 | 48.7 | Too generic - focus on city-specific instead |
+| orlando wedding dj | 79 | 23.9 | Orlando page rewrite (done, monitor) |
+| wedding djs in jacksonville | 62 | 15.1 | **Close!** More venue page links to Jax page |
+| wedding dj tampa | 57 | 16.9 | Tampa page rewrite needed |
+| wedding djs in orlando | 55 | 43.6 | Orlando page needs time to index |
+| wedding djs in tampa | 54 | 33.1 | Tampa page rewrite needed |
+| tampa live music wedding | 18 | 11.2 | **Almost page 1!** Tampa rewrite + sax focus |
+
+### What's Already Working (Keep Doing This)
+
+| Keyword | Clicks | Position | Why It Works |
+|---------|--------|----------|--------------|
+| wedding dj jacksonville fl | 3 | 9.5 | City page has unique content |
+| djs in st augustine fl | 1 | 5.1 | Home turf + venue pages |
+| jacksonville wedding dj | 1 | 5.8 | Venue pages linking back |
+| tpc sawgrass wedding | 0 | 15.8 | New venue page working |
+
+### How to Get Pages to Page 1 (Top 10)
+
+**For pages ranking 11-20 (almost there):**
+1. Add 1-2 more internal links from other pages
+2. Add unique content (your real experiences, venue names)
+3. Ensure FAQs match what people search (see keywords above)
+4. Wait 2-4 weeks for Google to re-index
+
+**For pages ranking 20-50 (need work):**
+1. Full rewrite with unique content (like we did for Jacksonville/St. Augustine)
+2. Add floating circle venue design with real venue photos
+3. Add city-specific FAQs based on search data above
+4. Build internal links from venue pages
+5. Add Service + FAQPage schema markup
+
+**For pages ranking 50+ (starting over):**
+1. Treat as new page - full rewrite required
+2. May need backlinks from external sites (Google Business, wedding directories)
+
+### Action Items Based on GSC Data
+
+1. **[URGENT] Tampa page rewrite** - 1,148 impressions at position 42 = huge untapped potential
+2. **Jacksonville** - Add more venue pages that link back, position 15→10 is achievable
+3. **Orlando** - Recently rewritten, give it 2-4 weeks then reassess
+4. **"tampa live music wedding"** - At position 11, Tampa rewrite should push this to page 1
+
+---
+
 **SEO Rank Tracker Built:**
 - Created `/Users/coreypeterson/cos-tools/` directory for automation scripts
 - Built Python rank tracker using DataForSEO API
