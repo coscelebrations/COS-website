@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 15, 2025 (Evening Session)
+## Last Updated: December 15, 2025 (Late Night Session)
 
 ---
 
@@ -79,6 +79,103 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
 - All work happens in `/Users/coreypeterson/cos-website/`
 - Preview at: https://cool-jelly-73d5c0.netlify.app/
 - Local dev server: `python3 -m http.server 8000` then visit http://127.0.0.1:8000
+
+### Session Notes (Dec 15, 2025 - Late Night) - Session Summary & AE Entertainment
+
+**What Was Accomplished This Session:**
+1. Updated 7 venue pages - removed duplicate "bottom line" paragraphs that could hurt SEO
+2. Fixed Ponte Vedra page - added TPC Sawgrass + floating circle design
+3. Built keyword research tool (`keyword_research.py`) - competitor analysis, search volumes, PAA questions
+4. Created README documentation for SEO tools at `/cos-tools/seo-tracking/README.md`
+5. Connected Google Search Console - exported and analyzed real 28-day search data
+6. Rewrote Tampa page (1,148 impressions at position 42 = biggest opportunity)
+7. Analyzed competitor rankings across all markets (see competitor section below)
+8. Updated SEO.md with all findings
+
+**Key Insight:** Our on-page SEO is now BETTER than all competitors ranking above us. They're winning on domain age and backlinks. As our changes index over the next 2-4 weeks, we should see significant movement.
+
+---
+
+## 🟠 AE ENTERTAINMENT SEO STRATEGY
+
+**Sister Company:** AE Entertainment (ae-djs.com) serves budget-conscious clients with the same quality service.
+
+**Current Status:**
+- Site audit score: 96.14/100 (healthy)
+- Sitemap, robots.txt, favicons all deployed
+- No active keyword tracking yet
+
+**AE Rankings Check (Dec 15, 2025):**
+
+| Keyword | Position | Notes |
+|---------|----------|-------|
+| "affordable wedding dj jacksonville" | #18 | Ranking as affordable-entertainment.com (old domain) |
+| "budget wedding dj jacksonville" | #10 | Ranking as affordable-entertainment.com (old domain) |
+| "cheap wedding dj jacksonville fl" | #18 | Ranking as affordable-entertainment.com (old domain) |
+| "affordable wedding dj st augustine" | **#7** | Ranking as affordable-entertainment.com (old domain) |
+| "ae entertainment jacksonville" | Directories #6-8 | WeddingWire, Zola, The Knot showing |
+
+**⚠️ DOMAIN CHANGE IN PROGRESS (Dec 2025):**
+AE Entertainment recently changed from affordable-entertainment.com → ae-djs.com (about 1 week ago).
+
+- Google is still showing the OLD domain in search results
+- Rankings will transfer once Google recognizes the change (2-4 weeks)
+- Directory listings still point to old domain
+
+**AE was already ranking well!** The #7-18 positions for budget keywords are AE's existing rankings under the old domain name.
+
+**Action Items for Domain Transition:**
+- [ ] Verify 301 redirects from affordable-entertainment.com → ae-djs.com are active
+- [ ] Update directory listings (The Knot, WeddingWire, Zola, Facebook, Instagram) to ae-djs.com
+- [ ] Submit ae-djs.com to Google Search Console and request indexing
+- [ ] Keep affordable-entertainment.com redirects active for 6+ months
+- [ ] Re-check rankings in 2-4 weeks to confirm transfer
+
+**Why AE Matters:**
+- Different client segment (budget-focused vs luxury COS clients)
+- Supports the team financially
+- Doesn't cannibalize COS business (different price point/positioning)
+
+**AE SEO Priorities (When Ready):**
+1. **Add to keyword tracking** - Add AE keywords to `/cos-tools/seo-tracking/keywords.json`
+   ```json
+   {
+     "ae": [
+       "affordable wedding dj jacksonville",
+       "cheap wedding dj st augustine",
+       "budget wedding dj jacksonville fl",
+       "affordable dj jacksonville"
+     ]
+   }
+   ```
+
+2. **Check current rankings** - Run: `python3 rank_tracker.py --site ae`
+
+3. **Identify opportunities** - Use keyword research tool:
+   ```bash
+   python3 keyword_research.py "affordable wedding dj jacksonville" -c
+   python3 keyword_research.py "budget wedding dj" --questions
+   ```
+
+4. **Content differentiation from COS:**
+   - Focus on value/affordability messaging
+   - Target "affordable", "budget", "cheap" keywords COS doesn't chase
+   - Emphasize package pricing transparency
+   - Target corporate events, private parties (not just weddings)
+
+5. **Link strategy:**
+   - AE links UP to COS (upgrade path for clients who want premium)
+   - COS does NOT link to AE (protects luxury positioning)
+   - This is intentional brand separation
+
+**AE Next Steps:**
+- [ ] Add AE keywords to tracking system
+- [ ] Run initial rank check
+- [ ] Identify top 5 keywords to target
+- [ ] Review AE page content for keyword optimization
+- [ ] Consider adding city pages to AE site (currently only has homepage)
+
+---
 
 ### Session Notes (Dec 15, 2025) - Orlando City Page & SEO Tools
 
@@ -256,9 +353,16 @@ See `/cos-tools/seo-tracking/README.md` for full documentation.
 
 **Still TODO for City Pages:**
 - [x] Ponte Vedra - added floating circle venue design (TPC has real photo, others need venue photos)
+- [x] Tampa - REWRITTEN Dec 15 (was position 42 with 1,148 impressions - huge opportunity)
+- [x] Orlando - REWRITTEN Dec 15 (position 36 with 461 impressions)
 - [ ] Amelia Island needs same treatment (unique intro, 4 cards, floating venues, unique FAQs)
-- [ ] Tampa needs same treatment
 - [ ] Get real venue photos to replace logo placeholders in circle designs
+
+**Re-check Rankings In 2 Weeks (Dec 29):**
+- Tampa should move from position 42 toward page 1
+- Orlando should move from position 36 toward page 1
+- Jacksonville should climb from position 13
+- St. Augustine should hold at #6 or improve
 
 **Venue Page Generator Built:**
 - Created `/Users/coreypeterson/cos-tools/venue-generator/` with generate.py script and template.html
