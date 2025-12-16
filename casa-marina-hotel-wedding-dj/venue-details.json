@@ -1,0 +1,21 @@
+{
+  "name": "Casa Marina Hotel & Restaurant",
+  "city": "Jacksonville",
+  "slug": "casa-marina-hotel-wedding-dj",
+  "address": "691 1st St N, Jacksonville Beach, FL 32250",
+  "venue_type": "Hotel & Event Venue",
+  "tagline": "Oceanfront elegance on Jacksonville Beach",
+  "description": "PLACEHOLDER: Add your personal description of Casa Marina Hotel & Restaurant here. What makes it special? What's your experience there?",
+  "wedding_count": "15+",
+  "spaces": [
+    "Grand Ballroom",
+    "Ocean Terrace",
+    "Coastal Lawn"
+  ],
+  "known_for": [
+    "ocean views",
+    "sunset ceremonies",
+    "historic charm",
+    "beachfront"
+  ]
+}

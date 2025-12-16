@@ -1,0 +1,21 @@
+{
+  "name": "TPC Sawgrass",
+  "city": "Ponte Vedra",
+  "slug": "tpc-sawgrass-wedding-dj",
+  "address": "110 Championship Way, Ponte Vedra Beach, FL 32082",
+  "venue_type": "Golf & Country Club",
+  "tagline": "Where legends play, where love celebrates",
+  "description": "TPC Sawgrass is one of the most iconic venues in North Florida. Home of THE PLAYERS Championship, this world-renowned golf club offers a wedding experience unlike any other. The clubhouse and grounds provide a sophisticated backdrop for couples who want their celebration to feel as legendary as the course itself.",
+  "wedding_count": "20+",
+  "spaces": [
+    "Clubhouse Ballroom",
+    "Terrace Overlooking 18th",
+    "Outdoor Lawn"
+  ],
+  "known_for": [
+    "iconic golf course",
+    "PGA Tour prestige",
+    "stunning views",
+    "upscale elegance"
+  ]
+}

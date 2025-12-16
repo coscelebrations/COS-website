@@ -6,11 +6,98 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>Orlando Wedding DJ + Live Musicians | COS Celebrations</title>
   <meta name="description" content="Premier Orlando wedding DJ with live saxophone. 500+ five-star reviews. Performed at Bella Collina, Country Club of Orlando, Paradise Cove. Starting at $1,500.">
+
+  <!-- Schema Markup for Orlando Wedding DJ Page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Wedding DJ Services in Orlando",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "COS Celebrations",
+      "url": "https://coscelebrations.com",
+      "telephone": "+1-904-615-7132",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "St. Augustine",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      }
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Orlando",
+      "addressRegion": "FL"
+    },
+    "description": "COS Celebrations provides premier wedding DJ services in Orlando, Florida with live musicians including saxophone. We have performed at Bella Collina, Paradise Cove, Cypress Grove Estate House, and other top Orlando wedding venues. Our packages start at $1,500 and include professional DJ and MC services, premium sound equipment, and access to our COS Music + Timeline planning app.",
+    "offers": {
+      "@type": "Offer",
+      "priceRange": "$1,500 - $3,000",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does a wedding DJ cost in Orlando?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Orlando wedding DJ packages from COS Celebrations start at $1,500 for 4 hours of professional DJ and MC services. Most Orlando couples invest between $2,000 and $2,800, which includes ceremony coverage, additional hours, and travel. Live saxophone, uplighting, and other enhancements are available as add-ons."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you charge travel fees for Orlando weddings?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Orlando is outside our primary service area (St. Augustine/Jacksonville), so travel is factored into your custom quote. We're transparent about this upfront — no surprises. Many Orlando couples find the investment worthwhile for our DJ + live musician experience that's hard to find in Central Florida."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which Orlando wedding venues do you work with?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We've performed at many of Orlando's premier wedding venues including Bella Collina, Paradise Cove, Cypress Grove Estate House, The Alfond Inn, Lake Nona Wave Hotel, and Four Seasons Orlando. Each venue has unique acoustics and layouts — we know how to work them all."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why book a St. Augustine DJ for an Orlando wedding?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Orlando has plenty of DJs, but very few offer live musicians integrated into the DJ experience. Our founder toured with artists like Usher and Alicia Keys — that level of musicianship is rare in Central Florida. Couples who want something beyond the standard DJ experience seek us out specifically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far in advance should Orlando couples book?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We recommend booking 12-18 months out for Orlando weddings, especially during peak season (spring and fall). Because we travel from St. Augustine, our Orlando availability is more limited than local markets. The earlier you reach out, the better chance we have your date open."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you work with destination wedding couples in Orlando?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely — Orlando is one of Florida's biggest destination wedding markets. We've worked with couples planning from across the country and internationally. Our COS Music + Timeline app makes remote planning seamless, and we handle all vendor coordination so you can plan from anywhere."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript></noscript>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
   <style>
     :root {
       --soft-pink: #F8F0F0;
@@ -349,34 +436,90 @@
     }
 
     .venues-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem;
+      margin: 3rem 0;
     }
 
     .venue-item {
-      padding: 1.5rem;
-      background: white;
-      border: 1px solid var(--blush);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 180px;
       transition: all 0.3s ease;
     }
 
     .venue-item:hover {
-      border-color: var(--rose);
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+    }
+
+    .venue-item:hover .venue-circle {
+      box-shadow: 0 15px 40px rgba(114, 47, 55, 0.25);
+      border-color: var(--merlot);
+      animation-play-state: paused;
+    }
+
+    .venue-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--rose);
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      background: var(--soft-pink);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .venue-item:nth-child(2) .venue-circle { animation-delay: -0.5s; }
+    .venue-item:nth-child(3) .venue-circle { animation-delay: -1s; }
+    .venue-item:nth-child(4) .venue-circle { animation-delay: -1.5s; }
+    .venue-item:nth-child(5) .venue-circle { animation-delay: -2s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .venue-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .venue-item h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--merlot);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
 
-    .venue-item p {
-      font-size: 0.9rem;
+    .venue-item .venue-tagline {
+      display: block;
+      font-size: 0.8rem;
       color: var(--text-soft);
-      line-height: 1.6;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+      .venues-list {
+        gap: 2rem;
+      }
+
+      .venue-item {
+        max-width: 140px;
+      }
+
+      .venue-circle {
+        width: 110px;
+        height: 110px;
+      }
+
+      .venue-item h3 {
+        font-size: 1rem;
+      }
     }
 
     .pricing-highlight {
@@ -631,76 +774,86 @@
   <!-- Main Content -->
   <section class="content-section">
     <div class="intro-text">
-      <p>Looking for an <strong>Orlando wedding DJ</strong> who brings more than just a playlist? COS Celebrations brings the DJ + live musician experience that's made us North Florida's most sought-after wedding entertainment company — now serving Orlando and Central Florida. With over <strong>500 five-star reviews</strong> and performances at Orlando's most stunning venues, we deliver the energy of a live concert combined with the precision of a professional DJ. Our founder has toured <strong>35+ countries</strong> and shared the stage with artists like <strong>Usher, Alicia Keys</strong>, and Big Gigantic before bringing that world-class experience to your Orlando wedding. Whether you're planning an elegant celebration at Bella Collina, a lakeside reception at Paradise Cove, or a modern affair at Lake Nona Wave Hotel, we bring the same level of expertise and passion to every event. Starting at just $1,500, we make luxury entertainment accessible without compromising on quality.</p>
+      <p>Orlando is where destination dreams come true. Couples fly in from Chicago, New York, and London to say "I do" under Bella Collina's Tuscan tower or beside Paradise Cove's lakeside sunset — and they deserve entertainment that matches that vision. <strong>COS Celebrations</strong> is the <strong>Orlando wedding DJ</strong> these discerning couples seek out, traveling from St. Augustine because the DJ + live musician experience we've built simply doesn't exist in Central Florida's market. With <strong>500+ five-star reviews</strong> and <strong>2,000+ weddings</strong> behind us, we understand what makes a destination celebration unforgettable: the right song at the right moment, live saxophone during your first dance, and an MC who enhances your timeline without becoming the center of attention. Our founder didn't learn entertainment at a DJ school — he learned it touring <strong>35+ countries</strong> with artists like <strong>Usher and Alicia Keys</strong>. That concert-level musicianship now serves couples at Cypress Grove, The Alfond Inn, and Lake Nona Wave Hotel. Yes, there's travel involved to bring us to Orlando. Most couples find it's worth every mile. Starting at <strong>$1,500</strong>, we bring North Florida's premier entertainment company to Central Florida's most beautiful venues.</p>
     </div>
 
-    <h2>Why Orlando Couples Choose COS</h2>
+    <h2>Why Orlando Couples Seek Us Out</h2>
 
     <div class="features-grid">
       <div class="feature-card">
-        <h3>World-Class Musicians</h3>
-        <p>Our founder performed with major artists across 35+ countries. That touring experience translates into flawless execution and unforgettable moments at your Orlando wedding.</p>
+        <h3>Destination Wedding Experts</h3>
+        <p>Planning from out of state? We've worked with hundreds of destination couples who've never set foot in Florida until their wedding week. Our COS planning app makes remote coordination seamless — you don't need to be local to plan like a pro.</p>
       </div>
 
       <div class="feature-card">
-        <h3>DJ + Live Saxophone</h3>
-        <p>We pioneered the DJ + live saxophone model in Florida. Imagine your first dance with live sax weaving through the music — something speakers simply can't replicate.</p>
+        <h3>Worth the Drive</h3>
+        <p>We're based 90 minutes east in St. Augustine, and yes, we factor travel into Orlando quotes. But couples who want the DJ + live sax experience — something virtually no Orlando company offers — tell us it's the easiest decision they make.</p>
       </div>
 
       <div class="feature-card">
-        <h3>It's Your Day, Not Ours</h3>
-        <p>No ego. No spotlight-stealing. No cheesy DJ antics. Our philosophy means every decision centers on your vision — we're here to elevate, not dominate.</p>
+        <h3>Beyond the Theme Park Vibe</h3>
+        <p>Orlando's wedding scene has grown past its tourist roots. Venues like Bella Collina and Paradise Cove attract sophisticated couples who want elegance, not kitsch. We match that energy — no cheese, no spotlight-stealing, just world-class entertainment.</p>
       </div>
 
       <div class="feature-card">
-        <h3>500+ Five-Star Reviews</h3>
-        <p>Couples consistently praise our professionalism, music selection, and ability to keep dance floors packed from the first song to the last.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Reads the Room</h3>
-        <p>A musician's ear means we know when to build energy and when to pull back. We adjust in real-time based on what your guests actually want.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Transparent Pricing</h3>
-        <p>No hidden fees, no bait-and-switch. Orlando weddings start at $1,500 with clear, straightforward pricing you can plan around.</p>
+        <h3>Live Music Changes Everything</h3>
+        <p>Imagine live saxophone weaving through your first dance, not a recording, but a musician responding to the moment. That's what 35 countries of touring experience brings to your Orlando wedding. Speakers can't replicate it.</p>
       </div>
     </div>
 
     <h2>Orlando Wedding Venues We Love</h2>
 
-    <p>We've performed at Orlando's finest wedding venues and know exactly how to make each space shine:</p>
+    <p>We've performed at Orlando's most sought-after venues — from Tuscan estates to lakefront pavilions:</p>
 
     <div class="venues-list">
       <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="Bella Collina wedding venue"
+               loading="lazy">
+        </div>
         <h3>Bella Collina</h3>
-        <p>Tuscan-inspired luxury in the rolling hills of Montverde. The dramatic architecture and lakeside setting create the perfect backdrop for our DJ + live musician experience.</p>
+        <span class="venue-tagline">Tuscan elegance in Montverde</span>
       </div>
 
       <div class="venue-item">
-        <h3>Country Club of Orlando</h3>
-        <p>Classic elegance in the heart of Orlando. The timeless ballroom and manicured grounds pair beautifully with sophisticated entertainment.</p>
-      </div>
-
-      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="Paradise Cove wedding venue"
+               loading="lazy">
+        </div>
         <h3>Paradise Cove</h3>
-        <p>Lakefront charm with stunning sunset views. The outdoor pavilion and water views make this venue magic — especially with live saxophone during golden hour.</p>
+        <span class="venue-tagline">Lakefront sunsets & pavilion</span>
       </div>
 
       <div class="venue-item">
-        <h3>Cypress Grove Estate House</h3>
-        <p>Historic Orlando estate with Spanish moss and natural beauty. The intimate atmosphere is perfect for couples who want elegance without pretense.</p>
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="Cypress Grove Estate House"
+               loading="lazy">
+        </div>
+        <h3>Cypress Grove Estate</h3>
+        <span class="venue-tagline">Spanish moss & natural beauty</span>
       </div>
 
       <div class="venue-item">
-        <h3>Bella Cosa</h3>
-        <p>Modern luxury meets Orlando charm. The sleek indoor spaces and outdoor areas give couples flexibility — and we know how to work both seamlessly.</p>
-      </div>
-
-      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="Lake Nona Wave Hotel"
+               loading="lazy">
+        </div>
         <h3>Lake Nona Wave Hotel</h3>
-        <p>Contemporary sophistication in one of Orlando's most exciting neighborhoods. The modern aesthetic pairs perfectly with our premium entertainment approach.</p>
+        <span class="venue-tagline">Modern luxury & art</span>
+      </div>
+
+      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="More Orlando venues"
+               loading="lazy">
+        </div>
+        <h3>+ Many More</h3>
+        <span class="venue-tagline">All Central Florida venues</span>
       </div>
     </div>
 
@@ -804,17 +957,23 @@
     <h2>Frequently Asked Questions</h2>
 
     <div style="margin: 2rem 0;">
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How much does a wedding DJ cost in Orlando?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Orlando wedding DJ packages from COS Celebrations start at $1,500 for 4 hours of professional DJ and MC services. Most Orlando couples invest between $2,000 and $2,800, which includes ceremony coverage, additional hours, and travel. Live saxophone, uplighting, and other enhancements are available as add-ons.</p>
+
       <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you charge travel fees for Orlando weddings?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">We include travel in your custom quote based on your specific venue location. Most Orlando venues fall within our standard service area.</p>
+      <p style="color: var(--text-soft); line-height: 1.8;">Yes, Orlando is outside our primary service area (St. Augustine/Jacksonville), so travel is factored into your custom quote. We're transparent about this upfront — no surprises. Many Orlando couples find the investment worthwhile for our DJ + live musician experience that's hard to find in Central Florida.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How far in advance should we book?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Orlando couples typically book 12-18 months in advance, especially for peak season (spring and fall). However, we occasionally have availability for shorter timelines — reach out to check your date.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Which Orlando wedding venues do you work with?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">We've performed at many of Orlando's premier wedding venues including Bella Collina, Paradise Cove, Cypress Grove Estate House, The Alfond Inn, Lake Nona Wave Hotel, and Four Seasons Orlando. Each venue has unique acoustics and layouts — we know how to work them all.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Can we meet our DJ before the wedding?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Absolutely. We schedule video calls to discuss your vision, music preferences, and timeline. You'll also have direct communication through our planning app.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Why book a St. Augustine DJ for an Orlando wedding?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Orlando has plenty of DJs, but very few offer live musicians integrated into the DJ experience. Our founder toured with artists like Usher and Alicia Keys — that level of musicianship is rare in Central Florida. Couples who want something beyond the standard DJ experience seek us out specifically.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">What makes COS different from other Orlando wedding DJs?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">A lot of companies say they do what we do. A little research will show you the difference — world-class musicians, 500+ five-star reviews, and an approach that puts your wedding first. We encourage you to compare.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How far in advance should Orlando couples book?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">We recommend booking 12-18 months out for Orlando weddings, especially during peak season (spring and fall). Because we travel from St. Augustine, our Orlando availability is more limited than local markets. The earlier you reach out, the better chance we have your date open.</p>
+
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you work with destination wedding couples in Orlando?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Absolutely — Orlando is one of Florida's biggest destination wedding markets. We've worked with couples planning from across the country and internationally. Our COS Music + Timeline app makes remote planning seamless, and we handle all vendor coordination so you can plan from anywhere.</p>
     </div>
   </section>
 

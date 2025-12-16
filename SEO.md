@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 14, 2025
+## Last Updated: December 15, 2025
 
 ---
 
@@ -9,19 +9,56 @@
 
 When adding ANY new content, ALWAYS include:
 1. **Schema markup** (JSON-LD) - Add to page head for structured data
-2. **Full-sentence descriptions** - Hidden or visible, for AI to quote
-3. **Title/alt attributes** - On all links and images
-4. **Question-based headings** where appropriate - FAQs, sections
-5. **No unoptimized images** - WebP only, max 800px content / 1200px hero, under 100KB
+2. **Title/alt attributes** - On all links and images
+3. **Question-based headings** where appropriate - FAQs, sections
+4. **No unoptimized images** - WebP only, max 800px content / 1200px hero, under 100KB
 
 Design can be adjusted afterward. SEO/AI cannot be an afterthought.
 
 **Checklist before committing any new feature:**
 - [ ] Does it have schema markup if applicable?
-- [ ] Are there full sentences AI can quote?
 - [ ] Are images optimized (WebP, correct size, under 100KB)?
 - [ ] Do links have descriptive title attributes?
-- [ ] Is there hidden AI-readable content for stats/lists?
+- [ ] Is the content UNIQUE (not templated/fill-in-the-blank)?
+
+## 🚨 RULE #2: UNIQUE CONTENT OVER TEMPLATED CONTENT
+
+**Templated prose HURTS more than it helps.** See "Avoiding Duplicate Content on Venue Pages" in Dec 15 session notes.
+
+**SAFE patterns (structured data is expected to repeat):**
+- Schema markup (JSON-LD)
+- Quick Facts boxes (just data points)
+- Service lists, venue details
+
+**DANGEROUS (avoid these):**
+- Fill-in-the-blank summary paragraphs
+- Repetitive sentence structures across pages
+- "AI optimization" that uses the same phrasing everywhere
+
+**Rule of thumb:** If you can predict what the sentence will say before reading it, it's too templated.
+
+## 🤖 WHERE AI-QUOTABLE CONTENT LIVES
+
+AI search tools (ChatGPT, Perplexity, etc.) need full sentences they can quote. Here's where that content is:
+
+**On venue pages:**
+1. **Intro paragraphs** - These ARE the AI-quotable content. Each venue's intro should naturally include:
+   - "COS Celebrations is a preferred vendor at [venue]" or similar
+   - Location (city, Florida)
+   - What makes the venue special
+   - Why COS is a good fit there
+2. **Schema markup** - FAQPage schema provides direct Q&A for AI to pull
+3. **Quick Facts boxes** - Structured data AI can reference
+
+**Example of good AI-quotable intro (TPC Sawgrass):**
+> "COS Celebrations is proud to be a preferred wedding DJ at TPC Sawgrass. As the top Ponte Vedra wedding DJ, we've built a great relationship with Carley and her incredible team..."
+
+This is unique, natural, and contains all the keywords - but it doesn't follow a template.
+
+**When adding new venue pages:**
+- Write a genuine intro paragraph with your real experience/knowledge
+- Make sure it mentions: COS Celebrations, preferred/experienced status, venue name, city
+- Don't copy sentence structures from other venue pages
 
 ---
 
@@ -42,6 +79,105 @@ Design can be adjusted afterward. SEO/AI cannot be an afterthought.
 - All work happens in `/Users/coreypeterson/cos-website/`
 - Preview at: https://cool-jelly-73d5c0.netlify.app/
 - Local dev server: `python3 -m http.server 8000` then visit http://127.0.0.1:8000
+
+### Session Notes (Dec 15, 2025) - Orlando City Page & SEO Tools
+
+**SEO Rank Tracker Built:**
+- Created `/Users/coreypeterson/cos-tools/` directory for automation scripts
+- Built Python rank tracker using DataForSEO API
+- First snapshot taken - key findings:
+  - **#1** for venue keywords (Treasury, Lightner, Epping Forest, Bella Collina)
+  - **#6** for "st augustine wedding dj"
+  - **#13** for "jacksonville wedding dj" (homepage ranking, not city page)
+  - **#1** for "jacksonville wedding dj saxophone" (city page wins long-tail!)
+
+**Jacksonville Cannibalization Issue Identified:**
+- Homepage (#12) outranking Jacksonville city page (#40) for "jacksonville wedding dj"
+- BUT Jacksonville page ranks #1 for "jacksonville wedding dj saxophone"
+- **Fix strategy:** Don't change homepage. Instead, build more links TO Jacksonville page:
+  - Every new Jacksonville venue page should link to /jacksonville-wedding-dj/
+  - Other city pages link to Jax in "Also Serving" (already done)
+  - As venue pages grow, Jacksonville page authority will increase naturally
+
+**Blog Post Ideas (High-Intent SEO Content):**
+- [ ] "How Much Does a Wedding DJ Cost in North Florida?" (target: pricing queries)
+- [ ] "Questions to Ask Your Wedding DJ Before Booking" (target: research phase couples)
+- [ ] "Wedding DJ vs. Live Band: Which is Right for Your Florida Wedding?" (target: comparison shoppers)
+- [ ] "Best First Dance Songs - What Florida Couples Are Choosing in 2025" (update existing post with SEO focus)
+- [ ] "What's Included in a Wedding DJ Package?" (target: "what does wedding DJ do" queries)
+- [ ] "Wedding DJ Near Me: How to Find the Right Fit in Jacksonville/St. Augustine" (target: "near me" searches)
+
+**Venue Pages That Should Link to Jacksonville City Page:**
+- [x] Timuquana Country Club (links to Jax page)
+- [x] Epping Forest Yacht Club (links to Jax page)
+- [ ] Casa Marina (venue page not created yet)
+- [ ] The River Club (venue page not created yet)
+- [ ] San Jose Country Club (venue page not created yet)
+- [ ] Private estates (no dedicated pages)
+
+**Orlando Page Rewrite Completed:**
+- Completely rewrote Orlando page following Jacksonville/St. Augustine pattern
+- New unique intro focusing on destination weddings, Central Florida market
+- Reduced from 6 generic feature cards to 4 unique Orlando-focused cards:
+  - "Destination Wedding Experts" (out-of-state planning, COS app)
+  - "Worth the Drive" (transparent about travel, unique offering)
+  - "Beyond the Theme Park Vibe" (sophisticated venues, not kitsch)
+  - "Live Music Changes Everything" (sax differentiator)
+- Added floating circle venue design (Bella Collina, Paradise Cove, Cypress Grove, Lake Nona Wave)
+- Added 6 Orlando-specific FAQs with schema markup:
+  - Pricing (higher range $2,000-$2,800 due to travel)
+  - Travel fees (yes, transparent about it)
+  - Venues (Bella Collina, Paradise Cove, Cypress Grove, Alfond Inn, Lake Nona, Four Seasons)
+  - Why book St. Augustine DJ (unique live music offering)
+  - Booking timeline (12-18 months, limited availability)
+  - Destination wedding support (COS app, remote planning)
+- Added Service and FAQPage schema markup
+
+**Still TODO for City Pages:**
+- [ ] Ponte Vedra needs same treatment (unique intro, 4 cards, floating venues, unique FAQs)
+- [ ] Amelia Island needs same treatment
+- [ ] Tampa needs same treatment
+- [ ] Get real venue photos to replace logo placeholders in circle designs
+
+**Venue Page Generator Built:**
+- Created `/Users/coreypeterson/cos-tools/venue-generator/` with generate.py script and template.html
+- Uses Pillow for image optimization (WebP, 800px content, 1600px hero, under 100KB)
+- Interactive prompts for venue details (name, city, spaces, tags)
+- Generates complete venue page with schema markup, gallery, FAQ section
+
+**TPC Sawgrass Venue Page Created:**
+- Full venue page at `/tpc-sawgrass-wedding-dj/`
+- Custom content from dictation: Carley and team, chime for cocktail hour, service elevator through kitchen
+- Added to both Jacksonville AND Ponte Vedra city pages (TPC is technically in Ponte Vedra but some associate it with Jacksonville)
+
+**All Venue Pages Updated with Schema + Quick Facts:**
+- Added Service schema + FAQPage schema to all venue pages
+- Added Quick Facts boxes (venue, location, status, pricing, contact link)
+- Changed "15+ weddings" / "20+ weddings" language to "regularly perform" + "preferred vendor" throughout
+
+**⚠️ IMPORTANT: Avoiding Duplicate Content on Venue Pages**
+
+Discovered that adding identical "AI summary" paragraphs to all venue pages created a templated pattern that could hurt SEO. **Key learning:**
+
+**SAFE to use across venue pages (patterns expected):**
+- Schema markup (JSON-LD) - structured data is meant to follow patterns
+- Quick Facts boxes - just factual data points, not prose
+- Service lists (what's included, add-ons)
+- Venue details (address, capacity, style)
+
+**DANGEROUS - avoid templated prose:**
+- "The bottom line:" summary paragraphs with same sentence structures
+- Any paragraph that follows a fill-in-the-blank pattern
+- Repetitive phrases like "we regularly perform at this [adjective] venue and work directly with the [venue] events team"
+
+**Strategy going forward:**
+- Keep schema + Quick Facts on all venue pages (safe, useful for AI/search)
+- Only add custom AI-quotable paragraphs when you have REAL unique content (from dictation, personal experience)
+- The intro paragraphs and feature cards should remain unique per venue
+- Don't force "AI optimization" with templated content - it backfires
+
+**Removed from all venue pages:**
+- Templated "bottom line" summary paragraphs (were too similar across pages)
 
 ### Session Notes (Dec 14, 2025) - City Page Differentiation & AE SEO
 
@@ -299,7 +435,7 @@ Add a TXT record:
 | St. Augustine | ✅ Done | ✅ | ✅ | ✅ Dec 14 |
 | Ponte Vedra | ✅ Done | ✅ | ✅ | ❌ Needs work |
 | Amelia Island | ✅ Done | ✅ | ✅ | ❌ Needs work |
-| Orlando | ✅ Done | ✅ | ✅ | ❌ Needs work |
+| Orlando | ✅ Done | ✅ | ✅ | ✅ Dec 15 |
 | Tampa | ✅ Done | ✅ | ✅ | ❌ Needs work |
 | Contact | ✅ Done | N/A | ✅ |
 | Pricing | ✅ Done | N/A | ✅ |
@@ -1135,7 +1271,7 @@ Use the same IDEAS but different WORDS on each page.
 |------|---------------|------------------|-------------|
 | Jacksonville | ✅ Dec 14 | ✅ | ✅ |
 | St. Augustine | ✅ Dec 14 | ✅ | ✅ |
-| Orlando | ❌ Needs work | ❌ | ❌ |
+| Orlando | ✅ Dec 15 | ✅ | ✅ |
 | Ponte Vedra | ❌ Needs work | ❌ | ❌ |
 | Amelia Island | ❌ Needs work | ❌ | ❌ |
 | Tampa | ❌ Needs work | ❌ | ❌ |
@@ -1205,6 +1341,95 @@ Each city page should have:
 - **Weeks 3-4:** Small position movement
 - **Months 2-3:** Substantial gains
 - **Months 4-6:** Top positions possible
+
+---
+
+## 🛠️ AUTOMATION TOOLS ROADMAP
+
+Inspired by Rob Futrell's "Website Tools Launcher" — a desktop app that automates his photography business workflows. Goal: Build similar automation for COS to save time and maintain SEO consistency.
+
+### Priority 1: Venue Page Generator
+**Status:** Not started
+**Value:** High — saves hours per venue page
+
+**What it does:**
+- Drop wedding photos into a folder
+- AI analyzes images, generates SEO-friendly filenames
+- Converts to WebP, optimizes to correct sizes
+- Outputs ready-to-publish venue page HTML with:
+  - Schema markup (auto-generated)
+  - Hero image + gallery
+  - Venue-specific content template
+  - Internal links to city page
+  - FAQ section
+
+**Tech:** Python script or Claude Code slash command
+
+### Priority 2: SEO Rank Tracker
+**Status:** Not started (DataForSEO credentials ready)
+**Value:** High — track keyword positions over time
+
+**What it does:**
+- Fetches keyword rankings from DataForSEO API
+- Tracks target keywords: "St Augustine wedding DJ", "Jacksonville wedding DJ", etc.
+- Generates weekly report comparing to previous snapshot
+- Shows: Total keywords, Top 10 positions, Traffic value, Up/Down movements
+
+**Tech:** Python script with DataForSEO API
+**Credentials:** corey@coscelebrations.com (already set up)
+
+### Priority 3: Review Monitor
+**Status:** Not started
+**Value:** Medium — keeps testimonials fresh
+
+**What it does:**
+- Checks Google/Knot/WeddingWire for new reviews
+- Compares against stored data
+- Alerts when new reviews found
+- Auto-formats reviews for website testimonial section
+
+**Tech:** Python script, possibly with web scraping or API
+
+### Priority 4: Image Optimizer
+**Status:** Not started
+**Value:** Medium — batch processing saves time
+
+**What it does:**
+- Batch convert photographer deliveries to WebP
+- Resize to correct dimensions (800px content, 1200px hero)
+- Add EXIF/GPS data for venue location
+- Rename with SEO-friendly keywords
+- One command instead of manual processing
+
+**Tech:** Python script with Pillow + exiftool
+
+### Priority 5: Schema Validator
+**Status:** Not started
+**Value:** Low-Medium — catches errors
+
+**What it does:**
+- Scans all HTML pages for JSON-LD schema
+- Validates structure against schema.org specs
+- Reports errors/warnings before Google finds them
+
+**Tech:** Python script or Node.js
+
+### Priority 6: PageSpeed Monitor
+**Status:** Not started
+**Value:** Low — nice to have
+
+**What it does:**
+- Runs Lighthouse audits on key pages
+- Tracks Core Web Vitals over time
+- Alerts if performance drops significantly
+
+**Tech:** Python + Lighthouse CLI or PageSpeed Insights API
+
+### Implementation Notes
+- Start with Python scripts run from terminal
+- Could evolve into launcher app like Rob's (PyQt or similar)
+- Could also become Claude Code slash commands for convenience
+- Store in `/Users/coreypeterson/cos-website/scripts/` directory
 
 ---
 
