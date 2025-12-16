@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 15, 2025
+## Last Updated: December 15, 2025 (Evening Session)
 
 ---
 
@@ -136,10 +136,70 @@ Real data from the last 28 days showing what people actually search for.
 
 ### Action Items Based on GSC Data
 
-1. **[URGENT] Tampa page rewrite** - 1,148 impressions at position 42 = huge untapped potential
+1. **[DONE] Tampa page rewrite** - 1,148 impressions at position 42 → REWRITTEN Dec 15
 2. **Jacksonville** - Add more venue pages that link back, position 15→10 is achievable
 3. **Orlando** - Recently rewritten, give it 2-4 weeks then reassess
 4. **"tampa live music wedding"** - At position 11, Tampa rewrite should push this to page 1
+
+---
+
+## 🏆 COMPETITOR RANKINGS (Dec 15, 2025)
+
+### St. Augustine - COS is #1 local DJ! (#6 overall)
+| Position | Company |
+|----------|---------|
+| 4 | The Knot (directory) |
+| 5 | Facebook (social) |
+| **6** | **COS Celebrations** ⭐ |
+| 7 | Future Stereo DJ |
+| 8 | Amplify |
+
+### Jacksonville - COS is #13 (behind 5 local competitors)
+| Position | Company |
+|----------|---------|
+| 7 | White Tie Events |
+| 8 | Full Circle Wedding DJs |
+| 9 | Y? Entertainment |
+| 10 | Throttle Up Entertainment |
+| 11 | Future Stereo DJ |
+| **13** | **COS Celebrations** ⭐ |
+
+**Competitor analysis:** All competitors ranking above COS have WORSE on-page SEO (no schema, no FAQs, thin content). They're winning on domain age and backlinks. As our SEO work indexes (2-4 weeks), expect to climb.
+
+### Tampa - COS is #22 (climbing!)
+| Position | Company |
+|----------|---------|
+| 7 | Tampa Bay DJ Company |
+| 8 | Complete Weddings |
+| 10 | Graingertainment |
+| **22** | **COS Celebrations** ⭐ |
+
+**Tampa page was rewritten Dec 15** - expect significant movement in 2-4 weeks.
+
+### Orlando - COS not in top 25 yet
+Top local: Our DJ Rocks (#4), Classic Disc Jockeys (#7)
+Orlando page was rewritten Dec 15 - give it time to index.
+
+---
+
+## 🛠️ SEO TOOLS BUILT
+
+**Location:** `/Users/coreypeterson/cos-tools/seo-tracking/`
+
+**Rank Tracker** (`rank_tracker.py`)
+```bash
+python3 rank_tracker.py --site cos  # Check COS rankings
+python3 rank_tracker.py --report-only  # View last report without API calls
+```
+
+**Keyword Research** (`keyword_research.py`)
+```bash
+python3 keyword_research.py "wedding dj"  # Find related keywords + volumes
+python3 keyword_research.py "keyword" -c  # See who ranks for this term
+python3 keyword_research.py "keyword" -q  # Get questions people ask
+```
+
+See `/cos-tools/seo-tracking/README.md` for full documentation.
 
 ---
 
