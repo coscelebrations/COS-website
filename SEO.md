@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 15, 2025 (Late Night Session)
+## Last Updated: December 16, 2025 (Very Late Night Session)
 
 ---
 
@@ -90,7 +90,14 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
 5. Connected Google Search Console - exported and analyzed real 28-day search data
 6. Rewrote Tampa page (1,148 impressions at position 42 = biggest opportunity)
 7. Analyzed competitor rankings across all markets (see competitor section below)
-8. Updated SEO.md with all findings
+8. Checked AE Entertainment rankings - discovered domain change from affordable-entertainment.com needs time to propagate
+9. **Replaced 20 logo placeholders** with real wedding photos across all 5 city pages:
+   - Jacksonville: 4 → dance floor, uplighting, sax
+   - St. Augustine: 3 → sparkler exit, golden hour, crowd surfing
+   - Orlando: 5 → uplighting, table setup, ceremony, cold sparks
+   - Tampa: 5 → first dance, dining, dance floor, sparklers
+   - Ponte Vedra: 3 → sax reception, first dance, packed floor
+10. Updated SEO.md with all findings
 
 **Key Insight:** Our on-page SEO is now BETTER than all competitors ranking above us. They're winning on domain age and backlinks. As our changes index over the next 2-4 weeks, we should see significant movement.
 
