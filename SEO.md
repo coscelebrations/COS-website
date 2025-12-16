@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 16, 2025 (Very Late Night Session)
+## Last Updated: December 16, 2025 (Afternoon Session - AE Indexing)
 
 ---
 
@@ -79,6 +79,55 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
 - All work happens in `/Users/coreypeterson/cos-website/`
 - Preview at: https://cool-jelly-73d5c0.netlify.app/
 - Local dev server: `python3 -m http.server 8000` then visit http://127.0.0.1:8000
+
+### Session Notes (Dec 16, 2025) - AE Indexing Push
+
+**Goal:** Get ae-djs.com indexed by Google quickly to capture rankings from old domain.
+
+**Technical Status Verified:**
+- ✅ ae-djs.com is live (HTTP 200)
+- ✅ sitemap.xml exists with 9+ pages
+- ✅ robots.txt correctly points to sitemap
+- ✅ 301 redirects working: affordable-entertainment.com → www.ae-djs.com → ae-djs.com
+
+**⚠️ Redirect Chain Issue (Minor):**
+The redirect from old domain has 3 hops instead of 1:
+1. affordable-entertainment.com → http://www.ae-djs.com
+2. http://www.ae-djs.com → https://www.ae-djs.com
+3. https://www.ae-djs.com → https://ae-djs.com
+
+This works but isn't ideal. Google will follow it, but for maximum SEO juice, should consolidate to single redirect later.
+
+**🚨 ACTION REQUIRED - Manual Steps to Complete:**
+
+1. **Add ae-djs.com to Google Search Console:**
+   - Go to https://search.google.com/search-console
+   - Click "Add property" → "URL prefix" → enter `https://ae-djs.com`
+   - Verify using HTML file upload or DNS TXT record
+
+2. **Submit sitemap:**
+   - In GSC sidebar → "Sitemaps"
+   - Enter `sitemap.xml` → Submit
+   - All 9 pages will start crawling
+
+3. **Request indexing for priority pages (URL Inspection tool):**
+   - `https://ae-djs.com/` (homepage)
+   - `https://ae-djs.com/jacksonville-wedding-dj/`
+   - `https://ae-djs.com/st-augustine-wedding-dj/`
+   - `https://ae-djs.com/cheap-wedding-dj/`
+
+4. **Optional - Also add affordable-entertainment.com to GSC:**
+   - This lets you see how much traffic is still going to old domain
+   - Can set up domain change notification in GSC
+
+**Expected Timeline:**
+- Sitemap submission: Pages start appearing in search within 1-3 days
+- Full indexing: 1-2 weeks for all pages
+- Rankings transfer from old domain: 2-4 weeks (already in progress)
+
+**Re-check:** December 23 (1 week) - verify indexing progress in GSC
+
+---
 
 ### Session Notes (Dec 15, 2025 - Late Night) - Session Summary & AE Entertainment
 
