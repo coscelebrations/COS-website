@@ -7,6 +7,94 @@
   <title>Amelia Island Wedding DJ + Live Musicians | COS Celebrations</title>
   <meta name="description" content="Luxury wedding DJ with live musicians on Amelia Island. Nearly 100 weddings at Ritz-Carlton & Omni Resort. Live saxophone, piano. Starting at $1,500.">
   <link rel="canonical" href="https://coscelebrations.com/amelia-island-wedding-dj/">
+
+  <!-- Schema Markup for Amelia Island Wedding DJ Page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Wedding DJ Services on Amelia Island",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "COS Celebrations",
+      "url": "https://coscelebrations.com",
+      "telephone": "+1-904-615-7132",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "St. Augustine",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      }
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Amelia Island",
+      "addressRegion": "FL"
+    },
+    "description": "COS Celebrations provides luxury wedding DJ services on Amelia Island, Florida with live musicians including saxophone. We have performed nearly 100 weddings at the Ritz-Carlton Amelia Island, Omni Amelia Island Resort, Walker's Landing, and other premier island venues. Our packages start at $1,500 with no travel fees and include professional DJ/MC services, premium sound equipment, and access to our COS Music + Timeline planning app.",
+    "offers": {
+      "@type": "Offer",
+      "priceRange": "$1,500 - $3,000",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does a wedding DJ cost on Amelia Island?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Amelia Island wedding DJ packages from COS Celebrations start at $1,500 for 4 hours of professional DJ and MC services. Most couples at the Ritz-Carlton or Omni invest between $1,900 and $2,400, which includes ceremony coverage and additional hours. Live saxophone, uplighting, and cold sparks are available as add-ons."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you charge travel fees for Amelia Island weddings?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No — Amelia Island is part of our primary service area. Whether your wedding is at the Ritz-Carlton, Omni Resort, Walker's Landing, or any other island venue, you'll never pay a travel fee."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which Amelia Island wedding venues do you work with?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We've performed nearly 100 weddings on Amelia Island, with extensive experience at the Ritz-Carlton Amelia Island and Omni Amelia Island Resort. We also work with Walker's Landing, the Golf Club of Amelia Island, and private venues throughout the island."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What makes COS different from other Amelia Island wedding DJs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We're musicians first, DJs second. Our founder toured 35+ countries performing with artists like Usher and Alicia Keys. We pioneered the DJ + live saxophone model in North Florida, which means your first dance or key moments can feature live music — something speakers simply can't replicate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you handle outdoor ceremonies on Amelia Island?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. We've performed countless oceanfront and lawn ceremonies on Amelia Island and understand the unique challenges — wind, timing with sunset, and ocean acoustics. Our ceremony packages include battery-powered equipment designed for outdoor use."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is COS Celebrations different from AE Entertainment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "COS Celebrations is our luxury brand offering DJ + live musician packages starting at $1,500. AE Entertainment is our sister company for budget-conscious couples, offering professional DJ-only packages starting at $800. Same ownership, same quality standards — different price points."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -370,50 +458,99 @@
     }
 
     .venues-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem;
+      margin: 3rem 0;
     }
 
     .venue-item {
-      padding: 1.5rem;
-      background: white;
-      border: 1px solid var(--blush);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 180px;
       transition: all 0.3s ease;
     }
 
     .venue-item:hover {
-      border-color: var(--rose);
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+    }
+
+    .venue-item:hover .venue-circle {
+      box-shadow: 0 15px 40px rgba(114, 47, 55, 0.25);
+      border-color: var(--merlot);
+      animation-play-state: paused;
+    }
+
+    .venue-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--rose);
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      background: var(--soft-pink);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .venue-item:nth-child(2) .venue-circle { animation-delay: -0.5s; }
+    .venue-item:nth-child(3) .venue-circle { animation-delay: -1s; }
+    .venue-item:nth-child(4) .venue-circle { animation-delay: -1.5s; }
+    .venue-item:nth-child(5) .venue-circle { animation-delay: -2s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .venue-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .venue-item h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--merlot);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .venue-item h3 a {
+      color: var(--merlot);
+      text-decoration: none;
     }
 
     .venue-item p {
-      font-size: 0.9rem;
+      display: none;
+    }
+
+    .venue-item .venue-tagline {
+      display: block;
+      font-size: 0.8rem;
       color: var(--text-soft);
-      line-height: 1.6;
+      line-height: 1.4;
     }
 
-    .venue-item.featured {
-      border-color: var(--merlot);
-      background: var(--soft-pink);
-    }
+    @media (max-width: 768px) {
+      .venues-list {
+        gap: 2rem;
+      }
 
-    .venue-badge {
-      display: inline-block;
-      background: var(--merlot);
-      color: white;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.6rem;
-      margin-bottom: 0.5rem;
+      .venue-item {
+        max-width: 140px;
+      }
+
+      .venue-circle {
+        width: 110px;
+        height: 110px;
+      }
+
+      .venue-item h3 {
+        font-size: 1rem;
+      }
     }
 
     .pricing-highlight {
@@ -526,7 +663,7 @@
       color: white;
     }
 
-    
+
     .footer-social {
       display: flex;
       justify-content: center;
@@ -621,7 +758,7 @@
           <a href="/services/private-parties/">Private Parties</a>
         </div>
       </li>
-      
+
       <li><a href="/pricing/">Pricing</a></li>
       <li><a href="/vip-login/">VIP Login</a></li>
       <li><a href="/contact/" class="nav-cta">Contact</a></li>
@@ -644,114 +781,122 @@
   <!-- Main Content -->
   <section class="content-section">
     <div class="intro-text">
-      <p>Looking for an <strong>Amelia Island wedding DJ</strong> who brings more than just speakers and a playlist? COS Celebrations has performed at <strong>nearly 100 weddings on Amelia Island</strong> — from intimate beach ceremonies to grand ballroom receptions at the Ritz-Carlton and Omni Resort. Our DJ + live musician model transforms your celebration into something extraordinary. Imagine your first dance with live saxophone, your cocktail hour elevated by live piano, or your dance floor erupting as our saxophonist joins the DJ during peak moments. This is what sets us apart from every other entertainment option on the island. Our founder toured 35+ countries performing with artists like Usher, Alicia Keys, and Big Gigantic before bringing that world-class musicianship to Florida's most beautiful wedding destinations. We understand the unique demands of island weddings — the timing of sunset ceremonies, the acoustics of oceanfront venues, and the sophisticated atmosphere that Amelia Island couples expect. Starting at $1,500 with no travel fees, we make luxury entertainment accessible while delivering an experience that ordinary DJs simply cannot match.</p>
+      <p>Some venues need help. They need uplighting, draping, elaborate decor to create a vibe. <strong>Amelia Island isn't one of them.</strong> The Ritz-Carlton sits right on the ocean with ceremony lawns that look like they were designed by nature itself. The landscape does the heavy lifting — your job is just to show up and get married in one of the most beautiful settings in Florida. That's what makes Amelia Island weddings different. It's pure, natural beauty. <strong>COS Celebrations</strong> has performed at <strong>nearly 100 weddings on this island</strong>, and we've learned that sometimes the best thing we can do is let the moment breathe. No over-the-top announcements competing with ocean waves. No cheese when the sunset is already doing all the work. Just thoughtful music, live saxophone when it matters, and the kind of attention to detail that matches what the Ritz and Omni already bring to the table. Our founder spent years touring <strong>35+ countries</strong> with artists like <strong>Usher and Alicia Keys</strong> before coming home to build something different. We're musicians first — and that shows in how we approach every Amelia Island celebration.</p>
     </div>
 
-    <h2>Why Amelia Island Couples Choose COS Celebrations</h2>
+    <h2>Why Amelia Island Couples Choose COS</h2>
 
     <div class="features-grid">
       <div class="feature-card">
+        <h3>Let Nature Do Its Thing</h3>
+        <p>Amelia Island weddings don't need us to manufacture ambiance — the oceanfront ceremony lawns and stunning ballrooms already have it. We've learned when to step back and let the natural beauty speak. Our job is enhancing moments, not competing with them.</p>
+      </div>
+
+      <div class="feature-card">
         <h3>Nearly 100 Island Weddings</h3>
-        <p>We've performed at weddings across Amelia Island for years. We know the Ritz-Carlton, the Omni, Walker's Landing, and every venue in between — their layouts, acoustics, and what makes each one special.</p>
+        <p>We know the Ritz-Carlton's ceremony lawns, the Omni's ballrooms, Walker's Landing at sunset. We've performed here for years and understand the flow, the timing, and the little details that make island weddings run smoothly.</p>
       </div>
 
       <div class="feature-card">
-        <h3>World-Class Musicianship</h3>
-        <p>Our founder performed with major artists across 35+ countries. That touring experience translates into flawless execution and unforgettable moments at your Amelia Island wedding.</p>
+        <h3>Live Music That Fits</h3>
+        <p>Live saxophone during your first dance. Piano for cocktail hour as guests take in the ocean view. We pioneered the DJ + live musician model in North Florida, and it's particularly magical on Amelia Island where the atmosphere already feels elevated.</p>
       </div>
 
       <div class="feature-card">
-        <h3>DJ + Live Musicians</h3>
-        <p>We pioneered the DJ + live saxophone model in the Southeast. Imagine your first dance with live sax — something speakers simply can't replicate.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Island Expertise</h3>
-        <p>We understand sunset ceremony timing, beach acoustics, and the seamless transitions island weddings require. We've mastered the logistics that make or break destination celebrations.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>500+ Five-Star Reviews</h3>
-        <p>Couples consistently praise our professionalism, music selection, and ability to keep dance floors packed. Our reputation is built on hundreds of extraordinary celebrations.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>No Travel Fees</h3>
-        <p>Amelia Island is part of our primary service area. You'll never pay extra for us to perform at the Ritz-Carlton, Omni, or any island venue.</p>
+        <h3>No Travel Fees, Ever</h3>
+        <p>Amelia Island is part of our home turf. We're based in St. Augustine, which means the Ritz-Carlton, Omni Resort, and every island venue are in our primary service area. You'll never see a travel fee on your quote.</p>
       </div>
     </div>
 
-    <h2>Amelia Island Wedding Venues We Know Best</h2>
+    <h2>Amelia Island Venues We Know Best</h2>
 
-    <p>We've performed at Amelia Island's finest wedding venues and understand what makes each one unique:</p>
+    <p>We've performed at Amelia Island's finest wedding venues and understand what makes each space shine:</p>
 
     <div class="venues-list">
-      <div class="venue-item featured">
-        <span class="venue-badge">Extensive Experience</span>
-        <h3>Ritz-Carlton Amelia Island</h3>
-        <p>The crown jewel of Amelia Island weddings. From oceanfront ceremonies to elegant ballroom receptions, the Ritz-Carlton demands perfection — and we deliver it. We know the flow from beach to ballroom, the sound requirements for each space, and how to work seamlessly with their exceptional event team.</p>
-      </div>
-
-      <div class="venue-item featured">
-        <span class="venue-badge">Extensive Experience</span>
-        <h3>Omni Amelia Island Resort</h3>
-        <p>A different flavor of island luxury with stunning marsh views and versatile indoor/outdoor options. We've performed here countless times and understand the logistics of their various ceremony and reception spaces, including the popular sunset celebrations at Walker's Landing.</p>
+      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/treasury-wedding-st-augustine/packed-wedding-dance-floor-st-augustine-dj.webp"
+               alt="Ritz-Carlton Amelia Island wedding"
+               loading="lazy">
+        </div>
+        <h3>Ritz-Carlton</h3>
+        <span class="venue-tagline">Oceanfront luxury, stunning lawns</span>
       </div>
 
       <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/treasury-wedding-st-augustine/wedding-reception-dance-floor-uplighting-st-augustine.webp"
+               alt="Omni Amelia Island Resort wedding"
+               loading="lazy">
+        </div>
+        <h3>Omni Resort</h3>
+        <span class="venue-tagline">Marsh views, versatile spaces</span>
+      </div>
+
+      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/epping-forest-wedding-jacksonville/first-dance-checkered-floor-epping-forest.webp"
+               alt="Walker's Landing wedding venue"
+               loading="lazy">
+        </div>
         <h3>Walker's Landing</h3>
-        <p>This waterfront venue at the Omni offers spectacular sunset views over the Intracoastal. We know exactly how to time the music to match those golden hour moments and create unforgettable ceremony experiences.</p>
+        <span class="venue-tagline">Intracoastal sunset magic</span>
       </div>
 
       <div class="venue-item">
-        <h3>Golf Club of Amelia Island</h3>
-        <p>Nestled among oak trees with championship golf course views. A more intimate alternative to the major resorts while still delivering an elegant experience worthy of a COS celebration.</p>
+        <div class="venue-circle">
+          <img src="/images/timuquana-country-club-wedding/live-saxophone-wedding-reception-timuquana.webp"
+               alt="Golf Club of Amelia Island wedding"
+               loading="lazy">
+        </div>
+        <h3>Golf Club of Amelia</h3>
+        <span class="venue-tagline">Oak trees, intimate elegance</span>
       </div>
 
       <div class="venue-item">
-        <h3>The Pavilion at Amelia Island</h3>
-        <p>Located within the Omni resort, The Pavilion offers a dedicated event space with its own character. We've optimized our setup for this space across weddings of various sizes.</p>
-      </div>
-
-      <div class="venue-item">
-        <h3>Ribault Club</h3>
-        <p>Historic waterfront venue on Fort George Island, just south of Amelia. Spanish-style architecture and oak-lined grounds create old Florida romance. Worth considering for couples who want something truly unique.</p>
+        <div class="venue-circle">
+          <img src="/images/fountain-of-youth-wedding-st-augustine/live-saxophone-wedding-dance-floor-fountain-of-youth.webp"
+               alt="Live saxophone at Amelia Island wedding"
+               loading="lazy">
+        </div>
+        <h3>+ Private Venues</h3>
+        <span class="venue-tagline">Island estates & more</span>
       </div>
     </div>
 
     <h2>Wedding DJ Services on Amelia Island</h2>
 
-    <p>Every Amelia Island wedding demands excellence. Here's what we bring to your celebration:</p>
+    <p>Every Amelia Island celebration deserves entertainment that matches the setting. Here's what we bring:</p>
 
     <div class="features-grid" style="margin-top: 2rem;">
       <div class="feature-card">
         <h3>Professional DJ/MC</h3>
-        <p>Expert emcee skills that keep your timeline flowing elegantly. We read the room and adjust to your guests — no cheesy announcements or over-the-top antics.</p>
+        <p>Polished emcee skills that keep your timeline flowing without competing with the natural atmosphere. We read the room and match the energy — sophisticated when it needs to be, high-energy when the dance floor demands it.</p>
       </div>
 
       <div class="feature-card">
         <h3>Live Saxophone</h3>
-        <p>Our signature service — live sax performance during key moments like your first dance, grand entrance, or peak dance floor times. Transforms any Amelia Island celebration.</p>
+        <p>Our signature service — live sax during your first dance, cocktail hour, or peak dance floor moments. On Amelia Island, with the ocean as your backdrop, live music hits differently.</p>
       </div>
 
       <div class="feature-card">
         <h3>Premium Sound System</h3>
-        <p>Crystal-clear audio designed for upscale venues. Your vows will be heard on the beach, your toasts will resonate in the Ritz ballroom, and your music will move people.</p>
+        <p>Crystal-clear audio for ceremonies, receptions, and everything in between. We've mastered outdoor sound on this island — your vows will be heard over the waves, guaranteed.</p>
       </div>
 
       <div class="feature-card">
         <h3>Ceremony Coverage</h3>
-        <p>Professional sound for your ceremony including wireless microphones, music coordination, and seamless transitions. We've mastered beach and outdoor ceremonies on the island.</p>
+        <p>Professional sound for oceanfront and lawn ceremonies including wireless microphones, music coordination, and battery-powered equipment designed for outdoor use.</p>
       </div>
 
       <div class="feature-card">
         <h3>Lighting & Effects</h3>
-        <p>From elegant uplighting that transforms ballroom columns to dramatic cold sparks for your first dance — we offer add-ons that match island sophistication.</p>
+        <p>From elegant uplighting that transforms Ritz ballrooms to dramatic cold sparks for your first dance — thoughtful enhancements that complement rather than compete.</p>
       </div>
 
       <div class="feature-card">
         <h3>COS Music + Timeline App</h3>
-        <p>Our exclusive planning platform makes coordination effortless — perfect for destination couples planning from out of town. Build your timeline, select songs, and communicate directly with your DJ.</p>
+        <p>Planning from out of state? Our exclusive app makes destination wedding coordination seamless. Build your timeline, select songs, and communicate directly with your DJ from anywhere.</p>
       </div>
     </div>
   </section>
@@ -761,43 +906,43 @@
     <div class="pricing-highlight">
       <p class="eyebrow" style="color: var(--rose);">Investment</p>
       <h2>Amelia Island Wedding DJ Pricing</h2>
-      <p>Amelia Island weddings start at $1,500 for 4 hours of professional DJ/MC services. Most couples choose our Complete Wedding package at $1,900, which includes 5 hours and ceremony coverage — ideal for Ritz-Carlton or Omni celebrations.</p>
+      <p>Amelia Island weddings start at $1,500 for 4 hours of professional DJ/MC services. Most couples at the Ritz-Carlton or Omni choose our Complete Wedding package at $1,900, which includes 5 hours and ceremony coverage.</p>
       <div class="price-display">Starting at $1,500</div>
       <a href="/#pricing" class="btn btn-primary" style="background: white; color: var(--merlot);">View All Packages</a>
     </div>
 
-    <h2>What's Included in Every Amelia Island Package</h2>
+    <h2>What's Included in Every Package</h2>
 
-    <p>We believe in transparent pricing because couples planning destination weddings deserve to budget with confidence:</p>
+    <p>We believe in transparent pricing because destination wedding couples deserve to budget with confidence:</p>
 
     <ul style="margin: 2rem 0; line-height: 2; color: var(--text-soft);">
-      <li><strong>No Travel Fees:</strong> Amelia Island is part of our primary service area — never pay extra for the Ritz-Carlton, Omni, or any island venue</li>
+      <li><strong>No Travel Fees:</strong> Amelia Island is part of our primary service area — the Ritz, Omni, and all island venues included</li>
       <li><strong>Premium Equipment:</strong> High-end sound system, wireless microphones, backup equipment — all included</li>
-      <li><strong>Experienced Entertainers:</strong> Our DJs are trained musicians and performers, not just button-pushers</li>
-      <li><strong>Planning Tools:</strong> Access to COS Music + Timeline App for seamless coordination from anywhere</li>
-      <li><strong>Venue Coordination:</strong> We proactively reach out to your venue and coordinator — we know the teams at island resorts</li>
+      <li><strong>Experienced Entertainers:</strong> Our DJs are trained musicians who understand luxury resort weddings</li>
+      <li><strong>Planning Tools:</strong> Full access to our COS Music + Timeline App for seamless remote coordination</li>
+      <li><strong>Venue Coordination:</strong> We proactively communicate with your venue and planner — we know the island teams</li>
     </ul>
 
-    <h2>Popular Add-Ons for Amelia Island Weddings</h2>
+    <h2>Popular Add-Ons for Island Weddings</h2>
 
-    <p>Elevate your celebration with these enhancements:</p>
+    <p>Elevate your celebration with thoughtful enhancements:</p>
 
     <div class="features-grid" style="margin-top: 2rem;">
       <div class="feature-card">
         <h3>Live Saxophone</h3>
-        <p>Our most requested add-on. Live performance during first dance, cocktail hour, or peak dance times. Transforms your celebration into something extraordinary.</p>
+        <p>Our most requested add-on. Live performance during first dance, cocktail hour overlooking the ocean, or peak dance times.</p>
       </div>
       <div class="feature-card">
         <h3>Uplighting</h3>
-        <p>Transform the Ritz ballroom or Omni reception space with intelligent LED uplighting that matches your wedding colors and creates stunning ambiance.</p>
+        <p>Transform Ritz or Omni ballrooms with intelligent LED uplighting that matches your wedding colors and creates stunning ambiance.</p>
       </div>
       <div class="feature-card">
         <h3>Cold Sparks</h3>
-        <p>Safe indoor pyrotechnics for dramatic first dance or exit moments. Creates stunning photo opportunities at any Amelia Island venue.</p>
+        <p>Safe indoor pyrotechnics for dramatic first dance or exit moments. Creates unforgettable photo opportunities at any island venue.</p>
       </div>
       <div class="feature-card">
         <h3>Live Piano</h3>
-        <p>Add live piano to your ceremony or cocktail hour for an extra touch of elegance. Perfect for intimate moments at island celebrations.</p>
+        <p>Add live piano to your ceremony or cocktail hour for an extra layer of elegance. Perfect for intimate moments with ocean views.</p>
       </div>
     </div>
   </section>
@@ -806,7 +951,7 @@
   <section class="content-section">
     <div class="areas-served">
       <h3>Serving Amelia Island & Northeast Florida</h3>
-      <p>Based in <a href="/st-augustine-wedding-dj/" style="color: var(--merlot);">St. Augustine</a>, we serve Amelia Island and the surrounding areas with no travel fees. From the Ritz-Carlton to intimate beach venues, we bring the same excellence to every celebration.</p>
+      <p>Based in <a href="/st-augustine-wedding-dj/" style="color: var(--merlot);">St. Augustine</a>, we serve Amelia Island and the surrounding areas with no travel fees. From the Ritz-Carlton to intimate beach venues, we bring the same attention to detail to every celebration.</p>
       <p><strong>Also Serving:</strong></p>
       <div class="city-links">
         <a href="/jacksonville-wedding-dj/">Jacksonville</a>
@@ -820,20 +965,20 @@
     <h2>Frequently Asked Questions</h2>
 
     <div style="margin: 2rem 0;">
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How many weddings have you performed on Amelia Island?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Nearly 100 weddings across Amelia Island venues. We've performed extensively at both the Ritz-Carlton and Omni Resort, as well as Walker's Landing, the Golf Club, and other island locations. This experience means we understand what works on the island.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How much does a wedding DJ cost on Amelia Island?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Amelia Island wedding DJ packages from COS Celebrations start at $1,500 for 4 hours of professional DJ and MC services. Most couples at the Ritz-Carlton or Omni invest between $1,900 and $2,400, which includes ceremony coverage and additional hours. Live saxophone, uplighting, and cold sparks are available as add-ons.</p>
 
       <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you charge travel fees for Amelia Island weddings?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">No — Amelia Island is part of our primary service area. You'll never pay a travel fee for any venue on the island, including the Ritz-Carlton, Omni Resort, Walker's Landing, or any other location.</p>
+      <p style="color: var(--text-soft); line-height: 1.8;">No — Amelia Island is part of our primary service area. Whether your wedding is at the Ritz-Carlton, Omni Resort, Walker's Landing, or any other island venue, you'll never pay a travel fee.</p>
 
       <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">We're planning from out of state. How does that work?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Many of our Amelia Island couples are planning destination weddings from afar. Our COS Music + Timeline App makes planning seamless from anywhere. We can do video consultations, and we coordinate directly with your venue and planner to handle all the details.</p>
+      <p style="color: var(--text-soft); line-height: 1.8;">Many of our Amelia Island couples are planning destination weddings from afar. Our COS Music + Timeline App makes planning seamless from anywhere — build your playlist, create your timeline, and communicate directly with your DJ. We handle coordination with your venue and planner so you can focus on showing up and getting married.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">What makes your DJ services different from others?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Beyond our extensive island experience, we approach every wedding as musicians first. We read the room, adjust in real-time, and offer live saxophone or piano that no other DJ company can match. When you want something beyond ordinary, that's what we deliver.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">What makes COS different from other Amelia Island wedding DJs?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">We're musicians first, DJs second. Our founder toured 35+ countries performing with artists like Usher and Alicia Keys. We pioneered the DJ + live saxophone model in North Florida, which means your first dance or key moments can feature live music — something speakers simply can't replicate. And we understand that on Amelia Island, less is often more.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Can you handle beach ceremonies on Amelia Island?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Absolutely. We've performed countless beach and outdoor ceremonies on the island and know exactly how to manage wind, waves, and sunset timing. Our ceremony packages include battery-powered equipment designed for outdoor use, and we ensure every guest hears your vows clearly.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Can you handle outdoor ceremonies on Amelia Island?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Absolutely. We've performed countless oceanfront and lawn ceremonies on Amelia Island and understand the unique challenges — wind, timing with sunset, and ocean acoustics. Our ceremony packages include battery-powered equipment designed for outdoor use, and we ensure every guest hears your vows clearly.</p>
 
       <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How is COS Celebrations different from AE Entertainment?</h3>
       <p style="color: var(--text-soft); line-height: 1.8;">COS Celebrations is our luxury brand offering DJ + live musician packages starting at $1,500. <a href="https://ae-djs.com" target="_blank" style="color: var(--merlot);">AE Entertainment</a> is our sister company for budget-conscious couples, offering professional DJ-only packages starting at $800. Same ownership, same quality standards — different price points to serve different needs.</p>
