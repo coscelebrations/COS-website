@@ -370,39 +370,76 @@
     }
 
     .venues-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem;
+      margin: 3rem 0;
     }
 
     .venue-item {
-      padding: 1.5rem;
-      background: white;
-      border: 1px solid var(--blush);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 180px;
       transition: all 0.3s ease;
     }
 
     .venue-item:hover {
-      border-color: var(--rose);
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+    }
+
+    .venue-item:hover .venue-circle {
+      box-shadow: 0 15px 40px rgba(114, 47, 55, 0.25);
+      border-color: var(--merlot);
+      animation-play-state: paused;
+    }
+
+    .venue-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--rose);
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      background: var(--soft-pink);
+      animation: floatVenue 4s ease-in-out infinite;
+    }
+
+    .venue-item:nth-child(2) .venue-circle { animation-delay: -0.5s; }
+    .venue-item:nth-child(3) .venue-circle { animation-delay: -1s; }
+    .venue-item:nth-child(4) .venue-circle { animation-delay: -1.5s; }
+    .venue-item:nth-child(5) .venue-circle { animation-delay: -2s; }
+
+    @keyframes floatVenue {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .venue-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .venue-item h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--merlot);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
 
-    .venue-item p {
-      font-size: 0.9rem;
+    .venue-item h3 a {
+      color: var(--merlot);
+      text-decoration: none;
+    }
+
+    .venue-tagline {
+      display: block;
+      font-size: 0.8rem;
       color: var(--text-soft);
-      line-height: 1.6;
-    }
-
-    .venue-item.featured {
-      border-color: var(--merlot);
-      background: var(--soft-pink);
+      line-height: 1.4;
     }
 
     .venue-badge {
@@ -414,6 +451,21 @@
       text-transform: uppercase;
       padding: 0.3rem 0.6rem;
       margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .venues-list {
+        gap: 2rem;
+      }
+
+      .venue-item {
+        max-width: 140px;
+      }
+
+      .venue-circle {
+        width: 110px;
+        height: 110px;
+      }
     }
 
     .pricing-highlight {
@@ -686,25 +738,44 @@
     <p>We've performed at Ponte Vedra's finest wedding venues and have earned preferred vendor status through years of excellence:</p>
 
     <div class="venues-list">
-      <div class="venue-item featured">
-        <span class="venue-badge">Top Preferred Vendor</span>
+      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/venues/tpc-sawgrass-wedding-venue-hero.webp"
+               alt="TPC Sawgrass wedding venue"
+               loading="lazy">
+        </div>
         <h3><a href="/tpc-sawgrass-wedding-dj/">TPC Sawgrass</a></h3>
-        <p>Home of THE PLAYERS Championship and one of Florida's most prestigious wedding venues. The 77,000 square foot Mediterranean Revival-style clubhouse offers stunning indoor and outdoor ceremony options with world-famous golf course views. We're their TOP preferred entertainment vendor — a distinction that speaks to our consistent excellence. <a href="/tpc-sawgrass-wedding-dj/" style="color: var(--merlot);">Learn more →</a></p>
+        <span class="venue-tagline">Top Preferred Vendor</span>
       </div>
 
       <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="Ponte Vedra Inn & Club wedding"
+               loading="lazy">
+        </div>
         <h3>Ponte Vedra Inn & Club</h3>
-        <p>Oceanfront elegance since 1928. This AAA Five Diamond resort offers breathtaking Atlantic views and timeless sophistication. We've created countless memorable celebrations in their ballrooms and outdoor spaces.</p>
+        <span class="venue-tagline">Oceanfront since 1928</span>
       </div>
 
       <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="The Lodge & Club wedding"
+               loading="lazy">
+        </div>
         <h3>The Lodge & Club</h3>
-        <p>Intimate luxury on Ponte Vedra Beach. The Lodge offers a more private, boutique wedding experience with the same oceanfront beauty. Perfect for couples seeking refined exclusivity.</p>
+        <span class="venue-tagline">Boutique beachfront luxury</span>
       </div>
 
       <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="Marsh Creek Country Club wedding"
+               loading="lazy">
+        </div>
         <h3>Marsh Creek Country Club</h3>
-        <p>Nestled in the natural beauty of St. Augustine's marsh landscape, just minutes from Ponte Vedra. A preferred venue for couples who want country club elegance with a more relaxed coastal feel.</p>
+        <span class="venue-tagline">Coastal country club charm</span>
       </div>
     </div>
 
