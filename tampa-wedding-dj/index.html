@@ -5,7 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>Tampa Wedding DJ + Live Musicians | COS Celebrations</title>
-  <meta name="description" content="Premier Tampa wedding DJ with live saxophone. 500+ five-star reviews. Performed at The Orlo House, Don CeSar, Armature Works, The Ringling. Starting at $1,500.">
+  <meta name="description" content="Tampa wedding DJ with live saxophone and musicians. 500+ five-star reviews. Live music for weddings at The Orlo, Don CeSar, Armature Works. Starting at $1,500.">
+
+  <!-- Schema Markup for Tampa Wedding DJ Page -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Wedding DJ Services in Tampa",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "COS Celebrations",
+      "url": "https://coscelebrations.com",
+      "telephone": "+1-904-615-7132",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "St. Augustine",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      }
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Tampa", "addressRegion": "FL" },
+      { "@type": "City", "name": "St. Petersburg", "addressRegion": "FL" },
+      { "@type": "City", "name": "Clearwater", "addressRegion": "FL" },
+      { "@type": "City", "name": "Sarasota", "addressRegion": "FL" }
+    ],
+    "description": "COS Celebrations provides Tampa wedding DJ services with live musicians including saxophone. We specialize in live music for weddings at venues like The Orlo, Armature Works, Don CeSar, and The Ringling. Our DJ + live saxophone combination creates unforgettable wedding entertainment.",
+    "offers": {
+      "@type": "Offer",
+      "priceRange": "$1,500 - $3,000",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much does a wedding DJ cost in Tampa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Tampa wedding DJ packages from COS Celebrations start at $1,500 for 4 hours of professional DJ and MC services. Most Tampa couples invest between $2,000 and $3,000, which includes live saxophone and ceremony coverage. We offer transparent pricing with no hidden fees."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you offer live music for weddings in Tampa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! Live music is our specialty. We pioneered the DJ + live saxophone model in Florida. Our Tampa wedding packages can include live saxophone during your ceremony, cocktail hour, first dance, or throughout your reception. It's wedding entertainment that speakers simply can't replicate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which Tampa wedding venues do you work with?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We've performed at Tampa Bay's finest venues including The Orlo House, Armature Works, The Estate, Don CeSar in St. Pete Beach, The Ringling in Sarasota, and many more throughout Tampa, St. Petersburg, Clearwater, and Sarasota."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you travel to Tampa from St. Augustine?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Tampa Bay is part of our regular service area. We include travel in your custom quote. Many Tampa couples choose us specifically for our DJ + live musician combination, which is rare in the Tampa market."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What makes COS different from other Tampa wedding DJs?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We combine professional DJ services with live musicians - something most Tampa DJs can't offer. Our founder toured 35+ countries with artists like Usher and Alicia Keys. With 500+ five-star reviews, we bring world-class talent to Tampa wedding entertainment."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -349,34 +430,91 @@
     }
 
     .venues-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2.5rem;
+      margin: 3rem 0;
     }
 
     .venue-item {
-      padding: 1.5rem;
-      background: white;
-      border: 1px solid var(--blush);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 180px;
       transition: all 0.3s ease;
     }
 
     .venue-item:hover {
-      border-color: var(--rose);
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+    }
+
+    .venue-item:hover .venue-circle {
+      box-shadow: 0 15px 40px rgba(114, 47, 55, 0.25);
+      border-color: var(--merlot);
+      animation-play-state: paused;
+    }
+
+    .venue-circle {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--rose);
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      background: var(--soft-pink);
+      animation: floatVenue 4s ease-in-out infinite;
+    }
+
+    .venue-item:nth-child(2) .venue-circle { animation-delay: -0.5s; }
+    .venue-item:nth-child(3) .venue-circle { animation-delay: -1s; }
+    .venue-item:nth-child(4) .venue-circle { animation-delay: -1.5s; }
+    .venue-item:nth-child(5) .venue-circle { animation-delay: -2s; }
+
+    @keyframes floatVenue {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .venue-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .venue-item h3 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--merlot);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
 
-    .venue-item p {
-      font-size: 0.9rem;
+    .venue-item h3 a {
+      color: var(--merlot);
+      text-decoration: none;
+    }
+
+    .venue-tagline {
+      display: block;
+      font-size: 0.8rem;
       color: var(--text-soft);
-      line-height: 1.6;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+      .venues-list {
+        gap: 2rem;
+      }
+
+      .venue-item {
+        max-width: 140px;
+      }
+
+      .venue-circle {
+        width: 110px;
+        height: 110px;
+      }
     }
 
     .pricing-highlight {
@@ -631,71 +769,86 @@
   <!-- Main Content -->
   <section class="content-section">
     <div class="intro-text">
-      <p>Looking for a <strong>Tampa wedding DJ</strong> who brings more than just a playlist? COS Celebrations brings the DJ + live musician experience that's made us Florida's most sought-after wedding entertainment company — now serving Tampa Bay and the Gulf Coast. With over <strong>500 five-star reviews</strong> and performances at Tampa's most iconic venues, we deliver the energy of a live concert combined with the precision of a professional DJ. Our founder has toured <strong>35+ countries</strong> and shared the stage with artists like <strong>Usher, Alicia Keys</strong>, and Big Gigantic before bringing that world-class experience to your Tampa wedding. Whether you're planning a historic celebration at The Orlo House, a beachfront affair at Don CeSar, or a Sarasota masterpiece at The Ringling, we bring the same level of expertise and passion to every event. Starting at just $1,500, we make luxury entertainment accessible without compromising on quality.</p>
+      <p>Looking for a <strong>Tampa wedding DJ</strong> who brings more than just speakers? <strong>COS Celebrations</strong> is Tampa Bay's premier source for <strong>live music for weddings</strong> — combining professional DJ services with live saxophone that transforms any venue. We pioneered the DJ + live musician model in Florida, and Tampa couples book us specifically because this combination is rare in the Tampa market. With <strong>500+ five-star reviews</strong>, performances at The Orlo, Armature Works, Don CeSar, and The Ringling, we bring world-class <strong>wedding entertainment</strong> to every Tampa Bay celebration. Our founder toured <strong>35+ countries</strong> with artists like <strong>Usher and Alicia Keys</strong> before bringing that experience home. Whether your wedding is in Tampa, St. Petersburg, Clearwater, or Sarasota — we deliver the same level of expertise and passion that's made us Florida's most sought-after wedding entertainment company.</p>
     </div>
 
     <h2>Why Tampa Couples Choose COS</h2>
 
     <div class="features-grid">
       <div class="feature-card">
-        <h3>World-Class Musicians</h3>
-        <p>Our founder performed with major artists across 35+ countries. That touring experience translates into flawless execution and unforgettable moments at your Tampa wedding.</p>
+        <h3>Live Music + DJ Combined</h3>
+        <p>We pioneered the DJ + live saxophone model in Florida. Most Tampa DJs can't offer this — live sax during your first dance, cocktail hour, or peak dance floor moments creates <strong>wedding entertainment</strong> speakers simply can't replicate.</p>
       </div>
 
       <div class="feature-card">
-        <h3>DJ + Live Saxophone</h3>
-        <p>We pioneered the DJ + live saxophone model in Florida. Imagine your first dance with live sax weaving through the music — something speakers simply can't replicate.</p>
+        <h3>World-Class Musicians</h3>
+        <p>Our founder toured 35+ countries with Usher and Alicia Keys. That experience translates into flawless execution — we read the room, build energy at the right moments, and know when to pull back.</p>
       </div>
 
       <div class="feature-card">
         <h3>It's Your Day, Not Ours</h3>
-        <p>No ego. No spotlight-stealing. No cheesy DJ antics. Our philosophy means every decision centers on your vision — we're here to elevate, not dominate.</p>
+        <p>No ego. No spotlight-stealing. No cheesy DJ antics. Every decision centers on your vision. We're here to elevate your Tampa wedding, not dominate it.</p>
       </div>
 
       <div class="feature-card">
         <h3>500+ Five-Star Reviews</h3>
-        <p>Couples consistently praise our professionalism, music selection, and ability to keep dance floors packed from the first song to the last.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Reads the Room</h3>
-        <p>A musician's ear means we know when to build energy and when to pull back. We adjust in real-time based on what your guests actually want.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Transparent Pricing</h3>
-        <p>No hidden fees, no bait-and-switch. Tampa weddings start at $1,500 with clear, straightforward pricing you can plan around.</p>
+        <p>Tampa couples consistently praise our professionalism, music selection, and ability to keep dance floors packed. Check Wedding Wire, The Knot, and Google to see why we're worth the drive.</p>
       </div>
     </div>
 
-    <h2>Tampa Wedding Venues We Love</h2>
+    <h2>Tampa Bay Wedding Venues We Love</h2>
 
-    <p>We've performed at Tampa Bay's finest wedding venues and know exactly how to make each space shine:</p>
+    <p>We've performed at Tampa Bay's finest wedding venues and bring the perfect <strong>live music for weddings</strong> at each one:</p>
 
     <div class="venues-list">
       <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="The Orlo House Tampa wedding"
+               loading="lazy">
+        </div>
         <h3>The Orlo House</h3>
-        <p>Historic South Tampa mansion with timeless elegance. The intimate rooms and lush grounds create the perfect setting for sophisticated entertainment.</p>
+        <span class="venue-tagline">Historic South Tampa mansion</span>
       </div>
 
       <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="Armature Works Tampa wedding"
+               loading="lazy">
+        </div>
         <h3>Armature Works</h3>
-        <p>Industrial-chic on Tampa's riverfront. The soaring ceilings and exposed brick pair beautifully with our premium sound and lighting design.</p>
+        <span class="venue-tagline">Industrial-chic riverfront</span>
       </div>
 
       <div class="venue-item">
-        <h3>The Estate</h3>
-        <p>Stunning estate venue with endless photo opportunities. The combination of indoor elegance and outdoor beauty makes every moment magical.</p>
-      </div>
-
-      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="Don CeSar St Pete Beach wedding"
+               loading="lazy">
+        </div>
         <h3>Don CeSar</h3>
-        <p>The iconic "Pink Palace" on St. Pete Beach. There's nothing quite like live saxophone during sunset on the Gulf Coast.</p>
+        <span class="venue-tagline">The Pink Palace</span>
       </div>
 
       <div class="venue-item">
-        <h3>The Ringling Ca' d'Zan</h3>
-        <p>Venetian Gothic masterpiece in Sarasota. The dramatic architecture and bayfront setting demand entertainment that rises to the occasion — and we deliver.</p>
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="The Ringling Sarasota wedding"
+               loading="lazy">
+        </div>
+        <h3>The Ringling</h3>
+        <span class="venue-tagline">Sarasota's masterpiece</span>
+      </div>
+
+      <div class="venue-item">
+        <div class="venue-circle">
+          <img src="/images/cos-celebrations-logo.webp"
+               alt="Tampa Bay wedding venues"
+               loading="lazy">
+        </div>
+        <h3>+ Many More</h3>
+        <span class="venue-tagline">All of Tampa Bay</span>
       </div>
     </div>
 
@@ -799,17 +952,20 @@
     <h2>Frequently Asked Questions</h2>
 
     <div style="margin: 2rem 0;">
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you charge travel fees for Tampa weddings?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">We include travel in your custom quote based on your specific venue location. Most Tampa Bay venues fall within our standard service area.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How much does a wedding DJ cost in Tampa?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Tampa wedding DJ packages from COS Celebrations start at $1,500 for 4 hours of professional DJ and MC services. Most Tampa couples invest between $2,000 and $3,000, which includes live saxophone and ceremony coverage. We offer transparent pricing with no hidden fees.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">How far in advance should we book?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Tampa couples typically book 12-18 months in advance, especially for peak season (spring and fall). However, we occasionally have availability for shorter timelines — reach out to check your date.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you offer live music for weddings in Tampa?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Yes! Live music is our specialty. We pioneered the DJ + live saxophone model in Florida. Our Tampa wedding packages can include live saxophone during your ceremony, cocktail hour, first dance, or throughout your reception. It's wedding entertainment that speakers simply can't replicate.</p>
 
-      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Can we meet our DJ before the wedding?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">Absolutely. We schedule video calls to discuss your vision, music preferences, and timeline. You'll also have direct communication through our planning app.</p>
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Which Tampa wedding venues do you work with?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">We've performed at Tampa Bay's finest venues including The Orlo House, Armature Works, The Estate, Don CeSar in St. Pete Beach, The Ringling in Sarasota, and many more throughout Tampa, St. Petersburg, Clearwater, and Sarasota.</p>
+
+      <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">Do you travel to Tampa from St. Augustine?</h3>
+      <p style="color: var(--text-soft); line-height: 1.8;">Yes, Tampa Bay is part of our regular service area. We include travel in your custom quote. Many Tampa couples choose us specifically for our DJ + live musician combination, which is rare in the Tampa market.</p>
 
       <h3 style="font-size: 1.2rem; color: var(--merlot); margin-top: 2rem; margin-bottom: 0.5rem;">What makes COS different from other Tampa wedding DJs?</h3>
-      <p style="color: var(--text-soft); line-height: 1.8;">A lot of companies say they do what we do. A little research will show you the difference — world-class musicians, 500+ five-star reviews, and an approach that puts your wedding first. We encourage you to compare.</p>
+      <p style="color: var(--text-soft); line-height: 1.8;">We combine professional DJ services with live musicians — something most Tampa DJs can't offer. Our founder toured 35+ countries with artists like Usher and Alicia Keys. With 500+ five-star reviews, we bring world-class talent to Tampa wedding entertainment.</p>
     </div>
   </section>
 
