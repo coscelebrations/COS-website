@@ -134,8 +134,8 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
 - Added Service and FAQPage schema markup
 
 **Still TODO for City Pages:**
-- [ ] Ponte Vedra needs same treatment (unique intro, 4 cards, floating venues, unique FAQs)
-- [ ] Amelia Island needs same treatment
+- [x] Ponte Vedra - added floating circle venue design (TPC has real photo, others need venue photos)
+- [ ] Amelia Island needs same treatment (unique intro, 4 cards, floating venues, unique FAQs)
 - [ ] Tampa needs same treatment
 - [ ] Get real venue photos to replace logo placeholders in circle designs
 
