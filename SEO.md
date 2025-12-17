@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 16, 2025 (Afternoon Session - AE Indexing)
+## Last Updated: December 17, 2025 (Evening Session)
 
 ---
 
@@ -79,6 +79,49 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
 - All work happens in `/Users/coreypeterson/cos-website/`
 - Preview at: https://cool-jelly-73d5c0.netlify.app/
 - Local dev server: `python3 -m http.server 8000` then visit http://127.0.0.1:8000
+
+### Session Notes (Dec 17, 2025) - AE Pages, Venue Pages, UI Updates
+
+**What Was Accomplished This Session:**
+
+1. **AE Entertainment - New Pages Created:**
+   - Created `/orlando-wedding-dj/` with schema, FAQs, pricing
+   - Created `/tampa-wedding-dj/` with schema, FAQs, pricing
+   - Updated homepage cards to link to new pages
+   - Updated sitemap.xml with new pages
+   - Requested indexing for both new pages in GSC
+
+2. **AE Entertainment - Schema & SEO:**
+   - Added LocalBusiness + Service schema to homepage
+   - Added Service + FAQPage schema to all city pages (Jacksonville, St. Augustine, Amelia Island, Ponte Vedra)
+   - Updated all page titles from "Wedding DJ" to "DJ | Weddings & Events" to target broader searches
+
+3. **COS Celebrations - Venue Pages:**
+   - Created `/the-white-room-wedding-dj/` with full content, schema, FAQs
+   - Corrected White Room spaces to: Villa Blanca, Rooftop, Grand Ballroom, The Loft
+   - Linked White Room bubble on St. Augustine page to new venue page
+   - Added generic alt text for placeholder images (until real White Room photos available)
+
+4. **COS Celebrations - Broader Keywords:**
+   - Updated titles/meta on all city pages from "Wedding DJ" to "DJ | Weddings & Events"
+   - Pages updated: Jacksonville, St. Augustine, Ponte Vedra, Amelia Island, Orlando, Tampa
+
+5. **Inclusive Language:**
+   - Added "We've proudly celebrated love in all forms" to both COS and AE homepages
+   - LGBTQ+ friendly messaging for both companies
+
+6. **COS Homepage Updates:**
+   - Added Fountain of Youth to preferred venues FAQ (visible + schema)
+   - Fixed mobile hamburger menu - Services dropdown now centered
+   - Updated enhancement cards to new rounded style with icons (Option B)
+
+**Next Session Priorities:**
+- Get same-sex wedding photos and add to galleries
+- Create more venue-specific pages (user to specify which venues)
+- Monitor AE indexing progress (check around Dec 24)
+- Check COS rankings around Dec 29 (Tampa/Orlando rewrites)
+
+---
 
 ### Session Notes (Dec 16, 2025) - AE Indexing Push
 
