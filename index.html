@@ -278,15 +278,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(255, 251, 250, 0.98);
+      background: rgba(255, 251, 250, 0.95);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--blush);
-    }
-
-    @media (min-width: 769px) {
-      nav {
-        backdrop-filter: blur(10px);
-        background: rgba(255, 251, 250, 0.95);
-      }
     }
 
     .logo {
@@ -496,23 +490,6 @@
       to {
         opacity: 1;
         transform: translateY(0);
-      }
-    }
-
-    /* Reduce animations on mobile for performance */
-    @media (max-width: 768px) {
-      .hero-content {
-        animation: none;
-      }
-      .hero::before {
-        display: none;
-      }
-    }
-
-    /* Respect reduced motion preferences */
-    @media (prefers-reduced-motion: reduce) {
-      .hero-content {
-        animation: none;
       }
     }
 
@@ -749,15 +726,6 @@
     .apart-card.training-card > * {
       position: relative;
       z-index: 1;
-    }
-
-    /* Hide decorative background images on mobile for performance */
-    @media (max-width: 768px) {
-      .apart-card.mc-card::before,
-      .apart-card.sax-card::before,
-      .apart-card.training-card::before {
-        display: none;
-      }
     }
 
     /* Trust Bar */
@@ -1233,16 +1201,10 @@
     /* CTA Section */
     .final-cta {
       padding: 6rem 2rem;
-      background: var(--charcoal);
+      background: linear-gradient(rgba(45, 42, 43, 0.75), rgba(45, 42, 43, 0.75)),
+                  url('/images/lightner-museum-wedding-dance-floor-st-augustine.webp') center/cover no-repeat;
       text-align: center;
       color: white;
-    }
-
-    @media (min-width: 769px) {
-      .final-cta {
-        background: linear-gradient(rgba(45, 42, 43, 0.75), rgba(45, 42, 43, 0.75)),
-                    url('/images/lightner-museum-wedding-dance-floor-st-augustine.webp') center/cover no-repeat;
-      }
     }
 
     .final-cta .eyebrow {
