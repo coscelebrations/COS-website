@@ -219,7 +219,7 @@
       text-align: center;
       padding: 10rem 2rem 4rem;
       background: linear-gradient(rgba(248, 240, 240, 0.6), rgba(255, 251, 250, 0.75)),
-                  url('/images/treasury-wedding-st-augustine/sparkler-exit-wedding-st-augustine.webp') center/cover no-repeat;
+                  url('/images/white-room-wedding-st-augustine/white-room-villa-blanca-ceremony-wedding.webp') center/cover no-repeat;
       position: relative;
       overflow: hidden;
     }
@@ -328,34 +328,74 @@
     }
 
     .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 2rem;
       margin: 3rem 0;
     }
 
     .feature-card {
-      padding: 2rem;
-      background: var(--soft-pink);
+      flex: 0 1 calc(50% - 1rem);
+      max-width: 400px;
+    }
+
+    @media (min-width: 1100px) {
+      .feature-card {
+        flex: 0 1 calc(33.333% - 1.5rem);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .feature-card {
+        flex: 0 1 100%;
+      }
+    }
+
+    .feature-card {
+      padding: 2.5rem 2rem;
+      background: linear-gradient(145deg, var(--cream) 0%, var(--soft-pink) 100%);
       border: 1px solid var(--blush);
-      transition: all 0.3s ease;
+      border-radius: 12px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 0;
+      background: linear-gradient(180deg, var(--merlot) 0%, var(--rose) 100%);
+      transition: height 0.4s ease;
     }
 
     .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(114, 47, 55, 0.12);
+      border-color: var(--rose);
+    }
+
+    .feature-card:hover::before {
+      height: 100%;
     }
 
     .feature-card h3 {
       font-size: 1.3rem;
       margin-bottom: 0.75rem;
       color: var(--merlot);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      letter-spacing: 0.02em;
     }
 
     .feature-card p {
       color: var(--text-soft);
       font-size: 0.95rem;
-      line-height: 1.7;
+      line-height: 1.8;
     }
 
     .venues-list {
@@ -767,8 +807,8 @@
     <div class="venues-list">
       <div class="venue-item">
         <div class="venue-circle">
-          <img src="/images/treasury-wedding-st-augustine/sparkler-exit-wedding-st-augustine.webp"
-               alt="St. Augustine wedding celebration"
+          <img src="/images/white-room-wedding-st-augustine/white-room-villa-blanca-ceremony-wedding.webp"
+               alt="Villa Blanca wedding ceremony at The White Room St. Augustine"
                loading="lazy">
         </div>
         <h3>Villa Blanca</h3>
@@ -777,8 +817,8 @@
 
       <div class="venue-item">
         <div class="venue-circle">
-          <img src="/images/treasury-wedding-st-augustine/wedding-grand-entrance-uplighting-treasury.webp"
-               alt="St. Augustine wedding reception"
+          <img src="/images/white-room-wedding-st-augustine/white-room-dj-live-saxophone-wedding.webp"
+               alt="Wedding DJ and live saxophone at The White Room St. Augustine"
                loading="lazy">
         </div>
         <h3>Rooftop</h3>
@@ -787,8 +827,8 @@
 
       <div class="venue-item">
         <div class="venue-circle">
-          <img src="/images/lightner-museum-wedding-st-augustine/lightner-museum-ballroom-uplighting-string-lights.webp"
-               alt="St. Augustine wedding ballroom"
+          <img src="/images/white-room-wedding-st-augustine/white-room-live-saxophone-uplighting-wedding.webp"
+               alt="Live saxophone with uplighting at The White Room wedding"
                loading="lazy">
         </div>
         <h3>Grand Ballroom</h3>
@@ -797,8 +837,8 @@
 
       <div class="venue-item">
         <div class="venue-circle">
-          <img src="/images/epping-forest-wedding-jacksonville/riverfront-table-setup-golden-hour.webp"
-               alt="St. Augustine wedding venue"
+          <img src="/images/white-room-wedding-st-augustine/white-room-loft-first-dance-wedding.webp"
+               alt="First dance at The White Room Loft St. Augustine wedding"
                loading="lazy">
         </div>
         <h3>The Loft</h3>
@@ -882,8 +922,8 @@
 
     <div class="features-grid" style="margin-top: 2rem;">
       <div class="feature-card">
-        <h3>Live Saxophone</h3>
-        <p>Our signature service. Live performance during your first dance, ceremony processional, or cocktail hour creates moments that recordings can't match.</p>
+        <h3>Live Musicians</h3>
+        <p>Our signature service. Live saxophone, violin, guitar, or percussion during your first dance, ceremony, or cocktail hour creates moments recordings can't match.</p>
       </div>
       <div class="feature-card">
         <h3>Uplighting</h3>
@@ -891,11 +931,19 @@
       </div>
       <div class="feature-card">
         <h3>Cold Sparks</h3>
-        <p>Safe indoor pyrotechnics for your first dance or grand exit. Stunning photos against The White Room's elegant backdrop.</p>
+        <p>Dramatic pyrotechnics for your rooftop first dance, entrance, or dance set — plus the alley grand exit. Unforgettable photos guaranteed.</p>
       </div>
       <div class="feature-card">
         <h3>Ceremony Coverage</h3>
-        <p>Professional sound for your Villa Blanca rooftop ceremony, including microphones for officiant, readers, and musicians.</p>
+        <p>Professional sound for your Villa Blanca or rooftop ceremony, including microphones for officiant, readers, and musicians.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Photo Booth</h3>
+        <p>A guest favorite at White Room weddings. Modern open-air booth with custom props, instant prints, and digital sharing.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Monogram Projection</h3>
+        <p>Your initials or custom design projected on the dance floor or wall. A personalized touch that photographs beautifully.</p>
       </div>
     </div>
   </section>
