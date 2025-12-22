@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 17, 2025 (Evening Session)
+## Last Updated: December 22, 2025
 
 ---
 
@@ -74,11 +74,39 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
 2. Confirm running at http://127.0.0.1:8000
 3. Review this document for current state and priorities
 
-### Where We Left Off (Dec 17, 2025 - Evening Session)
+### Where We Left Off (Dec 22, 2025)
 - Working on **COS static site** (Netlify) - NOT the WordPress site
 - All work happens in `/Users/coreypeterson/cos-website/`
 - Preview at: https://jazzy-vacherin-8488d2.netlify.app/
-- Local dev server: `python3 -m http.server 3000` then visit http://127.0.0.1:3000
+- Local dev server: `python3 -m http.server 8000` then visit http://127.0.0.1:8000
+
+### Session Notes (Dec 22, 2025) - Pricing Guide Page & Logo Update
+
+**What Was Accomplished This Session:**
+
+1. **Hidden Pricing Guide Page Created:**
+   - New page at `/pricing-guide/` for Kyle to share with inquiries
+   - Contains all services: DJ/MC, Live Musicians, Lighting & Effects, Photo & Video, Décor, Guest Experience
+   - Shows "$1,500" starting investment with "Custom proposals tailored after your consultation"
+   - **Hidden from search:** `noindex, nofollow` meta tag, NOT in sitemap, NOT linked in nav
+   - **Print-optimized:** Fits on single page when printing to PDF (Cmd+P > Save as PDF)
+   - URL: `https://coscelebrations.com/pricing-guide/`
+
+2. **Logo Updated for Retina Displays:**
+   - Old logo was 200x127px - blurry on retina screens
+   - New logo is 400x255px - crisp at 2x resolution
+   - Source: `/Users/coreypeterson/Downloads/COS . New Logo/COS . LOGO . Black . Light/`
+   - Updated file: `/images/cos-celebrations-logo.webp`
+   - Affects entire site (homepage nav, pricing guide, etc.)
+
+**Next Session Priorities:**
+- [ ] Fix homepage mobile performance (target: high 90s)
+- [ ] Request GSC re-indexing for Tampa, Orlando, Ponte Vedra pages
+- [ ] Run DataForSEO rankings around Dec 29
+- [ ] Optional: Help Greg's C-Zone Entertainment (czonemusic.com) with Boston SEO
+- [ ] Create more venue pages as needed
+
+---
 
 ### Session Notes (Dec 17, 2025 - Evening) - White Room Photos, Performance, Rankings
 

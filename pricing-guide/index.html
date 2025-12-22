@@ -177,25 +177,83 @@
       text-decoration: none;
     }
 
-    /* Print Styles */
+    /* Print Styles - Optimized for single page */
     @media print {
       body {
         background: white;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+        font-size: 11px;
       }
 
       .container {
-        padding: 1rem;
+        padding: 0.25in;
         max-width: 100%;
       }
 
+      .header {
+        padding-bottom: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .logo {
+        max-width: 150px;
+      }
+
+      .investment {
+        margin-top: 0.5rem;
+      }
+
+      .investment-price {
+        font-size: 2.5rem;
+      }
+
+      .investment-note {
+        margin-top: 0.25rem;
+        font-size: 0.8rem;
+      }
+
+      .services-grid {
+        gap: 0.75rem 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .service-category h3 {
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+        padding-bottom: 0.25rem;
+      }
+
+      .service-category li {
+        padding: 0.15rem 0;
+        padding-left: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .service-category li em {
+        font-size: 0.75rem;
+      }
+
       .footer-banner {
-        margin: 2rem -1rem -1rem -1rem;
+        margin: 0.75rem -0.25in -0.25in -0.25in;
+        padding: 0.75rem 1rem;
+      }
+
+      .footer-banner .tagline-highlight {
+        font-size: 1rem;
+      }
+
+      .footer-banner .motto {
+        font-size: 0.75rem;
+      }
+
+      .footer-contact {
+        margin-top: 0.5rem;
+        font-size: 0.7rem;
       }
 
       @page {
-        margin: 0.5in;
+        margin: 0.4in;
         size: letter;
       }
     }
