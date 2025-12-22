@@ -74,11 +74,100 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
 2. Confirm running at http://127.0.0.1:8000
 3. Review this document for current state and priorities
 
-### Where We Left Off (Dec 13, 2025 - Evening Session)
+### Where We Left Off (Dec 17, 2025 - Evening Session)
 - Working on **COS static site** (Netlify) - NOT the WordPress site
 - All work happens in `/Users/coreypeterson/cos-website/`
-- Preview at: https://cool-jelly-73d5c0.netlify.app/
-- Local dev server: `python3 -m http.server 8000` then visit http://127.0.0.1:8000
+- Preview at: https://jazzy-vacherin-8488d2.netlify.app/
+- Local dev server: `python3 -m http.server 3000` then visit http://127.0.0.1:3000
+
+### Session Notes (Dec 17, 2025 - Evening) - White Room Photos, Performance, Rankings
+
+**What Was Accomplished This Session:**
+
+1. **Google Search Console Review:**
+   - Reviewed indexing issues - 404s and redirects were old WordPress remnants (no action needed)
+   - 36 pages indexed for COS Celebrations
+   - Tampa getting 1,412 impressions, Jacksonville 666 impressions
+   - Current 3-month stats: 84 clicks, 4.53K impressions, 1.9% CTR, avg position 32.7
+
+2. **White Room Venue Page - Real Photos Added:**
+   - Added 4 photos from Melissa + Kristin wedding (same-sex couple = LGBTQ+ representation ✓)
+   - Photos geotagged with White Room coordinates (29.8912° N, 81.3124° W)
+   - All images converted to WebP, under 250KB each
+   - Files in `/images/white-room-wedding-st-augustine/`:
+     - `white-room-villa-blanca-ceremony-wedding.webp` (163KB) - hero image
+     - `white-room-loft-first-dance-wedding.webp` (145KB)
+     - `white-room-dj-live-saxophone-wedding.webp` (244KB)
+     - `white-room-live-saxophone-uplighting-wedding.webp` (99KB)
+
+3. **White Room Page - Content Updates:**
+   - Updated feature cards with elegant styling (gradients, rounded corners, animated accent bar)
+   - Fixed grid layout to 2-column default (avoids awkward 3+1 layout)
+   - Added **Photo Booth** and **Monogram Projection** as add-on services (now 6 cards)
+   - Fixed Cold Sparks description: rooftop (first dance/entrance/dance set) + alley (grand exit)
+   - Changed "Live Saxophone" to "Live Musicians" to include all instruments
+
+4. **Homepage Performance Testing:**
+   - Attempted mobile performance optimizations (remove blur, disable animations, solid CTA background)
+   - Changes HURT performance (dropped from 87 to 76)
+   - **Reverted all changes** - score back to high 80s
+   - Fixed logo sizing (added width/height attributes, resized from 13.9KB to 5.9KB)
+
+5. **DataForSEO Ranking Report (Dec 17, 2025):**
+
+   **COS Celebrations - Current Rankings:**
+   | Position | Keyword |
+   |----------|---------|
+   | #1 | treasury on the plaza wedding dj |
+   | #1 | lightner museum wedding dj |
+   | #1 | epping forest yacht club wedding dj |
+   | #2 | bella collina wedding dj |
+   | #3 | timuquana country club wedding dj |
+   | #3 | cos celebrations |
+   | #4 | ponte vedra wedding dj |
+   | #5 | st augustine wedding dj |
+   | #5 | amelia island wedding dj |
+   | #6 | luxury wedding dj st augustine |
+   | #9 | luxury wedding dj jacksonville |
+   | #9 | best wedding dj st augustine |
+   | #13 | jacksonville wedding dj |
+   | #18 | wedding dj near me jacksonville |
+   | #21 | best wedding dj jacksonville |
+   | #24 | tampa wedding dj |
+   | #28 | wedding dj with live saxophone |
+   | #46 | live saxophone wedding dj |
+   | #53 | orlando wedding dj |
+
+   **AE Entertainment - New Rankings Appearing:**
+   | Position | Keyword | Status |
+   |----------|---------|--------|
+   | #1 | ae entertainment jacksonville | NEW |
+   | #1 | ae djs | ─ |
+   | #25 | budget wedding dj jacksonville | NEW |
+   | #26 | affordable wedding dj jacksonville | NEW |
+   | #31 | cheap wedding dj jacksonville | ↓12 |
+   | #56 | affordable wedding dj st augustine | NEW |
+   | #94 | wedding dj under 1000 jacksonville | NEW |
+
+6. **Competitor Analysis:**
+   - RJM Entertainment: Not ranking in top 100 for main keywords (only Instagram showing)
+   - JHP Entertainment: Same - barely appearing in Google
+   - COS dominates actual DJ company rankings in our markets
+
+7. **C-Zone Entertainment (Friend's Company - Boston):**
+   - Domain: czonemusic.com
+   - Only ranking #9 for "wedding dj with live musicians boston"
+   - Not ranking for main keywords like "boston wedding dj"
+   - Opportunity to help with SEO (deferred to future session)
+
+**Next Session Priorities:**
+- [ ] Continue monitoring homepage mobile performance (target: high 90s)
+- [ ] Request re-indexing for Tampa, Orlando, Ponte Vedra pages in GSC
+- [ ] Check rankings again around Dec 29
+- [ ] Potentially help C-Zone Entertainment with SEO
+- [ ] Add more venue-specific pages as requested
+
+---
 
 ### Session Notes (Dec 17, 2025) - AE Pages, Venue Pages, UI Updates
 
