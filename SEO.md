@@ -99,10 +99,55 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
    - Updated file: `/images/cos-celebrations-logo.webp`
    - Affects entire site (homepage nav, pricing guide, etc.)
 
+3. **DataForSEO Rankings Report (Dec 22, 2025):**
+
+   **COS Celebrations - Current Rankings (vs Dec 17):**
+   | Position | Change | Keyword |
+   |----------|--------|---------|
+   | #1 | — | treasury on the plaza wedding dj |
+   | #1 | — | epping forest yacht club wedding dj |
+   | #1 | ↑2 | cos celebrations |
+   | #2 | ↓1 | lightner museum wedding dj |
+   | #3 | — | timuquana country club wedding dj |
+   | #4 | — | ponte vedra wedding dj |
+   | #4 | ↓2 | bella collina wedding dj |
+   | #5 | — | st augustine wedding dj |
+   | #5 | — | amelia island wedding dj |
+   | #7 | ↓1 | luxury wedding dj st augustine |
+   | #9 | — | luxury wedding dj jacksonville |
+   | #9 | — | best wedding dj st augustine |
+   | #12 | ↑1 | jacksonville wedding dj |
+   | #18 | **↑6** | tampa wedding dj |
+   | #18 | — | wedding dj near me jacksonville |
+   | #20 | **↑8** | wedding dj with live saxophone |
+   | #21 | — | best wedding dj jacksonville |
+   | #50 | ↓4 | live saxophone wedding dj |
+   | N/A | DROPPED | orlando wedding dj |
+
+   **Summary:** 12 keywords in top 10, 16 in top 20
+
+   **What's Working:**
+   - ✅ Tampa page rewrite paying off (+6 spots, now #18)
+   - ✅ "wedding dj with live saxophone" climbing (+8 spots)
+   - ✅ Jacksonville slowly climbing (+1, now #12)
+   - ✅ Venue keywords rock solid (#1-4)
+   - ✅ Brand search "cos celebrations" now #1
+
+   **Needs Attention:**
+   - ⚠️ **Orlando dropped out of top 100** - needs GSC re-indexing request
+   - ⚠️ "live saxophone wedding dj" dropped 4 spots (#46 → #50)
+   - ⚠️ Lightner and Bella Collina dropped 1-2 spots (minor fluctuation, monitor)
+
+   **Analysis:**
+   - Tampa rewrite (Dec 15) is working - expect continued climb over next 2 weeks
+   - Orlando drop is concerning - page was rewritten same day as Tampa but isn't indexing well
+   - May need to request re-indexing in GSC for Orlando page specifically
+
 **Next Session Priorities:**
 - [ ] Fix homepage mobile performance (target: high 90s)
-- [ ] Request GSC re-indexing for Tampa, Orlando, Ponte Vedra pages
-- [ ] Run DataForSEO rankings around Dec 29
+- [ ] **Request GSC re-indexing for Orlando page (dropped out of top 100)**
+- [ ] Request GSC re-indexing for Tampa, Ponte Vedra pages
+- [ ] Run DataForSEO rankings again around Dec 29
 - [ ] Optional: Help Greg's C-Zone Entertainment (czonemusic.com) with Boston SEO
 - [ ] Create more venue pages as needed
 
