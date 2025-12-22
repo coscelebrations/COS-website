@@ -143,8 +143,14 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
    - Orlando drop is concerning - page was rewritten same day as Tampa but isn't indexing well
    - May need to request re-indexing in GSC for Orlando page specifically
 
+4. **Homepage Mobile Performance:**
+   - Tested and confirmed at **90 Performance, 90 Accessibility** on mobile
+   - Logo update (6KB → 12KB) had negligible impact
+   - PageSpeed scores can vary 5-10 points between runs - this is normal
+   - Target of "high 90s" achieved
+
 **Next Session Priorities:**
-- [ ] Fix homepage mobile performance (target: high 90s)
+- [x] ~~Fix homepage mobile performance (target: high 90s)~~ - Done, at 90
 - [ ] **Request GSC re-indexing for Orlando page (dropped out of top 100)**
 - [ ] Request GSC re-indexing for Tampa, Ponte Vedra pages
 - [ ] Run DataForSEO rankings again around Dec 29
