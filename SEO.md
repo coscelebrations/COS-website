@@ -939,6 +939,35 @@ Add a TXT record:
 | Lightner Museum | ✅ Done | ✅ | ✅ |
 | Epping Forest Yacht Club | ✅ Done | ✅ | ✅ |
 
+### December 23, 2025 - Casa Marina Venue Pages
+- **COS Casa Marina Page Created:**
+  - Hero image: couple at credenza with gold mirror (photo 361)
+  - Preferred vendor status
+  - Updated flow: cocktail hour → couple intro/first dance → dinner → dancing under stars
+  - Links to/from Jacksonville page
+  - Added to sitemap
+- **AE Casa Marina Page Created:**
+  - Budget positioning ($800 starting)
+  - Same photos, different messaging
+  - Links to/from Jacksonville page
+  - Added to sitemap
+- **COS Jacksonville Page Updated:**
+  - Casa Marina venue circle with first dance photo (320)
+  - Linked to Casa Marina page
+- **COS Homepage Updated:**
+  - Removed "See Packages" button (cleaner single CTA)
+  - "Check Availability" now goes directly to /contact/
+- **AE Jacksonville Page Updated:**
+  - Added Casa Marina links in venues section
+- **New Workflow Established:**
+  - Start local server before creating pages
+  - Preview at localhost, iterate, then deploy
+  - Reduces Netlify build credits
+
+**Pending:**
+- Request GSC re-indexing for Casa Marina pages (both sites)
+- DataForSEO rankings check Dec 29
+
 ### Recent Wins
 - Awards section added to homepage (8 awards with elegant badge styling)
 - Standalone /pricing/ page created (routes to service categories)
