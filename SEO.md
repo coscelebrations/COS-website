@@ -5,7 +5,7 @@
 
 ## 📌 NEXT SESSION TODO
 - [ ] Request GSC re-indexing for:
-  - COS: `/casa-marina-hotel-wedding-dj/`, `/jacksonville-wedding-dj/`, `/st-augustine-wedding-dj/`
+  - COS: `/casa-marina-hotel-wedding-dj/`, `/jacksonville-wedding-dj/`, `/st-augustine-wedding-dj/`, `/orlando-wedding-dj/`, `/tampa-wedding-dj/`, `/ponte-vedra-wedding-dj/`, `/amelia-island-wedding-dj/`
   - AE: `/casa-marina-wedding-dj/`, `/jacksonville-wedding-dj/`, `/st-augustine-wedding-dj/`
 - [ ] Run DataForSEO rankings check around Dec 29
 - [ ] Plan next venue pages (after Casa Marina)
@@ -105,9 +105,12 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
 **Implementation Status:**
 - [x] AE Jacksonville page - FAQ added
 - [x] AE St. Augustine page - FAQ added
-- [ ] COS Jacksonville page - needs FAQ
-- [ ] COS St. Augustine page - needs FAQ
-- [ ] COS other city pages - needs FAQ
+- [x] COS Jacksonville page - FAQ added
+- [x] COS St. Augustine page - FAQ added
+- [x] COS Orlando page - FAQ added (Dec 24)
+- [x] COS Tampa page - FAQ added (Dec 24)
+- [x] COS Ponte Vedra page - FAQ + schema added (Dec 24)
+- [x] COS Amelia Island page - FAQ added (Dec 24)
 - [ ] Google Business Profile optimization (both companies)
 
 ---
@@ -177,10 +180,15 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
    - Added FAQ targeting this keyword to AE Jacksonville and St. Augustine pages
    - Need to add to COS city pages as well
 
+5. **"Wedding DJ Near Me" FAQ Added to All COS City Pages (Dec 24 - Later):**
+   - Orlando: Added FAQ to schema and visible section
+   - Tampa: Added FAQ to schema and visible section
+   - Ponte Vedra: Added Service + FAQPage schema (was missing!) plus near me FAQ
+   - Amelia Island: Added FAQ to schema and visible section
+   - All pages now target the 390-search "wedding DJ near me" keyword
+
 **Next Session Priorities:**
-- [ ] Request GSC re-indexing for AE Jacksonville and St. Augustine pages
-- [ ] Request GSC re-indexing for Casa Marina pages (both sites)
-- [ ] Add "wedding DJ near me" FAQ to COS city pages
+- [ ] Request GSC re-indexing for all updated pages (see NEXT SESSION TODO)
 - [ ] Check if AE rankings improve in 1-2 weeks
 - [ ] Run DataForSEO rankings around Dec 29
 
