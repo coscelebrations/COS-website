@@ -62,6 +62,47 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
 
 ---
 
+## 🎯 "WEDDING DJ NEAR ME" STRATEGY
+
+**The Opportunity:** "wedding dj near me" has 390 monthly searches in Florida — more than all other Jacksonville/St. Augustine keywords combined. Neither COS nor AE currently ranks for this.
+
+**Why It's Hard:**
+- "Near me" queries use Google's geolocation to determine results
+- Results vary based on searcher's physical location
+- Google prioritizes Google Business Profile listings
+
+**How to Target It:**
+
+1. **Add to City Pages:**
+   - Include FAQ: "Looking for a wedding DJ near me in [City]?"
+   - Answer should emphasize being local, no travel fees, serving the area
+   - Add to both schema and visible FAQ
+
+2. **Google Business Profile:**
+   - Ensure GBP is optimized for both COS and AE
+   - Service areas should include all cities we serve
+   - Regular posts and photos help rankings
+
+3. **On-Page Signals:**
+   - Use "wedding DJ near me" naturally in content
+   - Emphasize being "local" and "based in [City]"
+   - Mention specific neighborhoods and areas served
+
+4. **Schema Markup:**
+   - LocalBusiness schema with accurate address
+   - areaServed should list all cities
+   - GeoCoordinates help with local signals
+
+**Implementation Status:**
+- [x] AE Jacksonville page - FAQ added
+- [x] AE St. Augustine page - FAQ added
+- [ ] COS Jacksonville page - needs FAQ
+- [ ] COS St. Augustine page - needs FAQ
+- [ ] COS other city pages - needs FAQ
+- [ ] Google Business Profile optimization (both companies)
+
+---
+
 ## ⚠️ IMPORTANT: This is the ONLY SEO document you need. Delete all others.
 
 ---
@@ -79,6 +120,84 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
 - All work happens in `/Users/coreypeterson/cos-website/`
 - Preview at: https://jazzy-vacherin-8488d2.netlify.app/
 - Local dev server: `python3 -m http.server 8000` then visit http://127.0.0.1:8000
+
+### Session Notes (Dec 24, 2025) - AE SEO Improvements & Rankings Check
+
+**What Was Accomplished This Session:**
+
+1. **AE Entertainment Rankings Check (Dec 24 vs Dec 17):**
+
+   | Keyword | Dec 17 | Dec 24 | Change |
+   |---------|--------|--------|--------|
+   | ae djs | #1 | #1 | — |
+   | ae entertainment jacksonville | #1 | #3 | ↓2 |
+   | wedding dj under 1000 jacksonville | #94 | **#8** | **↑86** |
+   | budget wedding dj jacksonville | #25 | **#13** | **↑12** |
+   | affordable wedding dj st augustine | #56 | **#13** | **↑43** |
+   | cheap wedding dj jacksonville | #31 | **#18** | **↑13** |
+   | affordable wedding dj jacksonville | #26 | #20 | ↑6 |
+
+   **Summary:** AE domain transition complete! All 7 keywords in top 20, 3 in top 10.
+
+2. **AE Rankings for Main Wedding DJ Keywords (Dec 24):**
+
+   | Keyword | Monthly Searches (FL) | AE Rank | COS Rank |
+   |---------|----------------------|---------|----------|
+   | wedding dj near me | 390 | N/A | N/A |
+   | wedding dj jacksonville fl | 70 | #52 | #5 |
+   | jacksonville fl wedding dj | 70 | #56 | #6 |
+   | wedding dj jacksonville | 40 | #58 | #12 |
+   | jacksonville wedding dj | 40 | #51 | #7 |
+   | wedding dj st augustine | 20 | #24 | #2 |
+   | st augustine wedding dj | 20 | #37 | #2 |
+   | amelia island wedding dj | ~10 | N/A | #3 |
+   | ponte vedra wedding dj | ~10 | #69 | #4 |
+
+   **Problem:** AE is on page 5-6 for main Jacksonville keywords (#51-58). Needs to improve.
+
+3. **AE Jacksonville & St. Augustine Pages Updated:**
+   - Changed titles from "Affordable DJ..." to "Jacksonville Wedding DJ | Affordable Packages from $800"
+   - Changed H1 from "Affordable Wedding DJ..." to "Jacksonville Wedding DJ" / "St. Augustine Wedding DJ"
+   - Added "wedding DJ near me" FAQ to schema and visible FAQ section
+   - Updated intro paragraphs with keyword variations
+   - Updated schema serviceType to match target keywords
+
+4. **"Wedding DJ Near Me" Strategy:**
+   - 390 monthly searches in Florida — HUGE opportunity
+   - Neither COS nor AE currently ranks for this
+   - Added FAQ targeting this keyword to AE Jacksonville and St. Augustine pages
+   - Need to add to COS city pages as well
+
+**Next Session Priorities:**
+- [ ] Request GSC re-indexing for AE Jacksonville and St. Augustine pages
+- [ ] Request GSC re-indexing for Casa Marina pages (both sites)
+- [ ] Add "wedding DJ near me" FAQ to COS city pages
+- [ ] Check if AE rankings improve in 1-2 weeks
+- [ ] Run DataForSEO rankings around Dec 29
+
+---
+
+### Session Notes (Dec 23, 2025) - Casa Marina Venue Pages
+
+**What Was Accomplished This Session:**
+
+1. **Casa Marina Hotel Venue Pages Created:**
+   - COS: `/casa-marina-hotel-wedding-dj/` - Full venue page with photos, schema, FAQs
+   - AE: `/casa-marina-wedding-dj/` - Budget-focused version
+   - Both pages deployed to Netlify
+
+2. **COS Homepage CTA Updated:**
+   - Main CTA button now goes directly to `/contact/` instead of pricing
+
+3. **Photos Used:**
+   - Source: `/Users/coreypeterson/Desktop/pictures/couples/Erik + Mackenzie_Saskia_Valentina_casa_marina/`
+   - Geotagged with Casa Marina coordinates
+
+**Next Steps:**
+- Request GSC re-indexing for Casa Marina pages
+- DataForSEO rankings check around Dec 29
+
+---
 
 ### Session Notes (Dec 22, 2025) - Pricing Guide Page & Logo Update
 
