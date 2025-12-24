@@ -4,9 +4,9 @@
 ---
 
 ## 📌 NEXT SESSION TODO
-- [ ] Request GSC re-indexing for:
-  - COS: `/casa-marina-hotel-wedding-dj/`, `/jacksonville-wedding-dj/`, `/st-augustine-wedding-dj/`, `/orlando-wedding-dj/`, `/tampa-wedding-dj/`, `/ponte-vedra-wedding-dj/`, `/amelia-island-wedding-dj/`
-  - AE: `/casa-marina-wedding-dj/`, `/jacksonville-wedding-dj/`, `/st-augustine-wedding-dj/`
+- [ ] **CRITICAL: Update AE Google Business Profile** — Change website from affordable-entertainment.com to ae-djs.com (this is likely why AE pages aren't indexing)
+- [ ] Request GSC re-indexing for AE pages after GBP is fixed
+- [ ] Request GSC re-indexing for COS updated pages
 - [ ] Run DataForSEO rankings check around Dec 29
 - [ ] Plan next venue pages (after Casa Marina)
 
@@ -187,9 +187,18 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
    - Amelia Island: Added FAQ to schema and visible section
    - All pages now target the 390-search "wedding DJ near me" keyword
 
+6. **AE Indexing Issue Diagnosed & Fixed (Dec 24):**
+   - **Problem:** AE pages showing "Crawled - currently not indexed" in GSC
+   - **Root cause identified:** AE's Google Business Profile still points to affordable-entertainment.com (old domain) — Google sees a trust disconnect
+   - **Solution implemented:** Added "budget-friendly option" FAQ to COS Jacksonville & St. Augustine pages with links to corresponding AE city pages
+   - Links are subtle — buried in FAQ section ("hidden in plain sight")
+   - Deep links to specific AE pages (not just homepage) for better indexing signal
+   - **Strategy note:** Previously avoided COS→AE links to protect luxury positioning, but indexing benefit outweighs risk when links are subtle
+   - **ACTION STILL REQUIRED:** Update AE's GBP website field to ae-djs.com
+
 **Next Session Priorities:**
-- [ ] Request GSC re-indexing for all updated pages (see NEXT SESSION TODO)
-- [ ] Check if AE rankings improve in 1-2 weeks
+- [ ] **Update AE Google Business Profile** — website field must be ae-djs.com
+- [ ] Request GSC re-indexing for AE pages after GBP is fixed
 - [ ] Run DataForSEO rankings around Dec 29
 
 ---
