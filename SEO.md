@@ -1,5 +1,14 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 22, 2025
+## Last Updated: December 24, 2025
+
+---
+
+## 📌 NEXT SESSION TODO
+- [ ] Request GSC re-indexing for:
+  - COS: `/casa-marina-hotel-wedding-dj/`, `/jacksonville-wedding-dj/`, `/st-augustine-wedding-dj/`
+  - AE: `/casa-marina-wedding-dj/`, `/jacksonville-wedding-dj/`, `/st-augustine-wedding-dj/`
+- [ ] Run DataForSEO rankings check around Dec 29
+- [ ] Plan next venue pages (after Casa Marina)
 
 ---
 
