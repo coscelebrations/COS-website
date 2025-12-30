@@ -4,10 +4,11 @@
 ---
 
 ## 📌 NEXT SESSION TODO
-- [ ] **Investigate Orlando page** — still out of top 100, needs fix
+- [ ] **Create Orlando venue pages** — Orlando needs internal link cluster like Jacksonville has
+- [ ] **Get real Orlando venue photos** — currently using St. Augustine/Jacksonville photos
 - [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
-- [ ] Request GSC re-indexing for updated pages
-- [ ] Plan next venue pages
+- [ ] Request GSC re-indexing for updated pages (Orlando, Tampa, Jacksonville, St. Augustine)
+- [ ] Plan next venue pages (Bella Collina, Paradise Cove for Orlando)
 
 ---
 
@@ -2679,6 +2680,53 @@ Every city page MUST have an "Also Serving" section near the bottom with links t
   - Never add DJEP forms to any page except /contact/
   - Use floating CTA + button links instead
   - DJEP scripts cannot be lazy loaded (document.write limitation)
+
+---
+
+**December 30, 2025:**
+
+### ORLANDO PAGE INVESTIGATION
+- **PROBLEM:** Orlando page not ranking in top 100 for "orlando wedding dj" while Jacksonville ranks #12
+- **ROOT CAUSE ANALYSIS:**
+  1. **No internal venue link cluster** — Jacksonville has 4 linked venue pages (Timuquana, Epping Forest, Casa Marina, TPC Sawgrass). Orlando has ZERO venue pages to link to.
+  2. **Missing budget FAQ** — Jacksonville/St. Augustine had AE cross-link FAQ, Orlando didn't
+  3. **Market competition** — Orlando is MUCH bigger market than Jacksonville (more competitors)
+  4. **Geographic authority** — Google knows COS is St. Augustine-based. Jacksonville=40min (local), Orlando=90min (not local)
+  5. **Placeholder images** — Orlando page uses St. Augustine/Jacksonville venue photos for "Orlando" venues
+- **QUICK FIXES COMPLETED:**
+  - Added "budget-friendly option" FAQ to Orlando page (schema + visible) with link to ae-djs.com/orlando-wedding-dj/
+  - Added "budget-friendly option" FAQ to Tampa page (schema + visible) with link to ae-djs.com/tampa-wedding-dj/
+  - Now ALL city pages have the AE cross-link FAQ
+- **LONGER-TERM FIX NEEDED:**
+  - Create Orlando venue pages (Bella Collina, Paradise Cove, Cypress Grove, etc.)
+  - Get actual Orlando wedding photos
+  - This will create internal link cluster like Jacksonville has
+
+### DATAFORSEO RANKINGS (Dec 30)
+- **COS Rankings:**
+  | Position | Keyword | Change |
+  |----------|---------|--------|
+  | #1 | wedding dj timuquana country club | — |
+  | #1 | epping forest yacht club wedding dj | — |
+  | #1 | treasury on the plaza wedding dj | — |
+  | #9 | luxury wedding dj jacksonville | ↓1 |
+  | #10 | best wedding dj st augustine | ↓1 |
+  | #12 | jacksonville wedding dj | — |
+  | N/A | orlando wedding dj | — (still not ranking) |
+
+- **AE Rankings:**
+  | Position | Keyword | Change |
+  |----------|---------|--------|
+  | #9 | wedding dj under 1000 | ↑50 from #59 |
+
+- **COS Site Audit:** 98.65/100
+- **AE Site Audit:** 99.54/100
+
+### PRICING GUIDE PAGE
+- Added tagline to header: "Pioneers of the DJ + Saxophone experience in the Southeast"
+- Tightened print styles to fit on single page PDF
+- Page location: /pricing-guide/
+- Decision: NOT adding download button — better to control distribution via direct URL
 
 ---
 
