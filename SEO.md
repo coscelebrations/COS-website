@@ -4,11 +4,11 @@
 ---
 
 ## 📌 NEXT SESSION TODO
-- [ ] **Create Orlando venue pages** — Orlando needs internal link cluster like Jacksonville has
-- [ ] **Get real Orlando venue photos** — currently using St. Augustine/Jacksonville photos
+- [x] **Create Orlando venue pages** — ~~Orlando needs internal link cluster~~ STARTED: Bella Collina + Paradise Cove created
+- [ ] **Finish Orlando venue cluster** — Add Cypress Grove, Alfond Inn, Lake Nona Wave Hotel (3 more to match Jacksonville's 4)
+- [ ] **Get real Orlando venue photos** — currently using St. Augustine/Jacksonville photos as placeholders
 - [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
-- [ ] Request GSC re-indexing for updated pages (Orlando, Tampa, Jacksonville, St. Augustine)
-- [ ] Plan next venue pages (Bella Collina, Paradise Cove for Orlando)
+- [ ] Request GSC re-indexing for updated pages (Orlando, Tampa, Bella Collina, Paradise Cove)
 
 ---
 
@@ -2697,10 +2697,21 @@ Every city page MUST have an "Also Serving" section near the bottom with links t
   - Added "budget-friendly option" FAQ to Orlando page (schema + visible) with link to ae-djs.com/orlando-wedding-dj/
   - Added "budget-friendly option" FAQ to Tampa page (schema + visible) with link to ae-djs.com/tampa-wedding-dj/
   - Now ALL city pages have the AE cross-link FAQ
-- **LONGER-TERM FIX NEEDED:**
-  - Create Orlando venue pages (Bella Collina, Paradise Cove, Cypress Grove, etc.)
+- **LONGER-TERM FIX — STARTED:**
+  - ~~Create Orlando venue pages (Bella Collina, Paradise Cove, Cypress Grove, etc.)~~ STARTED
   - Get actual Orlando wedding photos
   - This will create internal link cluster like Jacksonville has
+
+### ORLANDO VENUE PAGES CREATED
+- **Created 2 Orlando venue pages to build internal link cluster:**
+  1. `/bella-collina-wedding-dj/` - Tuscan estate in Montverde, tower ceremonies
+  2. `/paradise-cove-wedding-dj/` - Lakefront venue, sunset ceremonies, pavilion
+- **Updated Orlando page with links to both venues:**
+  - Intro text: "Bella Collina's" and "Paradise Cove's" now link to venue pages
+  - Venues list: Both venue names are clickable
+  - Links styled as `color: inherit; text-decoration: none;` to blend with text (hidden in plain sight)
+- **Added both to sitemap.xml**
+- **Still need to complete Orlando cluster:** Cypress Grove, Alfond Inn, Lake Nona Wave Hotel (to match Jacksonville's 4 venue pages)
 
 ### DATAFORSEO RANKINGS (Dec 30)
 - **COS Rankings:**
