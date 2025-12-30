@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Paradise Cove Wedding DJ | Orlando | COS Celebrations</title>
+  <meta name="description" content="Wedding DJ at Paradise Cove in Orlando. DJ + live saxophone for lakefront weddings. 500+ five-star reviews. Starting at $1,500.">
+  <link rel="canonical" href="https://coscelebrations.com/paradise-cove-wedding-dj/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Paradise Cove Wedding DJ",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "COS Celebrations",
+      "url": "https://coscelebrations.com",
+      "telephone": "+1-904-615-7132"
+    },
+    "serviceType": "Wedding DJ and Live Entertainment",
+    "areaServed": {
+      "@type": "City",
+      "name": "Orlando",
+      "addressRegion": "FL"
+    },
+    "description": "Professional wedding DJ and live saxophone entertainment at Paradise Cove. Expert knowledge of this lakefront Orlando wedding venue with stunning sunset ceremonies and pavilion receptions.",
+    "offers": {
+      "@type": "Offer",
+      "priceRange": "$1,500 - $3,000"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --soft-pink: #F8F0F0;
+      --blush: #F5E1E4;
+      --rose: #E8C4C8;
+      --merlot: #722F37;
+      --merlot-dark: #5C262D;
+      --cream: #FFFBFA;
+      --charcoal: #2D2A2B;
+      --text-soft: #4A4547;
+      --gold-accent: #C9A962;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-weight: 300;
+      color: var(--charcoal);
+      background: var(--cream);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--merlot);
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 251, 250, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--blush);
+    }
+
+    .logo-img {
+      height: 60px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a, .nav-links span {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--merlot);
+    }
+
+    .nav-cta {
+      background: var(--merlot);
+      color: white !important;
+      padding: 0.75rem 1.5rem;
+      border-radius: 2px;
+    }
+
+    .nav-cta:hover {
+      background: var(--merlot-dark);
+      color: white !important;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      cursor: pointer;
+      z-index: 101;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: var(--merlot);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Dropdown Menu */
+    .nav-links li {
+      position: relative;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-toggle {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .dropdown-toggle::after {
+      content: '▾';
+      font-size: 0.7rem;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      min-width: 200px;
+      padding: 0.5rem 0;
+      margin-top: 0.5rem;
+      border: 1px solid var(--blush);
+      border-radius: 2px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: var(--charcoal);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-menu a:hover {
+      background: var(--soft-pink);
+      color: var(--merlot);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      background: linear-gradient(rgba(45, 42, 43, 0.5), rgba(45, 42, 43, 0.5)),
+                  url('/images/epping-forest-wedding-jacksonville/riverfront-table-setup-golden-hour.webp') center/cover no-repeat;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero .eyebrow {
+      color: var(--rose);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      color: white;
+      margin: 1rem 0;
+      line-height: 1.2;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--merlot);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--merlot-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.5);
+      margin-left: 1rem;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: white;
+    }
+
+    /* Content Section */
+    .content-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .content-section h2 {
+      font-size: 2rem;
+      color: var(--charcoal);
+      margin: 3rem 0 1.5rem;
+    }
+
+    .content-section h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .content-section p {
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
+    }
+
+    .intro-text {
+      font-size: 1.1rem;
+      line-height: 1.9;
+    }
+
+    .intro-text strong {
+      color: var(--charcoal);
+      font-weight: 500;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      background: var(--soft-pink);
+      padding: 2rem;
+      border-radius: 2px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      color: var(--charcoal);
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card p {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    /* Venue Details */
+    .venue-details {
+      background: var(--soft-pink);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .venue-details h3 {
+      color: var(--charcoal);
+      margin-bottom: 1rem;
+    }
+
+    .venue-details p {
+      color: var(--text-soft);
+      margin-bottom: 0.75rem;
+    }
+
+    .venue-details a {
+      color: var(--merlot);
+      text-decoration: none;
+    }
+
+    .venue-details a:hover {
+      text-decoration: underline;
+    }
+
+    /* Testimonial */
+    .testimonial {
+      background: var(--merlot);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      margin: 4rem 0;
+    }
+
+    .testimonial blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-style: italic;
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.5;
+    }
+
+    .testimonial cite {
+      font-style: normal;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    /* Services at Venue */
+    .venue-services {
+      background: white;
+      padding: 3rem;
+      margin: 3rem 0;
+      border: 1px solid var(--blush);
+    }
+
+    .venue-services h3 {
+      font-size: 1.5rem;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .service-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .service-item::before {
+      content: '✓';
+      color: var(--merlot);
+      font-weight: bold;
+    }
+
+    /* City Links */
+    .city-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .city-links a {
+      color: var(--charcoal);
+      text-decoration: none;
+      font-weight: 400;
+    }
+
+    /* CTA Section */
+    .final-cta {
+      padding: 5rem 2rem;
+      background: var(--cream);
+      text-align: center;
+    }
+
+    .final-cta h2 {
+      margin-top: 0;
+    }
+
+    .final-cta p {
+      color: var(--text-soft);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 2rem;
+      background: var(--charcoal);
+      color: white;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-social a {
+      color: rgba(255,255,255,0.7);
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      opacity: 0.5;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border-top: 1px solid var(--blush);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links li {
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 1rem;
+      }
+
+      .nav-cta {
+        margin: 0.5rem 1.5rem;
+        text-align: center;
+      }
+
+      .dropdown-menu {
+        position: static;
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+        overflow: hidden;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background: var(--soft-pink);
+        transition: all 0.3s ease;
+      }
+
+      .dropdown:hover .dropdown-menu {
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+      }
+
+      .dropdown.open .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        max-height: 200px;
+      }
+
+      .hero {
+        padding: 7rem 1.5rem 3rem;
+        min-height: 60vh;
+      }
+
+      .btn-secondary {
+        margin-left: 0;
+        margin-top: 0.5rem;
+      }
+
+      .content-section {
+        padding: 3rem 1.5rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonial blockquote {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="logo">
+      <img src="/images/cos-celebrations-logo.webp" alt="COS Celebrations - Luxury Event Entertainment" class="logo-img">
+    </a>
+    <ul class="nav-links">
+      <li class="dropdown">
+        <span class="dropdown-toggle">Services</span>
+        <div class="dropdown-menu">
+          <a href="/services/weddings/">Weddings</a>
+          <a href="/services/corporate/">Corporate Events</a>
+          <a href="/services/private-parties/">Private Parties</a>
+        </div>
+      </li>
+
+      <li><a href="/pricing/">Pricing</a></li>
+      <li><a href="/vip-login/">VIP Login</a></li>
+      <li><a href="/contact/" class="nav-cta">Contact</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="eyebrow">Orlando Lakefront Weddings</p>
+      <h1>Paradise Cove<br><em>Wedding DJ</em></h1>
+      <p>Lakefront sunsets deserve a soundtrack to match. We bring DJ + live saxophone to one of Orlando's most romantic waterfront wedding venues.</p>
+      <a href="/contact/" class="btn btn-primary">Check Availability</a>
+      <a href="#about" class="btn btn-secondary">Learn More</a>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="content-section" id="about">
+    <div class="intro-text">
+      <p>Paradise Cove is exactly what it sounds like — a slice of waterfront paradise tucked away in Orlando. The <strong>white sand beach, crystal-clear lake, and covered pavilion</strong> create a setting that feels more like a Caribbean escape than Central Florida. Couples choose Paradise Cove for those legendary sunset ceremonies where the sky turns pink and orange behind the water, and they need entertainment that can match that magic. <strong>COS Celebrations</strong> brings the <strong>DJ + live saxophone experience</strong> that Paradise Cove weddings deserve — something you simply won't find with most Orlando DJs. With <strong>500+ five-star reviews</strong> and <strong>2,000+ weddings</strong>, we understand how to work with Paradise Cove's unique outdoor setting: the lake breeze, the open-air acoustics, and the flow from beach ceremony to pavilion reception. We travel from St. Augustine because couples who want world-class entertainment seek us out specifically. Starting at <strong>$1,500</strong>, we bring North Florida's premier entertainment company to your lakefront celebration.</p>
+    </div>
+
+    <div style="background: var(--charcoal); color: white; padding: 2rem; margin: 3rem 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; text-align: center;">
+      <div>
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--rose); display: block; margin-bottom: 0.25rem;">Experienced</span>
+        <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8;">At Paradise Cove</span>
+      </div>
+      <div>
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--rose); display: block; margin-bottom: 0.25rem;">$1,500</span>
+        <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8;">Starting Price</span>
+      </div>
+      <div>
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--rose); display: block; margin-bottom: 0.25rem;">500+</span>
+        <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8;">5-Star Reviews</span>
+      </div>
+      <div>
+        <span style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--rose); display: block; margin-bottom: 0.25rem;"><a href="/contact/" style="color: var(--rose); text-decoration: none;">Get Quote</a></span>
+        <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8;">Contact Us</span>
+      </div>
+    </div>
+
+    <h2>Why Paradise Cove Couples Choose COS</h2>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>Outdoor Audio Experts</h3>
+        <p>Paradise Cove's open-air pavilion and lakefront ceremony space require careful audio planning. We know how to deliver crystal-clear sound that reaches every guest without fighting the wind or echoing off the water.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Sunset Ceremony Timing</h3>
+        <p>Paradise Cove sunsets are legendary. We've timed enough ceremonies here to know exactly when to cue your processional for that perfect golden-hour moment — and how to transition seamlessly to the pavilion party.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>DJ + Live Saxophone</h3>
+        <p>Imagine live saxophone during your first dance as the last light fades over the lake. Our founder toured 35+ countries with artists like Usher and Alicia Keys — that level of musicianship elevates Paradise Cove from beautiful to unforgettable.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Worth the Drive</h3>
+        <p>We're based 90 minutes east in St. Augustine, and yes, travel is included in your quote. Couples who want the DJ + live musician experience — rare in the Orlando market — tell us it's an easy decision.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <div class="testimonial">
+    <blockquote>"Our guests are still talking about the live saxophone during our first dance. It was the moment that made our wedding feel truly special."</blockquote>
+    <cite>— COS Celebrations Couple</cite>
+  </div>
+
+  <!-- Services Section -->
+  <section class="content-section">
+    <h2>Our Paradise Cove Wedding Services</h2>
+
+    <p>Every Paradise Cove wedding package can be customized to your vision. Here's what we offer:</p>
+
+    <div class="venue-services">
+      <h3>What's Included</h3>
+      <div class="service-list">
+        <div class="service-item">Professional DJ + MC</div>
+        <div class="service-item">Premium outdoor sound system</div>
+        <div class="service-item">Wireless microphones</div>
+        <div class="service-item">COS Planning App access</div>
+        <div class="service-item">Pre-wedding consultation</div>
+        <div class="service-item">Venue coordination</div>
+      </div>
+    </div>
+
+    <div class="venue-services" style="margin-top: 2rem;">
+      <h3>Popular Add-Ons for Paradise Cove</h3>
+      <div class="service-list">
+        <div class="service-item">Live saxophone</div>
+        <div class="service-item">Beach ceremony sound</div>
+        <div class="service-item">Pavilion uplighting</div>
+        <div class="service-item">Custom monogram projection</div>
+        <div class="service-item">Cold sparks</div>
+        <div class="service-item">Dancing on clouds</div>
+      </div>
+    </div>
+
+    <h2>About Paradise Cove</h2>
+
+    <div class="venue-details">
+      <h3>Venue Information</h3>
+      <p><strong>Location:</strong> 12655 Paradise Cove Way, Orlando, FL 32836</p>
+      <p><strong>Capacity:</strong> Up to 200 guests</p>
+      <p><strong>Style:</strong> Lakefront beach, covered pavilion, tropical landscaping, sunset ceremonies</p>
+      <p><strong>Website:</strong> <a href="https://paradisecoveorlando.com" target="_blank" rel="noopener">paradisecoveorlando.com</a></p>
+    </div>
+
+    <p style="margin-top: 2rem; color: var(--text-soft);">Paradise Cove is one of Orlando's most unique wedding venues — a private lakefront property featuring a white sand beach, crystal-clear spring-fed lake, and covered pavilion for receptions. The venue is known for its stunning sunset ceremonies where couples exchange vows with the water and sky as their backdrop. It's a destination-worthy setting right in the heart of Central Florida, attracting couples who want something beyond the typical ballroom wedding. That kind of venue deserves entertainment to match — which is exactly what COS Celebrations delivers.</p>
+
+    <h2>Other Orlando Venues We Serve</h2>
+
+    <p>Exploring other Orlando venues? We bring our DJ + live musician experience to these Central Florida locations:</p>
+
+    <div class="city-links" style="margin-top: 1.5rem; font-size: 1rem;">
+      <a href="/bella-collina-wedding-dj/" style="color: inherit; text-decoration: none;">Bella Collina</a>
+      <span style="color: var(--rose);">•</span>
+      <a href="/orlando-wedding-dj/" style="color: inherit; text-decoration: none;">Cypress Grove Estate House</a>
+      <span style="color: var(--rose);">•</span>
+      <a href="/orlando-wedding-dj/" style="color: inherit; text-decoration: none;">The Alfond Inn</a>
+      <span style="color: var(--rose);">•</span>
+      <a href="/orlando-wedding-dj/" style="color: inherit; text-decoration: none;">Lake Nona Wave Hotel</a>
+      <span style="color: var(--rose);">•</span>
+      <a href="/orlando-wedding-dj/" style="color: inherit; text-decoration: none;">Four Seasons Orlando</a>
+    </div>
+
+    <p style="margin-top: 2rem;"><a href="/orlando-wedding-dj/" style="color: var(--merlot);">View all Orlando wedding DJ services &rarr;</a></p>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta" id="contact">
+    <p class="eyebrow">Ready to Start Planning?</p>
+    <h2>Book Your Paradise Cove Wedding DJ</h2>
+    <p>Paradise Cove dates book quickly, and so do we. Reach out today to check availability and receive a custom quote for your lakefront celebration.</p>
+    <a href="/contact/" class="btn btn-primary">Request Information</a>
+    <p style="margin-top: 1.5rem; font-size: 0.95rem;">Or call us directly: <a href="tel:904-615-7132" style="color: var(--merlot); text-decoration: none; font-weight: 500;">(904) 615-7132</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">COS Celebrations</div>
+    <div class="footer-links">
+      <a href="/services/weddings/">Weddings</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="/orlando-wedding-dj/">Orlando</a>
+      <a href="/jacksonville-wedding-dj/">Jacksonville</a>
+      <a href="/st-augustine-wedding-dj/">St. Augustine</a>
+    </div>
+    <div class="footer-social">
+      <a href="https://instagram.com/coscelebrations" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://facebook.com/coscelebrations" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+      </a>
+      <a href="https://tiktok.com/@coscelebrations" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+      </a>
+      <a href="https://youtube.com/@coscelebrations" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+      </a>
+    </div>
+    <p class="footer-copy">&copy; 2025 COS Celebrations. All rights reserved. | St. Augustine, FL</p>
+  </footer>
+
+  <script>
+    // Hamburger Menu Toggle
+    function toggleMenu() {
+      document.querySelector('.hamburger').classList.toggle('active');
+      document.querySelector('.nav-links').classList.toggle('active');
+    }
+
+    // Mobile dropdown toggle
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+
+    dropdownToggle.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        dropdown.classList.toggle('open');
+      }
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.hamburger').classList.remove('active');
+        document.querySelector('.nav-links').classList.remove('active');
+        dropdown.classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
