@@ -1,13 +1,12 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 26, 2025
+## Last Updated: December 30, 2025
 
 ---
 
 ## 📌 NEXT SESSION TODO
-- [ ] **CRITICAL: Update AE Google Business Profile** — Change website from affordable-entertainment.com to ae-djs.com (AE rankings are slipping!)
-- [ ] Request GSC re-indexing for AE pages after GBP is fixed
-- [ ] Investigate Orlando page — dropped out of top 100
-- [ ] Request GSC re-indexing for COS updated pages
+- [ ] **Investigate Orlando page** — still out of top 100, needs fix
+- [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
+- [ ] Request GSC re-indexing for updated pages
 - [ ] Plan next venue pages
 
 ---
@@ -195,6 +194,58 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
    - Deep links to specific AE pages (not just homepage) for better indexing signal
    - **Strategy note:** Previously avoided COS→AE links to protect luxury positioning, but indexing benefit outweighs risk when links are subtle
    - **ACTION STILL REQUIRED:** Update AE's GBP website field to ae-djs.com
+
+---
+
+### Session Notes (Dec 30, 2025) - Rankings Check & Site Audits
+
+**DataForSEO Site Audit Scores:**
+| Site | OnPage Score | Issues |
+|------|--------------|--------|
+| COS Celebrations | 98.65/100 | 12 titles too long, 2 low content pages |
+| AE Entertainment | 99.54/100 | 3 titles too long, 1 low content page |
+
+**DataForSEO Rankings (Dec 30 vs Dec 26):**
+
+**COS Celebrations:**
+| Rank | Keyword | Change |
+|------|---------|--------|
+| #1 | treasury on the plaza wedding dj | — |
+| #1 | lightner museum wedding dj | — |
+| #1 | timuquana country club wedding dj | — |
+| #2 | epping forest yacht club wedding dj | ↓1 |
+| #3 | cos celebrations | ↑1 |
+| #4 | ponte vedra wedding dj | — |
+| #4 | bella collina wedding dj | — |
+| #5 | amelia island wedding dj | — |
+| #6 | st augustine wedding dj | — |
+| #6 | luxury wedding dj st augustine | ↑1 |
+| #9 | luxury wedding dj jacksonville | ↓1 |
+| #10 | best wedding dj st augustine | ↓1 |
+| #12 | jacksonville wedding dj | ↓1 |
+| #12 | wedding dj near me jacksonville | ↑1 |
+| #17 | tampa wedding dj | — |
+| #21 | wedding dj with live saxophone | ↑2 |
+| #23 | best wedding dj jacksonville | ↓4 |
+| #70 | live saxophone wedding dj | ↑1 |
+| **N/A** | **orlando wedding dj** | ⚠️ Still out |
+
+**AE Entertainment:**
+| Rank | Keyword | Change |
+|------|---------|--------|
+| #1 | ae entertainment jacksonville | — |
+| #1 | ae djs | — |
+| **#9** | **wedding dj under 1000 jacksonville** | **↑50** 🎉 |
+| #13 | affordable wedding dj st augustine | ↑1 |
+| #18 | affordable wedding dj jacksonville | ↑1 |
+| #20 | cheap wedding dj jacksonville | — |
+| #21 | budget wedding dj jacksonville | ↓7 |
+
+**Key Observations:**
+- COS rankings stable overall (small 1-position fluctuations are normal)
+- AE "wedding dj under 1000" jumped from #59 to #9 — huge improvement!
+- Orlando still not ranking — needs investigation
+- AE GBP still pointing to old domain (needs to be fixed)
 
 ---
 
