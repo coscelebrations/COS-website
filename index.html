@@ -215,7 +215,6 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="image" href="/images/treasury-wedding-st-augustine/packed-wedding-dance-floor-st-augustine-dj.webp" fetchpriority="high">
   <link rel="preload" as="image" href="/images/cos-celebrations-logo.webp" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
@@ -456,8 +455,7 @@
       justify-content: center;
       text-align: center;
       padding: 8rem 2rem 4rem;
-      background: linear-gradient(135deg, rgba(248, 240, 240, 0.88) 0%, rgba(255, 251, 250, 0.85) 100%),
-                  url('/images/treasury-wedding-st-augustine/packed-wedding-dance-floor-st-augustine-dj.webp') center center / cover no-repeat;
+      background: var(--soft-pink);
       position: relative;
       overflow: hidden;
     }
@@ -479,18 +477,6 @@
       position: relative;
       z-index: 1;
       max-width: 900px;
-      animation: fadeUp 1s ease-out;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .hero h1 {
