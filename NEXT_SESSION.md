@@ -6,7 +6,9 @@
 
 Continue work on COS Celebrations and AE Entertainment websites.
 
-**Context file:** `/Users/coreypeterson/cos-website/SEO.md` - Read this first for full context.
+**Context files:**
+- `/Users/coreypeterson/cos-website/SEO.md` - SEO strategy and site history
+- `/Users/coreypeterson/cos-website/INSTAGRAM.md` - Social media content guide (NEW)
 
 **Quick status (Dec 30, 2025):**
 
