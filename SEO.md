@@ -3194,4 +3194,61 @@ Reference: Rob Futrell's implementation at robfutrell.com/st-augustine-wedding-p
 
 ---
 
+## Background/Hero Video Implementation
+
+For autoplay background videos (like Generation Y Entertainment), use this pattern:
+
+**HTML:**
+```html
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/images/hero-poster.webp">
+    <source src="/videos/hero-background.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <h1>Your Headline</h1>
+  </div>
+</section>
+```
+
+**CSS:**
+```css
+.hero { position: relative; min-height: 100vh; overflow: hidden; }
+.hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; z-index: -1; }
+.hero-content { position: relative; z-index: 1; }
+
+/* Disable video on mobile for performance */
+@media (max-width: 768px) {
+  .hero-video { display: none; }
+  .hero { background: url('/images/hero-poster.webp') center/cover; }
+}
+```
+
+**Required attributes:**
+- `autoplay` - starts automatically
+- `muted` - REQUIRED (browsers block autoplay with sound)
+- `loop` - continuous playback
+- `playsinline` - prevents fullscreen on iOS
+- `preload="metadata"` - only downloads video info, not full file
+- `poster` - shows image while video loads
+
+**Performance rules:**
+- Keep video under **3-5MB** (compress with HandBrake)
+- **720p is fine** for background (no one watches closely)
+- **Self-host** the MP4 (no YouTube/Vimeo script bloat)
+- **Disable on mobile** (show poster image instead)
+- **Expect 5-10 point PageSpeed drop** (acceptable tradeoff)
+
+**Video compression with HandBrake:**
+1. Open video in HandBrake
+2. Preset: "Fast 720p30" or "Fast 1080p30"
+3. Quality: RF 23-28 (higher = smaller file, lower quality)
+4. Target: Under 5MB for 10-15 second loop
+
+**Performance impact:**
+- Current PageSpeed: 90+
+- With optimized video: 80-85 (acceptable)
+- With unoptimized video: 50-60 (bad)
+
+---
+
 *End of Document - DELETE ALL OTHER SEO DOCUMENTS*
