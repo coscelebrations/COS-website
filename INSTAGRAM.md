@@ -303,13 +303,42 @@ Tag someone planning their wedding.
 
 ## PHOTO LIBRARY FOR CONTENT
 
-**Jake & Mallory Wedding (River House, March 2025):**
-- 1,454 full-res photos available
-- Location: ~/Photos/weddings/river-house/jake-mallory-2025-03-01/
-- Great shots: Dance floor, DJ setup, drummer, sax, hora, ceremony
+## PHOTO INVENTORY
 
-**Web-optimized versions:**
-- /images/river-house-wedding-st-augustine/jake-mallory/
+**Jake & Mallory - River House (March 2025)**
+- 1,454 photos: ~/Photos/weddings/river-house/jake-mallory-2025-03-01/
+- Photographer: BowTie Photo + Films
+- COS provided: DJ, Sax, Drums, Guitar
+- Best shots: 1120 (band setup), 1311 (DJ), 1310 (drummer), 1308 (packed floor), 1070 (hora), 700 (ceremony sunset)
+
+**Jeanette & Dean - Treasury (Dec 2025)**
+- 70 photos: ~/Photos/weddings/treasury/jeanette-dean-2025/
+- Photographer: [NEED]
+- COS provided: [NEED]
+- Best shots: sneaks-5 (Treasury exterior), sneaks-10 (staircase), sneaks-60 (dance floor), sneaks-65 (party), sneaks-70 (sparkler exit)
+
+**Winslow - Timuquana**
+- 1,300 photos: /cos-website/images/timuquana-wedding/
+- Photographer: [NEED]
+- COS provided: [NEED]
+- Organized in folders: Pre-ceremony, First Look, Ceremony, Reception, Highlights
+
+**Web-ready venue shots:**
+- Treasury: 12 photos in /images/treasury-wedding-st-augustine/
+- White Room: 4 photos in /images/white-room-wedding-st-augustine/
+- Casa Marina: 4 photos in /images/venues/casa-marina/
+
+---
+
+## INFO NEEDED FOR CAPTIONS
+
+Before creating posts, get:
+- [ ] Jeanette & Dean photographer name
+- [ ] Jeanette & Dean - what COS provided
+- [ ] Winslow photographer name
+- [ ] Winslow - what COS provided
+- [ ] Couple Instagram handles (optional, for tagging)
+- [ ] Other vendor tags (planner, florist - optional)
 
 ---
 

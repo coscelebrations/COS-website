@@ -25,10 +25,14 @@ Continue work on COS Celebrations and AE Entertainment websites.
 
 **Priority tasks:**
 
-1. **Orlando Venue Cluster** - Cypress Grove, Alfond Inn, Lake Nona Wave Hotel
-2. **AE Google Business Profile** - Website still points to affordable-entertainment.com (needs manual update)
-3. **City Page Differentiation** - Amelia Island, Tampa, Ponte Vedra need unique content
-4. **Team Page** - Need headshots/bios before going live
+1. **Instagram Content Batch** - Ready to create posts from 2,800+ photos
+   - Need from you: Jeanette & Dean photographer + what COS provided
+   - Need from you: Winslow (Timuquana) photographer + what COS provided
+   - Guide: /Users/coreypeterson/cos-website/INSTAGRAM.md
+2. **Orlando Venue Cluster** - Cypress Grove, Alfond Inn, Lake Nona Wave Hotel
+3. **AE Google Business Profile** - Website still points to affordable-entertainment.com (needs manual update)
+4. **City Page Differentiation** - Amelia Island, Tampa, Ponte Vedra need unique content
+5. **Team Page** - Need headshots/bios before going live
 
 **Venue pages completed:**
 - Treasury on the Plaza (St. Augustine)
