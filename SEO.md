@@ -1248,6 +1248,63 @@ Add a TXT record:
 - Request GSC re-indexing for Casa Marina pages (both sites)
 - DataForSEO rankings check Dec 29
 
+### December 30, 2025 - River House Venue Pages + Photo Organization
+
+**River House St. Augustine Pages Created:**
+- **COS:** coscelebrations.com/river-house-wedding-dj/ ($1,500 starting)
+- **AE:** ae-djs.com/river-house-wedding-dj/ ($800 starting)
+- Both have hero background images + 8-photo galleries
+- Both added to sitemaps and linked from St. Augustine city pages
+
+**Photo Sources:**
+- BowTie Photo + Films (Jake & Mallory wedding, March 2025 - 365 photos)
+- Rob Futrell Photography (various River House weddings)
+
+**Hero Images:**
+- COS: band-setup.webp (shows DJ, sax, drums, guitar setup)
+- AE: packed-dance-floor.webp (dance energy, no musicians visible - fits AE's DJ-only service)
+
+**Gallery Mix (8 photos each):**
+- Venue/scenic shots (Rob Futrell)
+- DJ portraits, drummer/sax action (BowTie)
+- Dance floor energy, hora, father-daughter dance (BowTie)
+- Both photographers credited
+
+**Photo Organization Structure:**
+```
+~/Photos/weddings/
+  river-house/
+    jake-mallory-2025-03-01/  (365 full-res photos from BowTie)
+```
+
+**Web-Optimized Photos:**
+```
+/images/river-house-wedding-st-augustine/
+  jake-mallory/
+    band-setup.webp (145K)
+    dj-portrait.webp (124K)
+    drummer-sax.webp (124K)
+    father-daughter-dance.webp (195K)
+    hora-chair-lift.webp (105K)
+    packed-dance-floor.webp (73K)
+  river-house-wedding-hero.webp (Rob)
+  river-house-first-dance.webp (Rob)
+  river-house-ceremony-kiss.webp (Rob)
+```
+
+**Security Headers Added (Both Sites):**
+- Created netlify.toml with security headers:
+  - X-Frame-Options: DENY
+  - X-Content-Type-Options: nosniff
+  - Referrer-Policy: strict-origin-when-cross-origin
+  - Permissions-Policy: geolocation=(), microphone=(), camera=()
+- PageSpeed scores maintained: 90/90/100/100
+
+**Still Pending:**
+- Download remaining Jake & Mallory galleries (7+) for ceremony/venue exterior shots
+- Orlando venue cluster: Cypress Grove, Alfond Inn, Lake Nona Wave Hotel
+- Update AE Google Business Profile (website still points to affordable-entertainment.com)
+
 ### Recent Wins
 - Awards section added to homepage (8 awards with elegant badge styling)
 - Standalone /pricing/ page created (routes to service categories)
