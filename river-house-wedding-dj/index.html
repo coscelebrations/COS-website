@@ -155,6 +155,12 @@
     .city-links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
     .city-links a { color: var(--charcoal); text-decoration: none; font-weight: 400; }
 
+    .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
+    .gallery img { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; }
+    .gallery img.featured { grid-column: span 2; height: 300px; }
+    .photo-credit { font-size: 0.8rem; color: var(--text-soft); text-align: center; margin-top: 1rem; }
+    .photo-credit a { color: var(--merlot); }
+
     .final-cta { padding: 5rem 2rem; background: var(--cream); text-align: center; }
     .final-cta h2 { margin-top: 0; }
     .final-cta p { color: var(--text-soft); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
@@ -340,6 +346,16 @@
     </div>
 
     <p style="margin-top: 2rem;"><a href="/st-augustine-wedding-dj/" style="color: var(--merlot);">View all St. Augustine wedding DJ services →</a></p>
+
+    <h2 id="gallery">Real River House Weddings</h2>
+    <div class="gallery">
+      <img src="/images/river-house-wedding-st-augustine/river-house-wedding-hero.webp" alt="River House wedding reception with stunning waterfront views" class="featured" loading="lazy" decoding="async">
+      <img src="/images/river-house-wedding-st-augustine/river-house-ceremony-kiss.webp" alt="Wedding ceremony kiss at River House St. Augustine" loading="lazy" decoding="async">
+      <img src="/images/river-house-wedding-st-augustine/river-house-first-dance.webp" alt="First dance at River House Grand Ballroom" loading="lazy" decoding="async">
+      <img src="/images/river-house-wedding-st-augustine/river-house-dance-floor.webp" alt="Wedding guests dancing at River House" loading="lazy" decoding="async">
+      <img src="/images/river-house-wedding-st-augustine/river-house-couple-veranda.webp" alt="Bride and groom on River House veranda" loading="lazy" decoding="async">
+    </div>
+    <p class="photo-credit">Photos by <a href="https://robfutrell.com" target="_blank" rel="noopener">Rob Futrell Photography</a></p>
   </section>
 
   <!-- Final CTA -->
