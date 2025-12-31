@@ -12,6 +12,41 @@
 
 ---
 
+## 🤖 AI ASSISTANTS
+
+Two Claude Code assistants are available for SEO and content work:
+
+### SEO Assistant
+**Trigger:** "Run SEO check" or "What SEO tasks are pending?"
+
+Monitors rankings, audits pages, tracks action items. Reads from:
+- This file (`SEO.md`) for context and history
+- `~/seo-data/rankings.json` for structured rankings data
+- `~/SEO-ASSISTANT.md` for full instructions
+
+### Venue Page Creator
+**Trigger:** "Create venue page for [Venue Name]"
+
+Creates optimized pages for BOTH COS and AE simultaneously:
+- COS = luxury positioning ($1,500+)
+- AE = budget positioning ($800+)
+- Previews on localhost before deploy (saves Netlify credits)
+- Full instructions in `~/VENUE-PAGE-CREATOR.md`
+
+### How It Works
+All assistants are context-based. The `~/CLAUDE.md` file auto-loads when starting Claude Code in the home directory, giving Claude all the instructions it needs.
+
+**Files:**
+```
+~/CLAUDE.md              # Auto-loads assistant context
+~/SEO-ASSISTANT.md       # SEO monitoring workflow
+~/VENUE-PAGE-CREATOR.md  # Venue page creation workflow
+~/seo-data/rankings.json # Historical rankings data
+~/STRATEGY.md            # Business strategy overview
+```
+
+---
+
 ## 🚨 RULE #1: SEO & AI OPTIMIZATION COMES FIRST
 
 **Every change to this website must be SEO and AI optimized by default.**
@@ -3060,6 +3095,45 @@ Every city page MUST have an "Also Serving" section near the bottom with links t
 - Footer updated with city links
 - Jacksonville URL changed from old format to /jacksonville-wedding-dj/
 - Blog posts optimized (Liz + Joel, Micah + Joseph)
+
+---
+
+## Performance-Friendly Video Implementation
+
+When ready to add video to pages (like Rob Futrell does), use this lazy-loading pattern that won't hurt PageSpeed scores:
+
+**HTML:**
+```html
+<div class="video-wrapper">
+  <video class="lazy-video" data-src="/videos/your-video.mp4" playsinline preload="none" poster="/images/video-thumbnail.webp"></video>
+  <button class="play-button">▶ Play</button>
+</div>
+```
+
+**JavaScript:**
+```javascript
+document.querySelector('.play-button').addEventListener('click', function() {
+  const video = document.querySelector('.lazy-video');
+  video.src = video.dataset.src;
+  video.play();
+  this.style.display = 'none';
+});
+```
+
+**Why this works:**
+- `data-src` instead of `src` = video doesn't load until clicked
+- `preload="none"` = no bytes downloaded on page load
+- `poster` = shows thumbnail image instead of blank box
+- Self-hosted MP4 = no YouTube/Vimeo script bloat
+- Click-to-play = user initiates the download
+
+**Video specs for web:**
+- Format: MP4 (H.264 codec)
+- Resolution: 1080p max (720p often fine)
+- Compress with HandBrake or similar
+- Keep under 20MB if possible
+
+Reference: Rob Futrell's implementation at robfutrell.com/st-augustine-wedding-photographer/
 
 ---
 
