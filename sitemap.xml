@@ -103,7 +103,7 @@
 
   <!-- St. Augustine Venues -->
   <url>
-    <loc>https://coscelebrations.com/venues/treasury-on-the-plaza/</loc>
+    <loc>https://coscelebrations.com/treasury-on-the-plaza-wedding-dj/</loc>
     <lastmod>2025-12-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -133,13 +133,25 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://coscelebrations.com/st-johns-golf-club-wedding-dj/</loc>
+    <loc>https://coscelebrations.com/st-johns-golf-wedding-dj/</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Jacksonville Venues -->
+  <url>
+    <loc>https://coscelebrations.com/bowing-oaks-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/club-continental-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
   <url>
     <loc>https://coscelebrations.com/timuquana-country-club-wedding-dj/</loc>
     <lastmod>2025-12-13</lastmod>
@@ -165,18 +177,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://coscelebrations.com/club-continental-wedding-dj/</loc>
-    <lastmod>2026-01-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://coscelebrations.com/bowing-oaks-wedding-dj/</loc>
-    <lastmod>2026-01-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://coscelebrations.com/ribault-club-wedding-dj/</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -197,19 +197,13 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://coscelebrations.com/ponte-vedra-inn-wedding-dj/</loc>
+    <loc>https://coscelebrations.com/ponte-vedra-inn-club-wedding-dj/</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://coscelebrations.com/marsh-landing-country-club-wedding-dj/</loc>
-    <lastmod>2026-01-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://coscelebrations.com/palm-valley-gardens-wedding-dj/</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -223,7 +217,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://coscelebrations.com/the-ritz-carlton-amelia-island-wedding-dj/</loc>
+    <loc>https://coscelebrations.com/ritz-carlton-amelia-island-wedding-dj/</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -241,13 +235,13 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://coscelebrations.com/golf-club-of-amelia-island-wedding-dj/</loc>
+    <loc>https://coscelebrations.com/golf-club-amelia-island-wedding-dj/</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://coscelebrations.com/the-preserve-at-amelia-island-wedding-dj/</loc>
+    <loc>https://coscelebrations.com/preserve-amelia-river-club-wedding-dj/</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -280,12 +274,6 @@
   </url>
   <url>
     <loc>https://coscelebrations.com/sydonie-mansion-wedding-dj/</loc>
-    <lastmod>2026-01-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://coscelebrations.com/four-seasons-orlando-wedding-dj/</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
