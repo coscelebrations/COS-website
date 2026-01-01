@@ -4,10 +4,11 @@
 ---
 
 ## 📌 NEXT SESSION TODO
-- [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
+- [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com (verification blocked, revisit)
+- [ ] **Request GSC re-indexing for Orlando page** — use URL Inspection tool in Search Console
 - [ ] **Get real venue photos** — many venue pages using placeholder images from St. Augustine/Jacksonville
-- [ ] **Investigate Orlando ranking drop** — COS Orlando page dropped out of top 100
 - [ ] Monitor venue page indexing in GSC over next 2-4 weeks (90+ pages added Jan 1)
+- [ ] Monitor Orlando ranking recovery after Indexing API submission
 
 ---
 
@@ -256,6 +257,56 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
    - Deep links to specific AE pages (not just homepage) for better indexing signal
    - **Strategy note:** Previously avoided COS→AE links to protect luxury positioning, but indexing benefit outweighs risk when links are subtle
    - **ACTION STILL REQUIRED:** Update AE's GBP website field to ae-djs.com
+
+---
+
+### Session Notes (Jan 1, 2026 - Evening) - Google Indexing API & Orlando Investigation
+
+**Google Indexing API Integration Complete**
+
+Built and deployed Google Indexing API integration for both sites:
+
+| Site | Pages Submitted | Status |
+|------|-----------------|--------|
+| COS Celebrations | 62 | ✅ All submitted |
+| AE Entertainment | 60 | ✅ All submitted |
+
+**New Commands Available (both sites):**
+```bash
+npm run seo:index           # Submit all sitemap URLs
+npm run seo:index:changes   # Only submit modified pages
+npm run seo:index:check     # Show pages needing indexing
+npm run seo:index:dry       # Preview without submitting
+npm run audit               # Full site audit
+```
+
+**Files Created:**
+- `scripts/google-indexing.py` — Main indexing script
+- `scripts/audit.py` — Site audit with indexing check
+- `_data/indexingStatus.json` — Tracks submission timestamps
+- `package.json` — npm scripts
+
+**Orlando Ranking Drop Investigation**
+
+Investigated why COS Orlando page dropped from #53 to out of top 100:
+
+| Finding | Details |
+|---------|---------|
+| Indexing Issue | Google `site:` search doesn't return Orlando page |
+| On-Page SEO | Good: 78 keyword mentions, 8 FAQs, proper schema |
+| Internal Links | 30 pages link to Orlando (more than Tampa's 16) |
+| Competition | SEVERE: Disney-preferred DJs with 2,000-7,000+ weddings |
+
+**Root Cause:** Likely indexing issue after rapid page changes Dec 17-24, compounded by severe Orlando market competition.
+
+**Actions Taken:**
+- ✅ Submitted Orlando page via Indexing API
+- ⏳ Need manual GSC re-index request (URL Inspection tool)
+- 📊 Realistic ranking ceiling may be ~#50 given competition
+
+**AE Google Business Profile**
+
+Attempted to fix GBP website URL (still pointing to affordable-entertainment.com). Verification blocked — will need to revisit.
 
 ---
 
