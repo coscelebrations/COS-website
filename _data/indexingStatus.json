@@ -1,4 +1,253 @@
 {
   "_comment": "Tracks when pages were last submitted to Google Indexing API",
-  "pages": {}
+  "pages": {
+    "/": {
+      "lastIndexed": "2026-01-01T21:50:23.127193Z",
+      "url": "https://coscelebrations.com/"
+    },
+    "/services/weddings/": {
+      "lastIndexed": "2026-01-01T21:50:23.453851Z",
+      "url": "https://coscelebrations.com/services/weddings/"
+    },
+    "/contact/": {
+      "lastIndexed": "2026-01-01T21:50:23.790606Z",
+      "url": "https://coscelebrations.com/contact/"
+    },
+    "/pricing/": {
+      "lastIndexed": "2026-01-01T21:50:24.106891Z",
+      "url": "https://coscelebrations.com/pricing/"
+    },
+    "/jacksonville-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:24.387965Z",
+      "url": "https://coscelebrations.com/jacksonville-wedding-dj/"
+    },
+    "/st-augustine-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:24.692516Z",
+      "url": "https://coscelebrations.com/st-augustine-wedding-dj/"
+    },
+    "/orlando-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:24.991445Z",
+      "url": "https://coscelebrations.com/orlando-wedding-dj/"
+    },
+    "/tampa-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:25.324760Z",
+      "url": "https://coscelebrations.com/tampa-wedding-dj/"
+    },
+    "/ponte-vedra-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:25.630666Z",
+      "url": "https://coscelebrations.com/ponte-vedra-wedding-dj/"
+    },
+    "/amelia-island-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:25.927804Z",
+      "url": "https://coscelebrations.com/amelia-island-wedding-dj/"
+    },
+    "/gainesville-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:26.237975Z",
+      "url": "https://coscelebrations.com/gainesville-wedding-dj/"
+    },
+    "/daytona-beach-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:26.532003Z",
+      "url": "https://coscelebrations.com/daytona-beach-wedding-dj/"
+    },
+    "/fernandina-beach-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:26.775677Z",
+      "url": "https://coscelebrations.com/fernandina-beach-wedding-dj/"
+    },
+    "/services/corporate/": {
+      "lastIndexed": "2026-01-01T21:50:27.092165Z",
+      "url": "https://coscelebrations.com/services/corporate/"
+    },
+    "/services/private-parties/": {
+      "lastIndexed": "2026-01-01T21:50:27.395965Z",
+      "url": "https://coscelebrations.com/services/private-parties/"
+    },
+    "/vip-login/": {
+      "lastIndexed": "2026-01-01T21:50:27.686100Z",
+      "url": "https://coscelebrations.com/vip-login/"
+    },
+    "/venues/treasury-on-the-plaza/": {
+      "lastIndexed": "2026-01-01T21:50:27.993015Z",
+      "url": "https://coscelebrations.com/venues/treasury-on-the-plaza/"
+    },
+    "/lightner-museum-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:28.297953Z",
+      "url": "https://coscelebrations.com/lightner-museum-wedding-dj/"
+    },
+    "/the-white-room-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:28.608887Z",
+      "url": "https://coscelebrations.com/the-white-room-wedding-dj/"
+    },
+    "/casa-marina-hotel-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:28.869424Z",
+      "url": "https://coscelebrations.com/casa-marina-hotel-wedding-dj/"
+    },
+    "/casa-monica-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:29.133408Z",
+      "url": "https://coscelebrations.com/casa-monica-wedding-dj/"
+    },
+    "/st-johns-golf-club-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:29.445647Z",
+      "url": "https://coscelebrations.com/st-johns-golf-club-wedding-dj/"
+    },
+    "/timuquana-country-club-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:29.698104Z",
+      "url": "https://coscelebrations.com/timuquana-country-club-wedding-dj/"
+    },
+    "/river-house-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:30.019016Z",
+      "url": "https://coscelebrations.com/river-house-wedding-dj/"
+    },
+    "/epping-forest-yacht-club-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:30.263821Z",
+      "url": "https://coscelebrations.com/epping-forest-yacht-club-wedding-dj/"
+    },
+    "/glass-factory-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:30.539215Z",
+      "url": "https://coscelebrations.com/glass-factory-wedding-dj/"
+    },
+    "/club-continental-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:30.848311Z",
+      "url": "https://coscelebrations.com/club-continental-wedding-dj/"
+    },
+    "/bowing-oaks-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:31.147607Z",
+      "url": "https://coscelebrations.com/bowing-oaks-wedding-dj/"
+    },
+    "/ribault-club-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:31.483982Z",
+      "url": "https://coscelebrations.com/ribault-club-wedding-dj/"
+    },
+    "/tpc-sawgrass-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:31.788126Z",
+      "url": "https://coscelebrations.com/tpc-sawgrass-wedding-dj/"
+    },
+    "/sawgrass-country-club-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:32.090856Z",
+      "url": "https://coscelebrations.com/sawgrass-country-club-wedding-dj/"
+    },
+    "/ponte-vedra-inn-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:32.409286Z",
+      "url": "https://coscelebrations.com/ponte-vedra-inn-wedding-dj/"
+    },
+    "/marsh-landing-country-club-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:32.645353Z",
+      "url": "https://coscelebrations.com/marsh-landing-country-club-wedding-dj/"
+    },
+    "/palm-valley-gardens-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:32.949574Z",
+      "url": "https://coscelebrations.com/palm-valley-gardens-wedding-dj/"
+    },
+    "/omni-amelia-island-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:33.244081Z",
+      "url": "https://coscelebrations.com/omni-amelia-island-wedding-dj/"
+    },
+    "/the-ritz-carlton-amelia-island-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:33.856537Z",
+      "url": "https://coscelebrations.com/the-ritz-carlton-amelia-island-wedding-dj/"
+    },
+    "/walkers-landing-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:34.188812Z",
+      "url": "https://coscelebrations.com/walkers-landing-wedding-dj/"
+    },
+    "/oyster-bay-yacht-club-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:41.658919Z",
+      "url": "https://coscelebrations.com/oyster-bay-yacht-club-wedding-dj/"
+    },
+    "/golf-club-of-amelia-island-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:41.926609Z",
+      "url": "https://coscelebrations.com/golf-club-of-amelia-island-wedding-dj/"
+    },
+    "/the-preserve-at-amelia-island-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:42.230451Z",
+      "url": "https://coscelebrations.com/the-preserve-at-amelia-island-wedding-dj/"
+    },
+    "/bella-collina-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:42.560637Z",
+      "url": "https://coscelebrations.com/bella-collina-wedding-dj/"
+    },
+    "/paradise-cove-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:42.867300Z",
+      "url": "https://coscelebrations.com/paradise-cove-wedding-dj/"
+    },
+    "/castle-hotel-orlando-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:43.128787Z",
+      "url": "https://coscelebrations.com/castle-hotel-orlando-wedding-dj/"
+    },
+    "/alfond-inn-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:43.464133Z",
+      "url": "https://coscelebrations.com/alfond-inn-wedding-dj/"
+    },
+    "/sydonie-mansion-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:43.787669Z",
+      "url": "https://coscelebrations.com/sydonie-mansion-wedding-dj/"
+    },
+    "/four-seasons-orlando-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:44.092439Z",
+      "url": "https://coscelebrations.com/four-seasons-orlando-wedding-dj/"
+    },
+    "/the-orlo-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:44.381460Z",
+      "url": "https://coscelebrations.com/the-orlo-wedding-dj/"
+    },
+    "/le-meridien-tampa-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:44.623561Z",
+      "url": "https://coscelebrations.com/le-meridien-tampa-wedding-dj/"
+    },
+    "/don-cesar-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:45.017064Z",
+      "url": "https://coscelebrations.com/don-cesar-wedding-dj/"
+    },
+    "/cross-creek-ranch-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:45.266097Z",
+      "url": "https://coscelebrations.com/cross-creek-ranch-wedding-dj/"
+    },
+    "/nova-535-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:45.576276Z",
+      "url": "https://coscelebrations.com/nova-535-wedding-dj/"
+    },
+    "/florida-aquarium-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:45.893510Z",
+      "url": "https://coscelebrations.com/florida-aquarium-wedding-dj/"
+    },
+    "/sweetwater-branch-inn-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:46.213675Z",
+      "url": "https://coscelebrations.com/sweetwater-branch-inn-wedding-dj/"
+    },
+    "/kanapaha-botanical-gardens-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:46.514577Z",
+      "url": "https://coscelebrations.com/kanapaha-botanical-gardens-wedding-dj/"
+    },
+    "/barn-at-deep-creek-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:46.832419Z",
+      "url": "https://coscelebrations.com/barn-at-deep-creek-wedding-dj/"
+    },
+    "/1908-grand-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:47.145158Z",
+      "url": "https://coscelebrations.com/1908-grand-wedding-dj/"
+    },
+    "/the-wooly-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:47.451206Z",
+      "url": "https://coscelebrations.com/the-wooly-wedding-dj/"
+    },
+    "/shores-resort-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:47.764845Z",
+      "url": "https://coscelebrations.com/shores-resort-wedding-dj/"
+    },
+    "/hard-rock-daytona-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:48.086915Z",
+      "url": "https://coscelebrations.com/hard-rock-daytona-wedding-dj/"
+    },
+    "/lpga-international-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:48.401063Z",
+      "url": "https://coscelebrations.com/lpga-international-wedding-dj/"
+    },
+    "/crystal-ballroom-daytona-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:48.723623Z",
+      "url": "https://coscelebrations.com/crystal-ballroom-daytona-wedding-dj/"
+    },
+    "/estate-on-the-halifax-wedding-dj/": {
+      "lastIndexed": "2026-01-01T21:50:49.315401Z",
+      "url": "https://coscelebrations.com/estate-on-the-halifax-wedding-dj/"
+    }
+  }
 }
