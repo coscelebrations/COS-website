@@ -1,0 +1,15 @@
+{
+  "name": "cos-celebrations",
+  "version": "1.0.0",
+  "description": "COS Celebrations website",
+  "scripts": {
+    "seo:index": "python3 scripts/google-indexing.py index",
+    "seo:index:changes": "python3 scripts/google-indexing.py index-changes",
+    "seo:index:check": "python3 scripts/google-indexing.py check",
+    "seo:index:dry": "python3 scripts/google-indexing.py dry",
+    "seo:index:status": "python3 scripts/google-indexing.py status",
+    "audit": "python3 scripts/audit.py",
+    "audit:indexing": "python3 scripts/audit.py indexing"
+  },
+  "private": true
+}

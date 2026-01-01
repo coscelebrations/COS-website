@@ -1,1 +1,7 @@
 images/timuquana-wedding/
+
+# Google Indexing API credentials (NEVER commit this)
+scripts/google-indexing-credentials.json
+
+# Node
+node_modules/
