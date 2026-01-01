@@ -24,6 +24,8 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- City Pages -->
   <url>
     <loc>https://coscelebrations.com/jacksonville-wedding-dj/</loc>
     <lastmod>2025-12-10</lastmod>
@@ -61,6 +63,26 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://coscelebrations.com/gainesville-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/daytona-beach-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/fernandina-beach-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Service Pages -->
+  <url>
     <loc>https://coscelebrations.com/services/corporate/</loc>
     <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -78,6 +100,8 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+
+  <!-- St. Augustine Venues -->
   <url>
     <loc>https://coscelebrations.com/venues/treasury-on-the-plaza/</loc>
     <lastmod>2025-12-11</lastmod>
@@ -87,12 +111,6 @@
   <url>
     <loc>https://coscelebrations.com/lightner-museum-wedding-dj/</loc>
     <lastmod>2025-12-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://coscelebrations.com/timuquana-country-club-wedding-dj/</loc>
-    <lastmod>2025-12-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -109,6 +127,134 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://coscelebrations.com/casa-monica-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/st-johns-golf-club-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Jacksonville Venues -->
+  <url>
+    <loc>https://coscelebrations.com/timuquana-country-club-wedding-dj/</loc>
+    <lastmod>2025-12-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/river-house-wedding-dj/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/epping-forest-yacht-club-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/glass-factory-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/club-continental-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/bowing-oaks-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/ribault-club-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Ponte Vedra Venues -->
+  <url>
+    <loc>https://coscelebrations.com/tpc-sawgrass-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/sawgrass-country-club-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/ponte-vedra-inn-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/marsh-landing-country-club-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/palm-valley-gardens-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Amelia Island Venues -->
+  <url>
+    <loc>https://coscelebrations.com/omni-amelia-island-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/the-ritz-carlton-amelia-island-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/walkers-landing-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/oyster-bay-yacht-club-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/golf-club-of-amelia-island-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/the-preserve-at-amelia-island-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Orlando Venues -->
+  <url>
     <loc>https://coscelebrations.com/bella-collina-wedding-dj/</loc>
     <lastmod>2025-12-30</lastmod>
     <changefreq>monthly</changefreq>
@@ -121,8 +267,128 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://coscelebrations.com/river-house-wedding-dj/</loc>
-    <lastmod>2025-12-30</lastmod>
+    <loc>https://coscelebrations.com/castle-hotel-orlando-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/alfond-inn-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/sydonie-mansion-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/four-seasons-orlando-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Tampa Venues -->
+  <url>
+    <loc>https://coscelebrations.com/the-orlo-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/le-meridien-tampa-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/don-cesar-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/cross-creek-ranch-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/nova-535-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/florida-aquarium-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Gainesville Venues -->
+  <url>
+    <loc>https://coscelebrations.com/sweetwater-branch-inn-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/kanapaha-botanical-gardens-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/barn-at-deep-creek-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/1908-grand-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/the-wooly-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Daytona Venues -->
+  <url>
+    <loc>https://coscelebrations.com/shores-resort-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/hard-rock-daytona-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/lpga-international-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/crystal-ballroom-daytona-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/estate-on-the-halifax-wedding-dj/</loc>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -100,7 +100,7 @@ CTAs:
 
 ### Hashtag Strategy (2025)
 
-**Use 3-5 hashtags** per post
+**Use exactly 3 hashtags** in the caption
 
 | Category | Examples |
 |----------|----------|
@@ -108,6 +108,19 @@ CTAs:
 | **Industry** | #WeddingDJ #WeddingEntertainment #WeddingMusic |
 | **Niche** | #WeddingBand #LiveWeddingMusic #WeddingDanceFloor |
 | **Branded** | #COSCelebrations #AEEntertainment |
+
+### First Comment Strategy (SEO Boost)
+
+Post a first comment immediately after publishing with:
+1. **SEO keyword text** - Natural sentence with location + service keywords
+2. **Additional hashtags** - 5-8 more hashtags for discovery
+
+Example:
+```
+Live saxophone wedding entertainment at The Treasury on the Plaza in St. Augustine, Florida. Wedding DJ with live musicians for your reception.
+
+#TreasuryOnThePlaza #FloridaBride #JacksonvilleWeddingDJ #WeddingEntertainment #FloridaWedding
+```
 
 ### Location & Venue Tagging
 
@@ -301,6 +314,76 @@ Tag someone planning their wedding.
 
 ---
 
+## 8. POST KIT SYSTEM
+
+### How It Works
+
+Claude creates ready-to-post content kits in `~/Desktop/instagram-posts/`
+
+Each kit contains:
+- Photos (renamed descriptively)
+- `caption.txt` with:
+  - Post type (Reel, Carousel, Single)
+  - Caption text
+  - Tags (location, photographer, venue)
+  - 3 hashtags for caption
+  - First comment (SEO text + additional hashtags)
+
+### Workflow
+
+1. Open post folder
+2. Preview photos (swap any you don't like)
+3. Drag photos to Adobe Express
+4. Copy caption from `caption.txt`
+5. Post to Instagram
+6. Immediately paste first comment
+
+### Current Inventory (Dec 31, 2025)
+
+**COS Celebrations: 18 posts**
+| # | Post | Type |
+|---|------|------|
+| 01 | Treasury sax showcase | Reel/Carousel |
+| 02 | River House full band | Carousel |
+| 03 | Timuquana venue | Carousel |
+| 04 | Treasury sparkler exit | Reel |
+| 05 | River House ceremony sunset | Carousel |
+| 06 | Timuquana first dance | Reel/Carousel |
+| 07 | River House hora | Reel |
+| 08 | Treasury venue beauty | Carousel |
+| 09 | Meet the sax | Carousel |
+| 10 | Behind the scenes | Carousel |
+| 11 | Cocktail hour | Carousel |
+| 12 | Father-daughter dance | Carousel |
+| 13 | Guest reactions | Carousel |
+| 14 | Last dance | Carousel |
+| 15 | Why live music (educational) | Carousel |
+| 16 | Grand entrance | Carousel |
+| 17 | White Room venue | Carousel |
+| 18 | Casa Marina venue | Carousel |
+
+**AE Entertainment: 12 posts**
+| # | Post | Type |
+|---|------|------|
+| 01 | Dance floor energy | Reel/Carousel |
+| 02 | Value message ($800) | Carousel |
+| 03 | Party moments | Carousel |
+| 04 | Dance floor packed | Reel/Carousel |
+| 05 | What you get | Carousel |
+| 06 | Happy couple/testimonial | Carousel |
+| 07 | All ages dancing | Carousel |
+| 08 | Booking CTA (2025) | Carousel |
+| 09 | FAQ style | Carousel |
+| 10 | Great DJ traits (educational) | Carousel |
+| 11 | Wedding season | Carousel |
+| 12 | Real moments | Carousel |
+
+### Request More Posts
+
+Just tell Claude: "Make more Instagram posts" or "Batch more posts"
+
+---
+
 ## PHOTO LIBRARY FOR CONTENT
 
 ## PHOTO INVENTORY
@@ -313,14 +396,14 @@ Tag someone planning their wedding.
 
 **Jeanette & Dean - Treasury (Dec 2025)**
 - 70 photos: ~/Photos/weddings/treasury/jeanette-dean-2025/
-- Photographer: [NEED]
-- COS provided: [NEED]
+- Photographer: Walls of Jericho
+- COS provided: DJ + Sax
 - Best shots: sneaks-5 (Treasury exterior), sneaks-10 (staircase), sneaks-60 (dance floor), sneaks-65 (party), sneaks-70 (sparkler exit)
 
 **Winslow - Timuquana**
 - 1,300 photos: /cos-website/images/timuquana-wedding/
-- Photographer: [NEED]
-- COS provided: [NEED]
+- Photographer: Sara Purdy
+- COS provided: DJ + Sax
 - Organized in folders: Pre-ceremony, First Look, Ceremony, Reception, Highlights
 
 **Web-ready venue shots:**
@@ -333,10 +416,10 @@ Tag someone planning their wedding.
 ## INFO NEEDED FOR CAPTIONS
 
 Before creating posts, get:
-- [ ] Jeanette & Dean photographer name
-- [ ] Jeanette & Dean - what COS provided
-- [ ] Winslow photographer name
-- [ ] Winslow - what COS provided
+- [x] Jeanette & Dean photographer name — Walls of Jericho
+- [x] Jeanette & Dean - what COS provided — DJ + Sax
+- [x] Winslow photographer name — Sara Purdy
+- [x] Winslow - what COS provided — DJ + Sax
 - [ ] Couple Instagram handles (optional, for tagging)
 - [ ] Other vendor tags (planner, florist - optional)
 
