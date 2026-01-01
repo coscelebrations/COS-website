@@ -1,14 +1,14 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: December 30, 2025
+## Last Updated: January 1, 2026
 
 ---
 
 ## 📌 NEXT SESSION TODO
-- [x] **Create Orlando venue pages** — ~~Orlando needs internal link cluster~~ STARTED: Bella Collina + Paradise Cove created
-- [ ] **Finish Orlando venue cluster** — Add Cypress Grove, Alfond Inn, Lake Nona Wave Hotel (3 more to match Jacksonville's 4)
-- [ ] **Get real Orlando venue photos** — currently using St. Augustine/Jacksonville photos as placeholders
 - [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
-- [ ] Request GSC re-indexing for updated pages (Orlando, Tampa, Bella Collina, Paradise Cove)
+- [ ] **Get real venue photos** — many venue pages using placeholder images from St. Augustine/Jacksonville
+- [ ] **Investigate Orlando ranking drop** — COS Orlando page dropped out of top 100
+- [ ] Request GSC re-indexing for all new venue pages (90+ pages added)
+- [ ] Monitor venue page indexing in GSC over next 2-4 weeks
 
 ---
 
@@ -230,6 +230,49 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
    - Deep links to specific AE pages (not just homepage) for better indexing signal
    - **Strategy note:** Previously avoided COS→AE links to protect luxury positioning, but indexing benefit outweighs risk when links are subtle
    - **ACTION STILL REQUIRED:** Update AE's GBP website field to ae-djs.com
+
+---
+
+### Session Notes (Jan 1, 2026) - Massive Venue Page Expansion & Internal Linking
+
+**Major Milestone: 90+ Venue Pages Created**
+
+Completed comprehensive venue page buildout across 8 Florida markets for BOTH COS and AE:
+
+| Market | Venues | Notes |
+|--------|--------|-------|
+| Jacksonville | 9 | Timuquana, Epping Forest, River Club, Deerwood, San Jose, Garden Club, Glass Factory, 1908 Grand, Casa Marina |
+| St. Augustine | 6 | Treasury, White Room, Lightner, River House, Casa Monica, Fountain of Youth |
+| Ponte Vedra | 7 | TPC Sawgrass, Ponte Vedra Inn, Lodge & Club, Sawgrass Marriott, Sawgrass CC, Marsh Landing, St. Johns Golf |
+| Amelia Island | 6 | Ritz-Carlton, Omni, Walker's Landing, Golf Club, Preserve at River Club, Ribault Club |
+| Orlando | 8 | Bella Collina, Paradise Cove, Leu Gardens, Casa Feliz, Alfond Inn, Castle Hotel, Dr. Phillips House, Sydonie Mansion |
+| Tampa | 7 | The Orlo, Don CeSar, Florida Aquarium, Le Méridien, NOVA 535, Cross Creek Ranch, Barn at Deep Creek |
+| Gainesville | 3 | Kanapaha Botanical Gardens, Sweetwater Branch Inn, The Wooly |
+| Daytona Beach | 5 | Shores Resort, Hard Rock Daytona, LPGA International, Crystal Ballroom, Estate on Halifax |
+
+**Internal Linking Implemented:**
+- Added "Explore Our Venue Pages" section to ALL 16 city pages (8 cities × 2 sites)
+- Each city page now links to all its venue pages
+- Creates strong internal link clusters for SEO
+
+**Technical Updates:**
+- Sitemaps updated for both sites (COS: 66 URLs, AE: 65 URLs)
+- Google Search Console verification file added for COS (`googlebfb712b92c3d9873.html`)
+- Sitemaps submitted to GSC
+
+**Homepage Updates:**
+- Added Gainesville and Daytona Beach to homepage service areas
+- Consolidated Fernandina Beach under Amelia Island (same market)
+- Added internal link to Fernandina Beach from Amelia Island city pages (preserves SEO value)
+
+**Ponte Vedra Update:**
+- Swapped Marsh Creek for Sawgrass Country Club in featured venues bubble
+
+**SEO Impact Expected:**
+- Massive internal linking improvement (each venue page now receives links from city pages)
+- Better topic clustering for each market
+- More entry points for long-tail venue-specific searches
+- Should help with overall domain authority
 
 ---
 
