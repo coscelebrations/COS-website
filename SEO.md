@@ -7,8 +7,7 @@
 - [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
 - [ ] **Get real venue photos** — many venue pages using placeholder images from St. Augustine/Jacksonville
 - [ ] **Investigate Orlando ranking drop** — COS Orlando page dropped out of top 100
-- [ ] Request GSC re-indexing for all new venue pages (90+ pages added)
-- [ ] Monitor venue page indexing in GSC over next 2-4 weeks
+- [ ] Monitor venue page indexing in GSC over next 2-4 weeks (90+ pages added Jan 1)
 
 ---
 
@@ -273,6 +272,46 @@ Completed comprehensive venue page buildout across 8 Florida markets for BOTH CO
 - Better topic clustering for each market
 - More entry points for long-tail venue-specific searches
 - Should help with overall domain authority
+
+---
+
+### Session Notes (Jan 1, 2026 - Afternoon) - Internal Linking Audit & Fixes
+
+**Comprehensive Internal Linking Audit Completed**
+
+Audited all city pages and venue pages for bidirectional internal linking. Found and fixed several gaps:
+
+**Issues Found & Fixed on COS:**
+
+| Page | Issue | Fix |
+|------|-------|-----|
+| Amelia Island city page | Missing Oyster Bay Yacht Club | Added to venue links section |
+| Fernandina Beach city page | No venue links section at all | Added full venue links section (7 venues) |
+| 6 Amelia Island venue pages | Missing link to amelia-island-wedding-dj | Added "Amelia Island • Fernandina Beach" links |
+| St. Augustine city page | Missing Casa Marina, St. Johns Golf | Added 2 venue links |
+| Gainesville city page | Missing 1908 Grand, Barn at Deep Creek | Added 2 venue links |
+
+**Same Fixes Applied to AE Site:**
+- All fixes mirrored on AE Entertainment
+- Slightly different URL for Casa Marina (ae uses `/casa-marina-wedding-dj/` vs COS `/casa-marina-hotel-wedding-dj/`)
+
+**City Pages Now Fully Linked:**
+All 9 city pages on both sites now link to all their venue pages:
+- Jacksonville: 7 venues
+- St. Augustine: 8 venues *(was 6, added 2)*
+- Ponte Vedra: 6 venues
+- Amelia Island: 7 venues *(was 6, added 1)*
+- Fernandina Beach: 7 venues *(was 0, added section)*
+- Orlando: 8 venues
+- Tampa: 6 venues
+- Gainesville: 5 venues *(was 3, added 2)*
+- Daytona Beach: 5 venues
+
+**Venue Pages Verified:**
+- All Amelia Island venues now link to both `/amelia-island-wedding-dj/` and `/fernandina-beach-wedding-dj/`
+- All other venue pages already had correct city backlinks
+
+**Total Internal Links Added:** ~30 new internal links across both sites
 
 ---
 
