@@ -46,6 +46,33 @@ All assistants are context-based. The `~/CLAUDE.md` file auto-loads when startin
 
 ---
 
+## 🔧 GOOGLE INDEXING API
+
+Submit URLs directly to Google for faster indexing. Run from each site's directory.
+
+### Commands (both sites)
+```bash
+npm run seo:index           # Submit all sitemap URLs to Google
+npm run seo:index:changes   # Only submit pages modified since last indexed
+npm run seo:index:check     # Show pages needing (re)indexing
+npm run seo:index:dry       # Preview URLs without submitting
+npm run seo:index:status    # Check submission status via API
+npm run audit               # Full site audit (includes indexing check)
+```
+
+### When to Use
+- **After deploying new pages** — Run `seo:index` to request immediate crawling
+- **After updating content** — Run `seo:index:changes` to re-submit modified pages
+- **Regular checks** — Run `seo:index:check` or `audit` to verify all pages are tracked
+
+### Notes
+- Daily limit: ~200 URLs per day (plenty for both sites)
+- Submission ≠ Indexing: Google decides whether to index based on content quality
+- Credentials stored in `scripts/google-indexing-credentials.json` (gitignored)
+- Status tracked in `_data/indexingStatus.json`
+
+---
+
 ## 🚨 RULE #1: SEO & AI OPTIMIZATION COMES FIRST
 
 **Every change to this website must be SEO and AI optimized by default.**
