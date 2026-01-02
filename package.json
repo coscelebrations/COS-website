@@ -9,6 +9,12 @@
     "seo:index:dry": "python3 scripts/google-indexing.py dry",
     "seo:index:status": "python3 scripts/google-indexing.py status",
     "audit": "python3 scripts/audit.py",
+    "audit:quick": "python3 scripts/audit.py quick",
+    "audit:images": "python3 scripts/audit.py images",
+    "audit:schema": "python3 scripts/audit.py schema",
+    "audit:meta": "python3 scripts/audit.py meta",
+    "audit:links": "python3 scripts/audit.py links",
+    "audit:content": "python3 scripts/audit.py content",
     "audit:indexing": "python3 scripts/audit.py indexing"
   },
   "private": true
