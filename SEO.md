@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: January 1, 2026
+## Last Updated: January 2, 2026
 
 ---
 
@@ -257,6 +257,47 @@ This is unique, natural, and contains all the keywords - but it doesn't follow a
    - Deep links to specific AE pages (not just homepage) for better indexing signal
    - **Strategy note:** Previously avoided COS→AE links to protect luxury positioning, but indexing benefit outweighs risk when links are subtle
    - **ACTION STILL REQUIRED:** Update AE's GBP website field to ae-djs.com
+
+---
+
+### Session Notes (Jan 2, 2026) - COS Site Audit & Technical SEO Fixes
+
+**Major Audit Cleanup: 2,968 → 155 Issues (95% Reduction)**
+
+Ran comprehensive COS site audit and systematically resolved technical SEO issues:
+
+| Issue Category | Before | After | Fixed |
+|----------------|--------|-------|-------|
+| OG Tags | ~50 pages missing | ✅ All pages | Previous session |
+| Raw Photos | 2,000+ warnings | ✅ Moved out | Timuquana photos to Desktop |
+| Image Size | 34 oversized | ✅ All under 100KB | 61% compression |
+| Schema | 73 pages missing | ✅ All have LocalBusiness | Added to all venue pages |
+| Broken Links | 10 /#pricing links | ✅ All fixed | Changed to /pricing/ |
+
+**Image Compression Results:**
+- 34 COS images compressed from ~6.9MB to ~2.7MB total
+- Used Python/Pillow: max 1200px, WebP quality 75 (then 60/50 for stubborn ones)
+- 3 outdoor/foliage images at 101-107KB (acceptable, further compression degrades quality)
+
+**Schema Fixes:**
+- Added standard LocalBusiness schema to 73 pages
+- Includes: telephone, email, address, priceRange, aggregateRating
+- Fixed TPC Sawgrass, Casa Marina, and White Room (had incomplete schemas)
+
+**Broken Link Fixes:**
+- 7 pages had `href="/#pricing"` (hash link to non-existent anchor)
+- Changed to `href="/pricing/"` on: contact, amelia-island-wedding-dj, ponte-vedra-wedding-dj, jacksonville-wedding-dj, st-augustine-wedding-dj, the-white-room-wedding-dj, services/weddings
+
+**Remaining 155 Issues (Low Priority):**
+- Meta warnings: Title/description length on some pages
+- Missing OG tags: vip-login, pricing-guide, services/corporate, services/weddings, services/private-parties
+- Content warnings: Placeholder content flagged on 5 pages
+- Schema: Only googlebfb712b92c3d9873.html (Google verification file, expected)
+
+**Commits:**
+1. `Add LocalBusiness schema to 70 COS pages`
+2. `Fix remaining schema issues on 3 venue pages`
+3. `Fix broken /#pricing links across 7 pages`
 
 ---
 
