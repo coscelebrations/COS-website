@@ -1,14 +1,22 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: January 2, 2026
+## Last Updated: January 3, 2026
 
 ---
 
 ## 📌 NEXT SESSION TODO
-- [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com (verification blocked, revisit)
-- [ ] **Request GSC re-indexing for Orlando page** — use URL Inspection tool in Search Console
-- [ ] **Get real venue photos** — many venue pages using placeholder images from St. Augustine/Jacksonville
-- [ ] Monitor venue page indexing in GSC over next 2-4 weeks (90+ pages added Jan 1)
-- [ ] Monitor Orlando ranking recovery after Indexing API submission
+- [ ] **Enhance Live Musicians Page** — add photos, video clips, testimonials, pricing hints
+- [ ] **Monitor Google Indexing** — check Search Console in 2-3 days (currently 29 indexed, 36 pending)
+- [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
+- [ ] **Investigate Orlando page** — dropped from rankings, needs content refresh
+- [ ] **Venue Partnerships Section** — add preferred vendor logos to COS homepage
+- [ ] **Get real venue photos** — many venue pages using placeholder images
+
+## ✅ COMPLETED (Jan 3, 2026)
+- [x] Created /services/live-musicians/ page with Service + FAQ schema
+- [x] Added hero trust strips to COS and AE homepages
+- [x] Internal linking to live musicians page (5 pages, 1 link each)
+- [x] Submitted 61 pages to Google Indexing API
+- [x] National competitive analysis (50+ companies, 12 markets) → ae-entertainment/COMPETITIVE-ANALYSIS-2025.md
 
 ---
 

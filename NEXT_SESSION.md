@@ -8,58 +8,56 @@ Continue work on COS Celebrations and AE Entertainment websites.
 
 **Context files:**
 - `/Users/coreypeterson/cos-website/SEO.md` - SEO strategy and site history
-- `/Users/coreypeterson/cos-website/INSTAGRAM.md` - Social media content guide (NEW)
+- `/Users/coreypeterson/ae-entertainment/COMPETITIVE-ANALYSIS-2025.md` - National DJ competitor research (NEW)
 
-**Quick status (Dec 30, 2025):**
+**Quick status (Jan 3, 2026):**
 
-- River House venue pages LIVE on both COS and AE
-- 1,454 photos from Jake & Mallory wedding organized in ~/Photos/weddings/river-house/
-- Photo sources: BowTie Photo + Films, Rob Futrell Photography
-- Security headers added to both sites (netlify.toml)
-- Background video implementation guide added to SEO.md
-- PageSpeed scores: 90/90/100/100 on both sites
+- Live Musicians service page LIVE on COS (/services/live-musicians/)
+- Hero trust strips added to both COS and AE homepages
+- Internal links to live musicians page from 5 key pages (1 link per page)
+- 61 pages submitted to Google Indexing API
+- National competitive analysis completed (50+ companies, 12 markets)
 
-**Photo library ready for future pages:**
-- ~/Photos/weddings/river-house/jake-mallory-2025-03-01/ (1,454 full-res)
-- Web-optimized versions in /images/river-house-wedding-st-augustine/jake-mallory/
+**What was done last session:**
+1. Trust signals added (hero trust strips with review counts, awards)
+2. Created /services/live-musicians/ page with FAQ schema
+3. Internal linking strategy (homepage, pricing, Treasury, Lightner, TPC Sawgrass)
+4. Consolidated to 1 strategic link per page (SEO best practice)
+5. Batched Google indexing submission (61 pages)
 
 **Priority tasks:**
 
-1. **Instagram Content Batch** - Ready to create posts from 2,800+ photos
-   - Need from you: Jeanette & Dean photographer + what COS provided
-   - Need from you: Winslow (Timuquana) photographer + what COS provided
-   - Guide: /Users/coreypeterson/cos-website/INSTAGRAM.md
-2. **Orlando Venue Cluster** - Cypress Grove, Alfond Inn, Lake Nona Wave Hotel
-3. **AE Google Business Profile** - Website still points to affordable-entertainment.com (needs manual update)
-4. **City Page Differentiation** - Amelia Island, Tampa, Ponte Vedra need unique content
-5. **Team Page** - Need headshots/bios before going live
+1. **Enhance Live Musicians Page** - Add photos, video, testimonials, pricing hints
+2. **Monitor Google Indexing** - Check Search Console in 2-3 days (29 indexed, 36 pending)
+3. **AE Google Business Profile** - Website still points to affordable-entertainment.com
+4. **Venue Partnerships Section** - Add preferred vendor logos to COS homepage
+5. **Date Availability Checker** - Needs CRM integration (user to set up)
 
-**Venue pages completed:**
-- Treasury on the Plaza (St. Augustine)
-- Lightner Museum (St. Augustine)
-- The White Room (St. Augustine)
-- River House (St. Augustine) - NEW
-- Casa Marina (Jacksonville)
-- TPC Sawgrass (Ponte Vedra)
-- Timuquana Country Club (Jacksonville)
-- Epping Forest Yacht Club (Jacksonville)
-- Bella Collina (Orlando)
-- Paradise Cove (Orlando)
+**Competitive insights to implement (from national research):**
+- Video content (like DJ Soundwave, Complete Music)
+- Date checker widget
+- Venue partnership badges
+- Interactive planning tools
+
+**Pages needing attention:**
+- Orlando page dropped from rankings - needs investigation
+- Live musicians page - "flesh it up" with media
 
 **Useful commands:**
 ```bash
+# Check indexing status
+cd /Users/coreypeterson/cos-website && npm run seo:index:check
+
+# Submit for indexing
+cd /Users/coreypeterson/cos-website && npm run seo:index
+
 # Start local server
 cd /Users/coreypeterson/cos-website && python3 -m http.server 3000
-
-# Deploy (auto-deploys on git push)
-cd /Users/coreypeterson/cos-website && git add . && git commit -m "message" && git push
-
-# Prep photo for web (resize + webp)
-sips -Z 1600 input.jpg --out /tmp/resized.jpg && cwebp -q 85 /tmp/resized.jpg -o output.webp
 ```
 
 **Live sites:**
 - COS: https://coscelebrations.com
 - AE: https://ae-djs.com
+- Live Musicians: https://coscelebrations.com/services/live-musicians/
 
 ---
