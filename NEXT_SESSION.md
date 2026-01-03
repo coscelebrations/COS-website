@@ -7,57 +7,46 @@
 Continue work on COS Celebrations and AE Entertainment websites.
 
 **Context files:**
-- `/Users/coreypeterson/cos-website/SEO.md` - SEO strategy and site history
-- `/Users/coreypeterson/ae-entertainment/COMPETITIVE-ANALYSIS-2025.md` - National DJ competitor research (NEW)
+- `/Users/coreypeterson/cos-website/SEO.md` - SEO strategy and history
+- `/Users/coreypeterson/ae-entertainment/COMPETITIVE-ANALYSIS-2025.md` - National DJ competitor research
 
 **Quick status (Jan 3, 2026):**
 
-- Live Musicians service page LIVE on COS (/services/live-musicians/)
-- Hero trust strips added to both COS and AE homepages
-- Internal links to live musicians page from 5 key pages (1 link per page)
+- Live Musicians page LIVE at /services/live-musicians/
+- Trust strip now shows: "The Knot & WeddingWire Award Winner 2022–2025"
+- Logo optimized with responsive srcset (1x/2x)
 - 61 pages submitted to Google Indexing API
-- National competitive analysis completed (50+ companies, 12 markets)
-
-**What was done last session:**
-1. Trust signals added (hero trust strips with review counts, awards)
-2. Created /services/live-musicians/ page with FAQ schema
-3. Internal linking strategy (homepage, pricing, Treasury, Lightner, TPC Sawgrass)
-4. Consolidated to 1 strategic link per page (SEO best practice)
-5. Batched Google indexing submission (61 pages)
+- PageSpeed: FCP 2.6s, LCP 3.2s (hero image is CSS background - needs refactor)
 
 **Priority tasks:**
 
-1. **Enhance Live Musicians Page** - Add photos, video, testimonials, pricing hints
-2. **Monitor Google Indexing** - Check Search Console in 2-3 days (29 indexed, 36 pending)
-3. **AE Google Business Profile** - Website still points to affordable-entertainment.com
-4. **Venue Partnerships Section** - Add preferred vendor logos to COS homepage
-5. **Date Availability Checker** - Needs CRM integration (user to set up)
+1. **Fix LCP (3.2s)** — Hero uses CSS `background-image`, browser discovers it late. Refactor to `<img>` with srcset and fetchpriority="high"
+2. **Add award badge images** — I'll find The Knot & WeddingWire badges in my email
+3. **Enhance Live Musicians page** — needs photos, video, testimonials
+4. **Check Google Search Console** — was 29 indexed, 36 pending
 
-**Competitive insights to implement (from national research):**
-- Video content (like DJ Soundwave, Complete Music)
-- Date checker widget
-- Venue partnership badges
-- Interactive planning tools
+**Performance issue identified:**
+- Hero image loaded via CSS background (line 466 in index.html)
+- 33KB inline CSS blocks render before image is discovered
+- Fix: Change hero section to use `<img>` tag instead
 
-**Pages needing attention:**
-- Orlando page dropped from rankings - needs investigation
-- Live musicians page - "flesh it up" with media
+**Competitive insights (from Chicago DJ analysis):**
+- Top rankers use exact-match keywords in title/H1
+- Named team members with photos/bios
+- The Knot badge displayed prominently
+- Schema markup (Organization, BreadcrumbList)
 
 **Useful commands:**
 ```bash
 # Check indexing status
 cd /Users/coreypeterson/cos-website && npm run seo:index:check
 
-# Submit for indexing
-cd /Users/coreypeterson/cos-website && npm run seo:index
-
 # Start local server
-cd /Users/coreypeterson/cos-website && python3 -m http.server 3000
+python3 -m http.server 3000
 ```
 
 **Live sites:**
 - COS: https://coscelebrations.com
 - AE: https://ae-djs.com
-- Live Musicians: https://coscelebrations.com/services/live-musicians/
 
 ---

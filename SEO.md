@@ -4,12 +4,13 @@
 ---
 
 ## 📌 NEXT SESSION TODO
+- [ ] **Refactor hero to `<img>` tag** — hero uses CSS background, hurting LCP (3.2s). Change to img with srcset for better performance
 - [ ] **Enhance Live Musicians Page** — add photos, video clips, testimonials, pricing hints
-- [ ] **Monitor Google Indexing** — check Search Console in 2-3 days (currently 29 indexed, 36 pending)
+- [ ] **Add award badge images** — user will find The Knot & WeddingWire badge images from email
+- [ ] **Monitor Google Indexing** — check Search Console (was 29 indexed, 36 pending)
 - [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
 - [ ] **Investigate Orlando page** — dropped from rankings, needs content refresh
 - [ ] **Venue Partnerships Section** — add preferred vendor logos to COS homepage
-- [ ] **Get real venue photos** — many venue pages using placeholder images
 
 ## ✅ COMPLETED (Jan 3, 2026)
 - [x] Created /services/live-musicians/ page with Service + FAQ schema
@@ -17,6 +18,9 @@
 - [x] Internal linking to live musicians page (5 pages, 1 link each)
 - [x] Submitted 61 pages to Google Indexing API
 - [x] National competitive analysis (50+ companies, 12 markets) → ae-entertainment/COMPETITIVE-ANALYSIS-2025.md
+- [x] Added "The Knot & WeddingWire Award Winner 2022–2025" to trust strip
+- [x] Optimized logo with responsive srcset (1x: 165×105, 2x: 330×210)
+- [x] Analyzed top-ranking Chicago DJs for SEO tactics (title tags, schema, team bios)
 
 ---
 
