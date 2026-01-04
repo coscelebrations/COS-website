@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: January 4, 2026
+## Last Updated: January 4, 2026 (Evening)
 
 > **SEO Rules are in `~/CLAUDE.md`** — they auto-load every session.
 > **Historical sessions are in `SEO-ARCHIVE.md`** — reference when needed.
@@ -7,16 +7,21 @@
 ---
 
 ## 📌 NEXT SESSION TODO
-- [ ] **Refactor hero to `<img>` tag** — hero uses CSS background, hurting LCP (3.2s). Change to img with srcset for better performance
+- [ ] **Monitor Orlando indexing** — page repositioned as local team, re-submitted to Google. Check GSC in ~1 week
+- [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
 - [ ] **Enhance Live Musicians Page** — add photos, video clips, testimonials, pricing hints
 - [ ] **Add award badge images** — user will find The Knot & WeddingWire badge images from email
-- [ ] **Monitor Google Indexing** — check Search Console (was 29 indexed, 36 pending)
-- [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
-- [ ] **Investigate Orlando page** — dropped from rankings, needs content refresh
+- [ ] **Monitor Google Indexing** — check Search Console for homepage LCP improvement
 - [ ] **Venue Partnerships Section** — add preferred vendor logos to COS homepage
 - [ ] **Create new venue pages** — 40+ opportunities identified (see seo-data/new-venue-opportunities.md)
+- [ ] **Apply hero LCP fix to venue pages** — 45 venue pages still use CSS background (lower priority)
 
-## ✅ COMPLETED (Jan 4, 2026)
+## ✅ COMPLETED (Jan 4, 2026 - Evening Session)
+- [x] **Homepage hero LCP fix** — converted CSS background to `<img>` tag with preload, fetchpriority="high"
+- [x] **Orlando page repositioned** — removed all "travel from St. Augustine" language, added Orlando team (Marc, Khalil, Paul)
+- [x] **Re-submitted 61 pages to Google** — including updated Orlando page
+
+## ✅ COMPLETED (Jan 4, 2026 - Earlier)
 - [x] **Image optimization audit** — resized 37 oversized images to 800px max (AE logo was 6831px!)
 - [x] **Meta description fixes** — shortened 8 COS (too long), expanded 3 AE (too short)
 - [x] **Schema markup additions** — added to AE /contact/, COS /services/corporate/, COS /services/private-parties/
@@ -26,7 +31,7 @@
 - [x] **Competitor research** — analyzed 8 Florida markets (see seo-data/competitor-analysis.md)
 - [x] **Broken link audit** — no issues found on either site
 - [x] **New venue discovery** — identified 40+ venue page opportunities
-- [x] **SEO.md restructure** — rules moved to CLAUDE.md, old sessions archived
+- [x] **SEO.md restructure** — rules moved to CLAUDE.md, old sessions archived to SEO-ARCHIVE.md
 
 ## ✅ COMPLETED (Jan 3, 2026)
 - [x] Created /services/live-musicians/ page with Service + FAQ schema
