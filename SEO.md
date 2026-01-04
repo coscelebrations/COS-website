@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - Master SEO & Strategy Document
-## Last Updated: January 3, 2026
+## Last Updated: January 4, 2026
 
 ---
 
@@ -11,6 +11,18 @@
 - [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
 - [ ] **Investigate Orlando page** — dropped from rankings, needs content refresh
 - [ ] **Venue Partnerships Section** — add preferred vendor logos to COS homepage
+- [ ] **Create new venue pages** — 40+ opportunities identified (see seo-data/new-venue-opportunities.md)
+
+## ✅ COMPLETED (Jan 4, 2026)
+- [x] **Image optimization audit** — resized 37 oversized images to 800px max (AE logo was 6831px!)
+- [x] **Meta description fixes** — shortened 8 COS (too long), expanded 3 AE (too short)
+- [x] **Schema markup additions** — added to AE /contact/, COS /services/corporate/, COS /services/private-parties/
+- [x] **AE priceRange correction** — fixed from wrong $1,500 to correct $800-$995 across 63 pages
+- [x] **CLS fix** — added width/height to logo images on all 138 pages (COS: 71, AE: 67)
+- [x] **Font fallback** — added system font stack to AE to prevent font-swap layout shift
+- [x] **Competitor research** — analyzed 8 Florida markets (see seo-data/competitor-analysis.md)
+- [x] **Broken link audit** — no issues found on either site
+- [x] **New venue discovery** — identified 40+ venue page opportunities
 
 ## ✅ COMPLETED (Jan 3, 2026)
 - [x] Created /services/live-musicians/ page with Service + FAQ schema
