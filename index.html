@@ -9,6 +9,7 @@
   <title>Florida Wedding DJ + Live Saxophone | COS Celebrations</title>
   <meta name="description" content="Luxury wedding DJ and live saxophone entertainment in Jacksonville, St. Augustine, Orlando, and Tampa. 500+ five-star reviews. Starting at $1,500.">
   <link rel="canonical" href="https://coscelebrations.com/">
+  <link rel="preload" as="image" href="/images/treasury-wedding-st-augustine/packed-wedding-dance-floor-st-augustine-dj.webp" fetchpriority="high">
   <meta property="og:title" content="Florida Wedding DJ + Live Saxophone | COS Celebrations">
   <meta property="og:description" content="Luxury wedding DJ and live saxophone in Jacksonville, St. Augustine, Orlando & Tampa. 500+ five-star reviews.">
   <meta property="og:image" content="https://coscelebrations.com/images/cos-celebrations-logo.webp">
@@ -462,13 +463,32 @@
       justify-content: center;
       text-align: center;
       padding: 8rem 2rem 4rem;
-      background: linear-gradient(135deg, rgba(248, 240, 240, 0.88) 0%, rgba(255, 251, 250, 0.85) 100%),
-                  url('/images/treasury-wedding-st-augustine/packed-wedding-dance-floor-st-augustine-dj.webp') center center / cover no-repeat;
       position: relative;
       overflow: hidden;
     }
 
+    .hero-bg-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
     .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(248, 240, 240, 0.88) 0%, rgba(255, 251, 250, 0.85) 100%);
+      z-index: 1;
+    }
+
+    .hero::after {
       content: '';
       position: absolute;
       top: 0;
@@ -479,11 +499,12 @@
         radial-gradient(circle at 20% 80%, var(--rose) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, var(--blush) 0%, transparent 40%);
       opacity: 0.3;
+      z-index: 2;
     }
 
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 3;
       max-width: 900px;
       animation: fadeUp 1s ease-out;
     }
@@ -1833,6 +1854,15 @@
 
   <!-- Hero -->
   <section class="hero">
+    <img
+      src="/images/treasury-wedding-st-augustine/packed-wedding-dance-floor-st-augustine-dj.webp"
+      alt="Packed wedding dance floor at Treasury on the Plaza in St. Augustine with DJ and uplighting"
+      class="hero-bg-img"
+      width="800"
+      height="533"
+      fetchpriority="high"
+      loading="eager"
+    >
     <div class="hero-content">
       <p class="eyebrow">Your Wedding Soundtrack, Performed Live</p>
       <h1>North + Central Florida<br><em>Wedding DJ + Live Musicians</em></h1>
