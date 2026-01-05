@@ -9,7 +9,7 @@
   <link rel="canonical" href="https://coscelebrations.com/epping-forest-yacht-club-wedding-dj/">
   <meta property="og:title" content="Epping Forest Yacht Club Wedding DJ | Jacksonville | COS Celebrations">
   <meta property="og:description" content="Wedding DJ at Epping Forest Yacht & Country Club in Jacksonville. Live saxophone, drums, premium sound.">
-  <meta property="og:image" content="https://coscelebrations.com/images/cos-celebrations-logo.webp">
+  <meta property="og:image" content="https://coscelebrations.com/images/epping-forest-wedding-jacksonville/epping-forest-ceremony-hero-16x9-1200w.webp">
   <meta property="og:url" content="https://coscelebrations.com/epping-forest-yacht-club-wedding-dj/">
   <meta property="og:type" content="website">
 
@@ -68,7 +68,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" as="image" href="/images/epping-forest-wedding-jacksonville/first-dance-checkered-floor-epping-forest.webp">
+  <link rel="preload" as="image" href="/images/epping-forest-wedding-jacksonville/epping-forest-ceremony-hero-16x9-1200w.webp">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript></noscript>
@@ -270,8 +270,8 @@
       justify-content: center;
       text-align: center;
       padding: 10rem 2rem 4rem;
-      background: linear-gradient(rgba(45, 42, 43, 0.5), rgba(45, 42, 43, 0.5)),
-                  url('/images/epping-forest-wedding-jacksonville/first-dance-checkered-floor-epping-forest.jpg') center/cover no-repeat;
+      background: linear-gradient(rgba(45, 42, 43, 0.35), rgba(45, 42, 43, 0.4)),
+                  url('/images/epping-forest-wedding-jacksonville/epping-forest-ceremony-hero-16x9-1200w.webp') center/cover no-repeat;
       position: relative;
       color: white;
     }
@@ -390,29 +390,143 @@
     }
 
     /* Photo Gallery */
+    /* Bento Gallery - Luxury Layout */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: repeat(3, 200px);
+      gap: 0.75rem;
       margin: 3rem 0;
     }
 
-    .gallery img {
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
       width: 100%;
-      height: 250px;
+      height: 100%;
       object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    /* Bento positions - intentional asymmetric layout */
+    .gallery-item:nth-child(1) { grid-column: 1 / 8; grid-row: 1 / 3; }  /* Large left - dance floor */
+    .gallery-item:nth-child(2) { grid-column: 8 / 13; grid-row: 1 / 2; } /* Top right - bride */
+    .gallery-item:nth-child(3) { grid-column: 8 / 10; grid-row: 2 / 3; } /* Small - drummer */
+    .gallery-item:nth-child(4) { grid-column: 10 / 13; grid-row: 2 / 3; } /* Small - sunset */
+    .gallery-item:nth-child(5) { grid-column: 1 / 5; grid-row: 3 / 4; }  /* Bottom left - dip */
+    .gallery-item:nth-child(6) { grid-column: 5 / 8; grid-row: 3 / 4; }  /* Bottom mid - venue */
+    .gallery-item:nth-child(7) { grid-column: 8 / 13; grid-row: 3 / 4; } /* Bottom right wide - couple */
+
+    /* Subtle border glow on hover */
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 4px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+      transition: box-shadow 0.3s ease;
+      pointer-events: none;
+    }
+
+    .gallery-item:hover::after {
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.3);
+    }
+
+    /* Caption overlay */
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem 1.25rem 1.25rem;
+      background: linear-gradient(transparent, rgba(45, 42, 43, 0.85));
+      color: white;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
+    }
+
+    .gallery-caption span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
       border-radius: 2px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     }
 
-    .gallery img:hover {
-      transform: scale(1.02);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: transparent;
+      border: 2px solid white;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .gallery img.featured {
-      grid-column: span 2;
-      height: 350px;
+    .lightbox-close:hover {
+      background: white;
+      color: var(--charcoal);
+    }
+
+    .lightbox-caption {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      text-align: center;
+      max-width: 600px;
     }
 
     .features-grid {
@@ -702,14 +816,19 @@
         padding: 3rem 1.5rem;
       }
 
+      /* Bento gallery - tablet */
       .gallery {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(4, 150px);
       }
 
-      .gallery img.featured {
-        grid-column: span 1;
-        height: 250px;
-      }
+      .gallery-item:nth-child(1) { grid-column: 1 / 7; grid-row: 1 / 2; }
+      .gallery-item:nth-child(2) { grid-column: 1 / 4; grid-row: 2 / 3; }
+      .gallery-item:nth-child(3) { grid-column: 4 / 7; grid-row: 2 / 3; }
+      .gallery-item:nth-child(4) { grid-column: 1 / 3; grid-row: 3 / 4; }
+      .gallery-item:nth-child(5) { grid-column: 3 / 7; grid-row: 3 / 4; }
+      .gallery-item:nth-child(6) { grid-column: 1 / 4; grid-row: 4 / 5; }
+      .gallery-item:nth-child(7) { grid-column: 4 / 7; grid-row: 4 / 5; }
 
       .features-grid {
         grid-template-columns: 1fr;
@@ -717,6 +836,31 @@
 
       .testimonial blockquote {
         font-size: 1.4rem;
+      }
+    }
+
+    /* Mobile phones */
+    @media (max-width: 480px) {
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(5, 140px);
+        gap: 0.5rem;
+      }
+
+      .gallery-item:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 2; }
+      .gallery-item:nth-child(2) { grid-column: 1 / 2; grid-row: 2 / 3; }
+      .gallery-item:nth-child(3) { grid-column: 2 / 3; grid-row: 2 / 3; }
+      .gallery-item:nth-child(4) { grid-column: 1 / 2; grid-row: 3 / 4; }
+      .gallery-item:nth-child(5) { grid-column: 2 / 3; grid-row: 3 / 5; }
+      .gallery-item:nth-child(6) { grid-column: 1 / 2; grid-row: 4 / 5; }
+      .gallery-item:nth-child(7) { grid-column: 1 / 3; grid-row: 5 / 6; }
+
+      .gallery-caption {
+        padding: 1rem 0.75rem 0.75rem;
+      }
+
+      .gallery-caption span {
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -789,16 +933,94 @@
     </div>
 
     <h2 id="gallery">Real Epping Forest Weddings</h2>
-    <p>A look at a celebration we had the privilege of being part of at Epping Forest:</p>
+    <p>A look at Liz & Joel's celebration—one of many weddings we've had the privilege of DJing at Epping Forest:</p>
 
     <div class="gallery">
-      <img src="/images/epping-forest-wedding-jacksonville/ceremony-setup-spanish-moss-epping-forest.webp" alt="Wedding ceremony setup with florals and Spanish moss at Epping Forest" class="featured" loading="lazy" decoding="async">
-      <img src="/images/epping-forest-wedding-jacksonville/ceremony-couple-chuppah-epping-forest.webp" alt="Couple exchanging vows under chuppah at Epping Forest ceremony" loading="lazy" decoding="async">
-      <img src="/images/epping-forest-wedding-jacksonville/riverfront-table-setup-golden-hour.webp" alt="Riverfront reception table setup at golden hour" loading="lazy" decoding="async">
-      <img src="/images/epping-forest-wedding-jacksonville/indoor-dining-arched-windows-epping-forest.webp" alt="Indoor dining room with arched windows at Epping Forest" loading="lazy" decoding="async">
-      <img src="/images/epping-forest-wedding-jacksonville/live-drummer-reception-epping-forest.webp" alt="Live drummer performing at Epping Forest wedding reception" class="featured" loading="lazy" decoding="async">
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/epping-forest-wedding-jacksonville/epping-forest-dance-floor-800w.webp"
+             srcset="/images/epping-forest-wedding-jacksonville/epping-forest-dance-floor-400w.webp 400w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-dance-floor-800w.webp 800w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-dance-floor-1200w.webp 1200w"
+             data-full="/images/epping-forest-wedding-jacksonville/epping-forest-dance-floor-1200w.webp"
+             sizes="(max-width: 600px) 100vw, 66vw"
+             alt="Packed dance floor at Epping Forest Yacht Club wedding reception" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>The dance floor comes alive under the oaks</span></div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/epping-forest-wedding-jacksonville/epping-forest-bride-celebrating-800w.webp"
+             srcset="/images/epping-forest-wedding-jacksonville/epping-forest-bride-celebrating-400w.webp 400w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-bride-celebrating-800w.webp 800w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-bride-celebrating-1200w.webp 1200w"
+             data-full="/images/epping-forest-wedding-jacksonville/epping-forest-bride-celebrating-1200w.webp"
+             sizes="(max-width: 600px) 100vw, 33vw"
+             alt="Bride celebrating with guests on dance floor" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>Pure joy on the dance floor</span></div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/epping-forest-wedding-jacksonville/epping-forest-live-drummer-800w.webp"
+             srcset="/images/epping-forest-wedding-jacksonville/epping-forest-live-drummer-400w.webp 400w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-live-drummer-800w.webp 800w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-live-drummer-1200w.webp 1200w"
+             data-full="/images/epping-forest-wedding-jacksonville/epping-forest-live-drummer-1200w.webp"
+             sizes="(max-width: 600px) 100vw, 33vw"
+             alt="Live drummer performing at wedding reception" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>Live drums elevate the energy</span></div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/epping-forest-wedding-jacksonville/epping-forest-sunset-portrait-800w.webp"
+             srcset="/images/epping-forest-wedding-jacksonville/epping-forest-sunset-portrait-400w.webp 400w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-sunset-portrait-800w.webp 800w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-sunset-portrait-1200w.webp 1200w"
+             data-full="/images/epping-forest-wedding-jacksonville/epping-forest-sunset-portrait-1200w.webp"
+             sizes="(max-width: 600px) 100vw, 33vw"
+             alt="Couple sunset portrait at marina" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>Golden hour at the marina</span></div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/epping-forest-wedding-jacksonville/epping-forest-wedding-dip-800w.webp"
+             srcset="/images/epping-forest-wedding-jacksonville/epping-forest-wedding-dip-400w.webp 400w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-wedding-dip-800w.webp 800w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-wedding-dip-1200w.webp 1200w"
+             data-full="/images/epping-forest-wedding-jacksonville/epping-forest-wedding-dip-1200w.webp"
+             sizes="(max-width: 600px) 100vw, 66vw"
+             alt="Epic wedding dip with crowd cheering" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>That perfect dip moment</span></div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/epping-forest-wedding-jacksonville/epping-forest-venue-reception-800w.webp"
+             srcset="/images/epping-forest-wedding-jacksonville/epping-forest-venue-reception-400w.webp 400w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-venue-reception-800w.webp 800w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-venue-reception-1200w.webp 1200w"
+             data-full="/images/epping-forest-wedding-jacksonville/epping-forest-venue-reception-1200w.webp"
+             sizes="(max-width: 600px) 100vw, 33vw"
+             alt="Epping Forest Yacht Club lit up at night" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>The venue glows at twilight</span></div>
+      </div>
+
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/epping-forest-wedding-jacksonville/epping-forest-couple-dancing-800w.webp"
+             srcset="/images/epping-forest-wedding-jacksonville/epping-forest-couple-dancing-400w.webp 400w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-couple-dancing-800w.webp 800w,
+                     /images/epping-forest-wedding-jacksonville/epping-forest-couple-dancing-1200w.webp 1200w"
+             data-full="/images/epping-forest-wedding-jacksonville/epping-forest-couple-dancing-1200w.webp"
+             sizes="(max-width: 600px) 100vw, 66vw"
+             alt="Couple dancing on checkered floor" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>Romance on the iconic checkered floor</span></div>
+      </div>
     </div>
-    <p style="text-align: right; font-size: 0.8rem; color: var(--text-soft); margin-top: 0.5rem;">Photos: She Exposure</p>
+    <p style="text-align: right; font-size: 0.8rem; color: var(--text-soft); margin-top: 0.5rem;">Liz & Joel's Wedding · Photos: She Exposure</p>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+      <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+      <img id="lightbox-img" src="" alt="">
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
 
     <h2>Why Epping Forest Couples Choose COS</h2>
 
@@ -950,6 +1172,39 @@
         document.querySelector('.nav-links').classList.remove('active');
         dropdown.classList.remove('open');
       });
+    });
+
+    // Lightbox functionality
+    function openLightbox(item) {
+      const img = item.querySelector('img');
+      const caption = item.querySelector('.gallery-caption span');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxCaption = document.getElementById('lightbox-caption');
+
+      lightboxImg.src = img.dataset.full || img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCaption.textContent = caption ? caption.textContent : '';
+
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(event) {
+      if (event.target.classList.contains('lightbox') ||
+          event.target.classList.contains('lightbox-close') ||
+          event.target.parentElement.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
     });
   </script>
 
