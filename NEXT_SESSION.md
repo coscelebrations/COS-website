@@ -8,7 +8,13 @@ Continuing COS Celebrations & AE Entertainment work.
 
 **Last session (Jan 5, 2026 - Evening):**
 
-1. **Bento galleries added to all venue pages** — Apple-style asymmetric grid layouts with hover captions and full-screen lightbox:
+1. **Email templates created** — `/Users/coreypeterson/templates/`
+   - `cos-90-day-email.html` — 90-day check-in with COS Music + Timeline app link
+   - `cos-6-week-email.html` — 6-week planning call scheduler + app reminder
+   - `cos-email-signature.html` — Custom Gmail signature (WIP - replace paid service)
+   - Already had: `cos-proposal-email.html`, `ae-proposal-email.html`
+
+2. **Bento galleries added to all venue pages** — Apple-style asymmetric grid layouts with hover captions and full-screen lightbox:
    - Treasury on the Plaza (5 images)
    - Lightner Museum (5 images)
    - Timuquana Country Club (5 images)
@@ -34,6 +40,8 @@ Continuing COS Celebrations & AE Entertainment work.
 - 5 venue pages updated with bento galleries
 
 **Priority TODO (from SEO.md):**
+- [ ] Finish email signature — test in Gmail, cancel paid signature service
+- [ ] Create introduction email template (first inquiry response)
 - [ ] Add Live Musicians link to ~59 venue pages
 - [ ] Monitor Orlando indexing — check GSC in ~1 week
 - [ ] Update AE Google Business Profile — still points to wrong domain
