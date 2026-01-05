@@ -1043,8 +1043,9 @@
           </div>
 
           <div class="djep-field">
-            <label for="question_5">How Did You Hear About Us?</label>
-            <input type="text" class="djep-input" name="question_5" id="question_5">
+            <label for="question_5">How Did You Hear About Us? *</label>
+            <input type="text" class="djep-input" name="question_5" id="question_5" required>
+            <input type="hidden" name="q5_required" value="TRUE">
           </div>
 
           <button type="submit" name="submit" class="djep-submit">Submit Request</button>
@@ -1101,12 +1102,21 @@
       });
     });
 
-    // Fallback validation if DJEP script fails
-    if (typeof submitIt === 'undefined') {
+    // Add question_5 validation to DJEP submitIt
+    setTimeout(function() {
+      var originalSubmitIt = window.submitIt;
       window.submitIt = function(form) {
+        if (!form.question_5.value.trim()) {
+          alert('Please tell us how you heard about us.');
+          form.question_5.focus();
+          return false;
+        }
+        if (typeof originalSubmitIt === 'function') {
+          return originalSubmitIt(form);
+        }
         return form.first_name.value && form.last_name.value && form.email.value;
       };
-    }
+    }, 500);
   </script>
 
 </body>
