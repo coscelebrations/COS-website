@@ -6,52 +6,44 @@
 
 Continuing COS Celebrations & AE Entertainment work.
 
-**Last session (Jan 4-5, 2026):**
+**Last session (Jan 5, 2026 - Evening):**
 
-1. **Photo organization** — 668 Fountain of Youth wedding photos (Nicole + Adam, photographer Gaige Lancaster) geotagged and organized in `~/Desktop/Pictures/Couples/`
+1. **Bento galleries added to all venue pages** — Apple-style asymmetric grid layouts with hover captions and full-screen lightbox:
+   - Treasury on the Plaza (5 images)
+   - Lightner Museum (5 images)
+   - Timuquana Country Club (5 images)
+   - River House (8 images)
+   - Fountain of Youth (10 images, 2 galleries)
 
-2. **Website updates:**
-   - Added 5 optimized photos to Fountain of Youth venue page with Nicole + Adam gallery
-   - Made "How Did You Hear About Us" required on contact form (JavaScript validation)
-   - Created white logo for CRM portal: `/images/cos-celebrations-logo-white.png`
+2. **Epping Forest Yacht Club updates** — processed Liz & Joel wedding photos (She Exposure), new hero image, 7-image bento gallery with drummer shot
 
-3. **Instagram content** — Created 4 new post kits (#19-22) in `~/Desktop/instagram-posts/COS/` — inventory now 34 posts (22 COS, 12 AE)
+3. **Landing page created** — `/go/` for paid ads with:
+   - Hero with DJ + Live Saxophone headline
+   - Trust strip (500+ reviews, touring credits, awards)
+   - Features, gallery, testimonial, transparent pricing
+   - noindex/nofollow for ad traffic only
+   - Mobile responsive
 
-4. **CRM portal branding** — Configured cosplanning.com client portal with COS brand colors (merlot background, soft pink tables, rose borders)
+4. **Documentation updated:**
+   - Rule #11 added to CLAUDE.md — Bento Gallery pattern for all venue pages
+   - Full CSS, HTML, JS templates included
 
-5. **Overnight audit (all clear):**
-   - All 75 internal links working
-   - All images have alt text
-   - Schema markup verified
-   - 61 pages re-submitted to Google
-   - Contact form validation working
+**Key files created/modified:**
+- `/go/index.html` — Landing page for paid ads
+- `~/CLAUDE.md` — Added Rule #11 (Bento Gallery)
+- 5 venue pages updated with bento galleries
 
 **Priority TODO (from SEO.md):**
+- [ ] Add Live Musicians link to ~59 venue pages
 - [ ] Monitor Orlando indexing — check GSC in ~1 week
 - [ ] Update AE Google Business Profile — still points to wrong domain
 - [ ] Enhance Live Musicians page — add photos/testimonials
 - [ ] Create new venue pages — 40+ opportunities in `seo-data/new-venue-opportunities.md`
 
-**NEW: Competitive Research Complete (Jan 5, 2026)**
-Full analysis of 40+ DJs across 12 markets saved to:
-`~/seo-data/competitive-research-jan-2026.md`
-
-Key opportunities to test:
-- [ ] A/B test "Check My Date" CTA vs "Request Information"
-- [ ] Add date availability checker to homepage
-- [ ] Create award badge carousel
-- [ ] Display "500+ reviews" more prominently
-- [ ] Add video testimonials section
-- [ ] Sticky mobile CTA button
-
-**Minor issues found (low priority):**
-- ~35 venue page titles over 60 chars
-- Service pages missing OG tags
-- /pricing-guide/ page appears unused
-
 **Context files:**
 - `~/cos-website/SEO.md` — SEO strategy and session history
-- `~/CLAUDE.md` — Brand colors, SEO rules, assistant instructions
+- `~/CLAUDE.md` — Brand colors, SEO rules, assistant instructions (includes Rule #11 Bento Gallery)
+- `~/seo-data/competitive-research-jan-2026.md` — Full competitive analysis
 - `~/seo-data/rankings.json` — Structured rankings data
 
 **Useful commands:**
@@ -65,5 +57,6 @@ python3 -m http.server 8001  # AE localhost
 **Live sites:**
 - COS: https://coscelebrations.com
 - AE: https://ae-djs.com
+- Landing page: https://coscelebrations.com/go/
 
 ---

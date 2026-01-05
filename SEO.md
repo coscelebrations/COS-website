@@ -7,6 +7,7 @@
 ---
 
 ## 📌 NEXT SESSION TODO
+- [ ] **Add Live Musicians link to ~59 venue pages** — only 4 pages currently link to /services/live-musicians/ in nav. Bella Collina done as example. Pattern: add `<a href="/services/live-musicians/">Live Musicians</a>` after Private Parties in Services dropdown
 - [ ] **Monitor Orlando indexing** — page repositioned as local team, re-submitted to Google. Check GSC in ~1 week
 - [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
 - [ ] **Enhance Live Musicians Page** — add photos, video clips, testimonials, pricing hints
@@ -15,6 +16,29 @@
 - [ ] **Venue Partnerships Section** — add preferred vendor logos to COS homepage
 - [ ] **Create new venue pages** — 40+ opportunities identified (see seo-data/new-venue-opportunities.md)
 - [ ] **Apply hero LCP fix to venue pages** — 45 venue pages still use CSS background (lower priority)
+- [ ] **Add venue cross-links** — venue pages should link to other nearby venues (e.g., Treasury → White Room, Casa Monica)
+- [ ] **Add venue/city links to Pricing page** — high-traffic page has no venue links
+- [ ] **Implement responsive images** — Treasury responsive images ready in `/responsive/` subfolder. Use srcset for mobile optimization. Smart photo tool at `scripts/smart-photo.py`
+
+## ✅ COMPLETED (Jan 5, 2026 - Evening)
+- [x] **Bento galleries on all venue pages** — Apple-style asymmetric grid with hover captions, lightbox (Treasury, Lightner, Timuquana, River House, Fountain of Youth)
+- [x] **Epping Forest Yacht Club gallery** — processed Liz & Joel wedding photos, new hero, 7-image bento gallery
+- [x] **Landing page /go/** — conversion-focused page for paid ads (noindex), trust strip, pricing, testimonial
+- [x] **Rule #11 in CLAUDE.md** — documented bento gallery pattern (CSS, HTML, JS) for future venue pages
+
+## ✅ COMPLETED (Jan 5, 2026 - Late Night)
+- [x] **Full internal link audit** — scanned 75 pages, 2,172 links total
+- [x] **Identified Live Musicians underlinked** — only 4 of 63 venue pages link to /services/live-musicians/
+- [x] **Added Live Musicians link to Bella Collina** — example for remaining 59 pages
+- [x] **Created Instagram reel content** — "DJ Tip of the Day" with Lightner dance floor photo
+- [x] **Built smart photo tool** — `scripts/smart-photo.py` with face detection, smart cropping, responsive sizing
+- [x] **Processed Treasury photos** — 12 images → 24 responsive versions in `/responsive/` (22 faces detected)
+
+## ✅ COMPLETED (Jan 5, 2026 - Morning Session)
+- [x] **"Check My Date" CTA test** — deployed on homepage (hero, final section, floating button)
+- [x] **Competitive research** — analyzed 40+ DJs across 12 markets, documented in `seo-data/competitive-research-jan-2026.md`
+- [x] **Wedding page "Choose Your Vibe" section** — 4 entertainment option cards with slanted images
+- [x] **Wedding page CTA fix** — added "Check My Date" button, fixed broken links
 
 ## ✅ COMPLETED (Jan 5, 2026 - Overnight Audit)
 - [x] **Full site audit** — ran comprehensive checks on COS & AE sites
