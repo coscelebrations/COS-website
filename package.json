@@ -15,7 +15,10 @@
     "audit:meta": "python3 scripts/audit.py meta",
     "audit:links": "python3 scripts/audit.py links",
     "audit:content": "python3 scripts/audit.py content",
-    "audit:indexing": "python3 scripts/audit.py indexing"
+    "audit:indexing": "python3 scripts/audit.py indexing",
+    "review:add": "python3 scripts/add-review.py",
+    "review:view": "python3 scripts/view-reviews.py",
+    "review:stats": "python3 scripts/view-reviews.py --stats"
   },
   "private": true
 }
