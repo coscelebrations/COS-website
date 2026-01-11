@@ -65,6 +65,7 @@ python3 -m http.server 8001  # AE localhost
 **Live sites:**
 - COS: https://coscelebrations.com
 - AE: https://ae-djs.com
-- Landing page: https://coscelebrations.com/go/
+- COS Landing page: https://coscelebrations.com/go/
+- AE Landing page: https://ae-djs.com/go/
 
 ---

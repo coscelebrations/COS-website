@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: January 5, 2026 (Overnight Audit)
+## Last Updated: January 6, 2026
 
 > **SEO Rules are in `~/CLAUDE.md`** — they auto-load every session.
 > **Historical sessions are in `SEO-ARCHIVE.md`** — reference when needed.
@@ -8,7 +8,7 @@
 
 ## 📌 NEXT SESSION TODO
 - [ ] **Add Live Musicians link to ~59 venue pages** — only 4 pages currently link to /services/live-musicians/ in nav. Bella Collina done as example. Pattern: add `<a href="/services/live-musicians/">Live Musicians</a>` after Private Parties in Services dropdown
-- [ ] **Monitor Orlando indexing** — page repositioned as local team, re-submitted to Google. Check GSC in ~1 week
+- [ ] **Check Orlando rankings (Jan 13)** — manually reindexed in GSC on Jan 6. Look for "orlando wedding dj" ranking to return
 - [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
 - [ ] **Enhance Live Musicians Page** — add photos, video clips, testimonials, pricing hints
 - [ ] **Add award badge images** — user will find The Knot & WeddingWire badge images from email
@@ -20,10 +20,66 @@
 - [ ] **Add venue/city links to Pricing page** — high-traffic page has no venue links
 - [ ] **Implement responsive images** — Treasury responsive images ready in `/responsive/` subfolder. Use srcset for mobile optimization. Smart photo tool at `scripts/smart-photo.py`
 
+## 📊 CURRENT RANKINGS (Jan 10, 2026)
+
+**COS Celebrations:**
+| Keyword | Dec 30 | Jan 10 | Change |
+|---------|--------|--------|--------|
+| jacksonville wedding dj | #12 | **#5** | ⬆️ +7 |
+| ponte vedra wedding dj | #4 | **#1** | ⬆️ +3 |
+| timuquana country club wedding dj | #1 | #1 | — |
+| st augustine wedding dj | #6 | N/A | ⬇️ dropped |
+| treasury on the plaza wedding dj | #1 | N/A | ⬇️ dropped |
+| lightner museum wedding dj | #1 | N/A | ⬇️ dropped |
+| epping forest yacht club wedding dj | #2 | N/A | ⬇️ dropped |
+| bella collina wedding dj | #4 | N/A | ⬇️ dropped |
+| amelia island wedding dj | #5 | N/A | ⬇️ dropped |
+| tampa wedding dj | #17 | N/A | ⬇️ dropped |
+| orlando wedding dj | N/A | N/A | still not ranking |
+
+**AE Entertainment:**
+| Keyword | Dec 30 | Jan 10 | Change |
+|---------|--------|--------|--------|
+| budget wedding dj jacksonville | #21 | **#1** | ⬆️ +20 |
+| affordable wedding dj jacksonville | #18 | **#3** | ⬆️ +15 |
+| wedding dj under 1000 jacksonville | #9 | **#6** | ⬆️ +3 |
+| st augustine wedding dj | N/A | **#6** | 🆕 NEW |
+
+**Analysis:**
+- **COS wins:** Jacksonville jumped to page 1 (#5), Ponte Vedra hit #1
+- **COS drops:** Several venue keywords fell out of top 10 — venue sites and directories now dominating. May be Google algo shift.
+- **AE wins:** Dominating budget keywords — #1 for "budget wedding dj", #3 for "affordable", and now ranking for main St. Augustine keyword!
+- **Orlando:** Still not ranking after Jan 6 GSC reindex. Give it more time.
+
+---
+
+## ✅ COMPLETED (Jan 10, 2026) - Venue Interview Content
+Responding to venue keyword drops (Treasury, Lightner fell from #1 to out of top 10). Competitor AMPLIFY has "Insider Tips" style content we lacked.
+
+**Created venue interview process** (`~/VENUE-INTERVIEW.md`) to generate authentic insider content.
+
+**Treasury on the Plaza:**
+- [x] 6 Insider Tips (vault timing, room flip magic, acoustics, satellite speaker trick, etc.)
+- [x] Full sample timeline (1:30 PM setup → 9:45 PM send-off)
+- [x] Pro tip about 5.5-hour sweet spot
+
+**Lightner Museum:**
+- [x] 6 Insider Tips (30-min soundcheck window, staircase entrances, pool acoustics, mezzanine transition, draping tip)
+- [x] Full sample timeline (3:30 PM setup → 11:30 PM exit)
+- [x] Updated add-ons (live musicians, fusion, lighting, photo booth — no sparks/clouds allowed)
+- [x] New hero image: couple on bridge at dusk (photo by Rob)
+
+**Strategy:** This "venue guide" style content matches what Google appears to reward for venue-specific queries. Check rankings again in 1-2 weeks.
+
+---
+
+## ✅ COMPLETED (Jan 6, 2026)
+- [x] **AE Landing page /go/** — conversion-focused page for paid ads, $800/$995 packages, Paige testimonial, "Sister Company of COS Celebrations" trust signal
+
 ## ✅ COMPLETED (Jan 5, 2026 - Evening)
 - [x] **Bento galleries on all venue pages** — Apple-style asymmetric grid with hover captions, lightbox (Treasury, Lightner, Timuquana, River House, Fountain of Youth)
 - [x] **Epping Forest Yacht Club gallery** — processed Liz & Joel wedding photos, new hero, 7-image bento gallery
-- [x] **Landing page /go/** — conversion-focused page for paid ads (noindex), trust strip, pricing, testimonial
+- [x] **COS Landing page /go/** — conversion-focused page for paid ads (noindex), trust strip, pricing, testimonial
 - [x] **Rule #11 in CLAUDE.md** — documented bento gallery pattern (CSS, HTML, JS) for future venue pages
 
 ## ✅ COMPLETED (Jan 5, 2026 - Late Night)
@@ -123,9 +179,11 @@ npm run audit               # Full site audit (includes indexing check)
 
 ---
 
-## 📊 CURRENT RANKINGS (Dec 30, 2025)
+## 📊 HISTORICAL RANKINGS (Dec 30, 2025)
 
-**COS Celebrations:**
+> **See Jan 10, 2026 rankings above for current data**
+
+**COS Celebrations (Dec 30):**
 | Rank | Keyword |
 |------|---------|
 | #1 | treasury on the plaza wedding dj |
@@ -139,7 +197,7 @@ npm run audit               # Full site audit (includes indexing check)
 | #17 | tampa wedding dj |
 | **N/A** | **orlando wedding dj** ⚠️ |
 
-**AE Entertainment:**
+**AE Entertainment (Dec 30):**
 | Rank | Keyword |
 |------|---------|
 | #1 | ae entertainment jacksonville, ae djs |
@@ -205,6 +263,24 @@ See COMPLETED sections above for full details.
 **Actions Taken:**
 - ✅ Submitted Orlando page via Indexing API
 - ⏳ Need manual GSC re-index request (URL Inspection tool)
+
+---
+
+### Session Notes (Jan 11, 2026) - Site Maintenance & Internal Linking
+
+**Quick Fixes Completed:**
+- Updated copyright year 2025 → 2026 across all 63 HTML pages
+- Added OG tags to 4 service pages (corporate, live-musicians, private-parties, weddings)
+- Also added missing canonical URL to weddings service page
+
+**Medium Effort Tasks:**
+- Added Live Musicians link to 29 venue pages with dropdown nav
+- Added "Where We Celebrate" section to Pricing page (8 cities + 8 venues)
+- Fixed venue cross-links for St. Augustine region (6 venues now properly interlinked)
+
+**Remaining:**
+- Venue cross-links for Jacksonville, Ponte Vedra, Amelia Island, Orlando, Tampa, Daytona, Gainesville
+- Hero LCP fix (61 pages still using CSS background-image)
 
 ---
 
