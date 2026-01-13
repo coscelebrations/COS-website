@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: January 6, 2026
+## Last Updated: January 11, 2026
 
 > **SEO Rules are in `~/CLAUDE.md`** — they auto-load every session.
 > **Historical sessions are in `SEO-ARCHIVE.md`** — reference when needed.
@@ -7,18 +7,19 @@
 ---
 
 ## 📌 NEXT SESSION TODO
-- [ ] **Add Live Musicians link to ~59 venue pages** — only 4 pages currently link to /services/live-musicians/ in nav. Bella Collina done as example. Pattern: add `<a href="/services/live-musicians/">Live Musicians</a>` after Private Parties in Services dropdown
+- [x] ~~**Add Live Musicians link to venue pages**~~ — ✅ Done Jan 11 (all venue pages now have dropdown)
 - [ ] **Check Orlando rankings (Jan 13)** — manually reindexed in GSC on Jan 6. Look for "orlando wedding dj" ranking to return
 - [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
-- [ ] **Enhance Live Musicians Page** — add photos, video clips, testimonials, pricing hints
+- [ ] **Enhance Live Musicians Page** — add photos, video clips, testimonials, pricing hints (photos now in ~/cos-media/live-musicians/)
 - [ ] **Add award badge images** — user will find The Knot & WeddingWire badge images from email
 - [ ] **Monitor Google Indexing** — check Search Console for homepage LCP improvement
 - [ ] **Venue Partnerships Section** — add preferred vendor logos to COS homepage
 - [ ] **Create new venue pages** — 40+ opportunities identified (see seo-data/new-venue-opportunities.md)
 - [ ] **Apply hero LCP fix to venue pages** — 45 venue pages still use CSS background (lower priority)
-- [ ] **Add venue cross-links** — venue pages should link to other nearby venues (e.g., Treasury → White Room, Casa Monica)
-- [ ] **Add venue/city links to Pricing page** — high-traffic page has no venue links
+- [x] ~~**Add venue cross-links**~~ — ✅ Done Jan 11 (all 7 regions: Jax, PV, Amelia, Orlando, Tampa, Daytona, Gainesville)
+- [x] ~~**Add venue/city links to Pricing page**~~ — ✅ Done Jan 11
 - [ ] **Implement responsive images** — Treasury responsive images ready in `/responsive/` subfolder. Use srcset for mobile optimization. Smart photo tool at `scripts/smart-photo.py`
+- [ ] **Interview Epping Forest + Bella Collina** — dropped out of rankings, need insider content
 
 ## 📊 CURRENT RANKINGS (Jan 10, 2026)
 
@@ -274,13 +275,25 @@ See COMPLETED sections above for full details.
 - Also added missing canonical URL to weddings service page
 
 **Medium Effort Tasks:**
-- Added Live Musicians link to 29 venue pages with dropdown nav
+- Added Live Musicians link to ALL venue pages with dropdown nav (33 pages updated)
 - Added "Where We Celebrate" section to Pricing page (8 cities + 8 venues)
 - Fixed venue cross-links for St. Augustine region (6 venues now properly interlinked)
 
+**Completed (Evening Session):**
+- ✅ Venue cross-links for ALL 7 remaining regions:
+  - Jacksonville: 10 venues
+  - Ponte Vedra: 6 venues
+  - Amelia Island: 5 venues
+  - Orlando: 8 venues
+  - Tampa: 6 venues
+  - Daytona: 5 venues
+  - Gainesville: 3 venues
+- ✅ Created media library at `~/cos-media/` for musician photos/videos
+- ✅ Organized 19 existing musician photos (15 sax, 2 percussion, 2 duo)
+
 **Remaining:**
-- Venue cross-links for Jacksonville, Ponte Vedra, Amelia Island, Orlando, Tampa, Daytona, Gainesville
 - Hero LCP fix (61 pages still using CSS background-image)
+- Epping Forest + Bella Collina interviews (dropped out of rankings)
 
 ---
 
