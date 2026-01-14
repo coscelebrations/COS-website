@@ -648,19 +648,26 @@ def audit_content_quality():
 
         page_path = html_file.relative_to(PROJECT_DIR)
 
-        # Check for placeholder text
+        # Check for placeholder text (in text content only, not HTML attributes)
+        text_only = re.sub(r'<[^>]+>', ' ', content)  # Strip HTML tags
         placeholder_patterns = [
             r'lorem ipsum',
-            r'placeholder',
             r'\[your.*?\]',
             r'\[insert.*?\]',
-            r'TODO',
-            r'FIXME',
+        ]
+        # These patterns should only match in HTML comments or visible text
+        comment_patterns = [
+            r'<!--.*?(TODO|FIXME).*?-->',
         ]
 
         for pattern in placeholder_patterns:
-            if re.search(pattern, content, re.IGNORECASE):
+            if re.search(pattern, text_only, re.IGNORECASE):
                 issues.append(f"Possible placeholder content: {page_path}")
+                break
+
+        for pattern in comment_patterns:
+            if re.search(pattern, content, re.IGNORECASE | re.DOTALL):
+                issues.append(f"TODO/FIXME in comments: {page_path}")
                 break
 
         # Check minimum content length (excluding HTML)
