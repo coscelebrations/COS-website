@@ -7,6 +7,7 @@
 ---
 
 ## 📌 NEXT SESSION TODO
+- [ ] **Monitor St. Augustine recovery** — COS page was showing AE content (fixed Jan 14). Check "st augustine wedding dj" rankings in ~1 week
 - [ ] **Check Orlando rankings** — manually reindexed in GSC on Jan 6. Look for "orlando wedding dj" ranking to return
 - [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
 - [ ] **Enhance Live Musicians Page** — add photos, video clips, testimonials, pricing hints (photos now in ~/cos-media/live-musicians/)
@@ -51,6 +52,33 @@
 - **COS drops:** Several venue keywords fell out of top 10 — venue sites and directories now dominating. May be Google algo shift.
 - **AE wins:** Dominating budget keywords — #1 for "budget wedding dj", #3 for "affordable", and now ranking for main St. Augustine keyword!
 - **Orlando:** Still not ranking after Jan 6 GSC reindex. Give it more time.
+
+---
+
+## ✅ COMPLETED (Jan 14, 2026) - CRITICAL: COS St. Augustine Page Had AE Content
+
+**Root Cause Found for St. Augustine Ranking Drop:**
+The COS St. Augustine page (`/st-augustine-wedding-dj/`) was showing **AE Entertainment content** instead of COS content. This explains why COS dropped completely from "st augustine wedding dj" rankings while AE suddenly appeared at #6.
+
+**What was wrong:**
+- Title said "AE Entertainment" not "COS Celebrations"
+- Pricing showed $800 (AE's price) instead of $1,500
+- Schema markup had AE phone number and brand
+- AE logo was displaying
+- All content was budget-focused, not luxury/live musicians
+
+**Fix applied:**
+- Complete page rewrite with proper COS branding
+- New title: "St. Augustine Wedding DJ + Live Musicians | COS Celebrations"
+- $1,500 starting price throughout
+- COS schema markup (LocalBusiness, Service, FAQPage)
+- Live musicians angle emphasized
+- St. Augustine venue spotlights (Treasury, Lightner, White Room, River House, Fountain of Youth, Villa Blanca)
+- Proper COS merlot styling and contact info
+
+**Deployed & Reindexed:** Page pushed to production and submitted to Google Indexing API.
+
+**Expected outcome:** COS should return to St. Augustine rankings within 1-2 weeks as Google recrawls the corrected page.
 
 ---
 
