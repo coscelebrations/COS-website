@@ -943,6 +943,15 @@
       color: var(--charcoal);
     }
 
+    .section-header h2::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 2px;
+      margin: 1rem auto 0;
+      background: linear-gradient(90deg, var(--gold-accent) 0%, #E8D5A3 100%);
+    }
+
     .section-header p {
       color: var(--text-soft);
       font-size: 1rem;
@@ -1367,10 +1376,15 @@
 
     .review-card {
       min-width: 100%;
-      padding: 0 1rem;
+      padding: 2rem 1.5rem;
       text-align: center;
       opacity: 0;
       transition: opacity 0.5s ease;
+      background: white;
+      border-radius: 4px;
+      margin: 0 0.5rem;
+      box-shadow: 0 4px 20px rgba(201, 169, 98, 0.1);
+      border: 1px solid rgba(201, 169, 98, 0.2);
     }
 
     .review-card.active {
@@ -1391,6 +1405,20 @@
       color: var(--charcoal);
       line-height: 1.7;
       margin: 0 0 1.25rem 0;
+      position: relative;
+    }
+
+    .review-text::before {
+      content: '"';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      color: var(--gold-accent);
+      opacity: 0.4;
+      position: absolute;
+      top: -1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      line-height: 1;
     }
 
     .review-author {
@@ -1822,6 +1850,55 @@
         transition: none;
       }
     }
+
+    /* Bento Gallery */
+    .gallery-section { padding: 4rem 2rem; background: var(--cream); }
+    .gallery-section h2 { text-align: center; margin-bottom: 2rem; font-size: clamp(1.75rem, 3vw, 2.25rem); }
+    .gallery-section h2::after { content: ''; display: block; width: 80px; height: 2px; margin: 1rem auto 0; background: linear-gradient(90deg, var(--gold-accent) 0%, #E8D5A3 100%); }
+
+    /* Dark + Gold Section */
+    .dark-accent-section { background: var(--charcoal); color: white; padding: 6rem 2rem; position: relative; margin: 4rem 0; }
+    .dark-accent-section::before { content: ''; position: absolute; top: -40px; left: 0; right: 0; height: 80px; background: var(--charcoal); clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%); }
+    .dark-accent-section::after { content: ''; position: absolute; bottom: -40px; left: 0; right: 0; height: 80px; background: var(--charcoal); clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%); }
+    .dark-accent-content { max-width: 900px; margin: 0 auto; text-align: center; }
+    .dark-accent-section h2 { color: white; font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 1.5rem; }
+    .dark-accent-section h2::after { content: ''; display: block; width: 80px; height: 2px; margin: 1rem auto 0; background: linear-gradient(90deg, var(--gold-accent) 0%, #E8D5A3 100%); }
+    .dark-accent-section .gold-text { color: var(--gold-accent); }
+    .dark-stats { display: flex; justify-content: center; gap: 4rem; margin-top: 3rem; flex-wrap: wrap; }
+    .dark-stat { text-align: center; }
+    .dark-stat-number { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold-accent); line-height: 1; }
+    .dark-stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8; margin-top: 0.5rem; }
+    @media (max-width: 768px) { .dark-stats { gap: 2rem; } .dark-stat-number { font-size: 2.5rem; } }
+
+    .gallery { display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(2, 220px); gap: 0.75rem; max-width: 1200px; margin: 0 auto; }
+    .gallery-item { position: relative; overflow: hidden; border-radius: 4px; cursor: pointer; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-item:nth-child(1) { grid-column: 1 / 8; grid-row: 1 / 3; }
+    .gallery-item:nth-child(2) { grid-column: 8 / 13; grid-row: 1 / 2; }
+    .gallery-item:nth-child(3) { grid-column: 8 / 13; grid-row: 2 / 3; }
+    .gallery-item:nth-child(4) { grid-column: 1 / 5; grid-row: 3 / 4; }
+    .gallery-item:nth-child(5) { grid-column: 5 / 13; grid-row: 3 / 4; }
+    .gallery-item::after { content: ''; position: absolute; inset: 0; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1); transition: box-shadow 0.3s ease; pointer-events: none; }
+    .gallery-item:hover::after { box-shadow: inset 0 0 0 2px rgba(201, 169, 98, 0.5); }
+    .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.25rem 1.25rem; background: linear-gradient(transparent, rgba(45, 42, 43, 0.85)); color: white; transform: translateY(100%); transition: transform 0.4s ease; }
+    .gallery-item:hover .gallery-caption { transform: translateY(0); }
+    .gallery-caption span { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; }
+    .lightbox { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.95); z-index: 9999; align-items: center; justify-content: center; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
+    .lightbox-close { position: absolute; top: 2rem; right: 2rem; width: 50px; height: 50px; background: transparent; border: 2px solid white; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
+    .lightbox-close:hover { background: white; color: var(--charcoal); }
+    .lightbox-caption { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: white; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; text-align: center; }
+    @media (max-width: 768px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 140px); }
+      .gallery-item:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 3; }
+      .gallery-item:nth-child(2) { grid-column: 1 / 2; grid-row: 3 / 4; }
+      .gallery-item:nth-child(3) { grid-column: 2 / 3; grid-row: 3 / 4; }
+      .gallery-item:nth-child(4) { grid-column: 1 / 2; grid-row: 4 / 5; }
+      .gallery-item:nth-child(5) { grid-column: 2 / 3; grid-row: 4 / 5; }
+      .gallery-caption { transform: translateY(0); padding: 1rem 0.75rem 0.75rem; }
+    }
   </style>
 </head>
 <body>
@@ -1884,6 +1961,38 @@
     </div>
   </section>
 
+  <!-- Real Weddings Gallery -->
+  <section class="gallery-section">
+    <h2>Real Weddings, Real Moments</h2>
+    <div class="gallery">
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/lightner-museum-wedding-st-augustine/first-dance-lightner-museum-ballroom-string-lights.webp" alt="Romantic first dance at Lightner Museum ballroom with string lights in St. Augustine" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>First Dance at Lightner Museum</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/treasury-wedding-st-augustine/sparkler-exit-wedding-st-augustine.webp" alt="Sparkler exit at St. Augustine wedding" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>Sparkler Exit</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/fountain-of-youth-wedding-st-augustine/live-saxophone-wedding-dance-floor-fountain-of-youth.webp" alt="Live saxophone performance on wedding dance floor at Fountain of Youth" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>Live Saxophone</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/lightner-museum-wedding-st-augustine/lightner-museum-couple-bridge-dusk.webp" alt="Wedding couple on bridge at Lightner Museum at dusk" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>Lightner Museum</span></div>
+      </div>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/treasury-wedding-st-augustine/wedding-reception-dance-floor-uplighting-st-augustine.webp" alt="Wedding reception dance floor with uplighting at Treasury on the Plaza" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>Treasury on the Plaza</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
 
   <!-- Diagonal Divider: Cream to White -->
   <div class="diagonal-divider cream-to-white accent"></div>
@@ -2104,8 +2213,27 @@
     </div>
   </section>
 
-  <!-- Diagonal Divider: White to Cream (before Pricing - merlot) -->
-  <div class="diagonal-divider white-to-cream flip accent-merlot"></div>
+  <!-- Dark + Gold Accent Section -->
+  <section class="dark-accent-section">
+    <div class="dark-accent-content">
+      <h2>The <span class="gold-text">COS</span> Difference</h2>
+      <p style="font-size: 1.1rem; line-height: 1.8; opacity: 0.9;">Most DJs learned on controllers. Our founder started on <span class="gold-text">piano at age 4</span>, picked up saxophone shortly after, then took that sax on tour across <span class="gold-text">35+ countries</span> with artists like Usher and Alicia Keys. That musician's ear means better song selection, smoother transitions, and someone who actually reads the room.</p>
+      <div class="dark-stats">
+        <div class="dark-stat">
+          <div class="dark-stat-number">2,000+</div>
+          <div class="dark-stat-label">Weddings</div>
+        </div>
+        <div class="dark-stat">
+          <div class="dark-stat-number">500+</div>
+          <div class="dark-stat-label">5-Star Reviews</div>
+        </div>
+        <div class="dark-stat">
+          <div class="dark-stat-number">35+</div>
+          <div class="dark-stat-label">Countries Toured</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Investment Section -->
   <section class="investment-section" id="pricing">
@@ -2425,6 +2553,23 @@
 
       fadeElements.forEach(el => fadeObserver.observe(el));
     });
+
+    // Lightbox functions
+    function openLightbox(item) {
+      const img = item.querySelector('img');
+      const caption = item.querySelector('.gallery-caption span');
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox-caption').textContent = caption ? caption.textContent : '';
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(event) {
+      if (event.target.classList.contains('lightbox') || event.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }});
   </script>
 
 </body>
