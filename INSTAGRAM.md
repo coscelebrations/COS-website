@@ -338,9 +338,9 @@ Each kit contains:
 5. Post to Instagram
 6. Immediately paste first comment
 
-### Current Inventory (Dec 31, 2025)
+### Current Inventory (Jan 14, 2026)
 
-**COS Celebrations: 18 posts**
+**COS Celebrations: 23 posts**
 | # | Post | Type |
 |---|------|------|
 | 01 | Treasury sax showcase | Reel/Carousel |
@@ -361,6 +361,11 @@ Each kit contains:
 | 16 | Grand entrance | Carousel |
 | 17 | White Room venue | Carousel |
 | 18 | Casa Marina venue | Carousel |
+| 19 | Sawgrass sax showcase (Ashley & Craig) | Carousel |
+| 20 | Sawgrass dance floor/hora (Ashley & Craig) | Carousel |
+| 21 | Sawgrass sparkler exit (Ashley & Craig) | Single/Reel |
+| 22 | Sawgrass sunset silhouette (Ashley & Craig) | Single |
+| 23 | Dog in tuxedo (Ashley & Craig) | Single |
 
 **AE Entertainment: 12 posts**
 | # | Post | Type |
@@ -406,6 +411,13 @@ Just tell Claude: "Make more Instagram posts" or "Batch more posts"
 - COS provided: DJ + Sax
 - Organized in folders: Pre-ceremony, First Look, Ceremony, Reception, Highlights
 
+**Ashley & Craig - Sawgrass Marriott (Dec 2025)**
+- 43 photos: ~/Desktop/Ashley_Craig_SawgrassMarriott_RobFutrell/
+- Photographer: Rob Futrell (@robfutrellphotography)
+- COS provided: DJ + Sax
+- Holiday/Christmas wedding theme
+- Best shots: 25 (sunset silhouette), 35-36 (sax with crowd), 37 (bride dancing), 40 (hora), 42 (sparkler exit), hero (dog in tuxedo)
+
 **Web-ready venue shots:**
 - Treasury: 12 photos in /images/treasury-wedding-st-augustine/
 - White Room: 4 photos in /images/white-room-wedding-st-augustine/
@@ -425,4 +437,4 @@ Before creating posts, get:
 
 ---
 
-*Guide created Dec 30, 2025 - Update as algorithm changes*
+*Guide created Dec 30, 2025 - Last updated Jan 14, 2026*

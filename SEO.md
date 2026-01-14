@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: January 11, 2026
+## Last Updated: January 14, 2026
 
 > **SEO Rules are in `~/CLAUDE.md`** — they auto-load every session.
 > **Historical sessions are in `SEO-ARCHIVE.md`** — reference when needed.
@@ -7,8 +7,7 @@
 ---
 
 ## 📌 NEXT SESSION TODO
-- [x] ~~**Add Live Musicians link to venue pages**~~ — ✅ Done Jan 11 (all venue pages now have dropdown)
-- [ ] **Check Orlando rankings (Jan 13)** — manually reindexed in GSC on Jan 6. Look for "orlando wedding dj" ranking to return
+- [ ] **Check Orlando rankings** — manually reindexed in GSC on Jan 6. Look for "orlando wedding dj" ranking to return
 - [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
 - [ ] **Enhance Live Musicians Page** — add photos, video clips, testimonials, pricing hints (photos now in ~/cos-media/live-musicians/)
 - [ ] **Add award badge images** — user will find The Knot & WeddingWire badge images from email
@@ -16,10 +15,11 @@
 - [ ] **Venue Partnerships Section** — add preferred vendor logos to COS homepage
 - [ ] **Create new venue pages** — 40+ opportunities identified (see seo-data/new-venue-opportunities.md)
 - [ ] **Apply hero LCP fix to venue pages** — 45 venue pages still use CSS background (lower priority)
-- [x] ~~**Add venue cross-links**~~ — ✅ Done Jan 11 (all 7 regions: Jax, PV, Amelia, Orlando, Tampa, Daytona, Gainesville)
-- [x] ~~**Add venue/city links to Pricing page**~~ — ✅ Done Jan 11
 - [ ] **Implement responsive images** — Treasury responsive images ready in `/responsive/` subfolder. Use srcset for mobile optimization. Smart photo tool at `scripts/smart-photo.py`
 - [ ] **Interview Epping Forest + Bella Collina** — dropped out of rankings, need insider content
+
+**Automated (no action needed):**
+- ✅ Weekly SEO audits run every Sunday 8am (rankings + competitors + technical audits + report + alerts)
 
 ## 📊 CURRENT RANKINGS (Jan 10, 2026)
 
@@ -51,6 +51,39 @@
 - **COS drops:** Several venue keywords fell out of top 10 — venue sites and directories now dominating. May be Google algo shift.
 - **AE wins:** Dominating budget keywords — #1 for "budget wedding dj", #3 for "affordable", and now ranking for main St. Augustine keyword!
 - **Orlando:** Still not ranking after Jan 6 GSC reindex. Give it more time.
+
+---
+
+## ✅ COMPLETED (Jan 14, 2026) - SEO Automation + Technical Fixes
+
+**Added Technical Audits to Weekly Automation:**
+- Created `audit_runner.py` in `~/cos-tools/seo-tracking/`
+- Updated `run-weekly.sh` to include audit step (now 5 steps: rankings → competitors → audits → report → alerts)
+- Weekly report now includes SITE HEALTH section showing audit pass/fail status
+- Alerts now fire for audit regressions (was passing, now failing)
+
+**Fixed COS Issues:**
+- Fixed 2 broken links on pricing page:
+  - `/white-room-wedding-dj/` → `/the-white-room-wedding-dj/`
+  - `/epping-forest-wedding-dj/` → `/epping-forest-yacht-club-wedding-dj/`
+
+**Fixed AE Issues:**
+- Fixed `/#services` links (8 pages) → changed to `/services/` (homepage has no #services anchor)
+- Added standalone LocalBusiness schema to 67 AE pages (audit was expecting top-level schema, not nested in Service)
+
+**Deployed & Indexed:**
+- Both sites deployed to Netlify
+- COS: 59 pages submitted to Google Indexing API
+- AE: 61 pages submitted to Google Indexing API
+
+**New Commands:**
+```bash
+# Run technical audits manually
+cd ~/cos-tools/seo-tracking && python3 audit_runner.py
+
+# View latest audit results
+python3 audit_runner.py --report
+```
 
 ---
 
