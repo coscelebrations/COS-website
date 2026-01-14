@@ -400,6 +400,10 @@ def audit_images():
             src = img['src']
             alt = img['alt']
 
+            # Skip lightbox placeholder images (empty src, populated via JS)
+            if not src:
+                continue
+
             # Track referenced images
             if src.startswith('/'):
                 all_referenced_images.add(src)
