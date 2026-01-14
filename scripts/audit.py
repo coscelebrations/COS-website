@@ -597,6 +597,10 @@ def audit_links():
             if not link:
                 link = '/'
 
+            # Skip anchor links (including homepage anchors like /#pricing/)
+            if '#' in link:
+                continue
+
             # Ensure trailing slash for directories
             if not link.endswith('/') and '.' not in link.split('/')[-1]:
                 link = link + '/'
