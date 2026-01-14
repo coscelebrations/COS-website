@@ -1,15 +1,28 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-04",
-    "totalReviews": 1,
+    "lastUpdated": "2026-01-14",
+    "totalReviews": 2,
     "platforms": {
-      "google": 1,
+      "google": 2,
       "weddingwire": 0,
       "theknot": 0,
       "zola": 0
     }
   },
   "reviews": [
+    {
+      "id": 2,
+      "platform": "google",
+      "reviewerName": "Katherine & Mike",
+      "rating": 5,
+      "date": "2026-01-14",
+      "text": "Words can't describe how special Corey and his team made my husband's and my wedding day at the Lightner Museum in St. Augustine. Being from Boston, this was a destination wedding, and Corey and Kyle put us at ease every step of the way. Any questions we had were answered right away and very thoughtfully, which truly gave us peace of mind.\n\nCorey made every single moment so special for us — he even played the sax during our entrance song, and it got the crowd going wild! We will truly never forget these moments and can't recommend COS Celebrations enough. We feel so lucky to have worked with them and will absolutely be using them again for future events.\n\nCorey is hands down the best DJ we could have ever asked for. He read the room perfectly, kept the energy high all night, and had every single guest on the dance floor. The music, the vibes, the transitions — everything was flawless. If you want a DJ who truly elevates your wedding and creates an unforgettable party, Corey is your guy.",
+      "venue": "Lightner Museum",
+      "city": "St. Augustine",
+      "destinationWedding": true,
+      "highlights": ["live saxophone", "destination wedding", "packed dance floor"],
+      "addedAt": "2026-01-14T00:00:00"
+    },
     {
       "id": 1,
       "platform": "google",

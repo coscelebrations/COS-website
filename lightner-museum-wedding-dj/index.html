@@ -82,7 +82,9 @@
       --cream: #FFFBFA;
       --charcoal: #2D2A2B;
       --text-soft: #4A4547;
-      --gold-accent: #C9A962;
+      --gold: #C9A54D;
+      --gold-light: #E8D5A3;
+      --black: #1A1A1A;
     }
 
     * {
@@ -470,30 +472,177 @@
       text-decoration: underline;
     }
 
-    /* Testimonial */
-    .testimonial {
+    /* Preferred Badge */
+    .preferred-badge {
+      display: inline-block;
       background: var(--merlot);
       color: white;
-      padding: 4rem 2rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Testimonial */
+    .testimonial {
+      background: var(--soft-pink);
+      padding: 2.5rem;
+      margin: 3rem 0;
       text-align: center;
+      border-radius: 4px;
+    }
+
+    .testimonial-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.9;
+      color: var(--charcoal);
+      max-width: 700px;
+      margin: 0 auto 1rem;
+    }
+
+    .testimonial-author {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--merlot);
+    }
+
+    /* Quick Facts */
+    .quick-facts {
+      background: var(--charcoal);
+      color: white;
+      padding: 2rem;
+      margin: 3rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      text-align: center;
+    }
+
+    .quick-facts div span:first-child {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--rose);
+      display: block;
+    }
+
+    .quick-facts div span:last-child {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.8;
+    }
+
+    /* Gold Underline on h2 Headers */
+    .content-section h2 {
+      position: relative;
+      display: inline-block;
+    }
+
+    .content-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+    }
+
+    /* Dark Section with Angled Edges */
+    .dark-section {
+      background: var(--black);
+      padding: 5rem 2rem;
+      position: relative;
       margin: 4rem 0;
     }
 
-    .testimonial blockquote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
-      font-style: italic;
-      max-width: 800px;
-      margin: 0 auto 1.5rem;
-      line-height: 1.5;
+    .dark-section::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: var(--black);
+      clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%);
     }
 
-    .testimonial cite {
-      font-style: normal;
-      font-size: 0.9rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0.8;
+    .dark-section::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: var(--black);
+      clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+    }
+
+    .dark-section h2 {
+      color: white;
+      text-align: center;
+      display: block;
+      margin: 0 auto 0.5rem;
+    }
+
+    .dark-section h2::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .dark-section .eyebrow {
+      color: var(--gold);
+      text-align: center;
+      display: block;
+      margin-bottom: 3rem;
+    }
+
+    /* Numbered List Layout */
+    .numbered-list {
+      max-width: 800px;
+      margin: 3rem auto 0;
+      counter-reset: item;
+    }
+
+    .numbered-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      align-items: start;
+    }
+
+    .numbered-item:last-child {
+      border-bottom: none;
+    }
+
+    .numbered-item::before {
+      counter-increment: item;
+      content: "0" counter(item);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .numbered-item h3 {
+      font-size: 1.4rem;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .numbered-item p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0;
     }
 
     /* Services at Venue */
@@ -754,7 +903,8 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
-      <p class="eyebrow">Preferred Vendor</p>
+      <div class="preferred-badge">Preferred Vendor</div>
+      <p class="eyebrow">Historic St. Augustine</p>
       <h1>Lightner Museum<br><em>Wedding DJ</em></h1>
       <p>We've performed countless weddings in this stunning former Alcazar Hotel. The historic ballroom, dramatic architecture, and unique acoustics — we know them all.</p>
       <a href="/contact/" class="btn btn-primary">Check Availability</a>
@@ -796,36 +946,57 @@
     <div class="lightbox" id="lightbox" onclick="closeLightbox(event)"><button class="lightbox-close" onclick="closeLightbox(event)">&times;</button><img id="lightbox-img" src="" alt=""><div class="lightbox-caption" id="lightbox-caption"></div></div>
     <p style="text-align: right; font-size: 0.8rem; color: var(--text-soft); margin-top: 0.5rem;">Photos: The Locke Agency</p>
 
-    <h2>Why Lightner Couples Choose COS</h2>
+    <div class="testimonial">
+      <p class="testimonial-quote">Words can't describe how special Corey and his team made my husband's and my wedding day at the Lightner Museum in St. Augustine. Being from Boston, this was a destination wedding, and Corey and Kyle put us at ease every step of the way. Any questions we had were answered right away and very thoughtfully, which truly gave us peace of mind.</p>
+      <p class="testimonial-quote">Corey made every single moment so special for us — he even played the sax during our entrance song, and it got the crowd going wild! We will truly never forget these moments and can't recommend COS Celebrations enough. We feel so lucky to have worked with them and will absolutely be using them again for future events.</p>
+      <p class="testimonial-quote">Corey is hands down the best DJ we could have ever asked for. He read the room perfectly, kept the energy high all night, and had every single guest on the dance floor. The music, the vibes, the transitions — everything was flawless. If you want a DJ who truly elevates your wedding and creates an unforgettable party, Corey is your guy.</p>
+      <p class="testimonial-author">— Katherine & Mike, Lightner Museum Destination Wedding (Boston)</p>
+    </div>
 
-    <div class="features-grid">
-      <div class="feature-card">
-        <h3>We Know the Acoustics</h3>
-        <p>Lightner's former swimming pool ballroom has unique acoustic properties. We've dialed in the perfect speaker placement and EQ settings for crystal-clear sound throughout the entire space.</p>
+    <div class="quick-facts">
+      <div><span>1888</span><span>Historic Venue</span></div>
+      <div><span>250</span><span>Guest Capacity</span></div>
+      <div><span>Preferred</span><span>Vendor Status</span></div>
+      <div><span><a href="/contact/" style="color: var(--rose); text-decoration: none;">Get Quote</a></span><span>Contact Us</span></div>
+    </div>
+
+  </section>
+
+  <!-- Why Choose COS - Dark Section -->
+  <section class="dark-section">
+    <p class="eyebrow">The COS Difference</p>
+    <h2>Why Lightner Couples Choose Us</h2>
+
+    <div class="numbered-list">
+      <div class="numbered-item">
+        <div class="numbered-content">
+          <h3>We Know the Acoustics</h3>
+          <p>Lightner's former swimming pool ballroom has unique acoustic properties. We've dialed in the perfect speaker placement and EQ settings for crystal-clear sound throughout the entire space.</p>
+        </div>
       </div>
 
-      <div class="feature-card">
-        <h3>Ceremony to Reception</h3>
-        <p>Whether your ceremony is in the courtyard or inside the ballroom, we handle the audio transitions seamlessly — from your vows to your first dance to the last song of the night.</p>
+      <div class="numbered-item">
+        <div class="numbered-content">
+          <h3>Ceremony to Reception</h3>
+          <p>Whether your ceremony is in the courtyard or inside the ballroom, we handle the audio transitions seamlessly — from your vows to your first dance to the last song of the night.</p>
+        </div>
       </div>
 
-      <div class="feature-card">
-        <h3><a href="/services/live-musicians/" style="color: var(--merlot); text-decoration: none;">DJ + Live Saxophone</a></h3>
-        <p>Imagine live saxophone echoing through those historic halls during your first dance. The acoustics make live music sound incredible here — it's truly unforgettable.</p>
+      <div class="numbered-item">
+        <div class="numbered-content">
+          <h3>DJ + Live Saxophone</h3>
+          <p>Imagine live saxophone echoing through those historic halls during your first dance. The acoustics make live music sound incredible here — it's truly unforgettable.</p>
+        </div>
       </div>
 
-      <div class="feature-card">
-        <h3>Lighting Transforms the Space</h3>
-        <p>Lightner's architecture is stunning on its own — but strategic uplighting transforms it into something magical. We know exactly which columns and archways to highlight.</p>
+      <div class="numbered-item">
+        <div class="numbered-content">
+          <h3>Lighting That Transforms</h3>
+          <p>Lightner's architecture is stunning on its own — but strategic uplighting transforms it into something magical. We know exactly which columns and archways to highlight.</p>
+        </div>
       </div>
     </div>
   </section>
-
-  <!-- Testimonial -->
-  <div class="testimonial">
-    <blockquote>"People told us they had never seen a dance floor so full all night at a wedding. He was the best I have ever seen."</blockquote>
-    <cite>— Tyler, Lightner Museum Wedding</cite>
-  </div>
 
   <!-- Insider Tips Section -->
   <section class="content-section">
