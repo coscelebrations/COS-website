@@ -47,6 +47,27 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "Review",
+    "itemReviewed": {
+      "@type": "LocalBusiness",
+      "name": "COS Celebrations",
+      "image": "https://coscelebrations.com/images/cos-celebrations-logo.webp"
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "5",
+      "bestRating": "5"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Recent COS Celebrations Couple"
+    },
+    "reviewBody": "Words can't describe how special Corey and his team made my husband's and my wedding day. Being from Boston, this was a destination wedding, and Corey and Kyle put us at ease every step of the way. Any questions we had were answered right away and very thoughtfully, which truly gave us peace of mind. Corey made every single moment so special for us — he even played the sax during our entrance song, and it got the crowd going wild! We will truly never forget these moments and can't recommend COS Celebrations enough. Corey is hands down the best DJ we could have ever asked for. He read the room perfectly, kept the energy high all night, and had every single guest on the dance floor. The music, the vibes, the transitions — everything was flawless. If you want a DJ who truly elevates your wedding and creates an unforgettable party, Corey is your guy."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
@@ -114,7 +135,9 @@
       --cream: #FFFBFA;
       --charcoal: #2D2A2B;
       --text-soft: #4A4547;
-      --gold-accent: #C9A962;
+      --gold: #C9A54D;
+      --gold-light: #E8D5A3;
+      --black: #1A1A1A;
     }
 
     * {
@@ -323,7 +346,10 @@
       justify-content: center;
       text-align: center;
       padding: 10rem 2rem 4rem;
-      background: linear-gradient(180deg, var(--soft-pink) 0%, var(--cream) 100%);
+      background: linear-gradient(180deg, rgba(248, 240, 240, 0.6) 0%, rgba(255, 251, 250, 0.7) 100%),
+                  url('/images/sawgrass-country-club-wedding/live-sax-dance-floor-sawgrass.webp');
+      background-size: cover;
+      background-position: center top;
       position: relative;
       overflow: hidden;
     }
@@ -338,7 +364,7 @@
       background-image:
         radial-gradient(circle at 20% 80%, var(--rose) 0%, transparent 50%),
         radial-gradient(circle at 80% 20%, var(--blush) 0%, transparent 40%);
-      opacity: 0.4;
+      opacity: 0.3;
     }
 
     .hero-content {
@@ -425,17 +451,208 @@
       margin-bottom: 1.5rem;
       color: var(--charcoal);
       margin-top: 3rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
     }
 
     h2:first-of-type {
       margin-top: 0;
     }
 
+    /* Dark Section with Angle */
+    .dark-section {
+      background: var(--black);
+      padding: 5rem 2rem;
+      position: relative;
+      margin: 4rem 0;
+    }
+
+    .dark-section::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: var(--black);
+      clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .dark-section::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: var(--black);
+      clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+    }
+
+    .dark-section h2 {
+      color: white;
+      text-align: center;
+    }
+
+    .dark-section .eyebrow {
+      color: var(--gold);
+      text-align: center;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin: 3rem 0;
+      gap: 1.5rem;
+      margin: 3rem auto 0;
+      max-width: 1000px;
+    }
+
+    /* Numbered List Style (for dark section) */
+    .numbered-list {
+      max-width: 800px;
+      margin: 3rem auto 0;
+      counter-reset: item;
+    }
+
+    .numbered-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      align-items: start;
+    }
+
+    .numbered-item:last-child {
+      border-bottom: none;
+    }
+
+    .numbered-item::before {
+      counter-increment: item;
+      content: "0" counter(item);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .numbered-item h3 {
+      font-size: 1.4rem;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .numbered-item p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* Service List Style (elegant, no boxes) */
+    .service-list-elegant {
+      max-width: 700px;
+      margin: 2rem auto;
+    }
+
+    .service-item-elegant {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--blush);
+      align-items: flex-start;
+    }
+
+    .service-item-elegant:last-child {
+      border-bottom: none;
+    }
+
+    .service-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--merlot);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .service-item-elegant h3 {
+      font-size: 1.2rem;
+      color: var(--charcoal);
+      margin-bottom: 0.35rem;
+    }
+
+    .service-item-elegant p {
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Add-ons Grid */
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--blush);
+      margin: 2rem 0;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .addon-item {
+      background: white;
+      padding: 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      transition: all 0.3s ease;
+    }
+
+    .addon-item:hover {
+      background: var(--soft-pink);
+    }
+
+    .addon-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--merlot);
+    }
+
+    .addon-desc {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+
+    @media (max-width: 600px) {
+      .addons-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Keep old grid for fallback */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 3rem auto 0;
+      max-width: 1000px;
     }
 
     .feature-card {
@@ -443,11 +660,6 @@
       background: var(--soft-pink);
       border: 1px solid var(--blush);
       transition: all 0.3s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
 
     .feature-card h3 {
@@ -484,8 +696,8 @@
     }
 
     .venue-item:hover .venue-circle {
-      box-shadow: 0 15px 40px rgba(114, 47, 55, 0.25);
-      border-color: var(--merlot);
+      box-shadow: 0 15px 40px rgba(201, 165, 77, 0.3);
+      border-color: var(--gold);
       animation-play-state: paused;
     }
 
@@ -544,6 +756,90 @@
       text-transform: uppercase;
       padding: 0.3rem 0.6rem;
       margin-bottom: 0.5rem;
+    }
+
+    /* Testimonial Section */
+    .testimonial-section {
+      background: var(--soft-pink);
+      padding: 3rem 2rem 3rem 3rem;
+      margin: 3rem 0;
+      border-radius: 4px;
+      text-align: left;
+      position: relative;
+      border-left: 4px solid var(--gold);
+    }
+
+    .testimonial-section::before {
+      content: '"';
+      position: absolute;
+      top: 0.5rem;
+      left: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem;
+      color: var(--gold);
+      opacity: 0.5;
+      line-height: 1;
+    }
+
+    .testimonial-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      line-height: 1.9;
+      color: var(--charcoal);
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      padding-left: 2rem;
+    }
+
+    .testimonial-quote::before {
+      display: none;
+    }
+
+    .testimonial-author {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      padding-left: 2rem;
+    }
+
+    .testimonial-venue {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-top: 0.25rem;
+    }
+
+    /* Bento Gallery */
+    .gallery { display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(2, 220px); gap: 0.75rem; margin: 3rem 0; }
+    .gallery-item { position: relative; overflow: hidden; border-radius: 4px; cursor: pointer; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-item:nth-child(1) { grid-column: 1 / 8; grid-row: 1 / 3; }
+    .gallery-item:nth-child(2) { grid-column: 8 / 13; grid-row: 1 / 2; }
+    .gallery-item:nth-child(3) { grid-column: 8 / 13; grid-row: 2 / 3; }
+    .gallery-item:nth-child(4) { grid-column: 1 / 5; grid-row: 3 / 4; }
+    .gallery-item:nth-child(5) { grid-column: 5 / 13; grid-row: 3 / 4; }
+    .gallery-item::after { content: ''; position: absolute; inset: 0; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1); transition: box-shadow 0.3s ease; pointer-events: none; }
+    .gallery-item:hover::after { box-shadow: inset 0 0 0 2px rgba(255,255,255,0.3); }
+    .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.25rem 1.25rem; background: linear-gradient(transparent, rgba(45, 42, 43, 0.85)); color: white; transform: translateY(100%); transition: transform 0.4s ease; }
+    .gallery-item:hover .gallery-caption { transform: translateY(0); }
+    .gallery-caption span { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; }
+    .lightbox { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.95); z-index: 9999; align-items: center; justify-content: center; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
+    .lightbox-close { position: absolute; top: 2rem; right: 2rem; width: 50px; height: 50px; background: transparent; border: 2px solid white; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
+    .lightbox-close:hover { background: white; color: var(--charcoal); }
+    .lightbox-caption { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: white; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; text-align: center; }
+    @media (max-width: 768px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 140px); }
+      .gallery-item:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 3; }
+      .gallery-item:nth-child(2) { grid-column: 1 / 2; grid-row: 3 / 4; }
+      .gallery-item:nth-child(3) { grid-column: 2 / 3; grid-row: 3 / 4; }
+      .gallery-item:nth-child(4) { grid-column: 1 / 2; grid-row: 4 / 5; }
+      .gallery-item:nth-child(5) { grid-column: 2 / 3; grid-row: 4 / 5; }
+      .gallery-caption { transform: translateY(0); padding: 1rem 0.75rem 0.75rem; }
     }
 
     @media (max-width: 768px) {
@@ -617,6 +913,11 @@
       color: var(--charcoal);
       text-decoration: none;
       font-weight: 400;
+      transition: color 0.3s ease;
+    }
+
+    .city-links a:hover {
+      color: var(--gold);
     }
 
     .venue-pages-section {
@@ -723,6 +1024,13 @@
       opacity: 0.5;
     }
 
+    /* Tablet */
+    @media (max-width: 1024px) {
+      .hero {
+        background-position: center 15%;
+      }
+    }
+
     /* Mobile Responsive */
     @media (max-width: 768px) {
       nav {
@@ -767,6 +1075,8 @@
 
       .hero {
         padding: 7rem 1.5rem 3rem;
+        background-position: center 20%;
+        min-height: 50vh;
       }
 
       .content-section {
@@ -775,6 +1085,35 @@
 
       .features-grid, .venues-list {
         grid-template-columns: 1fr;
+      }
+
+      .numbered-item {
+        grid-template-columns: 60px 1fr;
+        gap: 1rem;
+        padding: 1.5rem 0;
+      }
+
+      .numbered-item::before {
+        font-size: 2.25rem;
+      }
+
+      .numbered-item h3 {
+        font-size: 1.2rem;
+      }
+
+      .service-list-elegant {
+        padding: 0 0.5rem;
+      }
+
+      .service-item-elegant {
+        gap: 1rem;
+        padding: 1.25rem 0;
+      }
+
+      .service-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
       }
     }
   </style>
@@ -825,39 +1164,85 @@
       <p>Looking for a <strong>Ponte Vedra wedding DJ</strong> who understands the elegance and exclusivity this community expects? COS Celebrations is the <strong>top preferred entertainment vendor at TPC Sawgrass</strong> — and that distinction wasn't given lightly. We've earned it through years of flawless performances at Ponte Vedra's most prestigious venues. Our DJ + live musician model brings something no ordinary DJ can offer: the energy of a live concert combined with the precision of professional DJ services. Our founder has toured 35+ countries and shared the stage with artists like Usher, Alicia Keys, and Big Gigantic before bringing that world-class experience to Ponte Vedra Beach. Whether you're planning a Mediterranean-inspired celebration at TPC Sawgrass, an oceanfront reception at Ponte Vedra Inn & Club, or an intimate gathering at the Lodge & Club, we bring the same level of expertise and sophistication to every wedding. Starting at $1,500 with no travel fees, we make luxury entertainment accessible to Ponte Vedra couples who expect nothing less than perfection. That's why venues trust us, planners recommend us, and couples choose us for their most important day.</p>
     </div>
 
-    <h2>Why Ponte Vedra Couples Choose COS Celebrations</h2>
+    </section>
 
-    <div class="features-grid">
-      <div class="feature-card">
-        <h3>Top Preferred at TPC Sawgrass</h3>
-        <p>We're not just on the vendor list — we're the TOP preferred entertainment vendor at TPC Sawgrass. That exclusive status reflects our consistent excellence at one of Florida's most prestigious venues.</p>
+    <section class="dark-section">
+      <span class="eyebrow">The COS Difference</span>
+      <h2>Why Ponte Vedra Couples Choose Us</h2>
+
+      <div class="numbered-list">
+        <div class="numbered-item">
+          <div class="numbered-content">
+            <h3>Top Preferred at TPC Sawgrass</h3>
+            <p>We're not just on the vendor list — we're the TOP preferred entertainment vendor at TPC Sawgrass. That exclusive status reflects our consistent excellence and the trust we've built with their team.</p>
+          </div>
+        </div>
+
+        <div class="numbered-item">
+          <div class="numbered-content">
+            <h3>World-Class Musicianship</h3>
+            <p>Our founder performed with major artists across 35+ countries. That touring experience translates into flawless execution at every Ponte Vedra celebration.</p>
+          </div>
+        </div>
+
+        <div class="numbered-item">
+          <div class="numbered-content">
+            <h3>DJ + Live Musicians</h3>
+            <p>We pioneered the DJ + live saxophone model in the Southeast. Imagine your first dance with live sax accompanying the perfect track.</p>
+          </div>
+        </div>
+
+        <div class="numbered-item">
+          <div class="numbered-content">
+            <h3>500+ Five-Star Reviews</h3>
+            <p>Ponte Vedra couples praise our professionalism and ability to keep dance floors packed all night long.</p>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="feature-card">
-        <h3>World-Class Musicianship</h3>
-        <p>Our founder performed with major artists across 35+ countries. That touring experience translates into flawless execution and unforgettable moments at your Ponte Vedra wedding.</p>
+    <section class="content-section">
+
+    <div class="testimonial-section">
+      <p class="testimonial-quote">Words can't describe how special Corey and his team made my husband's and my wedding day. Being from Boston, this was a destination wedding, and Corey and Kyle put us at ease every step of the way. Any questions we had were answered right away and very thoughtfully, which truly gave us peace of mind.</p>
+      <p class="testimonial-quote" style="margin-top: 1rem;">Corey made every single moment so special for us — he even played the sax during our entrance song, and it got the crowd going wild! We will truly never forget these moments and can't recommend COS Celebrations enough. We feel so lucky to have worked with them and will absolutely be using them again for future events.</p>
+      <p class="testimonial-quote" style="margin-top: 1rem;">Corey is hands down the best DJ we could have ever asked for. He read the room perfectly, kept the energy high all night, and had every single guest on the dance floor. The music, the vibes, the transitions — everything was flawless. If you want a DJ who truly elevates your wedding and creates an unforgettable party, Corey is your guy.</p>
+      <p class="testimonial-author">— Destination Wedding Couple from Boston</p>
+    </div>
+
+    <p class="eyebrow" style="text-align: center; margin-bottom: 0.5rem;">Featured Wedding</p>
+    <h2 style="text-align: center; margin-top: 0;">Sawgrass Country Club</h2>
+
+    <div class="gallery">
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/sawgrass-country-club-wedding/ceremony-golf-course-sawgrass.webp" alt="Wedding ceremony on Sawgrass Country Club golf course with water views in Ponte Vedra" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>Ceremony on the course</span></div>
       </div>
-
-      <div class="feature-card">
-        <h3>DJ + Live Musicians</h3>
-        <p>We pioneered the DJ + live saxophone model in the Southeast. Imagine your first dance with live sax — something speakers simply can't replicate.</p>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/sawgrass-country-club-wedding/live-sax-dance-floor-sawgrass.webp" alt="Live saxophone performance during first dance at Sawgrass Country Club wedding" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>Live sax on the dance floor</span></div>
       </div>
-
-      <div class="feature-card">
-        <h3>Venue Expertise</h3>
-        <p>We know TPC Sawgrass, Ponte Vedra Inn & Club, and the Lodge & Club inside and out. We understand acoustics, layouts, and what makes each space shine.</p>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/sawgrass-country-club-wedding/hora-chair-lift-sawgrass.webp" alt="Bride lifted on chair during hora at Sawgrass Country Club wedding reception" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>The hora</span></div>
       </div>
-
-      <div class="feature-card">
-        <h3>500+ Five-Star Reviews</h3>
-        <p>Ponte Vedra couples consistently praise our professionalism, music selection, and ability to keep dance floors packed from first dance to last song.</p>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/sawgrass-country-club-wedding/sparkler-exit-sawgrass.webp" alt="Sparkler exit at Sawgrass Country Club wedding in Ponte Vedra" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>Sparkler send-off</span></div>
       </div>
-
-      <div class="feature-card">
-        <h3>No Travel Fees</h3>
-        <p>Ponte Vedra is part of our primary service area. You'll never pay extra for us to perform at any venue in Ponte Vedra Beach or the surrounding area.</p>
+      <div class="gallery-item" onclick="openLightbox(this)">
+        <img src="/images/sawgrass-country-club-wedding/bride-golf-course-sawgrass.webp" alt="Bride on Sawgrass Country Club golf course at sunset in Ponte Vedra" loading="lazy" decoding="async">
+        <div class="gallery-caption"><span>Golden hour on the course</span></div>
       </div>
     </div>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+      <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+      <img id="lightbox-img" src="" alt="">
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <p style="text-align: center; font-size: 0.8rem; color: var(--text-soft); margin-top: -1.5rem; margin-bottom: 3rem;">Photos by <a href="https://robfutrell.com" target="_blank" rel="noopener" style="color: var(--merlot);">Rob Futrell Photography</a></p>
 
     <h2>Ponte Vedra Wedding Venues We Know Best</h2>
 
@@ -896,8 +1281,8 @@
 
       <div class="venue-item">
         <div class="venue-circle">
-          <img src="/images/fountain-of-youth-wedding-st-augustine/packed-dance-floor-wedding-fountain-of-youth.webp"
-               alt="Sawgrass Country Club wedding"
+          <img src="/images/sawgrass-country-club-wedding/live-sax-dance-floor-sawgrass.webp"
+               alt="Sawgrass Country Club wedding with live saxophone"
                loading="lazy">
         </div>
         <h3><a href="/sawgrass-country-club-wedding-dj/">Sawgrass Country Club</a></h3>
@@ -911,7 +1296,7 @@
         <a href="/tpc-sawgrass-wedding-dj/">TPC Sawgrass</a>
         <a href="/ponte-vedra-inn-club-wedding-dj/">Ponte Vedra Inn & Club</a>
         <a href="/lodge-club-ponte-vedra-wedding-dj/">The Lodge & Club</a>
-        <a href="/sawgrass-marriott-wedding-dj/">Sawgrass Marriott</a>
+        <a href="/sawgrass-country-club-wedding-dj/">Sawgrass Marriott</a>
         <a href="/sawgrass-country-club-wedding-dj/">Sawgrass Country Club</a>
         <a href="/marsh-landing-country-club-wedding-dj/">Marsh Landing Country Club</a>
         <a href="/st-johns-golf-wedding-dj/">St. Johns Golf & Country Club</a>
@@ -922,35 +1307,37 @@
 
     <p>Every Ponte Vedra wedding demands excellence. Here's what we bring to your celebration:</p>
 
-    <div class="features-grid" style="margin-top: 2rem;">
-      <div class="feature-card">
-        <h3>Professional DJ/MC</h3>
-        <p>Expert emcee skills that keep your timeline flowing elegantly. We read the room and adjust to your guests — no cheesy announcements or over-the-top antics.</p>
+    <div class="service-list-elegant">
+      <div class="service-item-elegant">
+        <div class="service-icon">♪</div>
+        <div>
+          <h3>Professional DJ/MC</h3>
+          <p>Expert emcee skills that keep your timeline flowing elegantly. We read the room and adjust to your guests — no cheesy announcements or over-the-top antics.</p>
+        </div>
       </div>
 
-      <div class="feature-card">
-        <h3>Live Saxophone</h3>
-        <p>Our signature service — live sax performance during key moments like your first dance, grand entrance, or peak dance floor times. Elevates any Ponte Vedra celebration.</p>
+      <div class="service-item-elegant">
+        <div class="service-icon">🎷</div>
+        <div>
+          <h3>Live Saxophone</h3>
+          <p>Our signature service — live sax performance during key moments like your first dance, grand entrance, or peak dance floor times.</p>
+        </div>
       </div>
 
-      <div class="feature-card">
-        <h3>Premium Sound System</h3>
-        <p>Crystal-clear audio designed for upscale venues. Your vows will be heard across TPC's lawn, your toasts will resonate in the ballroom, and your music will move people.</p>
+      <div class="service-item-elegant">
+        <div class="service-icon">♫</div>
+        <div>
+          <h3>Premium Sound System</h3>
+          <p>Crystal-clear audio designed for upscale venues. Your vows will be heard across TPC's lawn, your toasts will resonate in the ballroom.</p>
+        </div>
       </div>
 
-      <div class="feature-card">
-        <h3>Ceremony Coverage</h3>
-        <p>Professional sound for your ceremony including wireless microphones, music coordination, and seamless transitions. We know TPC's outdoor ceremony spots intimately.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>Lighting & Effects</h3>
-        <p>From elegant uplighting that transforms TPC's columns to dramatic cold sparks for your first dance — we offer add-ons that match Ponte Vedra's sophistication.</p>
-      </div>
-
-      <div class="feature-card">
-        <h3>COS Music + Timeline App</h3>
-        <p>Our exclusive planning platform makes coordination effortless. Build your timeline, select songs, and communicate directly with your DJ in one place.</p>
+      <div class="service-item-elegant">
+        <div class="service-icon">✦</div>
+        <div>
+          <h3>Ceremony Coverage</h3>
+          <p>Professional sound for your ceremony including wireless microphones, music coordination, and seamless transitions.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -981,22 +1368,22 @@
 
     <p>Elevate your celebration with these enhancements:</p>
 
-    <div class="features-grid" style="margin-top: 2rem;">
-      <div class="feature-card">
-        <h3>Live Saxophone</h3>
-        <p>Our most requested add-on. Live performance during first dance, cocktail hour, or peak dance times. A Ponte Vedra favorite.</p>
+    <div class="addons-grid">
+      <div class="addon-item">
+        <span class="addon-name">Live Saxophone</span>
+        <span class="addon-desc">First dance, cocktail hour, or peak dance times</span>
       </div>
-      <div class="feature-card">
-        <h3>Uplighting</h3>
-        <p>Transform TPC's columns or the Inn & Club's ballroom with intelligent LED uplighting that matches your wedding colors.</p>
+      <div class="addon-item">
+        <span class="addon-name">Uplighting</span>
+        <span class="addon-desc">LED lighting to match your wedding colors</span>
       </div>
-      <div class="feature-card">
-        <h3>Cold Sparks</h3>
-        <p>Safe indoor pyrotechnics for dramatic first dance or exit moments. Creates stunning photo opportunities at any Ponte Vedra venue.</p>
+      <div class="addon-item">
+        <span class="addon-name">Cold Sparks</span>
+        <span class="addon-desc">Safe indoor pyrotechnics for dramatic moments</span>
       </div>
-      <div class="feature-card">
-        <h3>Live Piano</h3>
-        <p>Add live piano to your ceremony or cocktail hour for an extra touch of elegance that Ponte Vedra celebrations deserve.</p>
+      <div class="addon-item">
+        <span class="addon-name">Live Piano</span>
+        <span class="addon-desc">Elegant accompaniment for ceremony or cocktails</span>
       </div>
     </div>
   </section>
@@ -1090,6 +1477,23 @@
         document.querySelector('.nav-links').classList.remove('active');
       });
     });
+
+    // Lightbox functions
+    function openLightbox(item) {
+      const img = item.querySelector('img');
+      const caption = item.querySelector('.gallery-caption span');
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox-caption').textContent = caption ? caption.textContent : '';
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(event) {
+      if (event.target.classList.contains('lightbox') || event.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = ''; }});
   </script>
 
 </body>
