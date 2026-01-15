@@ -497,7 +497,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(135deg, rgba(248, 240, 240, 0.88) 0%, rgba(255, 251, 250, 0.85) 100%);
+      background: linear-gradient(135deg, rgba(248, 240, 240, 0.93) 0%, rgba(255, 251, 250, 0.92) 100%);
       z-index: 1;
     }
 
@@ -1627,7 +1627,7 @@
     }
 
     .carousel-arrow:hover {
-      opacity: 0.7;
+      color: var(--merlot-dark);
     }
 
     .carousel-dots {
@@ -1639,7 +1639,8 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--rose);
+      background: var(--merlot);
+      opacity: 0.4;
       cursor: pointer;
       transition: all 0.3s ease;
       border: none;
@@ -1648,10 +1649,12 @@
 
     .carousel-dot.active {
       background: var(--merlot);
+      opacity: 1;
     }
 
     .carousel-dot:hover {
       background: var(--merlot);
+      opacity: 1;
     }
 
     /* Floating CTA Button */
