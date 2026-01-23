@@ -18,7 +18,11 @@
     "audit:indexing": "python3 scripts/audit.py indexing",
     "review:add": "python3 scripts/add-review.py",
     "review:view": "python3 scripts/view-reviews.py",
-    "review:stats": "python3 scripts/view-reviews.py --stats"
+    "review:stats": "python3 scripts/view-reviews.py --stats",
+    "optimize": "python3 ../cos-tools/page-optimizer/page_optimizer.py",
+    "optimize:fix-images": "python3 ../cos-tools/page-optimizer/fix_image_dimensions.py",
+    "monitor:indexing": "python3 ../cos-tools/seo-tracking/monitor_indexing.py",
+    "tasks": "python3 ../cos-tools/task_runner.py"
   },
   "private": true
 }
