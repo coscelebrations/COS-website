@@ -799,6 +799,192 @@
       line-height: 1.8;
     }
 
+    /* Video Showcase Section */
+    .video-showcase {
+      background: linear-gradient(135deg, var(--soft-pink) 0%, var(--cream) 100%);
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-showcase::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(135deg, var(--soft-pink) 0%, var(--cream) 100%);
+      clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .video-showcase-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .video-content {
+      padding-right: 2rem;
+    }
+
+    .video-content h2 {
+      font-size: 2.5rem;
+      margin: 0.5rem 0 1rem;
+      color: var(--charcoal);
+    }
+
+    .video-content p {
+      color: var(--text-soft);
+      line-height: 1.8;
+      font-size: 1.05rem;
+      margin-bottom: 1rem;
+    }
+
+    .video-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .video-stat {
+      text-align: left;
+    }
+
+    .video-stat-number {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: var(--merlot);
+      line-height: 1;
+    }
+
+    .video-stat-label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-top: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto;
+      aspect-ratio: 9/16;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(114, 47, 55, 0.25);
+    }
+
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 12px;
+    }
+
+    .video-poster {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      background: var(--charcoal);
+      transition: opacity 0.3s ease;
+    }
+
+    .video-poster.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .video-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90px;
+      height: 90px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .play-button::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 28px solid var(--merlot);
+      border-top: 17px solid transparent;
+      border-bottom: 17px solid transparent;
+      margin-left: 6px;
+    }
+
+    .video-poster:hover .play-button {
+      transform: translate(-50%, -50%) scale(1.15);
+      background: white;
+      box-shadow: 0 15px 40px rgba(114, 47, 55, 0.3);
+    }
+
+    .video-caption {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      font-style: italic;
+    }
+
+    @media (max-width: 900px) {
+      .video-container {
+        aspect-ratio: auto;
+      }
+
+      .video-showcase-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .video-content {
+        padding-right: 0;
+        text-align: center;
+      }
+
+      .video-content h2 {
+        font-size: 2rem;
+      }
+
+      .video-stats {
+        justify-content: center;
+      }
+
+      .video-stat {
+        text-align: center;
+      }
+
+      .video-showcase::before {
+        display: none;
+      }
+    }
+
     /* Mobile Responsive */
     @media (max-width: 768px) {
       nav {
@@ -920,6 +1106,46 @@
         <p>Your wedding isn't about us. It's about <strong>you + your partner</strong>, and the people you love most—all in one room celebrating. Our job is to read the room, keep the dance floor packed, and make every moment feel exactly right. No cheesy DJ antics. No spotlight-stealing. No growling your name like a boxing announcer.</p>
         <p style="margin-top: 1.5rem;">As your MC, we bring the <strong><em>right hype at the right time</em></strong>—tasteful, never intrusive. Your guests will always know what's happening and what's next, but they're not there to hear us talk all day. Just genuine energy that keeps everything flowing smoothly.</p>
         <p style="margin-top: 1.5rem;"><em><strong>World-class entertainment</strong></em> from musicians who've performed on the biggest stages with the biggest artists—now bringing that experience to your wedding day. From DJs to live <strong>saxophone</strong>, lighting design to special effects, we provide premium entertainment that elevates your celebration without ever overshadowing it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wedding Video Showcase -->
+  <section class="video-showcase">
+    <div class="video-showcase-inner">
+      <div class="video-content">
+        <p class="eyebrow">Real Weddings</p>
+        <h2>This Is What It Feels Like</h2>
+        <p>Kenan + Shannon's reception at <a href="/the-white-room-wedding-dj/" style="color: var(--merlot); text-decoration: none;">The White Room</a> in St. Augustine. This is what happens when the energy is right, the music hits, and the dance floor takes over.</p>
+        <p>After 2,000+ weddings, we've learned that the best moments aren't scripted—they're felt. Our job is to read the room and keep that feeling going all night.</p>
+        <div class="video-stats">
+          <div class="video-stat">
+            <span class="video-stat-number">2,000+</span>
+            <span class="video-stat-label">Weddings performed</span>
+          </div>
+          <div class="video-stat">
+            <span class="video-stat-number">500+</span>
+            <span class="video-stat-label">Five-star reviews</span>
+          </div>
+          <div class="video-stat">
+            <span class="video-stat-number">100%</span>
+            <span class="video-stat-label">Dance floor guarantee</span>
+          </div>
+          <div class="video-stat">
+            <span class="video-stat-number">$1,500</span>
+            <span class="video-stat-label">Starting investment</span>
+          </div>
+        </div>
+      </div>
+      <div class="video-container">
+        <video id="wedding-video" playsinline preload="none" poster="/videos/couple-dancing-white-room-poster.webp">
+          <source src="/videos/couple-dancing-white-room.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-poster" id="video-poster-wedding" onclick="playWeddingVideo()">
+          <img src="/videos/couple-dancing-white-room-poster.webp" width="720" height="1280" srcset="/videos/couple-dancing-white-room-poster-400w.webp 400w, /videos/couple-dancing-white-room-poster.webp 720w" sizes="(max-width: 900px) 400px, 380px" alt="Couple dancing at wedding reception with live entertainment" loading="lazy" decoding="async">
+          <div class="play-button" aria-label="Play video"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -1161,6 +1387,20 @@
         document.querySelector('.hamburger').classList.remove('active');
         document.querySelector('.nav-links').classList.remove('active');
       });
+    });
+
+    // Video playback
+    function playWeddingVideo() {
+      const video = document.getElementById('wedding-video');
+      const poster = document.getElementById('video-poster-wedding');
+      poster.classList.add('hidden');
+      video.controls = true;
+      video.play();
+    }
+
+    document.getElementById('wedding-video').addEventListener('ended', function() {
+      this.controls = false;
+      document.getElementById('video-poster-wedding').classList.remove('hidden');
     });
   </script>
 

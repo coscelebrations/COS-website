@@ -878,13 +878,22 @@
   <section>
     <div class="two-column">
       <div>
-        <img src="/images/corey-peterson-saxophone-ceremony-hammock-beach.webp" alt="Corey Peterson performing live saxophone at Hammock Beach wedding ceremony" loading="lazy" decoding="async">
+        <div class="video-container" style="max-width: 100%; margin: 0;">
+          <video id="white-room-video" playsinline preload="none" poster="/videos/couple-dancing-white-room-poster.webp">
+            <source src="/videos/couple-dancing-white-room.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-poster" id="video-poster-white-room" onclick="playWhiteRoomVideo()">
+            <img src="/videos/couple-dancing-white-room-poster.webp" width="720" height="1280" srcset="/videos/couple-dancing-white-room-poster-400w.webp 400w, /videos/couple-dancing-white-room-poster.webp 720w" sizes="(max-width: 900px) 400px, 380px" alt="Wedding reception with live saxophone and DJ at The White Room St Augustine" loading="lazy" decoding="async">
+            <div class="play-button" aria-label="Play video"></div>
+          </div>
+        </div>
       </div>
       <div class="content-text">
         <p class="eyebrow">What Makes It Different</p>
         <h2 style="font-size: 2rem; margin: 0.5rem 0 1.5rem;">Live Performance Meets DJ Versatility</h2>
         <p>A traditional band plays their setlist. A traditional DJ plays tracks. <strong>Hybrid entertainment gives you both</strong> — the visceral energy of live performance combined with the unlimited song selection of a professional DJ.</p>
-        <p style="margin-top: 1.5rem;">Imagine your guests dancing to a seamless mix of your favorite songs when suddenly, a <strong>live saxophonist walks onto the dance floor</strong>, weaving melodic lines over the beat. The energy shifts. Phones come out. People talk about that moment for years.</p>
+        <p style="margin-top: 1.5rem;">Watch Kenan + Shannon's reception at <a href="/the-white-room-wedding-dj/" style="color: var(--merlot); text-decoration: none;">The White Room</a> in St. Augustine. You'll see the <strong>live saxophonist weaving through the dance floor</strong>, creating those phone-out moments guests talk about for years.</p>
         <p style="margin-top: 1.5rem;">This isn't a gimmick — it's the <strong>biggest wedding entertainment trend of 2025</strong>, pioneered in Ibiza club culture and now the standard at luxury weddings worldwide. And COS Celebrations brought it to North Florida first.</p>
       </div>
     </div>
@@ -923,6 +932,18 @@
   document.getElementById('sax-video').addEventListener('ended', function() {
     this.controls = false;
     document.getElementById('video-poster').classList.remove('hidden');
+  });
+
+  function playWhiteRoomVideo() {
+    const video = document.getElementById('white-room-video');
+    const poster = document.getElementById('video-poster-white-room');
+    poster.classList.add('hidden');
+    video.controls = true;
+    video.play();
+  }
+  document.getElementById('white-room-video').addEventListener('ended', function() {
+    this.controls = false;
+    document.getElementById('video-poster-white-room').classList.remove('hidden');
   });
   </script>
 
