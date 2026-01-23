@@ -1,8 +1,31 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: January 14, 2026
+## Last Updated: January 22, 2026
 
 > **SEO Rules are in `~/CLAUDE.md`** — they auto-load every session.
 > **Historical sessions are in `SEO-ARCHIVE.md`** — reference when needed.
+
+---
+
+## 🚨 CRITICAL ALERT (Jan 22, 2026)
+
+**MASSIVE DEINDEXING ISSUE DISCOVERED**
+
+Both COS and AE sites have been partially deindexed by Google:
+- **AE:** Only 2 pages showing in `site:ae-djs.com` (should be 59)
+- **COS:** Only 10 pages showing in `site:coscelebrations.com` (should be 62)
+
+**This explains AE's ranking collapse:**
+- "budget wedding dj jacksonville": #1 → #6
+- "affordable wedding dj jacksonville": #3 → out of top 10
+- "st augustine wedding dj": #6 → out of top 10
+
+**Action Taken:**
+- ✅ Resubmitted all 59 AE pages to Google Indexing API (Jan 22, 1:40pm)
+- ✅ Resubmitted all 62 COS pages to Google Indexing API (Jan 22, 1:42pm)
+
+**Expected Recovery:** 1-2 weeks for Google to recrawl and reindex
+
+**Monitor:** Check `site:` searches weekly and GSC for reindexing progress
 
 ---
 
@@ -18,40 +41,95 @@
 - [ ] **Apply hero LCP fix to venue pages** — 45 venue pages still use CSS background (lower priority)
 - [ ] **Implement responsive images** — Treasury responsive images ready in `/responsive/` subfolder. Use srcset for mobile optimization. Smart photo tool at `scripts/smart-photo.py`
 - [ ] **Interview Epping Forest + Bella Collina** — dropped out of rankings, need insider content
+- [ ] **Create Kelly Farms venue page** — added placeholder link on St. Augustine pages, need photos from user
+- [ ] **Monitor Tringali Barn indexing** — new pages created Jan 20, check GSC in ~1 week
 
 **Automated (no action needed):**
 - ✅ Weekly SEO audits run every Sunday 8am (rankings + competitors + technical audits + report + alerts)
 
-## 📊 CURRENT RANKINGS (Jan 10, 2026)
+## 📊 CURRENT RANKINGS (Jan 22, 2026)
 
 **COS Celebrations:**
-| Keyword | Dec 30 | Jan 10 | Change |
+| Keyword | Jan 10 | Jan 22 | Change |
 |---------|--------|--------|--------|
-| jacksonville wedding dj | #12 | **#5** | ⬆️ +7 |
-| ponte vedra wedding dj | #4 | **#1** | ⬆️ +3 |
-| timuquana country club wedding dj | #1 | #1 | — |
-| st augustine wedding dj | #6 | N/A | ⬇️ dropped |
-| treasury on the plaza wedding dj | #1 | N/A | ⬇️ dropped |
-| lightner museum wedding dj | #1 | N/A | ⬇️ dropped |
-| epping forest yacht club wedding dj | #2 | N/A | ⬇️ dropped |
-| bella collina wedding dj | #4 | N/A | ⬇️ dropped |
-| amelia island wedding dj | #5 | N/A | ⬇️ dropped |
-| tampa wedding dj | #17 | N/A | ⬇️ dropped |
+| jacksonville wedding dj | **#5** | **#4** | ⬆️ +1 |
+| ponte vedra wedding dj | **#1** | **#1** | — HOLDING |
+| st augustine wedding dj | N/A | **#2** | ⬆️ RECOVERED |
+| treasury on the plaza wedding dj | N/A | #8 | 🔄 back but weak |
+| lightner museum wedding dj | N/A | N/A | still dropped |
+| timuquana country club wedding dj | #1 | ? | not checked |
 | orlando wedding dj | N/A | N/A | still not ranking |
 
 **AE Entertainment:**
-| Keyword | Dec 30 | Jan 10 | Change |
+| Keyword | Jan 10 | Jan 22 | Change |
 |---------|--------|--------|--------|
-| budget wedding dj jacksonville | #21 | **#1** | ⬆️ +20 |
-| affordable wedding dj jacksonville | #18 | **#3** | ⬆️ +15 |
-| wedding dj under 1000 jacksonville | #9 | **#6** | ⬆️ +3 |
-| st augustine wedding dj | N/A | **#6** | 🆕 NEW |
+| budget wedding dj jacksonville | **#1** | **#6** | ⬇️ -5 DEINDEXED |
+| affordable wedding dj jacksonville | **#3** | N/A | ⬇️ DISAPPEARED |
+| st augustine wedding dj | **#6** | N/A | ⬇️ dropped |
 
 **Analysis:**
-- **COS wins:** Jacksonville jumped to page 1 (#5), Ponte Vedra hit #1
-- **COS drops:** Several venue keywords fell out of top 10 — venue sites and directories now dominating. May be Google algo shift.
-- **AE wins:** Dominating budget keywords — #1 for "budget wedding dj", #3 for "affordable", and now ranking for main St. Augustine keyword!
-- **Orlando:** Still not ranking after Jan 6 GSC reindex. Give it more time.
+- **🎉 COS St. Augustine RECOVERED:** Fixed to #2 after Jan 14 bug fix (page was showing AE content)
+- **✅ COS holding strong:** Jacksonville #4, Ponte Vedra #1
+- **🚨 AE CRISIS:** Massive deindexing caused ranking collapse on all budget keywords
+- **⚠️ Orlando:** Still not ranking 16 days after reindex - likely too competitive
+- **Action:** Both sites resubmitted to Google Indexing API Jan 22
+
+---
+
+## ✅ COMPLETED (Jan 22, 2026) - CRITICAL: Fixed Deindexing Crisis
+
+**Discovered massive deindexing issue affecting both sites:**
+- AE: Only 2 of 59 pages showing in Google (99% deindexed)
+- COS: Only 10 of 62 pages showing in Google (84% deindexed)
+
+**Root cause:** Unknown - possibly Google crawl issue or penalty
+
+**Actions taken:**
+- [x] Resubmitted all 59 AE pages to Google Indexing API
+- [x] Resubmitted all 62 COS pages to Google Indexing API
+- [x] Updated rankings.json with Jan 22 data
+- [x] Documented in SEO.md
+
+**Expected recovery:** 1-2 weeks for reindexing
+
+**This explains:**
+- AE budget keyword collapse (#1 → #6, #3 → out of top 10)
+- AE St. Augustine drop (#6 → dropped)
+- Various COS venue keyword drops
+
+---
+
+## ✅ COMPLETED (Jan 20, 2026) - Tringali Barn Venue Pages + St. Augustine Fixes
+
+**Fixed Critical Issues from Weekly SEO Report:**
+- Fixed 2 broken images on St. Augustine page:
+  - `/images/venues/the-white-room-venue-320.webp` → actual White Room photo
+  - `/images/venues/river-house-venue-320.webp` → actual River House photo
+- Removed Villa Blanca from venue list (not a separate venue, just a space at White Room)
+
+**New Venue Pages Created:**
+- **COS Tringali Barn** (`/tringali-barn-wedding-dj/`)
+  - 8 photos from Riley + Robert wedding (photographer: Rob Futrell)
+  - Photos geotagged with Tringali Barn coordinates (29.8083, -81.2906)
+  - Bento gallery with lightbox
+  - Sample wedding timeline (4pm-10pm)
+  - FAQ schema + LocalBusiness schema
+- **AE Tringali Barn** (`/tringali-barn-wedding-dj/`)
+  - Budget-focused version ($800 starting)
+  - Simpler layout without gallery
+
+**St. Augustine Page Updates:**
+- Added Tringali Barn venue card with link (both COS and AE)
+- Added Kelly Farms placeholder (pending photos from user)
+
+**Sitemaps Updated:**
+- COS: Added `/tringali-barn-wedding-dj/` with lastmod 2026-01-18
+- AE: Added `/tringali-barn-wedding-dj/`
+
+**Indexing Requested:**
+- Both Tringali Barn pages submitted to Google Indexing API
+
+**Pending:** Kelly Farms venue page (waiting for photos)
 
 ---
 
