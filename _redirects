@@ -6,3 +6,19 @@
 /services/additional-add-ons/ /services/weddings/ 301
 /our-team/ / 301
 /category/blog/ / 301
+
+# Moved pages - 301 redirect
+/live-musicians/ /services/live-musicians/ 301
+
+# Old WordPress URLs - 410 Gone (tells Google to stop crawling)
+/blog/* / 410
+/our-team/* / 410
+/category/* / 410
+/tag/* / 410
+/author/* / 410
+/portfolio/* / 410
+/wp-admin/* / 410
+/wp-content/* / 410
+/wp-*.php / 410
+/preferred-vendors/ / 410
+/cos-info-page/ / 410
