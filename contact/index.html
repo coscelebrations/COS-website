@@ -1154,7 +1154,7 @@
       });
     });
 
-    // Add question_5 validation to DJEP submitIt
+    // Add question_5 validation to DJEP submitIt + conversion tracking
     setTimeout(function() {
       var originalSubmitIt = window.submitIt;
       window.submitIt = function(form) {
@@ -1163,6 +1163,26 @@
           form.question_5.focus();
           return false;
         }
+
+        // Fire GA4 generate_lead event
+        if (typeof gtag === 'function') {
+          gtag('event', 'generate_lead', {
+            currency: 'USD',
+            value: 50,
+            event_category: 'form',
+            event_label: 'contact_form_submit'
+          });
+        }
+
+        // Fire Meta Pixel Lead event
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead', {
+            content_name: 'Contact Form',
+            currency: 'USD',
+            value: 50
+          });
+        }
+
         if (typeof originalSubmitIt === 'function') {
           return originalSubmitIt(form);
         }
