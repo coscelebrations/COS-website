@@ -6,6 +6,44 @@
 
 ---
 
+## ✅ COMPLETED (Jan 27, 2026) - GSC Deep Dive & 404 Cleanup
+
+**Root Cause Analysis from Google Search Console:**
+
+Exported GSC Coverage report and found the real issues:
+
+| Issue | Pages | Status |
+|-------|-------|--------|
+| Discovered - not indexed | 40 | All venue pages — Google never crawled them |
+| Not found (404) | 30 | Old WordPress URLs still being crawled |
+| Page with redirect | 9 | Expected |
+| Crawled - not indexed | 3 | Low priority |
+
+**The Problem:**
+1. 90+ venue pages created Dec 23-Jan 1 triggered Google to deprioritize crawling
+2. 30 old WordPress URLs (blog, team, categories) returning 404s made site look "unhealthy"
+3. Google discovered venue pages via sitemap but never actually visited them (Last crawled: 1969-12-31 = never)
+
+**What Was Fixed:**
+- Added `_redirects` rules for all old WordPress URLs:
+  - `/blog/*` → 410 Gone
+  - `/our-team/*` → 410 Gone
+  - `/category/*`, `/tag/*`, `/author/*` → 410 Gone
+  - `/wp-*`, `/portfolio/*` → 410 Gone
+  - `/live-musicians/` → 301 to `/services/live-musicians/`
+- Deployed to Netlify
+- Resubmitted all 62 COS pages to Google Indexing API
+- Resubmitted all 59 AE pages to Google Indexing API
+
+**Expected Recovery:** 1-2 weeks for Google to:
+1. Stop crawling 404 URLs (sees 410 Gone)
+2. Start crawling the 40 venue pages
+3. Restore AE budget keyword rankings
+
+**Monitor:** Check `site:` searches and GSC Coverage report Feb 3-5
+
+---
+
 ## 🚨 CRITICAL ALERT (Jan 22, 2026)
 
 **MASSIVE DEINDEXING ISSUE DISCOVERED**
@@ -30,9 +68,10 @@ Both COS and AE sites have been partially deindexed by Google:
 ---
 
 ## 📌 NEXT SESSION TODO
-- [ ] **Monitor St. Augustine recovery** — COS page was showing AE content (fixed Jan 14). Check "st augustine wedding dj" rankings in ~1 week
-- [ ] **Check Orlando rankings** — manually reindexed in GSC on Jan 6. Look for "orlando wedding dj" ranking to return
-- [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com
+- [ ] **Check reindexing progress (Feb 3-5)** — Run `site:coscelebrations.com` and `site:ae-djs.com`, should see more than 10/2 pages
+- [ ] **Check GSC Coverage report (Feb 3-5)** — 404 count should be dropping, "Discovered not indexed" should be shrinking
+- [ ] **Monitor AE budget keywords (Feb 10)** — "budget wedding dj jacksonville" should recover from #6 back toward #1
+- [ ] **Update AE Google Business Profile** — website still points to affordable-entertainment.com (BLOCKED - verification issue)
 - [ ] **Enhance Live Musicians Page** — add photos, video clips, testimonials, pricing hints (photos now in ~/cos-media/live-musicians/)
 - [ ] **Add award badge images** — user will find The Knot & WeddingWire badge images from email
 - [ ] **Monitor Google Indexing** — check Search Console for homepage LCP improvement
