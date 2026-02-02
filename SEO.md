@@ -1,8 +1,51 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: January 22, 2026
+## Last Updated: February 1, 2026
 
 > **SEO Rules are in `~/CLAUDE.md`** — they auto-load every session.
 > **Historical sessions are in `SEO-ARCHIVE.md`** — reference when needed.
+
+---
+
+## ✅ COMPLETED (Feb 1, 2026) - Weekly SEO Audit
+
+**Indexing Status:**
+| Site | Jan 22 | Feb 1 | Target |
+|------|--------|-------|--------|
+| COS | 10 pages | ~10+ pages | 62 |
+| AE | 2 pages | 3 pages | 59 |
+
+AE still severely underindexed but improving (2 → 3 pages).
+
+**COS Rankings (Feb 1):**
+| Keyword | Jan 22 | Feb 1 | Change |
+|---------|--------|-------|--------|
+| ponte vedra wedding dj | #1 | #1 | HOLDING |
+| st augustine wedding dj | #2 | #2 | HOLDING |
+| jacksonville wedding dj | #4 | #4 | HOLDING |
+| timuquana country club | #1 | #1 | HOLDING |
+| treasury on the plaza | #8 | #9 | Down 1 |
+| lightner museum | N/A | N/A | Still out |
+| epping forest yacht club | N/A | N/A | Still out |
+| orlando wedding dj | N/A | N/A | Still out |
+
+**AE Rankings - RECOVERING:**
+| Keyword | Jan 22 | Feb 1 | Change |
+|---------|--------|-------|--------|
+| budget wedding dj jax | #6 | #2 | UP 4! |
+| affordable wedding dj jax | N/A | #4 | BACK! |
+
+**Analysis:**
+- Jan 27 fixes (404 redirects + reindexing) ARE WORKING
+- AE budget keywords bouncing back strong
+- COS core keywords stable
+- Venue keywords (Epping, Lightner, Treasury) still weak - need insider content
+- AMPLIFY ranking for Epping Forest (#6) and Treasury - targeting venue keywords
+
+**Next Steps:**
+- [ ] Interview Epping Forest contact for insider content
+- [ ] Interview Lightner Museum contact for insider content
+- [ ] Continue monitoring AE reindexing (should improve more by Feb 10)
+- [ ] AE GBP still blocked (verification issue)
 
 ---
 

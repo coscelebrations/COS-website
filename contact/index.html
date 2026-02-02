@@ -25,6 +25,7 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-SHQJVPHKYZ');
+    gtag('config', 'AW-16649250548');
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1163,6 +1164,13 @@
           value: 50,
           event_category: 'form',
           event_label: 'contact_form_submit'
+        });
+
+        // Fire Google Ads conversion
+        gtag('event', 'conversion', {
+          'send_to': 'AW-16649250548/uryZCKaUvPEbEPTN_YI-',
+          'value': 50.0,
+          'currency': 'USD'
         });
       }
 
