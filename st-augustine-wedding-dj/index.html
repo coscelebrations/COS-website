@@ -211,8 +211,16 @@
     .alt-bg { background: var(--soft-pink); max-width: 100%; }
     .alt-bg > * { max-width: 1000px; margin-left: auto; margin-right: auto; }
 
-    .intro-text { font-size: 1.1rem; line-height: 1.9; margin-bottom: 3rem; }
+    .intro-with-photo { display: flex; gap: 2.5rem; align-items: flex-start; margin-bottom: 3rem; }
+    .intro-photo { flex-shrink: 0; }
+    .intro-photo img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid var(--rose); }
+    .intro-photo span { display: block; text-align: center; margin-top: 0.5rem; font-size: 0.85rem; color: var(--merlot); font-weight: 500; }
+    .intro-text { font-size: 1.1rem; line-height: 1.9; }
     .intro-text p { margin-bottom: 1.5rem; }
+    @media (max-width: 768px) {
+      .intro-with-photo { flex-direction: column; align-items: center; text-align: center; }
+      .intro-photo img { width: 120px; height: 120px; }
+    }
 
     .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin: 2rem 0; }
     .feature-card { background: white; padding: 2rem; border-radius: 4px; border: 1px solid var(--blush); }
@@ -350,14 +358,22 @@
 
   <section class="hero">
     <div class="hero-content">
-      <p class="eyebrow">St. Augustine's Premier Wedding Entertainment</p>
+      <p class="eyebrow">St. Augustine's Top Wedding DJs & Musicians</p>
       <h1>St. Augustine Wedding DJ<br><em>+ Live Musicians</em></h1>
     </div>
   </section>
 
   <section class="content-section">
-    <div class="intro-text">
-      <p>This is our home. Not a market we serve from somewhere else - <strong>St. Augustine is where COS Celebrations was born</strong>. Heading into 2026, we've watched couples exchange vows in the Lightner Museum courtyard at sunset. We've packed dance floors at Treasury on the Plaza while the Bridge of Lions glowed behind the windows. We've played live saxophone for first dances at The White Room while Spanish moss swayed outside. With <strong>500+ five-star reviews</strong> and over 2,000 weddings, we've become St. Augustine's go-to wedding DJ because we understand that the Ancient City deserves entertainment that matches its magic. Our founder grew up playing piano at 4 and took his saxophone on tour across <strong>35+ countries</strong> with artists like <strong>Usher and Alicia Keys</strong> before coming home to build something different. We pioneered the DJ + live musician model here in St. Augustine, and venues like Treasury, Lightner, and The White Room keep calling us back because we deliver.</p>
+    <div class="intro-with-photo">
+      <div class="intro-photo">
+        <img src="/images/corey-peterson-wedding-dj-mc-river-house-st-augustine.webp" alt="Corey Peterson - St. Augustine Wedding DJ" width="140" height="140">
+        <span>Corey Peterson</span>
+      </div>
+      <div class="intro-text">
+        <p>I live here. Moved away a couple times, always end up back - St. Augustine is home. It's where family's at, where we built COS from the ground up. I spent years touring 40+ countries, sharing stages with artists like Usher, Alicia Keys, and T-Pain. Then I stepped away from music for a while - nice house, good paycheck, but something was missing. Hadn't touched my horn in years. A buddy dragged me to a jam session on a Wednesday. That night I met a Grammy-winning producer who's now a dear friend - and that conversation changed everything. By Monday I'd walked away from all of it to get back to what actually matters.</p>
+        <p>First wedding I did changed everything. Being part of someone's biggest day - nothing compares. Now I've been working St. Augustine venues for over a decade. <strong>Treasury on the Plaza, Lightner Museum, River House, Fountain of Youth, Tringali Barn, Kelly Farm, 9 Aviles</strong> - I know where the sound gets tricky, where to park when downtown is chaos, which coordinators run a tight ship. That stuff matters when it's your day and you don't need surprises.</p>
+        <p>We've done <strong>2,000+ weddings</strong> with <strong>500+ five-star reviews</strong>, but what I'm proudest of is the team we've built. Every DJ and musician here gets it - no egos, just people who genuinely love making your day perfect. We treat every wedding like it's the only one on the calendar. Your vision, not ours. <strong>Starting at $1,500</strong> with live saxophone available. <a href="/contact/" style="color: var(--merlot); font-weight: 500;">Tell us about your wedding</a> and we'll be in touch within 24 hours.</p>
+      </div>
     </div>
 
     <div class="gallery">
