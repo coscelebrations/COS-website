@@ -1,8 +1,51 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: February 1, 2026
+## Last Updated: February 8, 2026
 
 > **SEO Rules are in `~/CLAUDE.md`** — they auto-load every session.
 > **Historical sessions are in `SEO-ARCHIVE.md`** — reference when needed.
+
+---
+
+## 🚨 ALERT (Feb 8, 2026) - COS City Keywords Dropping
+
+**COS Rankings (Feb 8) - CONCERNING DROPS:**
+| Keyword | Feb 1 | Feb 8 | Change |
+|---------|-------|-------|--------|
+| ponte vedra wedding dj | #1 | #2 | DOWN 1 - Y Entertainment took #1 |
+| st augustine wedding dj | #2 | #6 | DOWN 4 - Future Stereo, directories gaining |
+| jacksonville wedding dj | #4 | #7 | DOWN 3 - Full Circle, Y Entertainment passed |
+| timuquana country club | #1 | #1 | HOLDING |
+| treasury on the plaza | #9 | N/A | Still out - AMPLIFY at #2 |
+| lightner museum | N/A | N/A | Still out |
+| epping forest yacht club | N/A | N/A | Still out - AMPLIFY at #6 |
+| orlando wedding dj | N/A | N/A | Still out |
+
+**AE Rankings (Feb 8) - STRONG:**
+| Keyword | Feb 1 | Feb 8 | Change |
+|---------|-------|-------|--------|
+| budget wedding dj jax | #2 | #2 | HOLDING |
+| affordable wedding dj jax | #4 | #3 | UP 1 |
+| st augustine wedding dj | N/A | #4 | BACK - now outranking COS! |
+
+**Competitors Gaining Ground:**
+- **Y Entertainment** (Ponte Vedra): 151 WeddingWire reviews, took Ponte Vedra #1
+- **Future Stereo** (St. Augustine): Local DJ on Anastasia Island, climbing fast
+- **Full Circle Wedding DJs** (Jacksonville): Gaining visibility
+
+**Root Cause Analysis:**
+1. **Content freshness** - St. Augustine footer still shows "© 2025" (stale signal)
+2. **Competitor activity** - Y Entertainment and Future Stereo actively building presence
+3. **Directory dominance** - WeddingWire, The Knot, Zola always in top spots
+4. **Review recency** - Competitors may have fresher reviews
+5. **No hero image on Jacksonville page** - just CSS gradient, could hurt engagement
+
+**Recommended Fixes:**
+- [ ] Update copyright year to 2026 across all pages
+- [ ] Add hero image to Jacksonville page (like St. Augustine has)
+- [ ] Add Review schema for testimonials (structured data boost)
+- [ ] Refresh intro paragraphs with current year mentions
+- [ ] Push for fresh Google reviews (ask recent couples)
+- [ ] Consider blog posts or content updates to signal freshness
 
 ---
 

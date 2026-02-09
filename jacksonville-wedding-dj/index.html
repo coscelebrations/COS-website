@@ -143,6 +143,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="image" href="/images/timuquana-country-club-wedding/live-saxophone-wedding-reception-timuquana.webp">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
   <style>
@@ -364,7 +365,8 @@
       justify-content: center;
       text-align: center;
       padding: 10rem 2rem 4rem;
-      background: linear-gradient(180deg, var(--soft-pink) 0%, var(--cream) 100%);
+      background: linear-gradient(135deg, var(--merlot) 0%, var(--merlot-dark) 100%);
+      color: white;
       position: relative;
       overflow: hidden;
     }
@@ -372,14 +374,9 @@
     .hero::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image:
-        radial-gradient(circle at 20% 80%, var(--rose) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, var(--blush) 0%, transparent 40%);
-      opacity: 0.4;
+      inset: 0;
+      background: url('/images/timuquana-country-club-wedding/live-saxophone-wedding-reception-timuquana.webp') center/cover;
+      opacity: 0.15;
     }
 
     .hero-content {
@@ -402,14 +399,18 @@
 
     .hero h1 {
       font-size: clamp(2.5rem, 6vw, 4rem);
-      color: var(--charcoal);
+      color: white;
       margin-bottom: 1.5rem;
       line-height: 1.15;
     }
 
     .hero h1 em {
       font-style: italic;
-      color: var(--merlot);
+      color: var(--rose);
+    }
+
+    .hero .eyebrow {
+      color: rgba(255,255,255,0.9);
     }
 
     .btn {
@@ -827,9 +828,50 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* Testimonials */
+    .testimonials { margin: 3rem 0; }
+    .testimonial-card { background: white; border: 1px solid var(--blush); border-radius: 4px; padding: 2.5rem; margin-bottom: 2rem; }
+    .testimonial-card:last-child { margin-bottom: 0; }
+    .testimonial-stars { color: #8B7021; font-size: 1.25rem; margin-bottom: 1rem; letter-spacing: 2px; }
+    .testimonial-text { color: var(--text-soft); line-height: 1.9; font-size: 1rem; margin-bottom: 1.5rem; }
+    .testimonial-text p { margin-bottom: 1rem; }
+    .testimonial-text p:last-child { margin-bottom: 0; }
+    .testimonial-attribution { display: flex; align-items: center; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--blush); }
+    .testimonial-author { font-weight: 500; color: var(--charcoal); }
+    .testimonial-venue { font-size: 0.85rem; color: var(--merlot); font-style: italic; }
+    .testimonial-source { font-size: 0.75rem; color: var(--text-soft); margin-left: auto; }
   </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"LocalBusiness","name":"COS Celebrations","url":"https://coscelebrations.com","telephone":"+1-904-615-7132","email":"info@coscelebrations.com","address":{"@type":"PostalAddress","addressLocality":"St. Augustine","addressRegion":"FL","addressCountry":"US"},"priceRange":"$1,500 - $3,000","aggregateRating":{"@type":"AggregateRating","ratingValue":"5","reviewCount":"500","bestRating":"5"}}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "LocalBusiness",
+    "name": "COS Celebrations",
+    "address": {"@type": "PostalAddress", "addressLocality": "Jacksonville", "addressRegion": "FL"}
+  },
+  "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+  "author": {"@type": "Person", "name": "Abby H."},
+  "reviewBody": "Corey was absolutely amazing! From the first time we spoke, I knew he was the one. He was so professional, organized, and made the whole planning process a breeze. On our wedding day at Timuquana Country Club, he kept the party going all night long. Every single guest commented on how great the music was."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "LocalBusiness",
+    "name": "COS Celebrations",
+    "address": {"@type": "PostalAddress", "addressLocality": "Jacksonville", "addressRegion": "FL"}
+  },
+  "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+  "author": {"@type": "Person", "name": "Liz & Joel"},
+  "reviewBody": "We cannot say enough great things about Corey and his team! Our wedding at Epping Forest was absolutely perfect thanks to COS Celebrations. The live saxophone during our first dance brought tears to everyone's eyes. Highly recommend!"
+}
 </script>
 </head>
 <body>
@@ -872,7 +914,7 @@
   <!-- Main Content -->
   <section class="content-section">
     <div class="intro-text">
-      <p>There's something about a Jacksonville wedding. Maybe it's the St. Johns River catching golden hour light behind your first dance at Epping Forest. Maybe it's the century-old oaks at Timuquana framing your ceremony like they've done for generations of Jacksonville families. Or maybe it's that this sprawling, diverse city produces couples who want a celebration that feels real, not rehearsed. <strong>COS Celebrations</strong> has been the wedding DJ of choice for Jacksonville couples who care about music, not cheese. Our founder grew up playing piano at 4 and took his saxophone on tour across <strong>35+ countries</strong> with artists like <strong>Usher and Alicia Keys</strong> before coming home to build something different. We pioneered the DJ + live saxophone model here in North Florida, and Jacksonville venues like Timuquana, Epping Forest, and The River Club keep calling us back because we deliver. With <strong>500+ five-star reviews</strong> and over 2,000 weddings behind us, we know what works. No ego. No spotlight-stealing. Just your wedding, your music, your way - with live sax weaving through the moments that matter.</p>
+      <p>There's something about a Jacksonville wedding in 2026. Maybe it's the St. Johns River catching golden hour light behind your first dance at Epping Forest. Maybe it's the century-old oaks at Timuquana framing your ceremony like they've done for generations of Jacksonville families. Or maybe it's that this sprawling, diverse city produces couples who want a celebration that feels real, not rehearsed. <strong>COS Celebrations</strong> has been the wedding DJ of choice for Jacksonville couples who care about music, not cheese. Our founder grew up playing piano at 4 and took his saxophone on tour across <strong>35+ countries</strong> with artists like <strong>Usher and Alicia Keys</strong> before coming home to build something different. We pioneered the DJ + live saxophone model here in North Florida, and Jacksonville venues like Timuquana, Epping Forest, and The River Club keep calling us back because we deliver. With <strong>500+ five-star reviews</strong> and over 2,000 weddings behind us, we know what works. No ego. No spotlight-stealing. Just your wedding, your music, your way - with live sax weaving through the moments that matter.</p>
     </div>
 
     <h2>Why Jacksonville Couples Choose COS Celebrations</h2>
@@ -1078,7 +1120,37 @@
 
     <h2>What Jacksonville Couples Are Saying</h2>
 
-    <p style="color: var(--text-soft); font-size: 1.05rem; line-height: 1.8; margin: 2rem 0;">Don't just take our word for it - Jacksonville couples consistently praise our professionalism, energy, and ability to read the room. From Casa Marina to Timuquana Country Club, we've kept dance floors packed and created moments couples remember for a lifetime. Check out our 500+ five-star reviews on Wedding Wire, The Knot, and Google to see why we're Jacksonville's top-rated wedding DJ company.</p>
+    <div class="testimonials">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="testimonial-text">
+          <p>Corey was absolutely amazing! From the first time we spoke, I knew he was the one. He was so professional, organized, and made the whole planning process a breeze. The COS Music + Timeline app made it so easy to plan everything.</p>
+          <p>On our wedding day at Timuquana Country Club, he kept the party going all night long. Every single guest commented on how great the music was and how packed the dance floor stayed. The live saxophone during cocktail hour was the highlight that everyone is still talking about!</p>
+        </div>
+        <div class="testimonial-attribution">
+          <div>
+            <div class="testimonial-author">Abby H.</div>
+            <div class="testimonial-venue">Timuquana Country Club, Jacksonville</div>
+          </div>
+          <div class="testimonial-source">Google Review</div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="testimonial-text">
+          <p>We cannot say enough great things about Corey and his team! Our wedding at Epping Forest was absolutely perfect thanks to COS Celebrations. From the ceremony music to the last dance, everything was seamless.</p>
+          <p>The live saxophone during our first dance brought tears to everyone's eyes - it was such a special touch that made the moment unforgettable. Corey read the room perfectly and kept guests of all ages on the dance floor. If you're looking for a Jacksonville wedding DJ who goes above and beyond, look no further!</p>
+        </div>
+        <div class="testimonial-attribution">
+          <div>
+            <div class="testimonial-author">Liz & Joel</div>
+            <div class="testimonial-venue">Epping Forest Yacht Club, Jacksonville</div>
+          </div>
+          <div class="testimonial-source">The Knot Review</div>
+        </div>
+      </div>
+    </div>
 
     <h2>Frequently Asked Questions</h2>
 
