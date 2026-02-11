@@ -6,6 +6,23 @@
 
 ---
 
+## ✅ COMPLETED (Feb 9, 2026) - Treasury Page SEO Improvements
+
+**Issue:** Treasury on the Plaza dropped from #1 (Dec 2025) to out of top 10 (Feb 2026). AMPLIFY at #2, venue sites and directories dominating.
+
+**Fixes Applied:**
+- [x] Added Review schema for Liz testimonial (structured data boost)
+- [x] Added "Quick Facts" box for AI-quotable content (matches Lightner format)
+- [x] Added 2026 mention in intro paragraph (freshness signal)
+- [x] Submitted to Google Indexing API
+- [x] Deployed to Netlify
+
+**Note:** Treasury page already had solid insider tips, timeline, and FAQs from Jan 10 update. The page content is strong - issue is likely competitor activity (AMPLIFY, Y Entertainment) and freshness signals.
+
+**Monitor:** Check rankings again Feb 16-20 to see if these changes help.
+
+---
+
 ## 🚨 ALERT (Feb 8, 2026) - COS City Keywords Dropping
 
 **COS Rankings (Feb 8) - CONCERNING DROPS:**
