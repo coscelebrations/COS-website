@@ -4,11 +4,17 @@ Google Indexing API Integration for COS Celebrations
 Submits URLs to Google's Indexing API for faster indexing.
 
 Usage:
-    python3 google-indexing.py index           # Submit all sitemap URLs
-    python3 google-indexing.py index-changes   # Only submit pages modified since last indexed
-    python3 google-indexing.py check           # Show pages needing (re)indexing
-    python3 google-indexing.py dry             # Preview URLs without submitting
-    python3 google-indexing.py status          # Check submission status via API
+    python3 google-indexing.py index                              # Submit all sitemap URLs
+    python3 google-indexing.py index --url=URL1 --url=URL2        # Submit specific URLs only
+    python3 google-indexing.py index-changes                      # Only submit pages modified since last indexed
+    python3 google-indexing.py check                              # Show pages needing (re)indexing
+    python3 google-indexing.py dry                                # Preview URLs without submitting
+    python3 google-indexing.py status                             # Check submission status via API
+
+Examples:
+    npm run seo:index                                             # All pages
+    npm run seo:index -- --url=https://coscelebrations.com/       # Just homepage
+    npm run seo:index -- --url=https://coscelebrations.com/treasury-on-the-plaza-wedding-dj/
 
 Setup:
     1. Place google-indexing-credentials.json in scripts/ folder
@@ -225,18 +231,30 @@ def get_url_status(url, credentials):
         return {'error': str(e)}
 
 
-def cmd_index(changes_only=False):
-    """Submit URLs to the Indexing API."""
-    urls = parse_sitemap()
+def cmd_index(changes_only=False, specific_urls=None):
+    """Submit URLs to the Indexing API.
+
+    Args:
+        changes_only: Only submit pages modified since last indexed
+        specific_urls: List of specific URLs to submit (if None, uses sitemap)
+    """
     status = load_status()
     credentials = get_credentials()
+
+    # Use specific URLs if provided, otherwise parse sitemap
+    if specific_urls:
+        urls = [{'url': url, 'lastmod': None} for url in specific_urls]
+        mode = f"Specific URLs ({len(urls)})"
+    else:
+        urls = parse_sitemap()
+        mode = 'Changed Pages' if changes_only else 'All Pages'
 
     submitted = 0
     skipped = 0
     errors = 0
 
     print(f"\n{'='*60}")
-    print(f"Google Indexing API - {'Changed Pages' if changes_only else 'All Pages'}")
+    print(f"Google Indexing API - {mode}")
     print(f"{'='*60}\n")
 
     for url_data in urls:
@@ -378,6 +396,15 @@ def cmd_audit():
     return count
 
 
+def parse_url_args():
+    """Parse --url arguments from command line."""
+    urls = []
+    for arg in sys.argv[2:]:
+        if arg.startswith('--url='):
+            urls.append(arg.split('=', 1)[1])
+    return urls if urls else None
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -386,7 +413,8 @@ def main():
     command = sys.argv[1]
 
     if command == 'index':
-        cmd_index(changes_only=False)
+        specific_urls = parse_url_args()
+        cmd_index(changes_only=False, specific_urls=specific_urls)
     elif command == 'index-changes':
         cmd_index(changes_only=True)
     elif command == 'check':
