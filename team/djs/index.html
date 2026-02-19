@@ -279,179 +279,231 @@
       line-height: 1.8;
     }
 
-    /* Team Grid */
+    /* Team Grid - Bold Photo Cards */
     .team-section {
       padding: 5rem 2rem;
-      background: white;
+      background: var(--charcoal);
     }
 
-    .team-grid {
-      max-width: 1200px;
+    .team-container {
+      max-width: 1100px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2.5rem;
     }
 
-    .team-card {
+    .section-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-accent);
+      margin-bottom: 1.5rem;
       text-align: center;
-      transition: transform 0.3s ease;
     }
 
-    .team-card:hover {
-      transform: translateY(-5px);
+    .team-row {
+      display: grid;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
     }
 
-    .team-photo {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      margin: 0 auto 1.5rem;
+    .team-row.two-up {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .team-row.solo {
+      grid-template-columns: minmax(auto, 500px);
+      justify-content: center;
+    }
+
+    /* The Card */
+    .team-card {
+      position: relative;
+      height: 450px;
+      border-radius: 4px;
       overflow: hidden;
-      border: 4px solid var(--blush);
-      background: var(--soft-pink);
+      cursor: pointer;
+    }
+
+    .team-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, transparent 70%);
+      z-index: 1;
+      transition: background 0.4s ease;
+    }
+
+    .team-card:hover::before {
+      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.3) 100%);
+    }
+
+    .team-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      transition: border-color 0.4s ease;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .team-card:hover::after {
+      border-color: var(--gold-accent);
+    }
+
+    /* Photo Background */
+    .card-photo {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .card-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .team-card:hover .card-photo img {
+      transform: scale(1.08);
+    }
+
+    /* Placeholder for missing photos */
+    .card-photo.placeholder {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2a2b 100%);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .team-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Placeholder initials for photos not yet added */
-    .team-photo .initials {
+    .card-photo.placeholder .initials {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 3.5rem;
-      color: var(--merlot);
-      font-weight: 500;
+      font-size: 6rem;
+      font-weight: 400;
+      color: var(--gold-accent);
+      opacity: 0.6;
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
-    .team-card h3 {
-      font-size: 1.6rem;
-      color: var(--charcoal);
+    .team-card:hover .card-photo.placeholder .initials {
+      opacity: 0.3;
+      transform: scale(1.1);
+    }
+
+    /* Card Content */
+    .card-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+      z-index: 2;
+    }
+
+    .card-content h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: white;
       margin-bottom: 0.25rem;
+      line-height: 1.2;
     }
 
-    .team-role {
-      font-size: 0.8rem;
+    .card-role {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--merlot);
-      margin-bottom: 1rem;
+      color: var(--gold-accent);
+      margin-bottom: 0.75rem;
+      display: inline-block;
+      position: relative;
     }
 
-    .team-bio {
-      font-size: 0.95rem;
-      color: var(--text-soft);
-      line-height: 1.7;
-      max-width: 300px;
-      margin: 0 auto;
+    .card-role::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 40px;
+      height: 1px;
+      background: var(--gold-accent);
     }
 
-    .team-tags {
+    .card-tags {
       display: flex;
-      justify-content: center;
       flex-wrap: wrap;
       gap: 0.5rem;
       margin-top: 1rem;
     }
 
-    .team-tag {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
+    .card-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 0.4rem 0.8rem;
-      background: var(--soft-pink);
-      color: var(--text-soft);
-      border-radius: 20px;
+      padding: 0.35rem 0.75rem;
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.8);
+      border-radius: 2px;
+      backdrop-filter: blur(4px);
     }
 
-    /* Featured/Founder card */
-    .team-card.founder {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 3rem;
-      text-align: left;
-      max-width: 900px;
-      margin: 0 auto 2rem;
-      padding: 2.5rem;
-      background: var(--soft-pink);
-      border: 1px solid var(--blush);
+    /* Bio - hidden by default, reveals on hover */
+    .card-bio {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+      margin-top: 1rem;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.4s ease, margin-top 0.4s ease;
     }
 
-    .team-card.founder .team-photo {
-      width: 250px;
-      height: 250px;
-      margin: 0;
+    .team-card:hover .card-bio {
+      max-height: 300px;
+      opacity: 1;
+      margin-top: 1.25rem;
     }
 
-    .team-card.founder .team-bio {
-      max-width: none;
-      margin: 0;
-    }
-
-    .team-card.founder .team-tags {
-      justify-content: flex-start;
-    }
-
-    /* Leadership section - side by side */
-    .leadership-section {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-      max-width: 1100px;
-      margin: 0 auto 2rem;
-    }
-
-    .leadership-section .team-card.founder {
-      grid-column: auto;
-      max-width: none;
-      margin: 0;
-    }
-
-    /* DJ rows - two by two */
-    .dj-row {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2.5rem;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    @media (max-width: 900px) {
-      .leadership-section {
+    /* Responsive */
+    @media (max-width: 800px) {
+      .team-row.two-up {
         grid-template-columns: 1fr;
       }
 
-      .leadership-section .team-card.founder {
-        max-width: 600px;
-        margin: 0 auto;
+      .team-card {
+        height: 400px;
       }
 
-      .dj-row {
-        grid-template-columns: 1fr;
-        max-width: 400px;
+      .card-content h3 {
+        font-size: 1.75rem;
+      }
+
+      .card-bio {
+        font-size: 0.8rem;
       }
     }
 
-    @media (max-width: 768px) {
-      .team-card.founder {
-        grid-template-columns: 1fr;
-        text-align: center;
+    @media (max-width: 500px) {
+      .team-section {
+        padding: 3rem 1rem;
       }
 
-      .team-card.founder .team-photo {
-        margin: 0 auto;
+      .team-card {
+        height: 380px;
       }
 
-      .team-card.founder .team-tags {
-        justify-content: center;
+      .card-content {
+        padding: 1.5rem;
+      }
+
+      .team-card:hover .card-bio {
+        max-height: 250px;
       }
     }
 
@@ -493,6 +545,14 @@
 
     .diagonal-divider.white-to-cream::before {
       background: linear-gradient(to bottom, white 50%, var(--cream) 50%);
+    }
+
+    .diagonal-divider.pink-to-dark::before {
+      background: linear-gradient(to bottom, var(--soft-pink) 50%, var(--charcoal) 50%);
+    }
+
+    .diagonal-divider.dark-to-cream::before {
+      background: linear-gradient(to bottom, var(--charcoal) 50%, var(--cream) 50%);
     }
 
     /* CTA Section */
@@ -721,6 +781,8 @@
           <a href="/services/private-parties/" title="Private party entertainment">Private Parties</a>
         </div>
       </li>
+      <li><a href="/photo-video/" title="Wedding photography and videography">Photo + Video</a></li>
+      <li><a href="/pulse/" title="Pulse! Premium Hybrid Band">Pulse!</a></li>
       <li><a href="/pricing/" title="View wedding DJ pricing and packages">Pricing</a></li>
       <li class="dropdown">
         <span class="dropdown-toggle" title="Meet our team" style="color: var(--merlot);">Our Team</span>
@@ -747,112 +809,136 @@
   </section>
 
   <!-- Diagonal Divider -->
-  <div class="diagonal-divider pink-to-white accent"></div>
+  <div class="diagonal-divider pink-to-dark"></div>
 
   <!-- Team Grid -->
   <section class="team-section">
-    <div class="team-grid fade-in-stagger">
+    <div class="team-container">
 
-      <!-- Leadership Team - Corey & Kyle -->
-      <div class="leadership-section">
-        <div class="team-card founder">
-          <div class="team-photo">
+      <!-- Leadership Row: Corey & Kyle -->
+      <p class="section-label">Leadership</p>
+      <div class="team-row two-up">
+
+        <div class="team-card">
+          <div class="card-photo">
             <img src="/images/corey-peterson-jacksonville-wedding-dj-saxophone.webp" alt="Corey Peterson - Founder & Lead DJ at COS Celebrations" loading="lazy" decoding="async">
           </div>
-          <div class="team-info">
+          <div class="card-content">
             <h3>Corey Peterson</h3>
-            <p class="team-role">Founder & Lead DJ</p>
-            <p class="team-bio">Started on piano at age 4, picked up saxophone shortly after, and spent years touring 35+ countries with artists like Usher, Alicia Keys, Big Gigantic, and Vulfpeck. Corey pioneered the DJ + live saxophone model in North Florida and brings that concert-level energy to every wedding. When he's not on stage, he's training daily with top wedding DJs across the country.</p>
-            <div class="team-tags">
-              <span class="team-tag">DJ</span>
-              <span class="team-tag">Saxophone</span>
-              <span class="team-tag">MC</span>
-              <span class="team-tag">Piano</span>
+            <span class="card-role">Founder & Lead DJ</span>
+            <p class="card-bio">Started on piano at age 4, picked up saxophone shortly after, and spent years touring 40+ countries and sharing the stage with artists like T-Pain, Alicia Keys, Usher, Slightly Stoopid, and more. Corey started COS Celebrations with his girlfriend Kyle-now his fiancee and soon-to-be wife. Together they pioneered the DJ + live saxophone model in North Florida and built an incredible team of DJs and musicians. They're just getting started. When he's not on stage, Corey's training daily with top wedding DJs across the country.</p>
+            <div class="card-tags">
+              <span class="card-tag">DJ</span>
+              <span class="card-tag">Saxophone</span>
+              <span class="card-tag">MC</span>
+              <span class="card-tag">Piano</span>
             </div>
           </div>
         </div>
 
-        <div class="team-card founder">
-          <div class="team-photo">
+        <div class="team-card">
+          <div class="card-photo placeholder">
             <span class="initials">K</span>
-            <!-- Replace with: <img src="/images/team/kyle.webp" alt="Kyle - Co-Owner & Client Services at COS Celebrations"> -->
           </div>
-          <div class="team-info">
+          <div class="card-content">
             <h3>Kyle</h3>
-            <p class="team-role">Client Services Director</p>
-            <p class="team-bio">Bio coming soon. Kyle ensures every couple has an incredible experience from the first inquiry through the last dance. She's the heart of our client relationships and the reason everything runs so smoothly behind the scenes.</p>
-            <div class="team-tags">
-              <span class="team-tag">Client Services</span>
-              <span class="team-tag">Planning</span>
+            <span class="card-role">Client Services Coordinator</span>
+            <p class="card-bio">Kyle started COS Celebrations alongside Corey when they were just dating-now they're engaged and soon to be married, building something special together. She brings her hospitality roots from the restaurant industry to every client interaction. Couples and planners rave about her lightning-fast responses and genuinely personable communication-she'll walk through every detail until you feel completely comfortable. When she's not making clients feel like VIPs, you'll find her cheering on her kids at school events and sports games, espresso in hand.</p>
+            <div class="card-tags">
+              <span class="card-tag">Client Services</span>
+              <span class="card-tag">Planning</span>
             </div>
           </div>
         </div>
+
       </div>
 
-      <!-- DJ Row 1: Marc & CJ -->
-      <div class="dj-row">
+      <!-- Operations Row: Marc -->
+      <p class="section-label">Operations</p>
+      <div class="team-row solo">
+
         <div class="team-card">
-          <div class="team-photo">
+          <div class="card-photo placeholder">
             <span class="initials">M</span>
           </div>
-          <h3>Marc</h3>
-          <p class="team-role">DJ</p>
-          <p class="team-bio">Bio coming soon. Marc brings a refined taste in music and impeccable timing to every celebration.</p>
-          <div class="team-tags">
-            <span class="team-tag">DJ</span>
-            <span class="team-tag">MC</span>
+          <div class="card-content">
+            <h3>Marc Bourgeois</h3>
+            <span class="card-role">Director of Operations & Training</span>
+            <p class="card-bio">From the historic streets of Boston to sunny St. Augustine, Marc brings a unique blend of experience to COS. After relocating to Florida, he formed a band, spent over a year as a full-time solo artist, and now serves as our Director of Operations & Training. His background as a contractor, landlord, and theater performer gives him a problem-solver's mindset and knack for organization. Marc also performs as ceremony pianist and provides piano and vocals for cocktail hours, adding live music charm to every celebration.</p>
+            <div class="card-tags">
+              <span class="card-tag">DJ</span>
+              <span class="card-tag">MC</span>
+              <span class="card-tag">Piano</span>
+              <span class="card-tag">Vocals</span>
+            </div>
           </div>
         </div>
 
-        <div class="team-card">
-          <div class="team-photo">
-            <span class="initials">CJ</span>
-          </div>
-          <h3>CJ</h3>
-          <p class="team-role">DJ</p>
-          <p class="team-bio">Bio coming soon. CJ brings incredible energy and seamless mixing to every reception.</p>
-          <div class="team-tags">
-            <span class="team-tag">DJ</span>
-            <span class="team-tag">MC</span>
-          </div>
-        </div>
       </div>
 
-      <!-- DJ Row 2: Noah & Greg -->
-      <div class="dj-row">
+      <!-- DJ Row: CJ & Noah -->
+      <p class="section-label">Entertainment Team</p>
+      <div class="team-row two-up">
+
         <div class="team-card">
-          <div class="team-photo">
-            <span class="initials">N</span>
+          <div class="card-photo placeholder">
+            <span class="initials">CJ</span>
           </div>
-          <h3>Noah</h3>
-          <p class="team-role">DJ</p>
-          <p class="team-bio">Bio coming soon. Noah's crowd-reading skills and smooth transitions keep dance floors packed all night.</p>
-          <div class="team-tags">
-            <span class="team-tag">DJ</span>
-            <span class="team-tag">MC</span>
+          <div class="card-content">
+            <h3>CJ</h3>
+            <span class="card-role">DJ</span>
+            <p class="card-bio">With 16 years in the wedding industry, CJ started at just 15 under the mentorship of his brother Spyro-a respected name in the New York DJ circuit. Originally from Long Island, he's also toured the world as a drummer across Asia, Europe, South America, and beyond. That global stage experience, combined with his outgoing personality and instinct for reading a room, makes every dance floor unforgettable. Now calling St. Augustine home, CJ brings big-city energy with coastal charm.</p>
+            <div class="card-tags">
+              <span class="card-tag">DJ</span>
+              <span class="card-tag">MC</span>
+              <span class="card-tag">Drums</span>
+            </div>
           </div>
         </div>
 
         <div class="team-card">
-          <div class="team-photo">
-            <span class="initials">G</span>
+          <div class="card-photo placeholder">
+            <span class="initials">N</span>
           </div>
-          <h3>Greg</h3>
-          <p class="team-role">DJ & Multi-Instrumentalist</p>
-          <p class="team-bio">Bio coming soon. Greg's versatility as a DJ, saxophonist, and pianist makes him one of our most dynamic entertainers.</p>
-          <div class="team-tags">
-            <span class="team-tag">DJ</span>
-            <span class="team-tag">Saxophone</span>
-            <span class="team-tag">Piano</span>
+          <div class="card-content">
+            <h3>Noah</h3>
+            <span class="card-role">DJ</span>
+            <p class="card-bio">Born and raised in Jacksonville, Noah brings a performer's instinct to every event. Before stepping behind the decks, he toured the country as a professional dancer-developing an innate feel for rhythm, energy, and moving a crowd. With a Theatre Arts degree from Flagler College and Puerto Rican heritage that shaped his diverse musical taste, Noah doesn't just play music-he creates experiences. His goal is always the same: a night they'll never forget and a dance floor that becomes the best party they've ever had.</p>
+            <div class="card-tags">
+              <span class="card-tag">DJ</span>
+              <span class="card-tag">MC</span>
+            </div>
           </div>
         </div>
+
+      </div>
+
+      <!-- Greg - Solo Placeholder -->
+      <div class="team-row solo">
+
+        <div class="team-card">
+          <div class="card-photo placeholder">
+            <span class="initials">G</span>
+          </div>
+          <div class="card-content">
+            <h3>Greg</h3>
+            <span class="card-role">DJ & Multi-Instrumentalist</span>
+            <p class="card-bio">Greg Capozzi-known as DJ C-Zone-has been a musician since the early '90s and added DJing in the early 2000s, spinning vinyl only (no laptop). In Boston, he earned a stellar reputation and pioneered adding live sax to his DJ sets. With 2,500+ events under his belt, he's performed for Clint Eastwood, Sean Penn, and Susan Sarandon during the filming of Mystic River, held residencies at Boston's most upscale venues, and appeared at the Montreal Jazz Festival, Disney World, and with Cirque de Soleil performers. His sax work has even been featured on a compilation from Ibiza-the world's dance music capital. Since moving to Northeast Florida in 2014, C-Zone has rebuilt his reputation along the East Coast. As a musician, he hears music differently-and that shows on the dance floor.</p>
+            <div class="card-tags">
+              <span class="card-tag">DJ</span>
+              <span class="card-tag">Saxophone</span>
+              <span class="card-tag">Piano</span>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
   </section>
 
   <!-- Diagonal Divider -->
-  <div class="diagonal-divider white-to-cream accent"></div>
+  <div class="diagonal-divider dark-to-cream"></div>
 
   <!-- CTA Section -->
   <section class="cta-section">
