@@ -1,8 +1,38 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: February 8, 2026
+## Last Updated: February 20, 2026
 
 > **SEO Rules are in `~/CLAUDE.md`** — they auto-load every session.
 > **Historical sessions are in `SEO-ARCHIVE.md`** — reference when needed.
+
+---
+
+## ✅ COMPLETED (Feb 19-20, 2026) - Photo + Video Service Pages
+
+**What:** Created new Photo + Video service pages for both COS and AE, featuring white-label partnership with Rob + Jill Futrell (photographers/videographers).
+
+**Pages Created:**
+- [x] `/Users/coreypeterson/cos-website/photo-video/index.html` - Luxury positioning
+- [x] `/Users/coreypeterson/ae-entertainment/photo-video/index.html` - Budget positioning
+
+**Key Features:**
+- Top-level nav item (not under Services dropdown)
+- White-label service - positioned as COS/AE offering with Rob + Jill named but NOT linked
+- No pricing shown - "Contact for custom quote"
+- Dynamic portfolio from Rob's JSON feed (`https://robfutrell.com/feed/recent-work.json`)
+- Auto-updates when Rob publishes new wedding sneak peeks
+- Proper aspect ratios for vertical (2:3) and horizontal (3:2) images
+- Service, FAQPage, and LocalBusiness schema markup
+
+**Navigation Updates:**
+- [x] Updated 84 COS pages - added "Photo + Video" nav link before Pulse!
+- [x] Updated 69 AE pages - added "Photo + Video" nav link after Services
+- [x] Updated both sitemaps
+
+**SEO Targets:**
+- COS: "wedding photo video st augustine", "jacksonville wedding photographer"
+- AE: "affordable wedding photo video jacksonville"
+
+**Note:** Pulse page was also pushed (needs work but user wanted it live to start indexing).
 
 ---
 
