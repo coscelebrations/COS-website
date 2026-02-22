@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Carousel Example - COS Celebrations</title>
+
+  <!-- Fonts (same as COS site) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- COS Brand Colors -->
+  <style>
+    :root {
+      --merlot: #722F37;
+      --merlot-dark: #5C262D;
+      --blush: #E8C4C8;
+      --soft-pink: #F8F0F0;
+      --cream: #FFFBFA;
+      --charcoal: #2D2A2B;
+      --gold: #C9A54D;
+      --gold-light: #E8D5A3;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      margin: 0;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--charcoal);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 3rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-header .eyebrow {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--merlot);
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      color: var(--charcoal);
+      margin: 0.5rem 0;
+    }
+  </style>
+
+  <!-- Review Carousel CSS -->
+  <link rel="stylesheet" href="review-carousel.css">
+</head>
+<body>
+
+  <h1>Review Carousel Demo</h1>
+  <p class="subtitle">Preview of the Google Reviews carousel component</p>
+
+  <!-- Section Header -->
+  <div class="section-header">
+    <span class="eyebrow">Client Love</span>
+    <h2>What Couples Are Saying</h2>
+  </div>
+
+  <!-- Review Carousel Container -->
+  <div id="reviews-carousel" data-review-carousel data-brand="cos"></div>
+
+  <!-- Review Carousel JS -->
+  <script src="review-carousel.js"></script>
+
+  <!-- Initialize with inline reviews for demo -->
+  <script>
+    // Demo reviews - replace with actual JSON loading
+    const demoReviews = [
+      {
+        id: 1,
+        author: "Sarah & Michael",
+        avatarUrl: null,
+        rating: 5,
+        text: "COS Celebrations made our wedding absolutely perfect! The live saxophone during cocktail hour was a huge hit with our guests. Everyone is still talking about it months later.",
+        date: "January 2026",
+        googleLink: null
+      },
+      {
+        id: 2,
+        author: "Jennifer Martinez",
+        avatarUrl: null,
+        rating: 5,
+        text: "From the moment we met with the COS team, we knew we were in good hands. They understood our vision for an elegant evening and executed it flawlessly. The music selection, the timing, everything was perfect.",
+        date: "December 2025",
+        googleLink: null
+      },
+      {
+        id: 3,
+        author: "David Thompson",
+        avatarUrl: null,
+        rating: 5,
+        text: "Professional, talented, and so much fun to work with. Our dance floor was packed all night long. Worth every penny!",
+        date: "November 2025",
+        googleLink: null
+      },
+      {
+        id: 4,
+        author: "Emily & Jason",
+        avatarUrl: null,
+        rating: 5,
+        text: "We hired COS for both DJ and live violin services. The combination of modern beats with classical elegance was exactly what we wanted for our Treasury on the Plaza wedding. Highly recommend!",
+        date: "October 2025",
+        googleLink: null
+      },
+      {
+        id: 5,
+        author: "Amanda Collins",
+        avatarUrl: null,
+        rating: 5,
+        text: "The team at COS went above and beyond. They coordinated perfectly with our other vendors and kept the energy high all night. Our guests are still raving about the music!",
+        date: "September 2025",
+        googleLink: null
+      }
+    ];
+
+    // Initialize carousel with demo data
+    new ReviewCarousel('reviews-carousel', {
+      brand: 'cos',
+      reviews: demoReviews,
+      autoplay: false,
+      visibleCards: 3
+    });
+  </script>
+
+</body>
+</html>

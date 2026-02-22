@@ -1,0 +1,311 @@
+/* ============================================
+   REVIEW CAROUSEL - COS Celebrations Style
+   Based on Rob Futrell Photography carousel
+   ============================================ */
+
+/* Wrapper */
+.review-carousel-wrapper {
+  position: relative;
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 3rem;
+}
+
+/* Navigation Arrows */
+.review-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background: var(--merlot, #722F37);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.review-nav:hover {
+  background: var(--merlot-dark, #5C262D);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.review-nav.prev { left: 0; }
+.review-nav.next { right: 0; }
+
+.review-nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Viewport */
+.review-cards-viewport {
+  overflow: hidden;
+  margin: 0 1rem;
+}
+
+/* Track - holds all cards */
+.review-cards-track {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Individual Review Card */
+.review-card {
+  flex: 0 0 calc(33.333% - 1rem);
+  min-width: 320px;
+  background: var(--charcoal, #2D2A2B);
+  color: white;
+  border-radius: 8px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Author Header */
+.review-author-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Avatar */
+.reviewer-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--merlot, #722F37);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.reviewer-avatar.has-photo .reviewer-initial {
+  display: none;
+}
+
+.reviewer-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reviewer-initial {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+}
+
+/* Reviewer Info */
+.reviewer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.review-author {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+}
+
+.review-stars {
+  color: var(--gold, #C9A54D);
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+/* Quote */
+.review-quote-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.review-quote {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.9);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Truncated state */
+.review-quote-wrapper.truncated .review-quote {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.review-quote-wrapper.expanded .review-quote {
+  -webkit-line-clamp: unset;
+}
+
+/* Expand button */
+.review-expand {
+  background: none;
+  border: none;
+  color: var(--gold, #C9A54D);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0.5rem 0 0 0;
+  text-decoration: underline;
+}
+
+.review-expand:hover {
+  color: var(--gold-light, #E8D5A3);
+}
+
+.review-quote-wrapper.expanded .review-expand {
+  display: none;
+}
+
+/* Footer */
+.review-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.review-date {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.review-link {
+  font-size: 0.85rem;
+  color: var(--gold, #C9A54D);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.review-link:hover {
+  color: var(--gold-light, #E8D5A3);
+  text-decoration: underline;
+}
+
+/* Google Badge (optional) */
+.google-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+}
+
+.google-badge img {
+  height: 24px;
+}
+
+.google-badge span {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .review-card {
+    flex: 0 0 calc(50% - 0.75rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .review-carousel-wrapper {
+    padding: 0 2.5rem;
+  }
+
+  .review-card {
+    flex: 0 0 100%;
+    min-width: unset;
+  }
+
+  .review-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+
+  .review-cards-viewport {
+    margin: 0 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .review-carousel-wrapper {
+    padding: 0 2rem;
+  }
+
+  .review-card {
+    padding: 1.25rem;
+  }
+
+  .review-author-header {
+    gap: 0.75rem;
+  }
+
+  .reviewer-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .reviewer-initial {
+    font-size: 1.25rem;
+  }
+
+  .review-author {
+    font-size: 1.1rem;
+  }
+
+  .review-quote {
+    font-size: 0.9rem;
+  }
+}
+
+/* Dots Navigation (alternative to arrows) */
+.review-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.review-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--blush, #E8C4C8);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.review-dot.active {
+  background: var(--merlot, #722F37);
+  transform: scale(1.2);
+}
+
+.review-dot:hover {
+  background: var(--merlot, #722F37);
+}

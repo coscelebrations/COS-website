@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Review Formatter - COS/AE</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f5;
+    }
+    h1 { color: #722F37; margin-bottom: 0.5rem; }
+    .subtitle { color: #666; margin-bottom: 2rem; }
+    .container { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .panel {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-top: 0; color: #333; font-size: 1.1rem; }
+    label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #444; }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    .input-group { margin-bottom: 1rem; }
+    .help { font-size: 0.85rem; color: #888; margin-top: -0.75rem; margin-bottom: 1rem; }
+    button {
+      background: #722F37;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    button:hover { background: #5C262D; }
+    button.secondary { background: #666; }
+    button.secondary:hover { background: #555; }
+    .output {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 1rem;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .review-list {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    .review-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .review-item:last-child { border-bottom: none; }
+    .review-item .name { font-weight: 500; }
+    .review-item .date { color: #888; font-size: 0.85rem; }
+    .review-item button { padding: 0.25rem 0.5rem; font-size: 0.8rem; margin: 0; }
+    .stats { background: #f0f0f0; padding: 1rem; border-radius: 4px; margin-bottom: 1rem; }
+    .stats span { font-weight: bold; color: #722F37; }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .tab {
+      padding: 0.5rem 1rem;
+      background: #eee;
+      border: none;
+      border-radius: 4px 4px 0 0;
+      cursor: pointer;
+    }
+    .tab.active { background: #722F37; color: white; }
+    .preview-card {
+      background: #2D2A2B;
+      color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+    .preview-card .author { font-weight: 600; margin-bottom: 0.25rem; }
+    .preview-card .stars { color: #C9A54D; }
+    .preview-card .quote { font-style: italic; margin: 1rem 0; line-height: 1.6; }
+    .preview-card .date { color: #999; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>Google Review Formatter</h1>
+  <p class="subtitle">Paste review info from Google Maps to generate JSON for your review carousel</p>
+
+  <div class="container">
+    <div class="panel">
+      <h2>Add a Review</h2>
+
+      <div class="input-group">
+        <label for="brand">Brand</label>
+        <select id="brand">
+          <option value="cos">COS Celebrations</option>
+          <option value="ae">AE Entertainment</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="author">Reviewer Name *</label>
+        <input type="text" id="author" placeholder="John Smith">
+      </div>
+
+      <div class="input-group">
+        <label for="avatarUrl">Avatar Photo URL (optional)</label>
+        <input type="text" id="avatarUrl" placeholder="https://lh3.googleusercontent.com/...">
+        <p class="help">Right-click reviewer's photo on Google Maps > Copy image address</p>
+      </div>
+
+      <div class="input-group">
+        <label for="rating">Rating</label>
+        <select id="rating">
+          <option value="5">5 Stars</option>
+          <option value="4">4 Stars</option>
+          <option value="3">3 Stars</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="reviewText">Review Text *</label>
+        <textarea id="reviewText" placeholder="Paste the review text here..."></textarea>
+      </div>
+
+      <div class="input-group">
+        <label for="date">Date</label>
+        <input type="text" id="date" placeholder="January 2026">
+        <p class="help">Format: Month Year</p>
+      </div>
+
+      <div class="input-group">
+        <label for="googleLink">Google Review Link (optional)</label>
+        <input type="text" id="googleLink" placeholder="https://www.google.com/maps/reviews/...">
+        <p class="help">Click the 3 dots on the review > Share review > Copy link</p>
+      </div>
+
+      <button onclick="addReview()">Add Review</button>
+      <button class="secondary" onclick="clearForm()">Clear Form</button>
+    </div>
+
+    <div class="panel">
+      <h2>Reviews Collection</h2>
+
+      <div class="stats">
+        COS: <span id="cosCount">0</span> reviews | AE: <span id="aeCount">0</span> reviews
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('cos')">COS Reviews</button>
+        <button class="tab" onclick="showTab('ae')">AE Reviews</button>
+      </div>
+
+      <div class="review-list" id="reviewList">
+        <p style="padding: 1rem; color: #888;">No reviews added yet</p>
+      </div>
+
+      <button onclick="exportJSON()">Export JSON</button>
+      <button onclick="exportHTML()">Export HTML</button>
+      <button class="secondary" onclick="importJSON()">Import JSON</button>
+      <button class="secondary" onclick="clearAll()">Clear All</button>
+
+      <h2 style="margin-top: 1.5rem;">Output</h2>
+      <div class="output" id="output">// Output will appear here</div>
+
+      <div id="previewSection" style="display: none;">
+        <h2 style="margin-top: 1.5rem;">Preview</h2>
+        <div class="preview-card" id="preview"></div>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" style="display: none;" accept=".json">
+
+  <script>
+    let reviews = { cos: [], ae: [] };
+    let currentTab = 'cos';
+
+    // Load from localStorage on page load
+    window.onload = function() {
+      const saved = localStorage.getItem('reviewFormatter');
+      if (saved) {
+        reviews = JSON.parse(saved);
+        updateUI();
+      }
+    };
+
+    function save() {
+      localStorage.setItem('reviewFormatter', JSON.stringify(reviews));
+    }
+
+    function addReview() {
+      const brand = document.getElementById('brand').value;
+      const author = document.getElementById('author').value.trim();
+      const reviewText = document.getElementById('reviewText').value.trim();
+
+      if (!author || !reviewText) {
+        alert('Please fill in the required fields (Name and Review Text)');
+        return;
+      }
+
+      const review = {
+        id: Date.now(),
+        author: author,
+        avatarUrl: document.getElementById('avatarUrl').value.trim() || null,
+        rating: parseInt(document.getElementById('rating').value),
+        text: reviewText,
+        date: document.getElementById('date').value.trim() || new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+        googleLink: document.getElementById('googleLink').value.trim() || null
+      };
+
+      reviews[brand].push(review);
+      save();
+      updateUI();
+      clearForm();
+      showPreview(review);
+    }
+
+    function clearForm() {
+      document.getElementById('author').value = '';
+      document.getElementById('avatarUrl').value = '';
+      document.getElementById('reviewText').value = '';
+      document.getElementById('date').value = '';
+      document.getElementById('googleLink').value = '';
+    }
+
+    function showTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      updateReviewList();
+    }
+
+    function updateUI() {
+      document.getElementById('cosCount').textContent = reviews.cos.length;
+      document.getElementById('aeCount').textContent = reviews.ae.length;
+      updateReviewList();
+    }
+
+    function updateReviewList() {
+      const list = document.getElementById('reviewList');
+      const data = reviews[currentTab];
+
+      if (data.length === 0) {
+        list.innerHTML = '<p style="padding: 1rem; color: #888;">No reviews added yet</p>';
+        return;
+      }
+
+      list.innerHTML = data.map((r, i) => `
+        <div class="review-item">
+          <div>
+            <div class="name">${escapeHtml(r.author)}</div>
+            <div class="date">${r.date} - ${r.text.substring(0, 50)}...</div>
+          </div>
+          <button onclick="removeReview('${currentTab}', ${i})">Remove</button>
+        </div>
+      `).join('');
+    }
+
+    function removeReview(brand, index) {
+      if (confirm('Remove this review?')) {
+        reviews[brand].splice(index, 1);
+        save();
+        updateUI();
+      }
+    }
+
+    function exportJSON() {
+      const output = JSON.stringify(reviews, null, 2);
+      document.getElementById('output').textContent = output;
+
+      // Also download as file
+      const blob = new Blob([output], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'reviews.json';
+      a.click();
+    }
+
+    function exportHTML() {
+      const brand = currentTab;
+      const data = reviews[brand];
+
+      const html = data.map((r, i) => `
+          <div class="review-card" data-index="${i}">
+            <div class="review-author-header">
+              <div class="reviewer-avatar${r.avatarUrl ? ' has-photo' : ''}">
+                ${r.avatarUrl ? `<img src="${escapeHtml(r.avatarUrl)}" alt="${escapeHtml(r.author)}" class="reviewer-photo" loading="lazy">` : ''}
+                <span class="reviewer-initial" data-letter="${r.author.charAt(0).toUpperCase()}">${r.author.charAt(0).toUpperCase()}</span>
+              </div>
+              <div class="reviewer-info">
+                <span class="review-author">${escapeHtml(r.author)}</span>
+                <span class="review-stars">${'&#9733;'.repeat(r.rating)}</span>
+              </div>
+            </div>
+            <div class="review-quote-wrapper${r.text.length > 200 ? ' truncated' : ''}">
+              <blockquote class="review-quote">"${escapeHtml(r.text)}"</blockquote>
+              ${r.text.length > 200 ? '<button class="review-expand" aria-label="Expand review">Read more</button>' : ''}
+            </div>
+            <div class="review-footer">
+              <span class="review-date">${escapeHtml(r.date)}</span>
+              ${r.googleLink ? `<a href="${escapeHtml(r.googleLink)}" target="_blank" rel="noopener" class="review-link">Read on Google</a>` : ''}
+            </div>
+          </div>`).join('\n');
+
+      document.getElementById('output').textContent = html;
+    }
+
+    function importJSON() {
+      document.getElementById('fileInput').click();
+    }
+
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            const imported = JSON.parse(e.target.result);
+            if (imported.cos && imported.ae) {
+              reviews = imported;
+              save();
+              updateUI();
+              alert('Reviews imported successfully!');
+            } else {
+              alert('Invalid JSON format');
+            }
+          } catch (err) {
+            alert('Error parsing JSON: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    function clearAll() {
+      if (confirm('Clear all reviews? This cannot be undone.')) {
+        reviews = { cos: [], ae: [] };
+        save();
+        updateUI();
+        document.getElementById('output').textContent = '// Output will appear here';
+      }
+    }
+
+    function showPreview(review) {
+      const preview = document.getElementById('preview');
+      preview.innerHTML = `
+        <div class="author">${escapeHtml(review.author)}</div>
+        <div class="stars">${'&#9733;'.repeat(review.rating)}</div>
+        <div class="quote">"${escapeHtml(review.text.substring(0, 300))}${review.text.length > 300 ? '...' : ''}"</div>
+        <div class="date">${review.date}</div>
+      `;
+      document.getElementById('previewSection').style.display = 'block';
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>

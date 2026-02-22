@@ -1,0 +1,24 @@
+{
+  "cos": [
+    {
+      "id": 1,
+      "author": "Example Reviewer",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "This is a sample review. Replace with real reviews from Google.",
+      "date": "January 2026",
+      "googleLink": null
+    }
+  ],
+  "ae": [
+    {
+      "id": 1,
+      "author": "Example Reviewer",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "This is a sample review for AE. Replace with real reviews from Google.",
+      "date": "January 2026",
+      "googleLink": null
+    }
+  ]
+}
