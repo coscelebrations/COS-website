@@ -1,8 +1,23 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: February 20, 2026
+## Last Updated: February 22, 2026
 
 > **SEO Rules are in `~/CLAUDE.md`** — they auto-load every session.
 > **Historical sessions are in `SEO-ARCHIVE.md`** — reference when needed.
+
+---
+
+## ✅ COMPLETED (Feb 22, 2026) - Homepage Featured Moment Image
+
+**What:** Added Craig & Ashley wedding photo (group hug with DJ Corey) to COS homepage as standalone featured moment section right after the hero.
+
+**Details:**
+- Photo by Rob Futrell at Sawgrass Country Club
+- Optimized: 53KB full (800px), 21KB mobile (400px), WebP format
+- Geotagged with Sawgrass Country Club coordinates (Ponte Vedra Beach)
+- Clean presentation: just image + photo credit, no headline/tagline
+- Location: `/images/craig-ashley-wedding/couple-hugging-dj-corey.webp`
+
+**Why it matters:** Emotional image showing the personal connection between DJ and couple - sells the experience, not just the service. High visibility placement immediately after hero.
 
 ---
 
