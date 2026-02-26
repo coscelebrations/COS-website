@@ -1,8 +1,61 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: February 22, 2026
+## Last Updated: February 25, 2026
 
 > **SEO Rules are in `~/CLAUDE.md`** — they auto-load every session.
 > **Historical sessions are in `SEO-ARCHIVE.md`** — reference when needed.
+
+---
+
+## Rankings Check (Feb 25, 2026)
+
+**COS Rankings:**
+| Keyword | Feb 10 | Feb 25 | Change |
+|---------|--------|--------|--------|
+| ponte vedra wedding dj | #1 | #1 | HOLDING |
+| st augustine wedding dj | #4 | #1 | UP 3 - Massive recovery! |
+| jacksonville wedding dj | #7 | #7 | HOLDING - homepage ranking, not city page |
+| timuquana country club | #1 | #1 | HOLDING |
+| treasury on the plaza | N/A | N/A | Still out - AMPLIFY at #2 |
+| lightner museum | N/A | N/A | Still out |
+| epping forest yacht club | N/A | N/A | Still out - AMPLIFY at #3 |
+| orlando wedding dj | N/A | N/A | Still out |
+
+**AE Rankings:**
+| Keyword | Feb 10 | Feb 25 | Change |
+|---------|--------|--------|--------|
+| budget wedding dj jax | #2 | #1 | UP 1 - First time at #1! |
+| affordable wedding dj jax | #4 | #2 | UP 2 |
+| st augustine wedding dj | #6 | #7 | DOWN 1 |
+
+**Analysis:**
+- COS core city keywords are strong - #1 for Ponte Vedra, St. Augustine, and Timuquana
+- AE budget keywords hitting all-time highs
+- Venue keywords (Treasury, Lightner, Epping) still completely absent - AMPLIFY owns this space
+- Jacksonville stuck at #7 with homepage ranking instead of city page
+
+**Also completed:** AE copyright year sweep - updated 46 pages from 2025 to 2026 (freshness signal)
+
+---
+
+## ✅ COMPLETED (Feb 25, 2026) - Jacksonville Keyword Cannibalization Fix
+
+**Problem:** COS stuck at #7 for "jacksonville wedding dj" — Google ranking homepage instead of dedicated `/jacksonville-wedding-dj/` page. Homepage FAQ schema had Jacksonville-specific questions competing with the city page's FAQ schema, splitting authority.
+
+**Changes made to `index.html`:**
+1. **Meta description** — Removed "Jacksonville, St. Augustine, Orlando, and Tampa", replaced with "North and Central Florida"
+2. **OG description** — Same change
+3. **FAQ schema Q1** — "How much does a wedding DJ cost in Jacksonville and St. Augustine?" → "...in Florida?"
+4. **FAQ schema Q7** — "Who is the best wedding DJ in Jacksonville Florida?" → "...in Florida?" (answer broadened too)
+5. **FAQ schema Q9** — "...best wedding entertainment company in St. Augustine?" → "...in North Florida?" (answer broadened too)
+6. **On-page FAQ** — Updated visible pricing question to match schema ("...in Florida?")
+
+**NOT changed (intentional):**
+- Homepage `areaServed` in LocalBusiness schema (best practice to keep)
+- "What areas do you serve?" FAQ (service area question, not keyword-targeting)
+- Jacksonville city page content (already solid — 5,000+ words)
+- Internal linking (already 41 links to Jacksonville page)
+
+**Next steps:** Monitor Jacksonville ranking over next 2-3 weeks. Expect Google to reindex homepage within ~1 week and start favoring the city page.
 
 ---
 
