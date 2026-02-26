@@ -1,5 +1,5 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: February 25, 2026
+## Last Updated: February 26, 2026
 
 > **SEO Rules are in `~/CLAUDE.md`** — they auto-load every session.
 > **Historical sessions are in `SEO-ARCHIVE.md`** — reference when needed.
@@ -34,6 +34,27 @@
 - Jacksonville stuck at #7 with homepage ranking instead of city page
 
 **Also completed:** AE copyright year sweep - updated 46 pages from 2025 to 2026 (freshness signal)
+
+---
+
+## ✅ COMPLETED (Feb 26, 2026) - Homepage Mobile PageSpeed Optimization
+
+**Problem:** Mobile PageSpeed dropped to 63. Audited homepage and found multiple performance issues.
+
+**What worked (kept):**
+- Added `loading="lazy"` to video poster image (was downloading 51KB immediately)
+- Removed duplicate `fetchpriority="high"` preload for logo (was diluting priority signal)
+- Moved JSON-LD schema blocks (~10KB) from `<head>` to bottom of `<body>`
+- Recompressed lightner gallery image from 108KB to 95KB (under 100KB rule)
+
+**What backfired (reverted):**
+- Extracting inline CSS to async external stylesheet — caused layout shifts, dropped desktop from 98 to 78
+- setTimeout wrappers on Meta Pixel and GA — GA `async` was already browser-optimized, wrapper was counterproductive
+- CTA background lazy-load via IntersectionObserver — caused CLS when background popped in on desktop
+
+**Results:** Mobile 63 → 81 (+18 points), Desktop stayed at 98.
+
+**Lesson learned:** Simple fixes (lazy loading, removing redundant preloads, moving non-render content to body) give the best ROI. Aggressive optimizations (async CSS extraction, JS-based lazy backgrounds, setTimeout wrappers) introduce CLS and timing issues that hurt more than they help on a single-page static site.
 
 ---
 
