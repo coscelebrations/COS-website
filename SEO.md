@@ -55,6 +55,8 @@
 - Jacksonville city page content (already solid — 5,000+ words)
 - Internal linking (already 41 links to Jacksonville page)
 
+**Validation:** Rich Results Test passed - 8 valid items, 0 errors (FAQ, LocalBusiness, Articles, Organization, Review snippets all green).
+
 **Next steps:** Monitor Jacksonville ranking over next 2-3 weeks. Expect Google to reindex homepage within ~1 week and start favoring the city page.
 
 ---
