@@ -3,38 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Meta Pixel Code (deferred to avoid blocking render) -->
+  <!-- Meta Pixel Code -->
   <script>
-  setTimeout(function(){
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1570927814234203');
-    fbq('track', 'PageView');
-  }, 0);
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1570927814234203');
+  fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=1570927814234203&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
-  <!-- Google tag (deferred to avoid blocking render) -->
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SHQJVPHKYZ"></script>
   <script>
-  setTimeout(function(){
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-SHQJVPHKYZ';
-    document.head.appendChild(s);
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    window.gtag = gtag;
     gtag('js', new Date());
     gtag('config', 'G-SHQJVPHKYZ');
-  }, 0);
   </script>
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
@@ -1195,7 +1187,8 @@
     /* CTA Section */
     .final-cta {
       padding: 6rem 2rem;
-      background: var(--charcoal);
+      background: linear-gradient(rgba(45, 42, 43, 0.75), rgba(45, 42, 43, 0.75)),
+                  url('/images/lightner-museum-wedding-dance-floor-st-augustine.webp') center/cover no-repeat;
       text-align: center;
       color: white;
     }
@@ -2444,18 +2437,6 @@
   </footer>
 
   <script>
-    // Lazy-load CTA background image
-    const ctaSection = document.querySelector('.final-cta');
-    if (ctaSection) {
-      const ctaObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          ctaSection.style.background = "linear-gradient(rgba(45, 42, 43, 0.75), rgba(45, 42, 43, 0.75)), url('/images/lightner-museum-wedding-dance-floor-st-augustine.webp') center/cover no-repeat";
-          ctaObserver.disconnect();
-        }
-      }, { rootMargin: '200px' });
-      ctaObserver.observe(ctaSection);
-    }
-
     // Floating CTA visibility
     const floatingCta = document.querySelector('.floating-cta');
     const hero = document.querySelector('.hero');
