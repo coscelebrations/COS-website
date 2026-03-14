@@ -111,6 +111,13 @@
       <li><a href="/photo-video/" title="Wedding photography and videography">Photo + Video</a></li>
       <li><a href="/pulse/" title="Pulse! Premium Hybrid Band">Pulse!</a></li>
       <li><a href="/pricing/">Pricing</a></li>
+      <li class="dropdown">
+        <span class="dropdown-toggle" title="Meet our team">Our Team</span>
+        <div class="dropdown-menu">
+          <a href="/team/djs/" title="Meet our wedding DJs">DJs</a>
+          <a href="/team/musicians/" title="Live musicians for weddings">Musicians</a>
+        </div>
+      </li>
       <li><a href="/vip-login/">VIP Login</a></li>
       <li><a href="/contact/" class="nav-cta">Contact</a></li>
     </ul>
@@ -205,14 +212,28 @@
   </footer>
 
   <script>
-    function toggleMenu() { document.querySelector('.hamburger').classList.toggle('active'); document.querySelector('.nav-links').classList.toggle('active'); }
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
-    const dropdown = document.querySelector('.dropdown');
-    if (dropdownToggle && dropdown) {
-      dropdownToggle.addEventListener('click', (e) => { if (window.innerWidth <= 768) { e.preventDefault(); dropdown.classList.toggle('open'); } });
+        function toggleMenu() {
+      document.querySelector('.hamburger').classList.toggle('active');
+      document.querySelector('.nav-links').classList.toggle('active');
     }
+
+    // Mobile dropdown toggles
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          toggle.closest('.dropdown').classList.toggle('open');
+        }
+      });
+    });
+
+    // Close menu when clicking a link
     document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => { document.querySelector('.hamburger').classList.remove('active'); document.querySelector('.nav-links').classList.remove('active'); if (dropdown) dropdown.classList.remove('open'); });
+      link.addEventListener('click', () => {
+        document.querySelector('.hamburger').classList.remove('active');
+        document.querySelector('.nav-links').classList.remove('active');
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+      });
     });
   </script>
   <!-- Meta Pixel Code (deferred to bottom for performance) -->

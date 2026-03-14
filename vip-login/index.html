@@ -520,6 +520,13 @@
       <li><a href="/photo-video/" title="Wedding photography and videography">Photo + Video</a></li>
       <li><a href="/pulse/" title="Pulse! Premium Hybrid Band">Pulse!</a></li>
       <li><a href="/pricing/">Pricing</a></li>
+      <li class="dropdown">
+        <span class="dropdown-toggle" title="Meet our team">Our Team</span>
+        <div class="dropdown-menu">
+          <a href="/team/djs/" title="Meet our wedding DJs">DJs</a>
+          <a href="/team/musicians/" title="Live musicians for weddings">Musicians</a>
+        </div>
+      </li>
       <li><a href="/vip-login/">VIP Login</a></li>
       <li><a href="/contact/" class="nav-cta">Contact</a></li>
     </ul>
@@ -534,6 +541,13 @@
   <section class="hero">
     <div class="hero-content">
       <p class="eyebrow">Client Portal</p>
+      <li class="dropdown">
+        <span class="dropdown-toggle" title="Meet our team">Our Team</span>
+        <div class="dropdown-menu">
+          <a href="/team/djs/" title="Meet our wedding DJs">DJs</a>
+          <a href="/team/musicians/" title="Live musicians for weddings">Musicians</a>
+        </div>
+      </li>
       <h1>VIP Login</h1>
     </div>
   </section>
@@ -547,6 +561,13 @@
       <div class="container">
         <div class="panel">
           <div class="panel-heading">
+      <li class="dropdown">
+        <span class="dropdown-toggle" title="Meet our team">Our Team</span>
+        <div class="dropdown-menu">
+          <a href="/team/djs/" title="Meet our wedding DJs">DJs</a>
+          <a href="/team/musicians/" title="Live musicians for weddings">Musicians</a>
+        </div>
+      </li>
             <h3 class="panel-title">VIP Login</h3>
           </div>
           <div class="panel-body">
@@ -576,6 +597,13 @@
       <a href="/services/weddings/">Weddings</a>
       <a href="/pricing/">Pricing</a>
       <a href="/contact/">Contact</a>
+      <li class="dropdown">
+        <span class="dropdown-toggle" title="Meet our team">Our Team</span>
+        <div class="dropdown-menu">
+          <a href="/team/djs/" title="Meet our wedding DJs">DJs</a>
+          <a href="/team/musicians/" title="Live musicians for weddings">Musicians</a>
+        </div>
+      </li>
       <a href="/vip-login/">VIP Login</a>
     </div>
     <div class="footer-social">
@@ -596,29 +624,27 @@
   </footer>
 
   <script>
-    function toggleMenu() {
+        function toggleMenu() {
       document.querySelector('.hamburger').classList.toggle('active');
       document.querySelector('.nav-links').classList.toggle('active');
     }
 
-    // Mobile dropdown toggle
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
-    const dropdown = document.querySelector('.dropdown');
-
-    if (dropdownToggle) {
-      dropdownToggle.addEventListener('click', (e) => {
+    // Mobile dropdown toggles
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
         if (window.innerWidth <= 768) {
           e.preventDefault();
-          dropdown.classList.toggle('open');
+          toggle.closest('.dropdown').classList.toggle('open');
         }
       });
-    }
+    });
 
+    // Close menu when clicking a link
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('click', () => {
         document.querySelector('.hamburger').classList.remove('active');
         document.querySelector('.nav-links').classList.remove('active');
-        if (dropdown) dropdown.classList.remove('open');
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
       });
     });
   </script>
