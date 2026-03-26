@@ -44,6 +44,35 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "COS Celebrations",
+    "review": [
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Katherine H" },
+        "datePublished": "2026-01-11",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "Words can't describe how special Corey and his team made my husband's and my wedding day at the Lightner Museum in St. Augustine. Being from Boston, this was a destination wedding, and Corey and Kyle put us at ease every step of the way."
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Avery" },
+        "datePublished": "2026-01-20",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "COS celebrations is a MUST hire for your event! Our guests did NOT want to leave because of the great atmosphere of music, dancing, and Corey on the sax! Hiring COS Celebrations is a great value for what was offered with communication, access to enter playlists, available options, and professionalism."
+      }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "2",
+      "bestRating": "5"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
@@ -700,6 +729,19 @@
       font-weight: 400;
     }
 
+    /* Venue Reviews */
+    .venue-reviews { margin: 3rem 0; }
+    .venue-reviews h2 { position: relative; display: inline-block; }
+    .venue-reviews h2::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 60px; height: 2px; background: linear-gradient(90deg, var(--gold, #C9A54D) 0%, var(--gold-light, #E8D5A3) 100%); }
+    .venue-review-card { background: white; padding: 2rem; margin-bottom: 1.5rem; border-left: 4px solid var(--gold, #C9A54D); border-radius: 0 4px 4px 0; }
+    .venue-review-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .venue-review-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--merlot, #722F37); display: flex; align-items: center; justify-content: center; color: white; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; flex-shrink: 0; }
+    .venue-review-meta { display: flex; flex-direction: column; gap: 0.15rem; }
+    .venue-review-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--charcoal, #2D2A2B); }
+    .venue-review-stars { color: #8B7021; font-size: 0.95rem; letter-spacing: 1px; }
+    .venue-review-date { font-size: 0.8rem; color: var(--text-soft, #4A4547); }
+    .venue-review-text { font-size: 0.95rem; line-height: 1.75; color: var(--text-soft, #4A4547); margin: 0; font-style: italic; }
+
     /* CTA Section */
     .final-cta {
       padding: 5rem 2rem;
@@ -1189,6 +1231,33 @@
     </div>
 
     <p style="background: var(--charcoal); color: white; padding: 1.25rem;"><strong style="color: var(--rose);">Pro tip:</strong> The pool at night with uplighting is absolutely stunning. Plan your timeline so guests have plenty of time dancing in that atmosphere - it's one of the most memorable parts of a Lightner wedding.</p>
+
+    <div class="venue-reviews">
+      <h2>What Couples Say About Lightner Museum Weddings with COS</h2>
+      <p style="color: var(--text-soft); margin-bottom: 2rem;">Real reviews from couples who celebrated at Lightner Museum with COS Celebrations as their wedding DJ.</p>
+      <div class="venue-review-card">
+        <div class="venue-review-header">
+          <div class="venue-review-avatar">K</div>
+          <div class="venue-review-meta">
+            <span class="venue-review-name">Katherine H</span>
+            <span class="venue-review-stars" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="venue-review-date">January 2026 - The Knot</span>
+          </div>
+        </div>
+        <p class="venue-review-text">"Words can't describe how special Corey and his team made my husband's and my wedding day at the Lightner Museum in St. Augustine. Being from Boston, this was a destination wedding, and Corey and Kyle put us at ease every step of the way. Any questions we had were answered right away and very thoughtfully, which truly gave us peace of mind. Corey made every single moment so special for us - he even played the sax during our entrance song, and it got the crowd going wild! We will truly never forget these moments and can't recommend COS Celebrations enough. We feel so lucky to have worked with them and will absolutely be using them again for future events. Corey is hands down the best DJ we could have ever asked for. He read the room perfectly, kept the energy high all night, and had every single guest on the dance floor. The music, the vibes, the transitions - everything was flawless. If you want a DJ who truly elevates your wedding and creates an unforgettable party, Corey is your guy."</p>
+      </div>
+      <div class="venue-review-card">
+        <div class="venue-review-header">
+          <div class="venue-review-avatar">A</div>
+          <div class="venue-review-meta">
+            <span class="venue-review-name">Avery</span>
+            <span class="venue-review-stars" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="venue-review-date">January 2026 - WeddingWire</span>
+          </div>
+        </div>
+        <p class="venue-review-text">"COS celebrations is a MUST hire for your event! Our guests did NOT want to leave because of the great atmosphere of music, dancing, and Corey on the sax! Hiring COS Celebrations is a great value for what was offered with communication, access to enter playlists, available options, and professionalism."</p>
+      </div>
+    </div>
 
     <h2>Lightner Museum Wedding FAQs</h2>
     <p>Questions we hear from couples planning their Lightner Museum wedding:</p>

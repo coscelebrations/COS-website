@@ -905,10 +905,46 @@
         font-size: 0.9rem;
       }
     }
-  </style>
+  
+    /* Venue Reviews */
+    .venue-reviews { margin: 3rem 0; }
+    .venue-reviews h2 { position: relative; display: inline-block; }
+    .venue-reviews h2::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 60px; height: 2px; background: linear-gradient(90deg, var(--gold, #C9A54D) 0%, var(--gold-light, #E8D5A3) 100%); }
+    .venue-review-card { background: white; padding: 2rem; margin-bottom: 1.5rem; border-left: 4px solid var(--gold, #C9A54D); border-radius: 0 4px 4px 0; }
+    .venue-review-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .venue-review-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--merlot, #722F37); display: flex; align-items: center; justify-content: center; color: white; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; flex-shrink: 0; }
+    .venue-review-meta { display: flex; flex-direction: column; gap: 0.15rem; }
+    .venue-review-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--charcoal, #2D2A2B); }
+    .venue-review-stars { color: #8B7021; font-size: 0.95rem; letter-spacing: 1px; }
+    .venue-review-date { font-size: 0.8rem; color: var(--text-soft, #4A4547); }
+    .venue-review-text { font-size: 0.95rem; line-height: 1.75; color: var(--text-soft, #4A4547); margin: 0; font-style: italic; }
+    .venue-review-platform { display: inline-block; margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-soft, #4A4547); opacity: 0.7; }
+    </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"LocalBusiness","name":"COS Celebrations","url":"https://coscelebrations.com","telephone":"+1-904-615-7132","email":"info@coscelebrations.com","address":{"@type":"PostalAddress","addressLocality":"St. Augustine","addressRegion":"FL","addressCountry":"US"},"priceRange":"$1,500 - $3,000","aggregateRating":{"@type":"AggregateRating","ratingValue":"5","reviewCount":"500","bestRating":"5"}}
 </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "COS Celebrations",
+    "review": [
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Marla M" },
+        "datePublished": "2025-04-23",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "Everyone at COS was amazing! They were so quick to respond to any questions I had and Kyle made the entire process of booking so easy! \nI can’t say enough great things about CJ! He was so attentive to our requests and helped us create the perfect entrance at the Treasury. It felt like we had a friend as our DJ instead of someone that was just playing music for us. You can tell he loves what he does and that made for perfect entertainment! \nThank you again!"
+      }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "1",
+      "bestRating": "5"
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -1229,6 +1265,23 @@
     </div>
 
     <p style="background: var(--charcoal); color: white; padding: 1.25rem;"><strong style="color: var(--rose);">Pro tip:</strong> This timeline gives you about 5.5 hours of reception time - the sweet spot for Treasury. Going longer is possible, but this pacing keeps energy high from start to finish.</p>
+
+    
+    <div class="venue-reviews">
+      <h2>What Couples Say About Treasury on the Plaza Weddings with COS</h2>
+      <p style="color: var(--text-soft); margin-bottom: 2rem;">Real reviews from couples who celebrated at Treasury on the Plaza with COS Celebrations as their wedding DJ.</p>
+      <div class="venue-review-card">
+        <div class="venue-review-header">
+          <div class="venue-review-avatar">M</div>
+          <div class="venue-review-meta">
+            <span class="venue-review-name">Marla M</span>
+            <span class="venue-review-stars" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="venue-review-date">April 2025 - The Knot</span>
+          </div>
+        </div>
+        <p class="venue-review-text">"Everyone at COS was amazing! They were so quick to respond to any questions I had and Kyle made the entire process of booking so easy! <br>I can’t say enough great things about CJ! He was so attentive to our requests and helped us create the perfect entrance at the Treasury. It felt like we had a friend as our DJ instead of someone that was just playing music for us. You can tell he loves what he does and that made for perfect entertainment! <br>Thank you again!"</p>
+      </div>
+    </div>
 
     <h2>Treasury Wedding FAQs</h2>
     <p>Questions we hear from couples planning their Treasury on the Plaza wedding:</p>
