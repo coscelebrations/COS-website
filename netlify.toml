@@ -9,13 +9,6 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
-# Automatic AVIF/WebP content negotiation via Image CDN
-[[redirects]]
-  from = "/images/*"
-  to = "/.netlify/images?url=/images/:splat"
-  status = 200
-  force = true
-
 [[redirects]]
   from = "https://www.coscelebrations.com/*"
   to = "https://coscelebrations.com/:splat"
