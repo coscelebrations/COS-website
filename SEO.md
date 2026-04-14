@@ -1,8 +1,307 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: February 26, 2026
+## Last Updated: April 14, 2026
+
+---
+
+## River House Freshness Pass (Apr 14, 2026)
+
+Targeted content refresh on both COS + AE `/river-house-wedding-dj/` pages to combat ranking decay (COS was #5 for "river house wedding dj" in March, dropped out of top 10).
+
+**Why not full rewrite:** Page already had strong insider content (32ft round dance floor 360° coverage, Council on Aging nonprofit angle, indoor-outdoor flow, Matanzas River/Lighthouse). Perplexity research confirmed bones were solid — just needed fresh angles + signals.
+
+**Added to both pages:**
+- "What Most Couples Don't Realize" insider section: one-event-per-day policy, venue pricing context ($9k-$11.5k packages), porte-cochère send-off photos, free on-site parking
+- New FAQ: "How much does a wedding at River House cost in total?" (COS: $45k-$75k range, AE: $35k-$55k range) — added to both visible FAQ and FAQPage schema
+- "Page last updated: April 14, 2026" freshness signal in footer
+
+**Watch:** Check rankings recovery over next 2-4 weeks. If still flat, consider full rewrite via auto-rewrite pipeline.
 
 > **SEO Rules are in `~/CLAUDE.md`** — they auto-load every session.
 > **Historical sessions are in `SEO-ARCHIVE.md`** — reference when needed.
+
+---
+
+## GSC Traffic Dashboard Built (Apr 1, 2026)
+
+Full Google Search Console API integration with SEO dashboard:
+- **3 tabs:** Rankings | Traffic | Queries
+- **GSC OAuth2** set up on wedding-dj-indexing Google Cloud project
+- **Both sites connected:** COS (owner) + AE (auto-verified via GA4)
+- **28-day rolling windows** — current vs prior period, health score, KPIs
+- **Market region filters** on both Traffic + Queries: NE FL, Central FL, Tampa Bay, Venues, Services, Brand, Generic DJ
+- **Opportunity cards** — auto-surface high-impression/low-click queries with one-click Perplexity research prompts
+- **Change log system** — prompts auto-log to changes.json, dashboard shows 28-day cooldown timers
+- **Keyword gap analysis** — 48 gaps found via Perplexity, saved to `~/seo-data/keyword-gap-analysis-2026-04-01.md`
+
+**Key GSC findings (28-day, both sites combined):**
+- 194 total clicks (+16.9%), 17.8k impressions, avg position 19.1
+- COS: 151 clicks, 50 pages tracked | AE: 43 clicks (+153%), 13 pages
+- Tampa live music queries: 160+ impressions, 0 clicks, pos 3-7 (CTR problem)
+- NE FL: 102 queries, only 1 click — mostly ranking page 2+
+- Biggest opportunity: St. Pete/Clearwater — 133+ impressions, no dedicated page
+
+---
+
+## Perplexity Rankings Check (Apr 1, 2026)
+
+**City Keywords (Perplexity AI Search):**
+| Keyword | Mar 31 | Apr 1 | Change |
+|---------|--------|-------|--------|
+| st augustine wedding dj | #1 | #1 | HOLDING |
+| ponte vedra wedding dj | #1 | #1 | HOLDING |
+| jacksonville wedding dj | #9 | #8 | UP 1 |
+| amelia island wedding dj (AE) | #1 | #1 | HOLDING |
+| daytona beach wedding dj | #1 | OUT | LOST - was #1! |
+| gainesville wedding dj | #8 | OUT | LOST |
+| orlando wedding dj | OUT | OUT | Still out |
+| tampa wedding dj | OUT | OUT | Still out |
+
+**Venue Keywords (Perplexity AI Search) - ALL STABLE:**
+| Keyword | Position | Brand |
+|---------|----------|-------|
+| treasury on the plaza wedding dj | #1 | COS |
+| timuquana country club wedding dj | #1 | COS |
+| epping forest yacht club wedding dj | #1 / #3 | COS / AE |
+| tringali barn wedding dj | #1 | COS |
+| tpc sawgrass wedding dj | #1 | COS |
+| casa marina wedding dj | #1 | COS |
+| lightner museum wedding dj | #5 | COS |
+| ponte vedra inn and club wedding dj | #3 | COS |
+| omni amelia island wedding dj | #1 | AE |
+
+**Analysis:** Venue keywords locked solid (6x #1). City keywords volatile — Daytona fell from #1 to out, Gainesville lost. Pattern: AI search rewards specific venue content with strong E-E-A-T but city-level pages face more competition from directories. GEO fixes applied Mar 31 may take time to reflect.
+
+---
+
+## Sitemap Audit Fixed (Mar 31, 2026)
+
+Both sitemaps audited and updated:
+- **COS:** Added 15 missing pages (11 venues + 4 team/info). Updated lastmod on 6 city pages + homepage. Now 79 URLs total.
+- **AE:** Added 10 missing venue pages. Added `<lastmod>` to all entries (previously zero). Now 71 URLs total.
+- Skipped 7 "Coming Soon" vendor stubs to avoid thin content signals
+- Conservative approach: only updated lastmod on pages that actually changed
+
+---
+
+## GEO Fixes Applied (Mar 31, 2026)
+
+Applied GEO optimization to all 6 COS city pages (Jacksonville, St. Augustine, Orlando, Ponte Vedra, Amelia Island, Daytona Beach):
+- Added "Last updated: March 2026" freshness dates to all pages
+- Converted 20 H2 headings to question format for AI citation
+- Added 18 AI-quotable passages (3 per page) with brand name + city + stats
+- Note: Palm Coast page doesn't exist — only 6 city pages found
+
+---
+
+## Perplexity AI Search Check (Mar 26, 2026)
+
+Ran `rank_checker.py` — checks where COS/AE appear in Perplexity AI search results.
+
+**Key findings vs Google rankings:**
+- Treasury on the Plaza: **#1 in Perplexity** (still out of Google top 10 — AI search likes our content)
+- Lightner Museum: **#5 in Perplexity** (not ranking in Google)
+- Timuquana: **#2 in Perplexity** (improved from #3)
+- Ponte Vedra Inn & Club: **#4 in Perplexity**
+- Jacksonville wedding dj: **#5 in Perplexity** (vs out of top 10 in Google)
+- St Augustine wedding dj: **#8 in Perplexity** (improved from #9)
+- Gainesville: **#7 in Perplexity**
+- Amelia Island: **#10 in Perplexity** (was #1 in Google — different algorithms)
+
+**AE in Perplexity:**
+- Budget wedding dj jax: #2 (AE) / #3 (COS)
+- Wedding dj under 1000 jax: #6 (AE, dropped from #5) / #8 (COS)
+
+**Not ranking in Perplexity either:** Orlando, Tampa, Daytona, Epping Forest, Bella Collina, White Room, River House, TPC Sawgrass, Casa Marina, Omni/Ritz Amelia
+
+**Takeaway:** AI search results are MORE favorable than Google for our venue/city pages. Treasury #1 and Lightner #5 in Perplexity shows our AI-quotable content strategy is working even where Google hasn't caught up. Continue GEO optimization.
+
+### Competitor Threats (Perplexity)
+- **Future Stereo** — #2 for "st augustine wedding dj" (COS is #9), #9 for "jacksonville wedding dj"
+- **Our DJ Rocks** — #2 for "orlando wedding dj" (COS not in top 10)
+- **Classic Disc Jockeys** — #3 for "best wedding dj orlando"
+- **Soundwave Entertainment** — #5 for "orlando wedding dj"
+- Orlando market is wide open for competitors; COS has no presence there in AI search
+
+### AI Visibility (Perplexity Citations)
+- **COS cited in 6/8 AI queries (75%)** — strong for Jax, live sax, top-rated, budget-friendly
+- **AE cited in 1/8 queries (12%)** — CRITICAL gap, only found for "budget friendly"
+- COS NOT cited for luxury-specific or regional NE Florida queries
+- AE needs quotable first sentences on key pages ASAP
+
+### Strategic Shift: Drop "Luxury" as a Search Target (Mar 26)
+**Decision:** Stop optimizing for "luxury wedding DJ" keywords. Focus both COS and AE on generic "[city] wedding dj" searches instead.
+- "Luxury" keywords have very low search volume — people search for "wedding dj" not "luxury wedding dj"
+- COS luxury positioning still works on-page once visitors land, but it's not how couples search
+- Both brands should target the same high-volume keywords: "[city] wedding dj", "best wedding dj [city]", "wedding dj near me"
+- COS differentiates through content/experience after the click, not through keyword targeting
+
+---
+
+## Rankings Check (Mar 26, 2026) - Post Core Update Stabilization
+
+March Core Update wrapping up (~Mar 27). Most gains HELD but Jacksonville remains a problem.
+
+**COS Rankings:**
+| Keyword | Mar 15 | Mar 26 | Change |
+|---------|--------|--------|--------|
+| ponte vedra wedding dj | #1 | #1 | HOLDING |
+| amelia island wedding dj | #1 | #1 | HOLDING |
+| daytona beach wedding dj | #1 | #1 | HOLDING |
+| timuquana country club wedding dj | #1 | #1 | HOLDING |
+| luxury wedding dj st augustine | #1 | #1 | HOLDING |
+| wedding dj with live saxophone florida | - | #1 | NEW CHECK - #1! |
+| st augustine wedding dj | #2 | #2 | HOLDING |
+| jacksonville wedding dj | #8 | N/A | DOWN - still out of top 10 |
+| orlando wedding dj | N/A | N/A | Still out |
+| treasury on the plaza wedding dj | N/A | N/A | Still out (AMPLIFY #3) |
+| epping forest yacht club wedding dj | N/A | N/A | Still out (AMPLIFY #4) |
+| lightner museum wedding dj | N/A | N/A | Still out (venue dominates) |
+
+**AE Rankings:**
+| Keyword | Mar 15 | Mar 26 | Change |
+|---------|--------|--------|--------|
+| budget wedding dj jacksonville | #2 | #2 | HOLDING |
+| st augustine wedding dj (AE) | #4 | #4 | HOLDING |
+| affordable wedding dj jacksonville | #3 | #6 | DOWN 3 - directories pushing above |
+
+### Analysis
+- **6 keywords at #1** - strongest position ever. Core update gains held.
+- **Jacksonville COS still out of top 10** - was briefly #8 on Mar 15, back out. 8 competitors + directories ahead. Needs significant content refresh or backlink push.
+- **AE "affordable" slipping** - directories (WeddingWire, Knot, Eventective, A-1 Majestic, DJs To Go) all pushing above. Was #2 in Feb, now #6.
+- **Venue keywords appear permanently stuck** - Treasury, Epping, Lightner all dominated by venue sites + AMPLIFY for 3+ months. Venue interviews remain critical.
+
+### Action Items
+1. **Jacksonville COS** - Priority #1. Page needs fresh 2026 content, possibly a blog post or case study to build topical authority
+2. **AE affordable keyword** - Consider adding more long-tail content, cost guide blog post
+3. **Venue interviews** - Epping Forest and Treasury (April priority, unchanged)
+4. **April 1 full re-check** - Run complete 140-keyword check after core update fully settles
+
+---
+
+## GEO FAQ Rewrite (Mar 25, 2026)
+Rewrote FAQs on all 7 COS city pages for AI-quotable natural language:
+- Jacksonville (8 FAQs), Orlando (8), St. Augustine (6), Tampa (7), Ponte Vedra (6), Amelia Island (7), Daytona Beach (6 - expanded from 4)
+- Question-based H2s, 40-60 word standalone answers, entity signals in every answer
+- Updated FAQPage schema JSON-LD to match
+- **Still TODO from GEO audit:** Rewrite remaining non-FAQ content for quotability, add freshness dates to remaining pages
+
+---
+
+## Rankings Check (Mar 15, 2026) - MAJOR RECOVERY! March Core Update Helping
+
+**COS Rankings:**
+| Keyword | Mar 9 | Mar 15 | Change |
+|---------|-------|--------|--------|
+| timuquana country club wedding dj | #1 | #1 | HOLDING |
+| ponte vedra wedding dj | #3 | #1 | UP 2 - RECLAIMED #1! |
+| st augustine wedding dj | #8 | #2 | UP 6 - Massive recovery |
+| jacksonville wedding dj | N/A | #8 | BACK IN TOP 10! |
+| amelia island wedding dj | #1 | #1 | HOLDING |
+| daytona beach wedding dj | - | #1 | NEW CHECK - #1! |
+| luxury wedding dj st augustine | ~#6 | #1 | JUMPED TO #1! |
+| orlando wedding dj | N/A | N/A | Still out |
+| treasury on the plaza wedding dj | N/A | N/A | Still out (AMPLIFY #3) |
+| lightner museum wedding dj | N/A | N/A | Still out (venue dominates) |
+| epping forest yacht club wedding dj | N/A | N/A | Still out (AMPLIFY #5) |
+
+**AE Rankings:**
+| Keyword | Mar 9 | Mar 15 | Change |
+|---------|-------|--------|--------|
+| budget wedding dj jacksonville | #5 | #2 | UP 3 |
+| affordable wedding dj jacksonville | #10 | #3 | UP 7! |
+| st augustine wedding dj (AE) | N/A | #4 | BACK IN TOP 5! |
+
+### Analysis: March 2026 Core Update Recovery
+
+The March 2026 Core Update (started ~March 13) is actively helping both brands:
+- **9 of 14 tracked keywords now in top 10** (up from 5 of 14 on March 9)
+- E-E-A-T signals (real reviews, visible pricing, local content) being rewarded
+- Directories still present but no longer flooding every position
+- Competitors losing ground: Y Entertainment, Future Stereo, Full Circle all dropped
+
+**Strategy validated:** The "don't panic-revert" approach from March 9 was correct. Continue waiting until ~April 1.
+
+### Competitor Changes (Mar 15)
+- Y Entertainment: Lost Ponte Vedra #1 (now #3), Jax at #3
+- Future Stereo: Dropped out of Jax top 10, St. Aug at #8
+- Full Circle: Dropped from #4 to #6 for Jacksonville
+- AMPLIFY: Stable on venue keywords (Treasury #3, Epping #5)
+
+### Next Steps
+- **~April 1:** Full re-check after March core update finishes
+- **Prepare venue interviews** for Epping Forest and Treasury (April priority)
+- **Continue GEO optimization** across city pages
+- **AE GBP fix** - still blocked on verification
+
+---
+
+## Rankings Check (Mar 9, 2026) - CONCERNING DROPS + ALGORITHM UPDATE CONTEXT
+
+**COS Rankings:**
+| Keyword | Feb 25 | Mar 9 | Change |
+|---------|--------|-------|--------|
+| timuquana country club wedding dj | #1 | #1 | HOLDING |
+| ponte vedra wedding dj | #1 | #3 | DOWN 2 - Y Entertainment took #1 |
+| st augustine wedding dj | #1 | #8 | DOWN 7 - directories flooding top spots |
+| jacksonville wedding dj | #7 | N/A | DROPPED OUT - cannibalization fix may have backfired |
+| orlando wedding dj | N/A | N/A | Still out |
+| treasury on the plaza wedding dj | N/A | N/A | Still out - AMPLIFY at #2 |
+| epping forest yacht club wedding dj | N/A | N/A | Still out - AMPLIFY at #4 |
+| lightner museum wedding dj | N/A | N/A | Still out |
+
+**AE Rankings:**
+| Keyword | Feb 25 | Mar 9 | Change |
+|---------|--------|-------|--------|
+| budget wedding dj jacksonville | #1 | #5 | DOWN 4 - directories pushing above |
+| affordable wedding dj jacksonville | #2 | #10 | DOWN 8 - directories dominating |
+| st augustine wedding dj (AE) | #7 | N/A | DROPPED OUT |
+
+### Algorithm Update Analysis (KEY FINDING)
+
+**Three overlapping Google algorithm updates during our ranking drop period:**
+
+1. **Feb 2026 Discover Core Update** (Feb 5-27) - Completed 2 days after our Feb 25 cannibalization fix
+2. **Unconfirmed search volatility waves** throughout Feb and into March
+3. **March 2026 Core Update** (started ~March 13, expected through ~March 27) - Pre-rollout turbulence likely hitting by March 9
+
+**Evidence this is algorithmic, not just our changes:**
+- Directories (WeddingWire, Knot, Eventective) rose across ALL our keywords simultaneously
+- This pattern of high-authority aggregators rising is consistent with core update behavior
+- Not just COS/AE affected - this is an industry-wide shift
+
+**Revised understanding of ranking drops:**
+
+| Old Assumption | New Understanding |
+|---|---|
+| Cannibalization fix caused Jax drop | Likely 70% algorithm update + 30% our changes - do NOT revert yet |
+| St. Aug drop is page-specific | Directories flooding top spots = algorithmic shift favoring aggregators |
+| AE budget keyword drops | Same directory pattern - algorithmic, not page-specific |
+| Can beat directories on city keywords | Directories have 70-90 DA - pivot to venue keywords (less directory competition) |
+
+### CRITICAL STRATEGY: Do NOT Panic-Revert
+
+The March 2026 Core Update is still rolling out (~through March 27). Making reactive changes during an active core update sends mixed signals to Google and will likely make things worse. **Wait for dust to settle (~April 1).**
+
+### Revised Action Plan (Phased)
+
+**Phase 1 - Safe Now (won't conflict with update):**
+- Fix AE title tag (add "affordable") - simple metadata, low risk
+- Rewrite FAQs to natural language - improves content quality
+- Add AI-quotable summary blocks - adds content, doesn't change existing
+- Directory audit & expand citations - off-page, doesn't touch site
+- Create AE cost guide blog post - new content, doesn't compete
+
+**Phase 2 - After Update Settles (~April):**
+- Create real wedding blog posts per venue (AMPLIFY's two-page strategy)
+- Create venue hub pages (/jacksonville-wedding-venues/)
+- Multi-schema enhancement on key pages
+
+**Phase 3 - Recovery Only (if rankings don't recover by April 1):**
+- Investigate Jacksonville cannibalization - may need partial revert
+- St. Augustine content refresh
+- Ponte Vedra content deepening
+
+**Next check: ~April 1, 2026** - after March core update finishes
 
 ---
 
@@ -623,6 +922,38 @@ npm run audit               # Full site audit (includes indexing check)
 ---
 
 ## 📝 RECENT SESSION NOTES
+
+### Session: March 26, 2026 - Rankings Check + Google Ads 7-Day Review
+
+**Rankings Check (9 keywords):**
+
+| Keyword | COS | AE |
+|---------|-----|----|
+| jacksonville wedding dj | #3 | N/A |
+| st augustine wedding dj | #1 | N/A |
+| orlando wedding dj | #3 | N/A |
+| ponte vedra wedding dj | #3 | N/A |
+| amelia island wedding dj | #2 | N/A |
+| affordable wedding dj jacksonville | #3 | #4 |
+| budget wedding dj jacksonville | #3 | #4 |
+| best wedding dj jacksonville | #3 | N/A |
+| daytona beach wedding dj | #1 | N/A |
+
+**Summary:** COS top 3 on all 9 keywords. #1 on St. Augustine and Daytona Beach. March core update continues helping. AE only visible on affordable/budget keywords (#4 on both).
+
+**Google Ads 7-Day Check (Mar 19-25):**
+- Total spend: $289.56 | 76 clicks | $3.81 avg CPC
+- Real conversions (sign-ups/calls): 0
+- Negative keywords added Mar 24 - giving 2 more weeks to assess impact
+- Page view and Get directions conversions still set as Primary (Google Ads UI bug prevented change - try Google Ads Editor)
+
+**TODO:**
+- ~April 1: Full re-check all rankings after March core update finishes
+- ~April 9: Reassess Google Ads ROI after negative keywords take effect
+- Respond to unresponded reviews on The Knot + WeddingWire
+- Change Page view / Get directions to Secondary in Google Ads Editor
+
+---
 
 ### Session Notes (Jan 4, 2026) - Image & Schema Fixes
 See COMPLETED sections above for full details.
