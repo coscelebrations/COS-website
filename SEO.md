@@ -1,5 +1,80 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: April 14, 2026
+## Last Updated: April 16, 2026
+
+---
+
+## Atlanta City Page Launch (Apr 16, 2026)
+
+**Full Atlanta expansion** — new city pages on both brands as a real service market, not a destination/travel page.
+
+**Created:**
+- `/Users/coreypeterson/cos-website/atlanta-wedding-dj/index.html` (COS, luxury positioning, $1,500+)
+- `/Users/coreypeterson/ae-entertainment/atlanta-wedding-dj/index.html` (AE, budget, $800 + $650 transparent travel = $1,450 all-in)
+
+**Strategy:** Long-term plan is to build an on-the-ground Atlanta team. Until then, travel is an explicit line on every Atlanta quote. Page copy is worded so travel messaging can switch to "no travel fee — we're local" once the team lands without restructuring sections.
+
+**Research source:** Perplexity pull saved to `~/seo-data/research/atlanta-expansion-2026-04-16.md` — 10 verified venues, pricing bands ($1,500–$4,000+ typical Atlanta DJ range), noise ordinance specifics per neighborhood (Buckhead 10pm residential, Midtown 11pm mixed-use, Piedmont Park restricted, Decatur 11pm).
+
+**Venues on both pages:** Atlanta History Center (Buckhead), Summerour Studio + The West Venue + Dogwood at Westside Paper (West Midtown), The Georgian Terrace + Park Tavern + The Wimbish House (Midtown), The Roof at Ponce City Market (Old Fourth Ward), The Tabernacle (Downtown), Buckhead Club.
+
+**Structural notes:**
+- COS page: neighborhood-led intro, 4 feature cards (not 6), 2 testimonials (not 3), founder section at bottom (inverted from St. Aug). NO gallery — no real Atlanta photos yet (Rule #9: don't fake). Gradient hero until real event photos exist.
+- AE page: pricing moved to position 2 (budget buyers need the number up front). Transparent $650 travel fee shown inside each tier. 4 feature cards (not 6). 6-7 FAQs (not 9). No testimonials section. "How to Pick an Atlanta Wedding DJ" decision guide preserved.
+
+**Cross-links:** Atlanta added to Also Serving on 7 existing pages:
+- COS: jacksonville, st-augustine, orlando, daytona-beach
+- AE: jacksonville, st-augustine, orlando (Daytona Beach has no Also Serving block)
+
+**Sitemaps:** Both updated. COS priority 0.8, AE priority 0.9, lastmod 2026-04-16.
+
+**Image TODO:** Hero is a gradient-only placeholder. Swap in real Atlanta event photos as soon as a wedding is booked (no AI generation, no stock skyline unless CC0-verified).
+
+**Watch:**
+- GSC impressions for "atlanta wedding dj", "buckhead wedding dj", "atlanta wedding dj near me", "affordable atlanta wedding dj" over next 4–8 weeks.
+- First indexing usually takes 1–2 weeks. Submit URLs manually in GSC to accelerate.
+- Monitor travel-fee language reception via form submissions — if AE is getting "is the travel fee real?" questions, we over-disclosed and need to rephrase.
+
+**Open decisions for review:**
+- AE travel fee default set to $650. Confirm or adjust.
+- COS founder section kept and placed at page bottom. Confirm.
+- Primary keywords: broad `atlanta wedding dj` on both; COS secondary `buckhead wedding dj`; AE secondary `affordable atlanta wedding dj`. Confirm.
+
+---
+
+## Orlando City Page Rewrite (Apr 16, 2026)
+
+Full voice rewrite of `/orlando-wedding-dj/` following WRITING-VOICE.md guide. Same treatment as Jacksonville.
+
+**What changed:**
+- Intro rewritten with Perplexity stats (WalletHub #1, 18k weddings/yr, 300+ venues)
+- Feature cards replaced with venue-area expertise (Montverde/Bella Collina, Winter Park/Casa Feliz/Alfond Inn, Downtown/Leu Gardens, Destination couples)
+- Specific venue facts: Bella Collina 2,000 acres, Casa Feliz 1933 farmhouse saved by $1.2M community effort, Leu Gardens 50 acres with 7 ceremony locations
+- Services streamlined from 6 cards to 4 elegant list items
+- FAQ trimmed from 8 to 6, added summer storms FAQ with real weather data
+- 2 redundant ai-quotable paragraphs removed (kept 1)
+- Team members named in intro (Marc, Khalil, Paul)
+
+**Watch:** Monitor GSC impressions/clicks for "orlando wedding dj" over next 2-4 weeks alongside Jacksonville data.
+
+---
+
+## Jacksonville City Page Rewrite (Apr 16, 2026)
+
+Full voice rewrite of `/jacksonville-wedding-dj/` following new WRITING-VOICE.md guide. Page was the most AI-sounding on either site (credential-stacking, filler sections, identical template structure).
+
+**What changed:**
+- Intro rewritten with Perplexity-sourced stats (12k weddings/yr, $38k avg cost) and conversational voice
+- "Wedding Trends" and "5 Things to Compare" filler sections cut entirely (-88 lines)
+- Feature cards replaced with neighborhood expertise (Ortega/Springfield/Beaches with specific venue details)
+- Services streamlined from 6 generic cards to 4 elegant list items
+- FAQ trimmed from 9 to 7, answers shortened with personality + local facts (football season conflicts, 10pm noise curfew)
+- 3 redundant ai-quotable paragraphs removed (kept 2 with unique angles)
+- Preferred vendor status updated to reflect most major Jax venues + TPC Sawgrass
+- Live sax positioning corrected: "pioneered the trend" not "every event includes it"
+
+**What stayed:** All schema markup, title/meta, H2 keywords, venue circles, testimonials, pricing table, internal links.
+
+**Watch:** Monitor GSC impressions/clicks for "jacksonville wedding dj" over next 2-4 weeks. Compare bounce rate before/after. This is the first page rewritten under the new voice guide — results inform Orlando and Daytona rewrites.
 
 ---
 
