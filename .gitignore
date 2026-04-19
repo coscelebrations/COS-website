@@ -5,3 +5,9 @@ scripts/google-indexing-credentials.json
 
 # Node
 node_modules/
+
+# Mac metadata
+.DS_Store
+
+# Local backups
+*.bak
