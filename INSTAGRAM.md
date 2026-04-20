@@ -338,9 +338,9 @@ Each kit contains:
 5. Post to Instagram
 6. Immediately paste first comment
 
-### Current Inventory (Jan 14, 2026)
+### Current Inventory (Apr 19, 2026)
 
-**COS Celebrations: 23 posts**
+**COS Celebrations: 30 posts**
 | # | Post | Type |
 |---|------|------|
 | 01 | Treasury sax showcase | Reel/Carousel |
@@ -366,8 +366,15 @@ Each kit contains:
 | 21 | Sawgrass sparkler exit (Ashley & Craig) | Single/Reel |
 | 22 | Sawgrass sunset silhouette (Ashley & Craig) | Single |
 | 23 | Dog in tuxedo (Ashley & Craig) | Single |
+| 24 | Kalie & Ethan first dance + monogram (Treasury) | Single |
+| 25 | Kalie & Ethan cake cutting at vault (Treasury) | Single |
+| 26 | Kalie & Ethan live sax (Treasury) | Single |
+| 27 | Kalie & Ethan first dance wide (Treasury) | Single |
+| 28 | Kalie & Ethan sax at vault (Treasury) | Single |
+| 29 | Kalie & Ethan venue setup (Treasury) | Single |
+| 30 | Kalie & Ethan sparkler exit (Treasury) | Single |
 
-**AE Entertainment: 12 posts**
+**AE Entertainment: 15 posts**
 | # | Post | Type |
 |---|------|------|
 | 01 | Dance floor energy | Reel/Carousel |
@@ -382,6 +389,9 @@ Each kit contains:
 | 10 | Great DJ traits (educational) | Carousel |
 | 11 | Wedding season | Carousel |
 | 12 | Real moments | Carousel |
+| 17 | Kalie & Ethan glow stick dance party (Treasury) | Single |
+| 18 | Kalie & Ethan hora chair lift (Treasury) | Single |
+| 19 | Kalie & Ethan heart cake detail (Treasury) | Single |
 
 ### Request More Posts
 
