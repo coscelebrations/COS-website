@@ -1,5 +1,32 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: April 16, 2026
+## Last Updated: April 20, 2026
+
+---
+
+## Treasury Gallery Expansion + Jacksonville Content (Apr 20, 2026)
+
+**Treasury on the Plaza venue pages (COS + AE):**
+- Added 5 fresh photos from Kalie + Ethan wedding shot by Angelita Photography
+- COS bento gallery: expanded from 7 to 12 slots (desktop + mobile breakpoints updated)
+- AE photo grid: converted 2-col (4 photos) → 3-col (9 photos)
+- New shots: first dance + monogram in vault, candlelit reception, cake cutting at vault, live saxophone, dip kiss on packed floor
+- All photos geotagged (29.8924 N, 81.3126 W) + Angelita credited in EXIF + alt text
+- Output: WebP + AVIF at 1200px main + 400w mobile
+- Images in `/images/treasury-wedding-st-augustine/kalie-ethan/` (COS) and `/images/treasury-on-the-plaza/kalie-ethan/` (AE)
+- Commits: COS `91363d1`, AE `46302c1`
+
+**Jacksonville city page:**
+- Added "How to Choose Among Wedding DJs in Jacksonville" section (dark numbered list, 5 tips)
+- Positioned above FAQ block
+- Targets comparison-intent searches ("wedding djs in jacksonville" plural variant)
+- Tips: venue experience, review specificity, all-in pricing, planning process, backup plan
+
+**Instagram inventory:**
+- 10 new post kits from Kalie + Ethan (COS 24-30, AE 17-19)
+- Total inventory now: 30 COS / 15 AE
+- Ready in `~/Desktop/instagram-posts/` with captions + hashtags + first comments
+
+**Source archive:** All 399 Kalie + Ethan photos remain at `~/Desktop/Kalie_Ethan_Treasury_AngelitaPhotography/`
 
 ---
 
