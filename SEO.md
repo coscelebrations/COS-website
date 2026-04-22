@@ -1,5 +1,36 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: April 20, 2026
+## Last Updated: April 21, 2026
+
+---
+
+## AE Jacksonville DJ Cost Guide - De-Orphaned + Strengthened (Apr 21, 2026)
+
+**Context:** A-1 Majestic Sound outranks AE partly due to their pricing-guide blog post. Request was to create a new post, but a near-identical post at `/blog/wedding-dj-cost-jacksonville/` already existed (modified Apr 16), **orphaned** (zero internal links, only in sitemap). Rather than create a duplicate (Rule #7 violation + cannibalization), strengthened the existing post and added inbound links.
+
+**Blog post expansion (`~/ae-entertainment/blog/wedding-dj-cost-jacksonville/index.html`):**
+- Added H2 "Why Wedding DJs Under $600 Are Risky" - 4 sub-sections (insurance / equipment / experience / backup problems) targeting budget-shopper doubt
+- Added H2 "What $800 Actually Buys You" - line-by-line deliverables checklist (gear, hours, insurance, backup, app, no travel fees)
+- Added H2 "Questions to Ask Any Wedding DJ Before Booking" - 10-question checklist (longer-tail search catch)
+- Expanded scenarios section from 3 to 5 (Scenario 4: Friday elopement; Scenario 5: vow renewal rush turnaround)
+- Expanded FAQPage schema from 9 to 12 questions (negotiating, cheapest time of year, holiday pricing) plus matching visible FAQ items
+- Added 1 new internal link from body to `/#pricing`
+- Bumped `dateModified` to 2026-04-21 in Article schema + visible byline
+
+**De-orphaning (2 new inbound links):**
+- `~/ae-entertainment/jacksonville-wedding-dj/` - contextual link inside pricing section
+- `~/ae-entertainment/index.html` - link in homepage pricing section below add-ons
+
+**Tracking:**
+- `sitemap.xml` - `<lastmod>` bumped from 2026-01-01 to 2026-04-21
+- `_data/indexingStatus.json` - left untouched (field tracks index-verification, not content modification; bumping would delay re-verification)
+- No `$550 industry average` figure added - not from credible source; kept The Knot's $1,500 national average
+
+**Decisions rejected:**
+- Second post at `/blog/jacksonville-wedding-dj-cost-guide/` - would cannibalize
+- 301 redirect of old URL - unnecessary; existing URL slug is fine
+- Footer sitewide link - contextual body links beat footer for SEO weight
+
+**Watch:** Rankings over 2-4 weeks for "wedding DJ prices Jacksonville", "how much does a wedding DJ cost Jacksonville", "budget wedding DJ Jacksonville". Track in `~/seo-data/rankings.json`.
 
 ---
 
@@ -20,6 +51,16 @@
 - Positioned above FAQ block
 - Targets comparison-intent searches ("wedding djs in jacksonville" plural variant)
 - Tips: venue experience, review specificity, all-in pricing, planning process, backup plan
+
+**Jacksonville ranking trend + recovery-watch:**
+- Apr 6: #2 (peak after Apr 2 optimization)
+- Apr 13: #7 — dropped with zero commits to page (SERP shuffle, not self-inflicted)
+- Apr 15: #6
+- Apr 16: rewrite ffdd706 "cut AI filler" — removed comparison section, trend block, 2/3 AI-quotable blocks
+- Apr 19: #7 (rewrite neutral)
+- Apr 19: secondary "wedding dj jacksonville fl" improved 8 → 6 (positive signal)
+- Apr 20: restored comparison section (this commit) — one light additive fix, not a rewrite
+- **Decision:** wait, don't rewrite again. Reassess May 4 (task d18). Competitors at #4-#8 are thinner than us (no schema, no venue pages, no reviews) — SERP isn't losing to better content.
 
 **Instagram inventory:**
 - 10 new post kits from Kalie + Ethan (COS 24-30, AE 17-19)
