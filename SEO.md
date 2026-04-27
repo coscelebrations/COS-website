@@ -1,5 +1,25 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: April 21, 2026
+## Last Updated: April 27, 2026
+
+---
+
+## Week 18 Manager Cycle (Apr 27, 2026)
+
+**Auto-executed:** w1 rank check (89 keywords, 33 changes), w4 AI visibility, w5 competitor scan. w9 pipeline already fired Sun Apr 26 8 PM via LaunchAgent (rewrote AE St Augustine).
+
+**Rankings highlights:**
+- City: Jax COS #6 → #8, St Aug COS #4 → #3 (recovering), St Aug AE #10 → #9, Daytona COS #10 → out, Orlando still out
+- Venue **gains** (Apr 14/20 rewrites paying off): River House #3 → #2, Alfond Inn #5 → #3, Sydonie Mansion #8 → #6, Glass Factory #2 → #1, Tringali Barn #3 → #1, Omni Amelia #4 → #2
+- Venue **losses**: The Orlo #3 → out, White Room #5 + #8 → out, Bella Collina #10 → out, Dr Phillips House #7 → out, Leu Gardens #9 → out, Ponte Vedra Inn #3 → #9
+- New rankings: 1908 Grand #2, Estate on the Halifax #3, Club Continental #8
+- Budget keywords drifting -1: Budget #2 → #3, Affordable Jax #6 → #7, Cheap Jax #5 → #8, Affordable St Aug #4 → #5
+
+**AI visibility:** COS 100% (8/8, holding), AE 25% (2/8, down from 38%).
+**Competitors:** Full Circle back #6 Jax. Orlando threat tier intact (Classic DJ #3, Soundwave #5, Our DJ Rocks #9). Future Stereo #7 St Aug.
+
+**ranking_watch:** 1 confirmed (AE St Aug — already auto-rewritten Apr 26). 7 watching (Estate on Halifax, Club Continental, Preserve Amelia, PV Inn, AE under-1000, AE-djs brand, AE cheap-jax) — wait one more cycle.
+
+**14d outcome checks overdue:** 6 entries from Apr 9 batch (St Aug x2, Ritz Carlton Amelia, PV, Daytona, Amelia Island). Apr 9 batch outcomes show: PV recovered to #2, St Aug COS recovering #3 (was #4), Amelia COS to #2 + AE #1, Daytona still out (need investigation).
 
 ---
 
@@ -1202,6 +1222,23 @@ See COMPLETED sections above for full details.
 - AE "wedding dj under 1000" jumped from #59 to #9
 - Orlando still not ranking — needs investigation
 - AE GBP still pointing to old domain
+
+---
+
+### Session Notes (Apr 27, 2026) - Treasury Page Sharpening (P1 push to #1)
+
+**Trigger:** "treasury on the plaza wedding dj" dropped #1 → #2 on Apr 27. Page was already strong (714 lines, bento gallery, insider tips, real reviews). Surgical edits, not a rewrite.
+
+**Changes:**
+- Visible "Last updated: April 2026" freshness signal
+- 3 statement H2s → question H2s (SGE/AI overview eligibility)
+- FAQ heading skip fixed (h4 → h3)
+- New FAQ: "How much does a wedding at Treasury on the Plaza cost in 2026?" — concrete venue + DJ pricing pulled from Perplexity research (tulletogether.com, herecomestheguide.com)
+- New AI-quotable block above FAQs (preferred-vendor + acoustics angle, distinct from intro per WRITING-VOICE.md)
+- New `WebPage` schema with `dateModified: 2026-04-27`
+- New `FAQPage` schema covering all 7 FAQs (was missing despite FAQ content existing)
+
+**Reassess:** Watch rankings.json over the next 7-14 days. Action `p1-cos-treasury-on-the-plaza-wedding-dj` in `seo-actions.json` will auto-close when keyword returns to #1 (unifier rebuilds nightly from rankings).
 
 ---
 
