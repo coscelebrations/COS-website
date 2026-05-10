@@ -1,5 +1,56 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: April 27, 2026
+## Last Updated: May 10, 2026
+
+---
+
+## Freshness Pass: AE Jax + COS Orlando (May 10, 2026)
+
+**Trigger:** GSC 28d vs 28d showed AE clicks -36% (pos 29→38) and COS Orlando surfacing for new Orlando queries with high impressions but few clicks. Tampa live music cluster also crashed (~900 lost impressions across 6 query variants on COS, pos #5→#13) — flagged for next session.
+
+**AE Jacksonville (`/jacksonville-wedding-dj/`):**
+- `Last updated` → May 2026; schema `dateModified` → 2026-05-10
+- New section "What Does a Wedding DJ Actually Cost in Jacksonville Right Now?" with 2026 market data ($21K-$55K total budget, $1,100-$1,700 mid-tier DJ range). Positions AE's $800 start clearly under market.
+- New AI-quotable block tying $800 to the 2026 cost benchmark
+- AE homepage `Last updated` bumped to May 2026
+
+**COS Orlando (`/orlando-wedding-dj/`):**
+- `Last updated` → May 2026; schema `dateModified` → 2026-05-10
+- New section "What's Different About Orlando Weddings in 2026" covering Brightline rail (20 daily Orlando-South FL departures shifting destination wedding logistics) and the venue-driven luxury palette shift (away from blush/ivory)
+- New AI-quotable block
+
+**Sitemaps:** `coscelebrations.com/orlando-wedding-dj/`, `ae-djs.com/`, `ae-djs.com/jacksonville-wedding-dj/` lastmod → 2026-05-10.
+
+**Outcome to watch (~June 7, 28d window):**
+- AE Jax non-brand clicks (was 4 → 0 last 28d)
+- COS Orlando: convert rising impressions to clicks. Watch `wedding dj orlando` (pos 11.9 → 23.4 last cycle, want it back under 15) and `affordable wedding dj orlando` (pos 8 — close, push to top 5)
+
+---
+
+
+## Month-Start Manager Cycle (May 1-4, 2026)
+
+**Auto-executed (May 1):** m1 full Perplexity scan (140 keywords, 37 changes), m10 keyword discovery (410 gaps across 6 markets, up from 358 in April), m11 freshness rotation (committed 2 page rewrites: casa-feliz + club-continental, then timed out on crystal-ballroom-daytona).
+
+**w9 pipeline (Sun May 3 8 PM LaunchAgent):** 0 downtrends. ranking_watch 1 confirmed (`wedding dj under 1000 jacksonville` COS #2 → #8) — pipeline attempted rewrite but no commit landed. 5 watching.
+
+**Outcome check (May 4):** Apr 14 batch — Gainesville KEPT (0c → 2c, impressions slipped 88 → 48). 6 other Apr 14/16 entries still skipped (no GSC data for outcome queries).
+
+**Rankings highlights (May 1 vs Apr 27):**
+- City: **Jax COS #8 → #5 (+3, biggest win)**, `wedding dj jacksonville` #7 → #5, `near me jacksonville` #9 → #6. Daytona NEW #7. White Room NEW #5. Dr Phillips House NEW #9.
+- Venue **gains**: Ponte Vedra Inn & Club #9 → #4, Timuquana #2 → #1, Ritz Amelia #3 → #2, Amelia COS #2 → #1, Sawgrass #4 → #3.
+- Venue **losses**: 1908 Grand #2 → out, Golf Club Amelia #2 → out, Glass Factory #1 → #2, Alfond Inn #3 → #5, Crystal Ballroom Daytona #5 → #7, Don CeSar #5 → #7, Estate on Halifax #3 → #5, Sydonie #6 → #8.
+- AE: `affordable jax` #7 → #4, `cheap jax` #8 → #5, `ae djs` brand #10 → #7. AE Amelia #1 → #2, AE Leu Gardens #1 → #2, AE Fernandina #6 → #8.
+
+**d18 reassess (Jacksonville page, May 4):** WIN. Apr 20 comparison-section restoration validated. Page held #6-8 through Apr 22-27 then jumped to #5. Outcome falls into the original "#3-5 = additive fix worked" bucket. Do NOT touch the page again.
+
+**d19 reassess (Apr 13 SERP shuffle cluster, May 4):** Mixed.
+- garden-club-jacksonville **RECOVERED** — held #1 for 14 days
+- ponte-vedra-inn-club (variant) DEGRADING — slipped #4 → #7 → #8
+- the-orlo OFF — was peaking #3-4 mid-Apr, now out
+- walkers-landing slipping #3 → #6
+- jacksonville (covered in d18) recovered
+
+Action: investigate The Orlo + PV Inn competitors before next rank check. No auto-rewrites — Apr 14 batch still in 28-day cooldown until May 12.
 
 ---
 
@@ -1222,6 +1273,20 @@ See COMPLETED sections above for full details.
 - AE "wedding dj under 1000" jumped from #59 to #9
 - Orlando still not ranking — needs investigation
 - AE GBP still pointing to old domain
+
+---
+
+### Session Notes (May 5, 2026) - Manager Agent Triage Cycle
+
+**Weekly auto-scripts (week 19):**
+- w1 rank_checker: 89 keywords, **7 changes**. IMPROVED: alfond inn #7→#5, preserve amelia river club #6→#5, **wedding dj st augustine #5→#3**. NEW: dr phillips house #7. DROPPED: ribault club #6→#7, jacksonville fl wedding dj #6→#7. **LOST**: walkers landing #4 → out of top 10 (d19 cluster regression continues).
+- w4 ai_visibility: COS 100% (8/8 holding). **AE 25% (2/8, down from 38%)** — second drop in two weeks.
+- w5 competitor_monitor: Orlando threats persist (Our DJ Rocks #2-#3, Classic Disc Jockeys #4-#5, Soundwave #5-#7). Future Stereo #6-#7 St Aug. No new Jax/St Aug threats.
+- ranking_watch: **3 confirmed** drops queued for next Sun (May 10) auto-rewrite — COS the orlo #4→#9, AE wedding dj under 1000 jacksonville #3→#9, AE how much does a wedding dj cost jacksonville #5→#9. AE under-1000 page is eligible (COS version in cooldown until May 31).
+- ranktrends (watch-only): 3 flagged — Dr Phillips House #7, Kanapaha #7, Ponte Vedra Inn #8 (sustained drop from peak #1).
+- Outcome check: 6 Apr 14/16 entries still skipped — no GSC data for the targeted queries.
+
+**d14 Homepage Hero Rewrite Reassessment (1-month check-in):** **WIN.** Homepage GSC: pre-rewrite (Mar 6–Apr 5, 31d) 108 clicks / 5.16% CTR / avg pos 14.57. Post-rewrite (Apr 7–May 1, 25d) 112 clicks / **7.71% CTR** / avg pos 13.83. **CTR up 49%, daily clicks up 29%.** City keywords: Jax #6→#5 (peaked #2 Apr 6), St Aug #1→#2 (held), Orlando still not ranking (separate issue). Recommend: keep hero, expand pill pattern to city pages, lock until June 6. Full draft: `~/manager-agent/drafts/d14/README.md`.
 
 ---
 
