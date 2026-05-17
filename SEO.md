@@ -1,5 +1,33 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: May 10, 2026
+## Last Updated: May 17, 2026
+
+---
+
+## Freshness Pass: COS Jacksonville (May 17, 2026)
+
+**Trigger:** GSC 28d window (Apr 17 → May 14) showed `/jacksonville-wedding-dj/` clicks 11 → 2 (-82%), impressions 1,808 → 1,087 (-40%), avg position 18.3 → 24.2 (-5.9). Already flagged in `gsc/downtrends.json` May 10. Highest-ROI on-page fix on the board.
+
+**Approach:** River House playbook — freshness signals, not a rewrite. Content preserved and expanded, not shortened.
+
+**Changes:**
+- Schema `dateModified` 2026-04-02 → 2026-05-17; visible `Last updated: April → May 2026`; page-bottom freshness stamp "Page last updated: May 17, 2026"
+- Meta description rewritten: booking window extended to "fall 2026 and 2027", added "2,000+ weddings performed"
+- Track-record surfaced near top: 2,000+ weddings woven into intro + new trust-pill row (reviews / weddings / preferred vendor / founded by touring musician)
+- New 2026 booking-season note in intro
+- New "What Most Couples Don't Realize About Jacksonville Weddings" — 5 numbered insider items (FL-GA weekend, reversed peak season, 10 PM beach cutoff, hurricane season, DJ-photographer double-booking)
+- New total-cost FAQ: "What does a complete Jacksonville wedding actually cost in 2026?" — also added to FAQPage JSON-LD
+- Internal link added: "Live Sax" feature card → `/services/live-musicians/` (capitalizing on its GSC climb 16.6 → 10.1, 0 → 9 clicks)
+
+**Length:** 5,638 → 6,878 words (+22%). Nothing removed.
+
+**Technical:** 7 JSON-LD blocks validate, canonical self, no noindex, target links exist.
+
+**Commits:** `e5a30b2` (page), `ffba5da` (sitemap lastmod 2026-05-17).
+
+**Outcome to watch (~June 14, 28d window):**
+- Clicks recover from 2 → 8+ (prior-period baseline)
+- Position back under 20
+- Watch `wedding dj jacksonville` (was #5 May 1) for return to page 1
 
 ---
 
