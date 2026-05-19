@@ -237,10 +237,25 @@
     letter-spacing: 0.02em;
   }
   .add-btn-top:hover { background: var(--merlot-dark); }
-  .add-btn-top:disabled {
+  .add-btn-top:disabled,
+  .add-btn-secondary:disabled {
     opacity: 0.55;
     cursor: not-allowed;
   }
+  .add-btn-secondary {
+    width: 100%;
+    background: white;
+    color: var(--merlot);
+    border: 1.5px solid var(--rose);
+    border-radius: 12px;
+    padding: 0.95rem;
+    font-size: 0.98rem;
+    font-weight: 600;
+    margin-top: -0.5rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.02em;
+  }
+  .add-btn-secondary:hover { background: var(--soft-pink); }
   .empty {
     text-align: center;
     padding: 3rem 1rem;
@@ -370,6 +385,7 @@
   </header>
 
   <button class="add-btn-top" id="addBtn">+ Add a new lead</button>
+  <button class="add-btn-secondary" id="addCallBtn">+ Add a planning call</button>
 
   <div id="activeList"></div>
 
@@ -379,6 +395,35 @@
   <div id="closedList" class="closed-list"></div>
 
   <p class="footer-note">2-2-3 schedule: Day 0 · Day 2 · Day 4 · Day 7</p>
+</div>
+
+<!-- Add planning call screen -->
+<div id="screen-add-call" class="screen">
+  <div class="app">
+    <div class="screen-header">
+      <button class="back" data-close>‹ Back</button>
+      <h2>Add a planning call</h2>
+    </div>
+
+    <div class="intro">
+      <h3>Heads up</h3>
+      Use this for couples who've already booked but haven't scheduled their planning call yet. The tracker will nudge you every <strong>7 days</strong>.
+      <ul class="steps-mini">
+        <li>Add the couple now — first nudge fires in 7 days</li>
+        <li>Each time you reach out, tap <strong>I tried again</strong> — clock resets</li>
+        <li>When they pick a date, tap <strong>They scheduled</strong> — it closes</li>
+      </ul>
+    </div>
+
+    <label for="callCoupleInput">Couple's names</label>
+    <input type="text" id="callCoupleInput" autocomplete="off" placeholder="e.g. Sarah & Mike">
+
+    <label for="callDateInput">Start date</label>
+    <input type="date" id="callDateInput">
+    <p class="hint">When you started chasing this planning call. Defaults to today.</p>
+
+    <button class="btn-primary" id="saveCall" style="margin-top: 1.5rem;">Save planning call</button>
+  </div>
 </div>
 
 <!-- Add lead screen -->
@@ -514,11 +559,24 @@ const db = getFirestore(app);
     return -1; // all done
   }
 
-  function leadState(lead) {
-    if (lead.replied) return 'replied';
-    if (lead.returnedToKyle) return 'returned';
-    if (currentStepIndex(lead) === -1) return 'awaiting-return';
+  function leadState(item) {
+    if (item.type === 'planning-call') {
+      if (item.scheduled) return 'call-scheduled';
+      return 'call-active';
+    }
+    if (item.replied) return 'replied';
+    if (item.returnedToKyle) return 'returned';
+    if (currentStepIndex(item) === -1) return 'awaiting-return';
     return 'active';
+  }
+
+  function nextDueDate(item) {
+    if (item.type === 'planning-call') {
+      return addDays(item.lastAttemptDate || item.startDate, 7);
+    }
+    const idx = currentStepIndex(item);
+    if (idx === -1) return todayStr();
+    return addDays(item.handoffDate, STEPS[idx].day);
   }
 
   // ----- UI rendering -----
@@ -618,11 +676,47 @@ const db = getFirestore(app);
     persist();
     render();
   }
-  function reopenLead(leadId) {
-    const lead = leads.find(l => l.id === leadId);
-    if (!lead) return;
-    lead.replied = false;
-    lead.returnedToKyle = false;
+
+  function addPlanningCall(coupleName, startDate) {
+    const item = {
+      id: uuid(),
+      type: 'planning-call',
+      coupleName: coupleName.trim(),
+      startDate: startDate,
+      lastAttemptDate: startDate,
+      attemptCount: 0,
+      scheduled: false,
+      createdAt: new Date().toISOString()
+    };
+    leads.unshift(item);
+    persist();
+  }
+
+  function markCallAttempted(itemId) {
+    const item = leads.find(l => l.id === itemId);
+    if (!item) return;
+    item.attemptCount = (item.attemptCount || 0) + 1;
+    item.lastAttemptDate = todayStr();
+    persist();
+    render();
+  }
+
+  function markCallScheduled(itemId) {
+    const item = leads.find(l => l.id === itemId);
+    if (!item) return;
+    item.scheduled = true;
+    persist();
+    render();
+  }
+  function reopenItem(itemId) {
+    const item = leads.find(l => l.id === itemId);
+    if (!item) return;
+    if (item.type === 'planning-call') {
+      item.scheduled = false;
+    } else {
+      item.replied = false;
+      item.returnedToKyle = false;
+    }
     persist();
     render();
   }
@@ -667,6 +761,46 @@ const db = getFirestore(app);
     return div;
   }
 
+  function renderActivePlanningCall(item) {
+    const dueDate = nextDueDate(item);
+    const when = relativeWhen(dueDate);
+    const attempts = item.attemptCount || 0;
+    const lastReached = (attempts > 0 && item.lastAttemptDate)
+      ? `Last reached out ${prettyDate(item.lastAttemptDate)}`
+      : `Added ${prettyDate(item.startDate)} — no attempts yet`;
+
+    const div = document.createElement('div');
+    div.className = 'lead' + (when.urgent ? ' due-now' : '');
+    const banner = when.urgent
+      ? `<div class="due-banner">${diffDays(todayStr(), dueDate) < 0 ? 'Overdue — chase the call' : 'Time to chase the call'}</div>`
+      : '';
+    div.innerHTML = `
+      ${banner}
+      <div class="top">
+        <p class="couple"></p>
+        <span class="handoff">planning call</span>
+      </div>
+      ${when.urgent ? '' : `<span class="status upcoming">Upcoming</span>`}
+      <div class="step-label">Attempt ${attempts + 1} — nudge them about the planning call</div>
+      <div class="step-when">${when.text}</div>
+      <div class="step-note">${lastReached}. Email, text, or call — whichever feels right. After you try, tap "I tried again" to reset the 7-day clock.</div>
+      <div class="actions">
+        <button class="btn-primary" data-attempted>I tried again — reset 7 days</button>
+        <div class="row-buttons">
+          <button class="btn-ghost" data-scheduled>They scheduled</button>
+          <button class="btn-danger-ghost" data-delete>Delete</button>
+        </div>
+      </div>
+    `;
+    div.querySelector('.couple').textContent = item.coupleName;
+    div.querySelector('[data-attempted]').addEventListener('click', () => markCallAttempted(item.id));
+    div.querySelector('[data-scheduled]').addEventListener('click', () => markCallScheduled(item.id));
+    div.querySelector('[data-delete]').addEventListener('click', () => {
+      if (confirm('Delete ' + item.coupleName + '? This cannot be undone.')) deleteLead(item.id);
+    });
+    return div;
+  }
+
   function renderReturnLead(lead) {
     const div = document.createElement('div');
     div.className = 'lead due-now';
@@ -689,15 +823,27 @@ const db = getFirestore(app);
     return div;
   }
 
-  function renderClosedLead(lead) {
+  function renderClosedLead(item) {
     const div = document.createElement('div');
     div.className = 'lead';
-    const statusClass = lead.replied ? 'closed' : 'returned';
-    const statusText = lead.replied ? 'They replied' : 'Returned to Kyle';
+    let statusClass, statusText, sublabel;
+    if (item.type === 'planning-call') {
+      statusClass = 'closed';
+      statusText = 'Call scheduled';
+      sublabel = `planning call · started ${prettyDate(item.startDate)}`;
+    } else if (item.replied) {
+      statusClass = 'closed';
+      statusText = 'They replied';
+      sublabel = `handoff ${prettyDate(item.handoffDate)}`;
+    } else {
+      statusClass = 'returned';
+      statusText = 'Returned to Kyle';
+      sublabel = `handoff ${prettyDate(item.handoffDate)}`;
+    }
     div.innerHTML = `
       <div class="top">
         <p class="couple"></p>
-        <span class="handoff">handoff ${prettyDate(lead.handoffDate)}</span>
+        <span class="handoff">${sublabel}</span>
       </div>
       <span class="status ${statusClass}">${statusText}</span>
       <div class="row-buttons">
@@ -705,10 +851,10 @@ const db = getFirestore(app);
         <button class="btn-danger-ghost btn-small" data-delete>Delete</button>
       </div>
     `;
-    div.querySelector('.couple').textContent = lead.coupleName;
-    div.querySelector('[data-reopen]').addEventListener('click', () => reopenLead(lead.id));
+    div.querySelector('.couple').textContent = item.coupleName;
+    div.querySelector('[data-reopen]').addEventListener('click', () => reopenItem(item.id));
     div.querySelector('[data-delete]').addEventListener('click', () => {
-      if (confirm('Delete ' + lead.coupleName + '?')) deleteLead(lead.id);
+      if (confirm('Delete ' + item.coupleName + '?')) deleteLead(item.id);
     });
     return div;
   }
@@ -718,6 +864,7 @@ const db = getFirestore(app);
 
     const loading = syncCode && !firstLoadDone;
     $('#addBtn').disabled = loading;
+    $('#addCallBtn').disabled = loading;
     if (loading) {
       $('#activeList').innerHTML = '<div class="empty"><h3>Loading your leads…</h3><p>Connecting to the cloud — one sec.</p></div>';
       $('#returnList').innerHTML = '';
@@ -726,17 +873,15 @@ const db = getFirestore(app);
       return;
     }
 
-    const active = leads.filter(l => leadState(l) === 'active');
-    const toReturn = leads.filter(l => leadState(l) === 'awaiting-return');
-    const closed = leads.filter(l => l.replied || l.returnedToKyle);
-
-    // Sort active by urgency (most overdue first)
-    active.sort((a, b) => {
-      const aIdx = currentStepIndex(a), bIdx = currentStepIndex(b);
-      const aDue = addDays(a.handoffDate, STEPS[aIdx].day);
-      const bDue = addDays(b.handoffDate, STEPS[bIdx].day);
-      return parseYMD(aDue) - parseYMD(bDue);
+    const active = leads.filter(l => {
+      const s = leadState(l);
+      return s === 'active' || s === 'call-active';
     });
+    const toReturn = leads.filter(l => leadState(l) === 'awaiting-return');
+    const closed = leads.filter(l => l.replied || l.returnedToKyle || l.scheduled);
+
+    // Sort active by next due date (most overdue first)
+    active.sort((a, b) => parseYMD(nextDueDate(a)) - parseYMD(nextDueDate(b)));
 
     const activeList = $('#activeList');
     activeList.innerHTML = '';
@@ -745,12 +890,18 @@ const db = getFirestore(app);
       const empty = document.createElement('div');
       empty.className = 'empty';
       empty.innerHTML = `
-        <h3>No active leads</h3>
-        <p>When Kyle hands you a new lead, tap the merlot button above and the tracker will walk you through the 2-2-3 schedule.</p>
+        <h3>Nothing on your plate</h3>
+        <p>When Kyle hands you a new lead, or a booked couple needs a planning-call nudge, use the buttons above.</p>
       `;
       activeList.appendChild(empty);
     } else {
-      active.forEach(l => activeList.appendChild(renderActiveLead(l)));
+      active.forEach(item => {
+        if (item.type === 'planning-call') {
+          activeList.appendChild(renderActivePlanningCall(item));
+        } else {
+          activeList.appendChild(renderActiveLead(item));
+        }
+      });
     }
 
     const returnList = $('#returnList');
@@ -785,6 +936,15 @@ const db = getFirestore(app);
   function hideAddScreen() {
     $('#screen-add').classList.remove('open');
   }
+  function showAddCallScreen() {
+    $('#callDateInput').value = todayStr();
+    $('#callCoupleInput').value = '';
+    $('#screen-add-call').classList.add('open');
+    setTimeout(() => $('#callCoupleInput').focus(), 50);
+  }
+  function hideAddCallScreen() {
+    $('#screen-add-call').classList.remove('open');
+  }
 
   // ----- wire up -----
   document.querySelectorAll('[data-close]').forEach(b => {
@@ -811,6 +971,7 @@ const db = getFirestore(app);
   });
 
   $('#addBtn').addEventListener('click', showAddScreen);
+  $('#addCallBtn').addEventListener('click', showAddCallScreen);
 
   $('#saveLead').addEventListener('click', () => {
     const name = $('#coupleInput').value.trim();
@@ -819,6 +980,16 @@ const db = getFirestore(app);
     if (!date) { alert('Pick the handoff date.'); return; }
     addLead(name, date);
     hideAddScreen();
+    render();
+  });
+
+  $('#saveCall').addEventListener('click', () => {
+    const name = $('#callCoupleInput').value.trim();
+    const date = $('#callDateInput').value;
+    if (!name) { alert('Type the couple’s names.'); return; }
+    if (!date) { alert('Pick the start date.'); return; }
+    addPlanningCall(name, date);
+    hideAddCallScreen();
     render();
   });
 
