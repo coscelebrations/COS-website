@@ -355,6 +355,50 @@
     font-size: 0.8rem;
     margin: 2rem 0 5rem;
   }
+  .template-box {
+    background: var(--soft-pink);
+    border: 1px solid var(--rose);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    margin: 0.6rem 0;
+  }
+  .template-box-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+  }
+  .template-box-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--merlot);
+    font-weight: 700;
+  }
+  .template-body {
+    white-space: pre-wrap;
+    font-size: 0.92rem;
+    color: var(--charcoal);
+    line-height: 1.5;
+  }
+  .btn-copy {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--rose);
+    border-radius: 6px;
+    background: white;
+    color: var(--merlot);
+    cursor: pointer;
+    font-weight: 600;
+    width: auto;
+  }
+  .btn-copy:hover { background: var(--cream); }
+  .btn-copy.copied {
+    background: var(--ok-green-bg);
+    color: var(--ok-green);
+    border-color: var(--ok-green);
+  }
 </style>
 </head>
 <body>
@@ -369,6 +413,10 @@
     <input type="text" id="syncInput" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="">
     <p class="hint">Keep this private. Anyone with your code can see your leads. Treat it like a locker combination.</p>
 
+    <label for="nameInput">Your name (for message signatures)</label>
+    <input type="text" id="nameInput" autocomplete="off" placeholder="e.g. Corey + Cailee">
+    <p class="hint">Used inside the email and text templates so messages are signed by you.</p>
+
     <button class="btn-primary" id="syncSave" style="margin-top: 1.5rem;">Continue</button>
   </div>
 </div>
@@ -381,6 +429,7 @@
       <span id="whoLabel"></span>
       <span class="sync-dot" id="syncDot" data-state="connecting" title="Sync status"></span>
       <a href="#" id="settingsLink">switch code</a>
+      <a href="#" id="editNameLink">edit name</a>
     </div>
   </header>
 
@@ -479,6 +528,7 @@ const db = getFirestore(app);
 
   // ----- sync state -----
   const SYNC_KEY = 'tracker.syncCode';
+  const NAME_KEY = 'tracker.senderName';
   let unsubscribe = null;
   let authReady = false;
   let pendingSyncCode = null;
@@ -551,6 +601,78 @@ const db = getFirestore(app);
       note: 'Last try. If you haven’t left a voicemail yet, do it today. After this step, the lead goes back to Kyle.'
     }
   ];
+
+  // ----- message templates (per day, optional keys) -----
+  const TEMPLATE_LABELS = { email: 'Email', text: 'Text', voicemail: 'Voicemail script' };
+  const TEMPLATES = {
+    2: {
+      email: `Hi {{coupleName}}
+
+I hope you're both doing well! I wanted to follow up on my previous message about discussing the entertainment for your special day.
+
+I know wedding planning can get hectic, so I'll also send you a quick text after this email - sometimes that's easier to catch between all the other planning tasks!
+
+Looking forward to connecting with you soon!
+{{senderName}}`,
+      text: `Hi {{coupleName}}, this is {{senderName}} with COS Celebrations. Kyle in the office put us in touch the other day to discuss DJ services for your big day. I like to reach out on text as I know that is sometimes better for some folks. Looking forward to connecting!`
+    },
+    4: {
+      email: `Hi {{coupleName}},
+
+Just circling back in case my last message got buried — totally understand how full the inbox gets during wedding planning!
+
+I'd love to chat whenever you have a few minutes to talk through your entertainment vision for the big day. No pressure at all, just want to make sure you have everything you need.
+
+I'll send a quick text too in case that's easier!
+{{senderName}}`,
+      text: `Hi {{coupleName}}, it's {{senderName}} with COS Celebrations again — just sent another email but wanted to drop a quick text too. Whenever you have a sec, would love to connect about the entertainment for your wedding! No rush at all 🙌`
+    },
+    7: {
+      email: `Hi {{coupleName}},
+
+I don't want to clutter your inbox, so this'll be my last check-in for now! I know how much is on your plate with wedding planning, so I completely understand if entertainment isn't the priority this week.
+
+I just left you a quick voicemail too. Whenever the timing feels right, I'd love to chat — and if you've decided to go a different direction, no worries at all, just let me know so I can stop bugging you 😊
+
+Wishing you both the best with everything,
+{{senderName}}`,
+      voicemail: `Hey {{coupleName}}, this is {{senderName}} with COS Celebrations — just leaving a quick voicemail to follow up on the emails and texts. No pressure at all, just wanted to make sure you have what you need for entertainment. If you've gone a different direction that's totally fine, just shoot me a quick text so I know. Otherwise, would love to connect whenever it works for you. Talk soon!`
+    }
+  };
+
+  function fillTemplate(str, lead) {
+    const name = (localStorage.getItem(NAME_KEY) || '').trim() || '[Your name]';
+    return str
+      .replace(/\{\{coupleName\}\}/g, lead.coupleName || 'there')
+      .replace(/\{\{senderName\}\}/g, name);
+  }
+
+  async function copyToClipboard(text, btn) {
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(text);
+      ok = true;
+    } catch (err) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+    }
+    if (!btn) return;
+    if (!btn.dataset.originalLabel) btn.dataset.originalLabel = btn.textContent;
+    btn.textContent = ok ? 'Copied ✓' : 'Copy failed';
+    btn.classList.toggle('copied', ok);
+    clearTimeout(btn._copyTimer);
+    btn._copyTimer = setTimeout(() => {
+      btn.textContent = btn.dataset.originalLabel;
+      btn.classList.remove('copied');
+    }, 1500);
+  }
 
   function currentStepIndex(lead) {
     for (let i = 0; i < STEPS.length; i++) {
@@ -732,6 +854,18 @@ const db = getFirestore(app);
     const banner = when.urgent
       ? `<div class="due-banner">${diffDays(todayStr(), dueDate) < 0 ? 'Overdue — do this now' : 'Do this today'}</div>`
       : '';
+    const templatesForDay = TEMPLATES[step.day] || {};
+    const templateKeys = Object.keys(templatesForDay);
+    const templateBoxesHTML = templateKeys.map(key => `
+      <div class="template-box" data-template-key="${key}">
+        <div class="template-box-head">
+          <span class="template-box-label">${TEMPLATE_LABELS[key] || key}</span>
+          <button class="btn-copy" data-copy type="button">Copy</button>
+        </div>
+        <div class="template-body"></div>
+      </div>
+    `).join('');
+
     div.innerHTML = `
       ${banner}
       <div class="top">
@@ -742,6 +876,7 @@ const db = getFirestore(app);
       <div class="step-label">Day ${step.day} — ${step.label}</div>
       <div class="step-when">${when.text}</div>
       <div class="step-note">${step.note}</div>
+      ${templateBoxesHTML}
       <div class="actions">
         <button class="btn-primary" data-done>Mark this step done</button>
         <div class="row-buttons">
@@ -751,6 +886,13 @@ const db = getFirestore(app);
       </div>
     `;
     div.querySelector('.couple').textContent = lead.coupleName;
+    templateKeys.forEach(key => {
+      const box = div.querySelector('.template-box[data-template-key="' + key + '"]');
+      const filled = fillTemplate(templatesForDay[key], lead);
+      box.querySelector('.template-body').textContent = filled;
+      const copyBtn = box.querySelector('[data-copy]');
+      copyBtn.addEventListener('click', () => copyToClipboard(filled, copyBtn));
+    });
     div.querySelector('[data-done]').addEventListener('click', () => markStepDone(lead.id));
     div.querySelector('[data-replied]').addEventListener('click', () => {
       if (confirm('Mark this lead as replied? It will move to Closed.')) markReplied(lead.id);
@@ -922,6 +1064,7 @@ const db = getFirestore(app);
 
   // ----- screen routing -----
   function showSyncScreen() {
+    $('#nameInput').value = localStorage.getItem(NAME_KEY) || '';
     $('#screen-sync').classList.add('open');
   }
   function hideSyncScreen() {
@@ -957,10 +1100,16 @@ const db = getFirestore(app);
 
   $('#syncSave').addEventListener('click', () => {
     const v = $('#syncInput').value;
+    const nameVal = $('#nameInput').value;
     if (!v || !v.trim()) {
       alert('Type your sync code first.');
       return;
     }
+    if (!nameVal || !nameVal.trim()) {
+      alert('Type your name so message templates can be signed by you.');
+      return;
+    }
+    localStorage.setItem(NAME_KEY, nameVal.trim());
     if (setSyncCode(v)) {
       hideSyncScreen();
       render();
@@ -1002,6 +1151,20 @@ const db = getFirestore(app);
     }
   });
 
+  $('#editNameLink').addEventListener('click', (e) => {
+    e.preventDefault();
+    const current = localStorage.getItem(NAME_KEY) || '';
+    const next = prompt('Your name (used in message templates):', current);
+    if (next === null) return;
+    const trimmed = next.trim();
+    if (!trimmed) {
+      alert('Name can’t be blank.');
+      return;
+    }
+    localStorage.setItem(NAME_KEY, trimmed);
+    render();
+  });
+
   // boot: sign in anonymously, then load sync code
   setSyncDot('connecting');
   signInAnonymously(auth).catch((err) => {
@@ -1019,6 +1182,17 @@ const db = getFirestore(app);
       syncCode = stored;
       $('#whoLabel').textContent = stored;
       subscribeToCode(stored);
+      // Existing users who synced before message templates existed won't
+      // have a sender name yet — ask them once so their templates sign properly.
+      if (!localStorage.getItem(NAME_KEY)) {
+        setTimeout(() => {
+          const v = prompt('Quick one-time setup: your name for message templates (e.g. "Corey + Cailee")');
+          if (v && v.trim()) {
+            localStorage.setItem(NAME_KEY, v.trim());
+            render();
+          }
+        }, 400);
+      }
     } else {
       setSyncDot('synced'); // connected, just waiting for code
       showSyncScreen();
