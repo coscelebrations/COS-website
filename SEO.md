@@ -1,5 +1,45 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: May 17, 2026
+## Last Updated: June 3, 2026
+
+---
+
+## Session: June 3, 2026 — Monthly Full 140-Keyword Report (m1)
+
+Manager Agent ran the monthly comprehensive scan (`run_all.py`, 2m47s clean). rankings.json refreshed.
+
+**Rankings: stable.** No keyword moved 5+ positions since the June 1 weekly scan — the detailed week-23 deltas (24 changes, including gainesville #4→#1, treasury #2→#1, river club jax #2→#1, white room #4→#8, dr phillips lost) were already captured June 1 and still hold.
+
+**AI Visibility:** COS 88% (7/8 — lost "Top rated wedding DJ Jacksonville," a query that flickers in/out; same dip seen May 27), AE 25% (2/8, flat vs June 1). AE has sat at 25-38% for weeks — the aeo-geo-push tasks (d27/d28) are the lever.
+
+**Competitors:** rescanned, no new threats. Orlando trio (Our DJ Rocks, Classic DJ, Soundwave) and Future Stereo (St Aug) steady.
+
+**Reminders firing:** review pipeline 37d stale (refresh due), no newsletter since Mar 2. w9 paused until 6/22.
+
+---
+
+## Session: June 2, 2026 — Full SEO Report Run
+
+Ran Perplexity quick scan + GSC downtrend/ranktrend detection + venue-gap finder + action unifier.
+
+**AI Visibility:** COS 67% (2/3), AE 33% (1/3). Neither brand surfaces for "luxury wedding entertainment St Augustine" — open opportunity for COS.
+
+**Downtrends (GSC, window 2026-05-03 → 2026-05-30) — 6 city/venue pages flagged:**
+- `/orlando-wedding-dj/` — clicks 7→4, imp **1747→550 (-68%)**, pos 17.4→23.0 — biggest bleed, most urgent
+- `/treasury-on-the-plaza-wedding-dj/` — clicks 3→1, pos 9.8→**14.8** (fell off page 1)
+- `/amelia-island-wedding-dj/` — clicks 3→1, imp -37%
+- `/gainesville-wedding-dj/` — clicks 2→0 but position improved 16→9.8
+- `/ponte-vedra-wedding-dj/`, `/st-augustine-wedding-dj/` — zero-CTR with strong impressions
+
+**Rank alerts — 9 venue pages on page-1/2 border:** Walkers Landing (cur 10 / best 3), Glass Factory AE (8 / best 3), Ponte Vedra Inn & Club (8 / best 4), White Room (8 / best 5), Fernandina Beach AE (7 / best 5), Sydonie Mansion, Club Continental, Dr. Phillips House, Kanapaha.
+
+**Venue gaps:** COS — Garden Club (Tampa), Lodge & Club 32082. AE — The Lakeside at Amelia Island. (Some gap entries are junk `-site:` query strings — ignored.)
+
+**Top 5 page-1 push (seo-actions.json regenerated, auto=6 human=64):**
+1. [AE] Fix AE GBP domain (still blocked — verification)
+2. [COS] Refresh Gainesville
+3. [COS] Refresh Amelia Island
+4. [COS] Refresh Treasury on the Plaza
+5. [COS] Refresh Ponte Vedra
 
 ---
 

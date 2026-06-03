@@ -1,7 +1,26 @@
 {
   "cos": [
     {
-      "id": 156,
+      "id": 3,
+      "author": "Abbey",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "HIGHLY RECOMMEND!!\n\nCorey and the team at COS Celebrations are absolute rockstars.  We just got married at The Lightner Museum in St Augustine and everything was amazing.  The Sax and Drummer were amazing touches that gave an awesome live music feel blended with the DJ set up.  Music was great and the dancing did not stop until the party came to an end.   Curated music for both cocktail hour and reception with an emphasis on detail and making our dreams come true.  If you have a vision just let them know and they will execute.\n\nHighly recommend!!",
+      "title": "Must use!",
+      "date": "May 2026",
+      "isoDate": "2026-05-20",
+      "platform": "WeddingWire",
+      "venues": [
+        "Lightner Museum",
+        "St. Augustine"
+      ],
+      "tags": [
+        "live-musicians",
+        "dance-floor"
+      ]
+    },
+    {
+      "id": 167,
       "author": "Lexi K",
       "avatarUrl": null,
       "rating": 5,
@@ -17,6 +36,24 @@
         "photo-booth",
         "live-musicians",
         "lighting",
+        "dance-floor"
+      ]
+    },
+    {
+      "id": 7,
+      "author": "Danielle",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "Highly recommend the entire COS Celebrations team! \n\nMarc was absolutely fabulous and played such a huge role in making our wedding unforgettable. He got the party going, kept the energy up all night, and truly did everything right. From the music selection to reading the room, everything felt seamless and so well done.\n\nWe also had the photo booth, which was a huge hit with our guests and added such a fun element to the night. On top of that, Gabriel, the sax player during cocktail hour, completely elevated the atmosphere and made that part of the evening feel so special and memorable.\n\nI also have to mention Kyle, who handled the setup and was incredibly responsive throughout the process. He made everything feel easy and stress-free.\n\nWe were so happy with the entire team and would highly recommend them for a wedding or any special event.",
+      "title": "The Perfect Wedding Entertainment Team",
+      "date": "April 2026",
+      "isoDate": "2026-04-20",
+      "platform": "WeddingWire",
+      "venues": [],
+      "tags": [
+        "photo-booth",
+        "live-musicians",
+        "app",
         "dance-floor"
       ]
     },
@@ -39,7 +76,7 @@
       ]
     },
     {
-      "id": 60,
+      "id": 68,
       "author": "Chelsea",
       "avatarUrl": null,
       "rating": 5,
@@ -58,7 +95,7 @@
       ]
     },
     {
-      "id": 118,
+      "id": 129,
       "author": "Katherine H",
       "avatarUrl": null,
       "rating": 5,
@@ -77,7 +114,7 @@
       ]
     },
     {
-      "id": 137,
+      "id": 148,
       "author": "Nicole B",
       "avatarUrl": null,
       "rating": 5,
@@ -96,7 +133,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": 11,
       "author": "Kevin",
       "avatarUrl": null,
       "rating": 5,
@@ -114,7 +151,7 @@
       ]
     },
     {
-      "id": 108,
+      "id": 119,
       "author": "Victoria C",
       "avatarUrl": null,
       "rating": 5,
@@ -133,7 +170,7 @@
       ]
     },
     {
-      "id": 110,
+      "id": 121,
       "author": "Megan P",
       "avatarUrl": null,
       "rating": 5,
@@ -149,7 +186,7 @@
       ]
     },
     {
-      "id": 89,
+      "id": 97,
       "author": "Christine",
       "avatarUrl": null,
       "rating": 5,
@@ -167,7 +204,7 @@
       ]
     },
     {
-      "id": 67,
+      "id": 75,
       "author": "Tyler",
       "avatarUrl": null,
       "rating": 5,
@@ -187,7 +224,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": 13,
       "author": "Elena",
       "avatarUrl": null,
       "rating": 5,
@@ -203,7 +240,7 @@
       ]
     },
     {
-      "id": 31,
+      "id": 39,
       "author": "Riley",
       "avatarUrl": null,
       "rating": 5,
@@ -220,7 +257,7 @@
       ]
     },
     {
-      "id": 72,
+      "id": 80,
       "author": "Sydney",
       "avatarUrl": null,
       "rating": 5,
@@ -238,7 +275,91 @@
       ]
     },
     {
-      "id": 116,
+      "id": 111,
+      "author": "Ashley D",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "DJ CJ kept the party going! His energy is contagious and all of our guests had a great time on the dance floor. He managed to even get the guests who swore they don’t dance in public out on the floor! DJ CJ is super talented and flawlessly combined different genres of songs into each other, surprising everyone with what came next. The cold sparks and dance lighting are super fun, and really help set the mood! And you can never go wrong with the Photo Booth. DJ CJ made our night unforgettable, it’ll truly be a day to remember. Kyle is also amazing! She always replied to emails promptly and has all the answers. The entire COS celebrations team is awesome!",
+      "title": "",
+      "date": "March 2026",
+      "isoDate": "2026-03-23",
+      "platform": "The Knot",
+      "venues": [],
+      "tags": [
+        "photo-booth",
+        "lighting",
+        "dance-floor"
+      ]
+    },
+    {
+      "id": 5,
+      "author": "Jessica",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "Corey was 10000/10 and beyond expectations. COS Celebrations is a great vendor to work with, from Kyle helping coordinate everything and her speedy and helpful responses. We had the great pleasure of being introduced to Corey and I wish I could relive our wedding day… I couldn’t recommend the Saxophone addition more.. it was incredible!!! I’m happy to have gotten video content so that we can relive the night and entertainment. AMAZING!!! To note… I planned my Florida wedding from California where we live, and this team won me over a Zoom call in minutes. From the friendliness to the services available… I couldn’t recommend more!",
+      "title": "I couldn’t recommend more… DO IT",
+      "date": "April 2026",
+      "isoDate": "2026-04-22",
+      "platform": "WeddingWire",
+      "venues": [],
+      "tags": [
+        "live-musicians",
+        "app"
+      ]
+    },
+    {
+      "id": 6,
+      "author": "Maddie",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "Corey was amazing from start to finish. He made everything feel so easy and smooth, and we never had to worry about a thing. As an MC, he was spot on, keeping the energy up and the guests engaged without ever overdoing it.\n\nThe saxophone was such a fun touch and honestly one of the highlights of the night. So many of our guests have mentioned how much they loved it and how packed the dance floor was all evening. Corey really knew how to read the room, and his playlist was perfect. We danced the night away and honestly would have loved to keep going!\n\nWhat we appreciated most was how much effort he put into making the night feel like us. It didn’t feel generic at all. He really took the time to get it just right, and it showed, not only to us (bride and groom) but also to the guests. He went above and beyond, and we’re so so glad we chose him.\n\nWe couldn’t recommend Corey more and would absolutely book him again in the future. Thank you so much, Corey and Kyle, for everything you did to make our day so special! We truly felt like we were in the best hands.",
+      "title": "The best crew!!!",
+      "date": "April 2026",
+      "isoDate": "2026-04-22",
+      "platform": "WeddingWire",
+      "venues": [],
+      "tags": [
+        "live-musicians",
+        "app",
+        "dance-floor"
+      ]
+    },
+    {
+      "id": 104,
+      "author": "Elizabeth M",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "We were fortunate enough to have DJ Greg at our daughter’s wedding. He was recommended by Laurel Bernsten of Old City Occasions and he didn’t disappoint. She said he would be the best and he was. Our event was planned in three months and with his expertise (and Laurels) everything flowed together like we’d had months to work on it. Greg was communicative throughout the entire process with thoughtful pointers (music choices, timing, etc). The ceremony flowed into cocktail hour flowed into dinner and then he gently “got the party started” and we didn’t stop until we sadly had to wind things down. An event enjoyed by all and many, many memories made. Thank you DJ Greg for being the professional vinyl spinner and Saxophonist that you are….we loved share our backyard with you :)",
+      "title": "",
+      "date": "April 2026",
+      "isoDate": "2026-04-27",
+      "platform": "The Knot",
+      "venues": [],
+      "tags": [
+        "live-musicians",
+        "app",
+        "dance-floor"
+      ]
+    },
+    {
+      "id": 106,
+      "author": "Madeline P",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "Corey was amazing from start to finish. He made everything feel so easy and smooth, and we never had to worry about a thing. As an MC, he was spot on, keeping the energy up and the guests engaged without ever overdoing it.\n\nThe saxophone was such a fun touch and honestly one of the highlights of the night. So many of our guests have mentioned how much they loved it and how packed the dance floor was all evening. Corey really knew how to read the room, and his playlist was perfect. We danced the night away and honestly would have loved to keep going!\n\nWhat we appreciated most was how much effort he put into making the night feel like us. It didn’t feel generic at all. He really took the time to get it just right, and it showed, not only to us (bride and groom) but also to the guests. He went above and beyond, and we’re so so glad we chose him.\n\nWe couldn’t recommend Corey more and would absolutely book him again in the future. Thank you so much, Corey and Kyle, for everything you did to make our day so special! We truly felt like we were in the best hands.",
+      "title": "",
+      "date": "April 2026",
+      "isoDate": "2026-04-22",
+      "platform": "The Knot",
+      "venues": [],
+      "tags": [
+        "live-musicians",
+        "app",
+        "dance-floor"
+      ]
+    },
+    {
+      "id": 127,
       "author": "Angelica B",
       "avatarUrl": null,
       "rating": 5,
@@ -256,7 +377,7 @@
       ]
     },
     {
-      "id": 149,
+      "id": 160,
       "author": "Catherine S",
       "avatarUrl": null,
       "rating": 5,
@@ -274,7 +395,24 @@
       ]
     },
     {
-      "id": 17,
+      "id": 112,
+      "author": "Madison B",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "COS did an amazing job at our wedding reception at TPC Sawgrass. We had so many people come up to us complimenting our DJ Corey. He was great and his saxophone playing was incredible! We had a great experience with the whole team. They did a wonderful job of communicating and making sure our music was personalized to our preferences! You truly can’t go wrong with COS celebrations!",
+      "title": "",
+      "date": "March 2026",
+      "isoDate": "2026-03-22",
+      "platform": "The Knot",
+      "venues": [
+        "TPC Sawgrass"
+      ],
+      "tags": [
+        "live-musicians"
+      ]
+    },
+    {
+      "id": 25,
       "author": "Anna",
       "avatarUrl": null,
       "rating": 5,
@@ -290,7 +428,7 @@
       ]
     },
     {
-      "id": 49,
+      "id": 57,
       "author": "Josh",
       "avatarUrl": null,
       "rating": 5,
@@ -308,7 +446,7 @@
       ]
     },
     {
-      "id": 82,
+      "id": 90,
       "author": "Katie",
       "avatarUrl": null,
       "rating": 5,
@@ -324,7 +462,7 @@
       ]
     },
     {
-      "id": 83,
+      "id": 91,
       "author": "Lisa",
       "avatarUrl": null,
       "rating": 5,
@@ -341,7 +479,7 @@
       ]
     },
     {
-      "id": 92,
+      "id": 100,
       "author": "Jenna",
       "avatarUrl": null,
       "rating": 5,
@@ -358,7 +496,7 @@
       ]
     },
     {
-      "id": 144,
+      "id": 155,
       "author": "Joseph G",
       "avatarUrl": null,
       "rating": 5,
@@ -373,7 +511,7 @@
       ]
     },
     {
-      "id": 177,
+      "id": 188,
       "author": "Sarah A",
       "avatarUrl": null,
       "rating": 5,
@@ -391,7 +529,7 @@
       ]
     },
     {
-      "id": 192,
+      "id": 203,
       "author": "Jenna S",
       "avatarUrl": null,
       "rating": 5,
@@ -407,7 +545,7 @@
       ]
     },
     {
-      "id": 201,
+      "id": 212,
       "author": "Ellen H",
       "avatarUrl": null,
       "rating": 5,
@@ -425,6 +563,38 @@
     },
     {
       "id": 4,
+      "author": "Emma",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "COS Celebrations truly knows how to create an unforgettable experience. We had the pleasure of working with Corey as our DJ, and he brought an incredible live saxophone element to the dance floor. From the start, he took the time to really understand us as a couple and carefully listened to the vibe we wanted for our reception. The dance floor stayed packed all night and not one song played that didn't have the crowd dancing.\n\nHis ability to blend great music with live sax during the dancing portion made our wedding feel so unique, energetic, and fun. It added a special touch that our guests are still talking about, we had so many people comment on the sax portion of the wedding and mention how fun the dance floor was. We had an amazing time, and it wouldn’t have been the same without him. We’re so grateful and can’t thank him enough!",
+      "title": "Couldn't recommend more!",
+      "date": "April 2026",
+      "isoDate": "2026-04-28",
+      "platform": "WeddingWire",
+      "venues": [],
+      "tags": [
+        "live-musicians",
+        "dance-floor"
+      ]
+    },
+    {
+      "id": 9,
+      "author": "Kalie",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "DJ Corey is the best!!!! Having the perfect wedding DJ was a high priority to us as we wanted the dance floor packed all night. We wanted to blend the mainstream music enjoyed by most guests and generations with our more unique EDM/dance music. We also wanted to have sax as part of our dinner and dance set and Corey SHOWED UP!!! He truly made all of our wedding party visions come to life and read the room perfectly! The dance floor was packed all night! Many quests commented that he was the best wedding DJ they had ever experienced! He was the perfect blend of skill, talent, party, and professionalism! We can’t recommend DJ Corey enough!",
+      "title": "Wedding DJ & Saxophonist",
+      "date": "April 2026",
+      "isoDate": "2026-04-04",
+      "platform": "WeddingWire",
+      "venues": [],
+      "tags": [
+        "live-musicians",
+        "dance-floor"
+      ]
+    },
+    {
+      "id": 12,
       "author": "Erin",
       "avatarUrl": null,
       "rating": 5,
@@ -440,7 +610,7 @@
       ]
     },
     {
-      "id": 8,
+      "id": 16,
       "author": "Alexa",
       "avatarUrl": null,
       "rating": 5,
@@ -456,7 +626,7 @@
       ]
     },
     {
-      "id": 11,
+      "id": 19,
       "author": "Madeline",
       "avatarUrl": null,
       "rating": 5,
@@ -472,7 +642,7 @@
       ]
     },
     {
-      "id": 22,
+      "id": 30,
       "author": "Blan",
       "avatarUrl": null,
       "rating": 5,
@@ -490,7 +660,7 @@
       ]
     },
     {
-      "id": 34,
+      "id": 42,
       "author": "Nicole",
       "avatarUrl": null,
       "rating": 5,
@@ -507,7 +677,7 @@
       ]
     },
     {
-      "id": 39,
+      "id": 47,
       "author": "Mackenzie",
       "avatarUrl": null,
       "rating": 5,
@@ -526,7 +696,7 @@
       ]
     },
     {
-      "id": 54,
+      "id": 62,
       "author": "Lindsey",
       "avatarUrl": null,
       "rating": 5,
@@ -546,7 +716,7 @@
       ]
     },
     {
-      "id": 80,
+      "id": 88,
       "author": "Doreen",
       "avatarUrl": null,
       "rating": 5,
@@ -565,7 +735,7 @@
       ]
     },
     {
-      "id": 85,
+      "id": 93,
       "author": "Conner",
       "avatarUrl": null,
       "rating": 5,
@@ -583,7 +753,7 @@
       ]
     },
     {
-      "id": 114,
+      "id": 125,
       "author": "Brittany P",
       "avatarUrl": null,
       "rating": 5,
@@ -599,7 +769,7 @@
       ]
     },
     {
-      "id": 129,
+      "id": 140,
       "author": "Chelsea N",
       "avatarUrl": null,
       "rating": 5,
@@ -615,7 +785,7 @@
       ]
     },
     {
-      "id": 227,
+      "id": 245,
       "author": "Lily M",
       "avatarUrl": null,
       "rating": 5,
@@ -632,7 +802,7 @@
       ]
     },
     {
-      "id": 107,
+      "id": 118,
       "author": "Elizabeth N",
       "avatarUrl": null,
       "rating": 5,
@@ -648,7 +818,7 @@
       ]
     },
     {
-      "id": 50,
+      "id": 58,
       "author": "Brooke",
       "avatarUrl": null,
       "rating": 5,
@@ -664,7 +834,7 @@
       ]
     },
     {
-      "id": 52,
+      "id": 60,
       "author": "Grace",
       "avatarUrl": null,
       "rating": 5,
@@ -681,7 +851,7 @@
       ]
     },
     {
-      "id": 63,
+      "id": 71,
       "author": "Maggie",
       "avatarUrl": null,
       "rating": 5,
@@ -697,7 +867,7 @@
       ]
     },
     {
-      "id": 143,
+      "id": 154,
       "author": "Sydney M",
       "avatarUrl": null,
       "rating": 5,
@@ -713,7 +883,7 @@
       ]
     },
     {
-      "id": 148,
+      "id": 159,
       "author": "Marla M",
       "avatarUrl": null,
       "rating": 5,
@@ -730,7 +900,7 @@
       ]
     },
     {
-      "id": 199,
+      "id": 210,
       "author": "Kelsi S",
       "avatarUrl": null,
       "rating": 5,
@@ -746,7 +916,7 @@
       ]
     },
     {
-      "id": 7,
+      "id": 15,
       "author": "Hannah",
       "avatarUrl": null,
       "rating": 5,
@@ -762,7 +932,7 @@
       ]
     },
     {
-      "id": 29,
+      "id": 37,
       "author": "Maddie",
       "avatarUrl": null,
       "rating": 5,
@@ -780,7 +950,7 @@
       ]
     },
     {
-      "id": 140,
+      "id": 151,
       "author": "Delaney F",
       "avatarUrl": null,
       "rating": 5,
@@ -798,7 +968,7 @@
       ]
     },
     {
-      "id": 147,
+      "id": 158,
       "author": "Madeleine B",
       "avatarUrl": null,
       "rating": 5,
@@ -816,7 +986,7 @@
       ]
     },
     {
-      "id": 46,
+      "id": 54,
       "author": "Emily",
       "avatarUrl": null,
       "rating": 5,
@@ -834,7 +1004,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": 10,
       "author": "Elle",
       "avatarUrl": null,
       "rating": 5,
@@ -850,7 +1020,7 @@
       ]
     },
     {
-      "id": 10,
+      "id": 18,
       "author": "Zoe",
       "avatarUrl": null,
       "rating": 5,
@@ -866,7 +1036,7 @@
       ]
     },
     {
-      "id": 28,
+      "id": 36,
       "author": "Samantha",
       "avatarUrl": null,
       "rating": 5,
@@ -883,7 +1053,7 @@
       ]
     },
     {
-      "id": 35,
+      "id": 43,
       "author": "Allie",
       "avatarUrl": null,
       "rating": 5,
@@ -899,7 +1069,7 @@
       ]
     },
     {
-      "id": 57,
+      "id": 65,
       "author": "Aubrey",
       "avatarUrl": null,
       "rating": 5,
@@ -916,7 +1086,7 @@
       ]
     },
     {
-      "id": 61,
+      "id": 69,
       "author": "Tayler",
       "avatarUrl": null,
       "rating": 5,
@@ -933,26 +1103,7 @@
       ]
     },
     {
-      "id": 93,
-      "author": "Roberta",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "Having Corey perform at my birthday party made my celebration a very special night to remember.  Corey was easy to work with, always professional.  He was very attentive to me and my guests.  There was never a dull moment.  COS is a spot-on Sax player and DJ.  He read the audience and played lots of great dance music and special requests were never a problem.  We even sang American Pie!  His up lighting also added to the festivities.  I truly and totally recommend COS for your next event.  You will not be disappointed!",
-      "title": "Corey on Sax (COS) is Great",
-      "date": "December 2022",
-      "isoDate": "2022-12-18",
-      "platform": "WeddingWire",
-      "venues": [],
-      "tags": [
-        "celebration",
-        "live-musicians",
-        "lighting",
-        "app",
-        "dance-floor"
-      ]
-    },
-    {
-      "id": 102,
+      "id": 113,
       "author": "Hannah B",
       "avatarUrl": null,
       "rating": 5,
@@ -968,7 +1119,7 @@
       ]
     },
     {
-      "id": 131,
+      "id": 142,
       "author": "Courtney K",
       "avatarUrl": null,
       "rating": 5,
@@ -984,7 +1135,7 @@
       ]
     },
     {
-      "id": 132,
+      "id": 143,
       "author": "Haiden W",
       "avatarUrl": null,
       "rating": 5,
@@ -999,7 +1150,7 @@
       ]
     },
     {
-      "id": 136,
+      "id": 147,
       "author": "Brenna C",
       "avatarUrl": null,
       "rating": 5,
@@ -1015,7 +1166,7 @@
       ]
     },
     {
-      "id": 138,
+      "id": 149,
       "author": "Cole B",
       "avatarUrl": null,
       "rating": 5,
@@ -1032,7 +1183,7 @@
       ]
     },
     {
-      "id": 163,
+      "id": 174,
       "author": "Elizabeth C",
       "avatarUrl": null,
       "rating": 5,
@@ -1049,38 +1200,26 @@
       ]
     },
     {
-      "id": 257,
-      "author": "Samantha M",
+      "id": 263,
+      "author": "Roberta H",
       "avatarUrl": null,
       "rating": 5,
-      "text": "Corey and COS Celebrations were absolutely incredible! They seriously made our day perfect. I definitely did not think live music was in our budget, but Corey asked what our budget was and created a plan that worked with it. He stayed in touch with us from the minute we requested info until the day of the wedding. We never felt in the dark, which was very reassuring in the mix of the wedding stress. We filled out an itinerary for the wedding day, but he was patient with changes that were made throughout the day. He was very patient, kind, and professional.  Corey and his crew made sure that we were happy and enjoying the day. We couldn’t recommend a better duo, and we’re happy that they were there to share our big day with us. It’s the day after our wedding and we already have a few guests reaching out for his info for their events. He was super upbeat and the crowd loved him. Highly recommend Corey and COS Celebrations! Thank you for giving us the perfect wedding day!! 💛",
+      "text": "Having Corey perform at my birthday party made my celebration a very special night to remember.  Corey was easy to work with, always professional.  He was very attentive to me and my guests.  There was never a dull moment.  COS is a spot-on Sax player and DJ.  He read the audience and played lots of great dance music and special requests were never a problem.  We even sang American Pie!  His up lighting also added to the festivities.  I truly and totally recommend COS for your next event.  You will not be disappointed!",
       "title": "",
-      "date": "August 2022",
-      "isoDate": "2022-08-27",
+      "date": "December 2022",
+      "isoDate": "2022-12-18",
       "platform": "The Knot",
       "venues": [],
       "tags": [
+        "celebration",
         "live-musicians",
-        "app"
+        "lighting",
+        "app",
+        "dance-floor"
       ]
     },
     {
-      "id": 255,
-      "author": "Kimberly P",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "Corey on Sax was the perfect complement to our big day. We had him play at our wedding ceremony & cocktail hour. He’s extremely talented and the sax added just the right touch of class to the festivities. The process was seamless.  Leading up to the wedding, he was a pleasure to deal with - very responsive and easy going. He has a wide selection of songs to choose from, which he provided early in the process. On the day of, he and his assistant showed up early to set up and double check the sound system. He also worked with the hotel staff to help ensure things went smoothly, and even agreed to do our announcing at the last minute - although that clearly wasn’t in the job description! Highly recommend!",
-      "title": "",
-      "date": "September 2022",
-      "isoDate": "2022-09-09",
-      "platform": "The Knot",
-      "venues": [],
-      "tags": [
-        "live-musicians"
-      ]
-    },
-    {
-      "id": 6,
+      "id": 14,
       "author": "Carianne",
       "avatarUrl": null,
       "rating": 5,
@@ -1096,7 +1235,7 @@
       ]
     },
     {
-      "id": 14,
+      "id": 22,
       "author": "Maggie",
       "avatarUrl": null,
       "rating": 5,
@@ -1112,7 +1251,7 @@
       ]
     },
     {
-      "id": 27,
+      "id": 35,
       "author": "Charlotte",
       "avatarUrl": null,
       "rating": 5,
@@ -1128,7 +1267,7 @@
       ]
     },
     {
-      "id": 37,
+      "id": 45,
       "author": "Kayla",
       "avatarUrl": null,
       "rating": 5,
@@ -1146,7 +1285,7 @@
       ]
     },
     {
-      "id": 113,
+      "id": 124,
       "author": "Stephanie C",
       "avatarUrl": null,
       "rating": 5,
@@ -1162,7 +1301,7 @@
       ]
     },
     {
-      "id": 121,
+      "id": 132,
       "author": "Margaret R",
       "avatarUrl": null,
       "rating": 5,
@@ -1178,7 +1317,7 @@
       ]
     },
     {
-      "id": 133,
+      "id": 144,
       "author": "Mikayla K",
       "avatarUrl": null,
       "rating": 5,
@@ -1194,7 +1333,7 @@
       ]
     },
     {
-      "id": 152,
+      "id": 163,
       "author": "Jessica V",
       "avatarUrl": null,
       "rating": 5,
@@ -1209,7 +1348,7 @@
       ]
     },
     {
-      "id": 130,
+      "id": 141,
       "author": "Blinne B",
       "avatarUrl": null,
       "rating": 5,
@@ -1225,7 +1364,7 @@
       ]
     },
     {
-      "id": 18,
+      "id": 26,
       "author": "Jordyn",
       "avatarUrl": null,
       "rating": 5,
@@ -1240,7 +1379,7 @@
       ]
     },
     {
-      "id": 124,
+      "id": 135,
       "author": "Rochelle D",
       "avatarUrl": null,
       "rating": 5,
@@ -1256,7 +1395,7 @@
       ]
     },
     {
-      "id": 9,
+      "id": 17,
       "author": "Avery",
       "avatarUrl": null,
       "rating": 5,
@@ -1274,7 +1413,7 @@
       ]
     },
     {
-      "id": 45,
+      "id": 53,
       "author": "Joseph",
       "avatarUrl": null,
       "rating": 5,
@@ -1290,7 +1429,7 @@
       ]
     },
     {
-      "id": 62,
+      "id": 70,
       "author": "Erin",
       "avatarUrl": null,
       "rating": 5,
@@ -1307,7 +1446,7 @@
       ]
     },
     {
-      "id": 64,
+      "id": 72,
       "author": "Amelia",
       "avatarUrl": null,
       "rating": 5,
@@ -1322,7 +1461,7 @@
       ]
     },
     {
-      "id": 74,
+      "id": 82,
       "author": "Kelly",
       "avatarUrl": null,
       "rating": 5,
@@ -1338,7 +1477,7 @@
       ]
     },
     {
-      "id": 75,
+      "id": 83,
       "author": "Caitlin",
       "avatarUrl": null,
       "rating": 5,
@@ -1354,7 +1493,7 @@
       ]
     },
     {
-      "id": 86,
+      "id": 94,
       "author": "Meagan",
       "avatarUrl": null,
       "rating": 5,
@@ -1370,7 +1509,7 @@
       ]
     },
     {
-      "id": 122,
+      "id": 133,
       "author": "Lisa M",
       "avatarUrl": null,
       "rating": 5,
@@ -1385,7 +1524,7 @@
       ]
     },
     {
-      "id": 145,
+      "id": 156,
       "author": "Haley S",
       "avatarUrl": null,
       "rating": 5,
@@ -1402,7 +1541,7 @@
       ]
     },
     {
-      "id": 167,
+      "id": 178,
       "author": "Kari P",
       "avatarUrl": null,
       "rating": 5,
@@ -1418,38 +1557,7 @@
       ]
     },
     {
-      "id": 261,
-      "author": "Colette B",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "I don't even know how to begin to write a review that accurately describes how much we enjoyed working with Corey and COS Celebrations for our wedding. We were lucky enough to find and book him through a recommendation from our wedding planner (shout out Michelle at Coastal Celebrations), and it was hands down the best decision we made throughout the entire wedding planning process. Not only was Corey affordable, communicative, professional, accommodating and kind, his presence made both our cocktail hour and reception an absolutely unforgettable experience for both us and our guests. I cannot tell you how many people have reached out over the last few days to tell us \"that Sax Guy was UNBELIEVABLE!\" - and he truly was. The day after our wedding, my husband and I went to watch Corey play at a local bar nearby just to hear him play again; and let me tell you, he was just as good, if not better, the second time around :) I cannot recommend Corey and COS Celebrations enough for those of you looking for live entertainment at your wedding. He is as talented as he is sweet, and the entire room feeds off of his energy. Our wedding would not have been the same without him there - and that's the honest to god truth. Thank you, Corey, for a night that we will ALL be talking about forever!! You are simply the best!",
-      "title": "",
-      "date": "May 2022",
-      "isoDate": "2022-05-25",
-      "platform": "The Knot",
-      "venues": [],
-      "tags": [
-        "live-musicians",
-        "dance-floor"
-      ]
-    },
-    {
-      "id": 269,
-      "author": "Julie C",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "When I first started looking around for a musician I thought live music was completely out of our budget. My husband and I are huge music fanatics and would have done anything to have a live music aspect at our wedding. We started searching and realized it may be more difficult than we thought, so we settled with a local DJ in our area.... that is until I stumbled upon Corey on Sax. The minute I found his page I thought it was too good to be true. A pianist, saxist, and a DJ.... all for the same price? No way. I reached out to Corey to see if this pricing was correct and, well, it was! Not only was the pricing amazing, but Corey was able to cater to all our different wants and needs. We played around with different ideas until we settled on the 3 types of music we wanted. I listened to his music on youtube and read his about me and knew right away we had to have this guy.  I nervously awaited his response (which was maybe 30 seconds) to find out that he was available for our date! We now had a pianist for our ceremony who sings, a saxist for our cocktail hour, and a DJ with Sax solos for our reception. What more could we have asked for?! Corey asked us for a list of music and I am sure we made things sound complicated, but he assured us he could make our dreams come true. Not only that, but we knew he understood us just from the list of shows he has played and bands he has worked with (some of our favorite, to be exact).\nCorey and his crew were amazing. I could not have asked for a better combo for our wedding. I was a little sad at the end of the night that I missed Coreys sax playing. I only heard just a sliver when we were running around doing photos. So, he let all the guests out at the end of the night and pulled us aside for a last dance that he played for us on  the sax. It was beyond magical and made us feel so special. \nI couldn't recommend a better musical group than COS Celebrations. They are seriously the best. We even ended up at the same bar as our pianist at the end of the night which made the ending even more spectacular.\nI can't wait to see them again at local events in the future. 10 out of 10 recommend.",
-      "title": "",
-      "date": "April 2022",
-      "isoDate": "2022-04-18",
-      "platform": "The Knot",
-      "venues": [],
-      "tags": [
-        "live-musicians"
-      ]
-    },
-    {
-      "id": 56,
+      "id": 64,
       "author": "Betsy",
       "avatarUrl": null,
       "rating": 5,
@@ -1464,7 +1572,23 @@
       ]
     },
     {
-      "id": 12,
+      "id": 8,
+      "author": "Brooke",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "COS Celebrations was absolutely incredible and one of the best decisions we made for our wedding! Corey kept the energy high all night and had everyone on the dance floor! The saxophone was such a unique touch and truly took the whole experience to another level, our guests are still talking about it! If you want an unforgettable, high-energy wedding, Corey is your guy!",
+      "title": "Best Wedding 3.21.26",
+      "date": "April 2026",
+      "isoDate": "2026-04-07",
+      "platform": "WeddingWire",
+      "venues": [],
+      "tags": [
+        "live-musicians",
+        "dance-floor"
+      ]
+    },
+    {
+      "id": 20,
       "author": "Holly",
       "avatarUrl": null,
       "rating": 5,
@@ -1479,7 +1603,7 @@
       ]
     },
     {
-      "id": 15,
+      "id": 23,
       "author": "Kristin",
       "avatarUrl": null,
       "rating": 5,
@@ -1495,7 +1619,7 @@
       ]
     },
     {
-      "id": 24,
+      "id": 32,
       "author": "Joshua",
       "avatarUrl": null,
       "rating": 5,
@@ -1513,7 +1637,7 @@
       ]
     },
     {
-      "id": 25,
+      "id": 33,
       "author": "Samantha",
       "avatarUrl": null,
       "rating": 5,
@@ -1528,7 +1652,7 @@
       ]
     },
     {
-      "id": 30,
+      "id": 38,
       "author": "Madison",
       "avatarUrl": null,
       "rating": 5,
@@ -1543,7 +1667,7 @@
       ]
     },
     {
-      "id": 59,
+      "id": 67,
       "author": "Rachael",
       "avatarUrl": null,
       "rating": 5,
@@ -1559,7 +1683,7 @@
       ]
     },
     {
-      "id": 65,
+      "id": 73,
       "author": "Stephanie",
       "avatarUrl": null,
       "rating": 5,
@@ -1574,7 +1698,7 @@
       ]
     },
     {
-      "id": 66,
+      "id": 74,
       "author": "Kassidy",
       "avatarUrl": null,
       "rating": 5,
@@ -1590,7 +1714,7 @@
       ]
     },
     {
-      "id": 69,
+      "id": 77,
       "author": "Jenny",
       "avatarUrl": null,
       "rating": 5,
@@ -1606,7 +1730,7 @@
       ]
     },
     {
-      "id": 154,
+      "id": 165,
       "author": "Em J",
       "avatarUrl": null,
       "rating": 5,
@@ -1621,7 +1745,7 @@
       ]
     },
     {
-      "id": 209,
+      "id": 220,
       "author": "Kaeli A",
       "avatarUrl": null,
       "rating": 5,
@@ -1637,7 +1761,7 @@
       ]
     },
     {
-      "id": 81,
+      "id": 89,
       "author": "Natalie",
       "avatarUrl": null,
       "rating": 5,
@@ -1653,54 +1777,7 @@
       ]
     },
     {
-      "id": 96,
-      "author": "Justine",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "We had an awesome experience working with Corey and his team! We had a complex wedding plan that included a setup at a ceremony space, an outdoor space for dinner, as well as indoors for dancing to conclude the evening. Corey was very responsive and helpful throughout the planning process, providing recommendations for set up and song lists at each location. Guests were very impressed by his sax skills and loved each surprise performance throughout the night. DJ Natural was very accommodating to requests and helped get everyone out of their seats at just the right moments. Very glad we hired COS celebrations!",
-      "title": "The best time ever!",
-      "date": "November 2022",
-      "isoDate": "2022-11-01",
-      "platform": "WeddingWire",
-      "venues": [],
-      "tags": [
-        "live-musicians",
-        "dance-floor"
-      ]
-    },
-    {
-      "id": 99,
-      "author": "Michael",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "Corey at COS celebrations was fantastic! We used him for our wedding reception. He was very professional. We gave him a list of songs that we'd like for our reception, and he did a great job finding similar songs to provide a wonderful experience during the cocktail hour, dinner, and dancing. He often took that extra effort to communicate with us during the reception and to look out for our requests. Where he really excelled, though, was with how to deal with people under pressure. Many aspects of the reception did not go as we had expected, and Corey was very flexible and worked with us, the caterers, parents of the bride, etc. He maintained a relaxed countenance and really gave the sense that he was in control of things, and that he would make sure everything worked out. He was a really calming presence during the reception. We would highly recommend Corey and COS celebrations to any other people looking for a wedding reception or party DJ.",
-      "title": "Professional and Friendly",
-      "date": "October 2022",
-      "isoDate": "2022-10-15",
-      "platform": "WeddingWire",
-      "venues": [],
-      "tags": [
-        "dance-floor"
-      ]
-    },
-    {
-      "id": 259,
-      "author": "Michelle G",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "We had such a great time with DJ Corey and COS Entertainment! At first I was weary about hiring a DJ for my party as I had such an awful experience with the DJ I hired from my wedding but this DJ put that all to ease for me. He showed up early and was so easy to talk to and work with and so professional. I absolutely loved the online portal where I was able to choose my music and put things I didn't want played on a do not play list. We all had such a great time and I would 100% hire this company again!",
-      "title": "",
-      "date": "August 2022",
-      "isoDate": "2022-08-18",
-      "platform": "The Knot",
-      "venues": [],
-      "tags": [
-        "corporate",
-        "dance-floor"
-      ]
-    },
-    {
-      "id": 42,
+      "id": 50,
       "author": "Olivia",
       "avatarUrl": null,
       "rating": 5,
@@ -1717,7 +1794,7 @@
       ]
     },
     {
-      "id": 84,
+      "id": 92,
       "author": "Despie",
       "avatarUrl": null,
       "rating": 5,
@@ -1733,7 +1810,7 @@
       ]
     },
     {
-      "id": 48,
+      "id": 56,
       "author": "Maressa",
       "avatarUrl": null,
       "rating": 5,
@@ -1751,7 +1828,7 @@
       ]
     },
     {
-      "id": 76,
+      "id": 84,
       "author": "Bobby",
       "avatarUrl": null,
       "rating": 5,
@@ -1767,7 +1844,7 @@
       ]
     },
     {
-      "id": 77,
+      "id": 85,
       "author": "Barbara",
       "avatarUrl": null,
       "rating": 5,
@@ -1782,7 +1859,7 @@
       ]
     },
     {
-      "id": 160,
+      "id": 171,
       "author": "Hailey C",
       "avatarUrl": null,
       "rating": 5,
@@ -1797,7 +1874,7 @@
       ]
     },
     {
-      "id": 185,
+      "id": 196,
       "author": "Liz B",
       "avatarUrl": null,
       "rating": 5,
@@ -1813,7 +1890,7 @@
       ]
     },
     {
-      "id": 200,
+      "id": 211,
       "author": "Alyssa H",
       "avatarUrl": null,
       "rating": 5,
@@ -1828,7 +1905,7 @@
       ]
     },
     {
-      "id": 112,
+      "id": 123,
       "author": "Chelsea S",
       "avatarUrl": null,
       "rating": 5,
@@ -1843,7 +1920,22 @@
       ]
     },
     {
-      "id": 153,
+      "id": 108,
+      "author": "Paige B",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "Hands down the best experience we could have asked for during our wedding reception! DJ Marc absolutely nailed it, played the perfect mix of songs and made everything go smoothly. Kyle was super helpful the whole way through and was very prompt with responses. Exceeded our expectations and highly recommend!",
+      "title": "",
+      "date": "April 2026",
+      "isoDate": "2026-04-17",
+      "platform": "The Knot",
+      "venues": [],
+      "tags": [
+        "wedding"
+      ]
+    },
+    {
+      "id": 164,
       "author": "Sophia L",
       "avatarUrl": null,
       "rating": 5,
@@ -1858,7 +1950,7 @@
       ]
     },
     {
-      "id": 90,
+      "id": 98,
       "author": "Cassidy",
       "avatarUrl": null,
       "rating": 5,
@@ -1873,7 +1965,7 @@
       ]
     },
     {
-      "id": 235,
+      "id": 257,
       "author": "Cassidy K",
       "avatarUrl": null,
       "rating": 5,
@@ -1888,7 +1980,7 @@
       ]
     },
     {
-      "id": 21,
+      "id": 29,
       "author": "Ryan",
       "avatarUrl": null,
       "rating": 5,
@@ -1903,7 +1995,7 @@
       ]
     },
     {
-      "id": 134,
+      "id": 145,
       "author": "Tiffany C",
       "avatarUrl": null,
       "rating": 5,
@@ -1918,7 +2010,7 @@
       ]
     },
     {
-      "id": 180,
+      "id": 191,
       "author": "Gabriela P",
       "avatarUrl": null,
       "rating": 5,
@@ -1933,7 +2025,7 @@
       ]
     },
     {
-      "id": 181,
+      "id": 192,
       "author": "Gabriela N",
       "avatarUrl": null,
       "rating": 5,
@@ -1948,7 +2040,7 @@
       ]
     },
     {
-      "id": 172,
+      "id": 183,
       "author": "Anna W",
       "avatarUrl": null,
       "rating": 5,
@@ -1964,23 +2056,7 @@
       ]
     },
     {
-      "id": 265,
-      "author": "David M",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "Our DJ, Corey, was terrific. He arrived an hour and a half early. Had everything set up an ready to go, playing all the right music for my retirement party. Had a brilliant light show and even played his saxophone a few times throughout the evening to add a “ live entertainment “ feeling. Our guests were very impressed and kept asking how we found such a professional entertainer.  I can not express how pleased we were to find this talent.",
-      "title": "",
-      "date": "April 2022",
-      "isoDate": "2022-04-29",
-      "platform": "The Knot",
-      "venues": [],
-      "tags": [
-        "live-musicians",
-        "dance-floor"
-      ]
-    },
-    {
-      "id": 215,
+      "id": 226,
       "author": "Esther K",
       "avatarUrl": null,
       "rating": 5,
@@ -1995,7 +2071,7 @@
       ]
     },
     {
-      "id": 33,
+      "id": 41,
       "author": "Mario",
       "avatarUrl": null,
       "rating": 5,
@@ -2010,7 +2086,7 @@
       ]
     },
     {
-      "id": 32,
+      "id": 40,
       "author": "Amber",
       "avatarUrl": null,
       "rating": 5,
@@ -2025,7 +2101,7 @@
       ]
     },
     {
-      "id": 13,
+      "id": 21,
       "author": "Jason",
       "avatarUrl": null,
       "rating": 5,
@@ -2040,7 +2116,7 @@
       ]
     },
     {
-      "id": 44,
+      "id": 52,
       "author": "Bailey",
       "avatarUrl": null,
       "rating": 5,
@@ -2055,7 +2131,7 @@
       ]
     },
     {
-      "id": 51,
+      "id": 59,
       "author": "38339452E72Fa6A03A51F2Daca1B515Fb010A5Df",
       "avatarUrl": null,
       "rating": 5,
@@ -2070,7 +2146,7 @@
       ]
     },
     {
-      "id": 182,
+      "id": 193,
       "author": "Tyler N",
       "avatarUrl": null,
       "rating": 5,
@@ -2085,7 +2161,7 @@
       ]
     },
     {
-      "id": 26,
+      "id": 34,
       "author": "Joey",
       "avatarUrl": null,
       "rating": 5,
@@ -2100,7 +2176,7 @@
       ]
     },
     {
-      "id": 91,
+      "id": 99,
       "author": "Kim",
       "avatarUrl": null,
       "rating": 5,
@@ -2115,7 +2191,7 @@
       ]
     },
     {
-      "id": 207,
+      "id": 218,
       "author": "Zachary S",
       "avatarUrl": null,
       "rating": 5,
@@ -2130,7 +2206,7 @@
       ]
     },
     {
-      "id": 183,
+      "id": 194,
       "author": "Emily P",
       "avatarUrl": null,
       "rating": 5,
@@ -2146,7 +2222,7 @@
       ]
     },
     {
-      "id": 195,
+      "id": 206,
       "author": "Susan C",
       "avatarUrl": null,
       "rating": 5,
@@ -2162,7 +2238,7 @@
       ]
     },
     {
-      "id": 170,
+      "id": 181,
       "author": "Jordan E",
       "avatarUrl": null,
       "rating": 5,
@@ -2178,7 +2254,7 @@
       ]
     },
     {
-      "id": 123,
+      "id": 134,
       "author": "Katie L",
       "avatarUrl": null,
       "rating": 5,
@@ -2193,7 +2269,7 @@
       ]
     },
     {
-      "id": 38,
+      "id": 46,
       "author": "Kevin",
       "avatarUrl": null,
       "rating": 5,
@@ -2208,22 +2284,22 @@
       ]
     },
     {
-      "id": 94,
-      "author": "Luis",
+      "id": 265,
+      "author": "Luis & Sonia S",
       "avatarUrl": null,
       "rating": 5,
-      "text": "Corey on Sax was a dream come true. His sax sang like eagle in flight. Corey made our dream wedding come true. We highly recommend Corey for any occasion / celebration. Corey is punctual, professional, and very attentive to details. Thank you Corey again for make our dream wedding come true.",
-      "title": "Outstanding",
+      "text": "Corey on Sax was a dream come true.  His sax sang like eagle in flight.  Corey made our dream wedding come true.  We highly recommend Corey for any occasion / celebration.  Corey is punctual, professional, and very attentive to details.  Thank you Corey again for make our dream wedding come true.",
+      "title": "",
       "date": "December 2022",
       "isoDate": "2022-12-03",
-      "platform": "WeddingWire",
+      "platform": "The Knot",
       "venues": [],
       "tags": [
         "live-musicians"
       ]
     },
     {
-      "id": 197,
+      "id": 208,
       "author": "Stephanie O",
       "avatarUrl": null,
       "rating": 5,
@@ -2239,22 +2315,7 @@
       ]
     },
     {
-      "id": 253,
-      "author": "Alisha J",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "COS Celebrations was incredibly easy to work with for our wedding. Our DJ Hugh listened to us and helped us create a simple schedule for the ceremony and reception. Every song we had to hear was played and the songs we didn’t know we needed were also played and got the party started and kept going. He was even able to get our extremely introverted family member to dance. I mention this because his brother my now husband has never seen him dance in 28 years!! Thank you COS Celebrations for an incredible and memorable night.",
-      "title": "",
-      "date": "October 2022",
-      "isoDate": "2022-10-23",
-      "platform": "The Knot",
-      "venues": [],
-      "tags": [
-        "dance-floor"
-      ]
-    },
-    {
-      "id": 171,
+      "id": 182,
       "author": "Lauren M",
       "avatarUrl": null,
       "rating": 5,
@@ -2269,7 +2330,7 @@
       ]
     },
     {
-      "id": 41,
+      "id": 49,
       "author": "Miranda",
       "avatarUrl": null,
       "rating": 5,
@@ -2285,7 +2346,7 @@
       ]
     },
     {
-      "id": 155,
+      "id": 166,
       "author": "Morgan H",
       "avatarUrl": null,
       "rating": 5,
@@ -2300,7 +2361,7 @@
       ]
     },
     {
-      "id": 169,
+      "id": 180,
       "author": "Briana R",
       "avatarUrl": null,
       "rating": 5,
@@ -2315,7 +2376,7 @@
       ]
     },
     {
-      "id": 16,
+      "id": 24,
       "author": "Chelsea",
       "avatarUrl": null,
       "rating": 5,
@@ -2330,7 +2391,7 @@
       ]
     },
     {
-      "id": 43,
+      "id": 51,
       "author": "Kaley",
       "avatarUrl": null,
       "rating": 5,
@@ -2346,7 +2407,7 @@
       ]
     },
     {
-      "id": 47,
+      "id": 55,
       "author": "Kaydee",
       "avatarUrl": null,
       "rating": 5,
@@ -2362,7 +2423,7 @@
       ]
     },
     {
-      "id": 176,
+      "id": 187,
       "author": "Shannon C",
       "avatarUrl": null,
       "rating": 5,
@@ -2377,7 +2438,7 @@
       ]
     },
     {
-      "id": 68,
+      "id": 76,
       "author": "Jamie",
       "avatarUrl": null,
       "rating": 5,
@@ -2392,7 +2453,7 @@
       ]
     },
     {
-      "id": 216,
+      "id": 227,
       "author": "Mimi B",
       "avatarUrl": null,
       "rating": 5,
@@ -2408,22 +2469,7 @@
       ]
     },
     {
-      "id": 263,
-      "author": "Ashley W",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "I found Corey on through Google  as I wanted live music for a pre wedding event. I was impressed by his experience and trusted that he we be good due to his resume.  Not only was he good, he was great!  He set the ambiance for our guests.  He has an expansive music selection. Additionally, Corey is professional and quick to respond. He is the best!",
-      "title": "",
-      "date": "May 2022",
-      "isoDate": "2022-05-12",
-      "platform": "The Knot",
-      "venues": [],
-      "tags": [
-        "live-musicians"
-      ]
-    },
-    {
-      "id": 19,
+      "id": 27,
       "author": "Jennie",
       "avatarUrl": null,
       "rating": 5,
@@ -2438,7 +2484,7 @@
       ]
     },
     {
-      "id": 179,
+      "id": 190,
       "author": "Chloe S",
       "avatarUrl": null,
       "rating": 5,
@@ -2454,21 +2500,6 @@
     },
     {
       "id": 267,
-      "author": "Kyle M",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "I thought that my vision for my wedding day was going to be impossible to achieve. I wanted to include so many different sounds for my reception, ceremony, and cocktail hour. COS Celebrations made it not only possible, but easy to get everything I wanted. I told him some of the things I wanted and he put together multiple packages for me to choose from. I was impressed with how easy he was to work with, how quick his response time was, and his professionalism. 10/10 would recommend!!!",
-      "title": "",
-      "date": "April 2022",
-      "isoDate": "2022-04-18",
-      "platform": "The Knot",
-      "venues": [],
-      "tags": [
-        "wedding"
-      ]
-    },
-    {
-      "id": 245,
       "author": "Emma K",
       "avatarUrl": null,
       "rating": 5,
@@ -2483,7 +2514,7 @@
       ]
     },
     {
-      "id": 247,
+      "id": 269,
       "author": "Kristen C",
       "avatarUrl": null,
       "rating": 5,
@@ -2499,7 +2530,7 @@
       ]
     },
     {
-      "id": 55,
+      "id": 63,
       "author": "Kendall",
       "avatarUrl": null,
       "rating": 5,
@@ -2514,7 +2545,7 @@
       ]
     },
     {
-      "id": 87,
+      "id": 95,
       "author": "Lauren",
       "avatarUrl": null,
       "rating": 5,
@@ -2529,7 +2560,22 @@
       ]
     },
     {
-      "id": 208,
+      "id": 2,
+      "author": "Fred",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "CJ was the best dj I have ever seen. The best at reading the crowd and keeping everyone moving. Overall Cj the Dj had amazing vibes and would recommend him to absolutely anyone!!!!!!!",
+      "title": "Cj the dj is the best!",
+      "date": "May 2026",
+      "isoDate": "2026-05-20",
+      "platform": "WeddingWire",
+      "venues": [],
+      "tags": [
+        "wedding"
+      ]
+    },
+    {
+      "id": 219,
       "author": "London S",
       "avatarUrl": null,
       "rating": 5,
@@ -2544,7 +2590,7 @@
       ]
     },
     {
-      "id": 186,
+      "id": 197,
       "author": "anonymous u",
       "avatarUrl": null,
       "rating": 5,
@@ -2559,7 +2605,7 @@
       ]
     },
     {
-      "id": 36,
+      "id": 44,
       "author": "Adrian",
       "avatarUrl": null,
       "rating": 5,
@@ -2574,7 +2620,7 @@
       ]
     },
     {
-      "id": 53,
+      "id": 61,
       "author": "Ecb0Df938D242Dfd619Ed4A2D08F8B36B1D5Ceab",
       "avatarUrl": null,
       "rating": 5,
@@ -2590,7 +2636,7 @@
       ]
     },
     {
-      "id": 78,
+      "id": 86,
       "author": "Karli",
       "avatarUrl": null,
       "rating": 5,
@@ -2605,7 +2651,7 @@
       ]
     },
     {
-      "id": 23,
+      "id": 31,
       "author": "Andie",
       "avatarUrl": null,
       "rating": 5,
@@ -2620,7 +2666,7 @@
       ]
     },
     {
-      "id": 164,
+      "id": 175,
       "author": "Hayley R",
       "avatarUrl": null,
       "rating": 5,
@@ -2635,37 +2681,7 @@
       ]
     },
     {
-      "id": 97,
-      "author": "Geri",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "Our event was amazing thanks to COS Celebrations professionalism and the above and beyond customer service.  The equipment was over the top!  We had a blast!!!!  Thank you Corey!",
-      "title": "Hallowed Event",
-      "date": "October 2022",
-      "isoDate": "2022-10-31",
-      "platform": "WeddingWire",
-      "venues": [],
-      "tags": [
-        "wedding"
-      ]
-    },
-    {
-      "id": 95,
-      "author": "Gigi",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "Corey and his team were absolutely amazing to work with. From the beginning through break down they were professional and service was stellar. They have many new RAGING FANS!!!",
-      "title": "Hans down the BEST",
-      "date": "November 2022",
-      "isoDate": "2022-11-08",
-      "platform": "WeddingWire",
-      "venues": [],
-      "tags": [
-        "wedding"
-      ]
-    },
-    {
-      "id": 58,
+      "id": 66,
       "author": "Micaela",
       "avatarUrl": null,
       "rating": 5,
@@ -2680,7 +2696,7 @@
       ]
     },
     {
-      "id": 126,
+      "id": 137,
       "author": "Sydney B",
       "avatarUrl": null,
       "rating": 5,
@@ -2695,7 +2711,7 @@
       ]
     },
     {
-      "id": 127,
+      "id": 138,
       "author": "Sam S",
       "avatarUrl": null,
       "rating": 5,
@@ -2710,7 +2726,7 @@
       ]
     },
     {
-      "id": 70,
+      "id": 78,
       "author": "Ben",
       "avatarUrl": null,
       "rating": 5,
@@ -2725,7 +2741,7 @@
       ]
     },
     {
-      "id": 79,
+      "id": 87,
       "author": "Tyrene",
       "avatarUrl": null,
       "rating": 5,
@@ -2740,7 +2756,7 @@
       ]
     },
     {
-      "id": 88,
+      "id": 96,
       "author": "Laila",
       "avatarUrl": null,
       "rating": 5,
@@ -2755,7 +2771,7 @@
       ]
     },
     {
-      "id": 73,
+      "id": 81,
       "author": "Chandelle",
       "avatarUrl": null,
       "rating": 5,
@@ -2770,7 +2786,7 @@
       ]
     },
     {
-      "id": 146,
+      "id": 157,
       "author": "Juliann J",
       "avatarUrl": null,
       "rating": 5,
@@ -2785,7 +2801,7 @@
       ]
     },
     {
-      "id": 20,
+      "id": 28,
       "author": "Jon",
       "avatarUrl": null,
       "rating": 5,
@@ -2800,7 +2816,7 @@
       ]
     },
     {
-      "id": 165,
+      "id": 176,
       "author": "Brooke G",
       "avatarUrl": null,
       "rating": 5,
@@ -2815,7 +2831,7 @@
       ]
     },
     {
-      "id": 109,
+      "id": 120,
       "author": "Gabi P",
       "avatarUrl": null,
       "rating": 5,
@@ -2830,22 +2846,7 @@
       ]
     },
     {
-      "id": 98,
-      "author": "Todd",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "DJ Natural kept the m7sic going and the date floor full. Would definitely recommend him to anyone looking.",
-      "title": "Our wedding",
-      "date": "October 2022",
-      "isoDate": "2022-10-26",
-      "platform": "WeddingWire",
-      "venues": [],
-      "tags": [
-        "wedding"
-      ]
-    },
-    {
-      "id": 40,
+      "id": 48,
       "author": "Lilly",
       "avatarUrl": null,
       "rating": 5,
@@ -2860,7 +2861,7 @@
       ]
     },
     {
-      "id": 71,
+      "id": 79,
       "author": "Troy",
       "avatarUrl": null,
       "rating": 5,
@@ -2873,22 +2874,7 @@
       "tags": [
         "wedding"
       ]
-    },
-    {
-      "id": 100,
-      "author": "Heather",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "We had a great experience with COS! Fun night. Great music.",
-      "title": "Great Night!",
-      "date": "October 2022",
-      "isoDate": "2022-10-13",
-      "platform": "WeddingWire",
-      "venues": [],
-      "tags": [
-        "wedding"
-      ]
     }
   ],
-  "total": 180
+  "total": 178
 }

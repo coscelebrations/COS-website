@@ -1,7 +1,26 @@
 {
   "cos": [
     {
-      "id": 156,
+      "id": 3,
+      "author": "Abbey",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "HIGHLY RECOMMEND!!\n\nCorey and the team at COS Celebrations are absolute rockstars.  We just got married at The Lightner Museum in St Augustine and everything was amazing.  The Sax and Drummer were amazing touches that gave an awesome live music feel blended with the DJ set up.  Music was great and the dancing did not stop until the party came to an end.   Curated music for both cocktail hour and reception with an emphasis on detail and making our dreams come true.  If you have a vision just let them know and they will execute.\n\nHighly recommend!!",
+      "title": "Must use!",
+      "date": "May 2026",
+      "platform": "WeddingWire",
+      "venues": [
+        "Lightner Museum",
+        "St. Augustine"
+      ],
+      "tags": [
+        "live-musicians",
+        "dance-floor"
+      ],
+      "googleLink": null
+    },
+    {
+      "id": 167,
       "author": "Lexi K",
       "avatarUrl": null,
       "rating": 5,
@@ -16,6 +35,24 @@
         "photo-booth",
         "live-musicians",
         "lighting",
+        "dance-floor"
+      ],
+      "googleLink": null
+    },
+    {
+      "id": 7,
+      "author": "Danielle",
+      "avatarUrl": null,
+      "rating": 5,
+      "text": "Highly recommend the entire COS Celebrations team! \n\nMarc was absolutely fabulous and played such a huge role in making our wedding unforgettable. He got the party going, kept the energy up all night, and truly did everything right. From the music selection to reading the room, everything felt seamless and so well done.\n\nWe also had the photo booth, which was a huge hit with our guests and added such a fun element to the night. On top of that, Gabriel, the sax player during cocktail hour, completely elevated the atmosphere and made that part of the evening feel so special and memorable.\n\nI also have to mention Kyle, who handled the setup and was incredibly responsive throughout the process. He made everything feel easy and stress-free.\n\nWe were so happy with the entire team and would highly recommend them for a wedding or any special event.",
+      "title": "The Perfect Wedding Entertainment Team",
+      "date": "April 2026",
+      "platform": "WeddingWire",
+      "venues": [],
+      "tags": [
+        "photo-booth",
+        "live-musicians",
+        "app",
         "dance-floor"
       ],
       "googleLink": null
@@ -39,7 +76,7 @@
       "googleLink": null
     },
     {
-      "id": 60,
+      "id": 68,
       "author": "Chelsea",
       "avatarUrl": null,
       "rating": 5,
@@ -58,7 +95,7 @@
       "googleLink": null
     },
     {
-      "id": 118,
+      "id": 129,
       "author": "Katherine H",
       "avatarUrl": null,
       "rating": 5,
@@ -77,7 +114,7 @@
       "googleLink": null
     },
     {
-      "id": 137,
+      "id": 148,
       "author": "Nicole B",
       "avatarUrl": null,
       "rating": 5,
@@ -96,7 +133,7 @@
       "googleLink": null
     },
     {
-      "id": 3,
+      "id": 11,
       "author": "Kevin",
       "avatarUrl": null,
       "rating": 5,
@@ -114,7 +151,7 @@
       "googleLink": null
     },
     {
-      "id": 108,
+      "id": 119,
       "author": "Victoria C",
       "avatarUrl": null,
       "rating": 5,
@@ -133,7 +170,7 @@
       "googleLink": null
     },
     {
-      "id": 110,
+      "id": 121,
       "author": "Megan P",
       "avatarUrl": null,
       "rating": 5,
@@ -149,7 +186,7 @@
       "googleLink": null
     },
     {
-      "id": 89,
+      "id": 97,
       "author": "Christine",
       "avatarUrl": null,
       "rating": 5,
@@ -167,7 +204,7 @@
       "googleLink": null
     },
     {
-      "id": 67,
+      "id": 75,
       "author": "Tyler",
       "avatarUrl": null,
       "rating": 5,
@@ -179,39 +216,6 @@
         "Casa Marina",
         "Jacksonville"
       ],
-      "tags": [
-        "live-musicians",
-        "app",
-        "dance-floor"
-      ],
-      "googleLink": null
-    },
-    {
-      "id": 5,
-      "author": "Elena",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "DJ Marc was so amazing! The dance floor was going all night long. I have gotten countless complements on the music played and how amazing it was! We also hired a saxophone player for the reception and a guitarist for the ceremony through COS. The guitarist was a lovely addition, the guest enjoyed music as they wait for us to come in. He played all the ceremony reception music on guitar, it was spectacular. The saxophone player was at the reception and he was a huge hit! He kept (along with the amazing DJ Marc) the party going all night! He got on the dance floor and was interactive with the guest, he truly elevated the reception! I cannot say enough good things about this team, they are spectacular!",
-      "title": "Amazing! Kept the dance floor alive all night!",
-      "date": "March 2026",
-      "platform": "WeddingWire",
-      "venues": [],
-      "tags": [
-        "live-musicians",
-        "dance-floor"
-      ],
-      "googleLink": null
-    },
-    {
-      "id": 31,
-      "author": "Riley",
-      "avatarUrl": null,
-      "rating": 5,
-      "text": "I can't say enough about the COS team. Truly was so blessed to have them for our wedding and highly recommend them. From start to finish they made every vision and dream come true to make our magical night a reality. Corey and his team are absolutely amazing and treat you like family and make the process flawless and easy. We are so grateful and appreciative of everything they did for us on the most important and special day of our lives. The amount of people from our wedding that complimented the team and Corey as well was amazing! Corey's saxophone skills was just the perfect touch to making the ceremony and dance floor EPIC! Thank you so so much, our day would not have been what it was with out you guys!",
-      "title": "We love the COS team!",
-      "date": "April 2025",
-      "platform": "WeddingWire",
-      "venues": [],
       "tags": [
         "live-musicians",
         "app",
