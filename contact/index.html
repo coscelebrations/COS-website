@@ -588,25 +588,27 @@
     });
 
     // Conversion tracking - fires on form submit
+    // Uses transport_type:'beacon' so conversion requests use navigator.sendBeacon(),
+    // which is guaranteed to be sent by the browser even during page navigation.
+    // No preventDefault — form submits normally via DJEP's own script.
     document.querySelector('form[name="reqinfoform"]').addEventListener('submit', function() {
-      // Fire GA4 generate_lead event
       if (typeof gtag === 'function') {
         gtag('event', 'generate_lead', {
           currency: 'USD',
           value: 50,
           event_category: 'form',
-          event_label: 'contact_form_submit'
+          event_label: 'contact_form_submit',
+          transport_type: 'beacon'
         });
 
-        // Fire Google Ads conversion
         gtag('event', 'conversion', {
           'send_to': 'AW-16649250548/uryZCKaUvPEbEPTN_YI-',
           'value': 50.0,
-          'currency': 'USD'
+          'currency': 'USD',
+          'transport_type': 'beacon'
         });
       }
 
-      // Fire Meta Pixel Lead event
       if (typeof fbq === 'function') {
         fbq('track', 'Lead', {
           content_name: 'Contact Form',
