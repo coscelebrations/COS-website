@@ -399,6 +399,115 @@
     color: var(--ok-green);
     border-color: var(--ok-green);
   }
+
+  /* Monday checklist card */
+  .monday-card {
+    background: var(--soft-pink);
+    border: 1px solid var(--rose);
+    border-radius: 12px;
+    padding: 1rem 1.1rem 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+  .monday-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.6rem;
+  }
+  .monday-card-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--merlot);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+  .monday-card-sub {
+    font-size: 0.72rem;
+    color: var(--text-soft);
+    font-style: italic;
+  }
+  .monday-task {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.7rem 0;
+    border-top: 1px solid rgba(232,196,200,0.7);
+    align-items: flex-start;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(114,47,55,0.08);
+  }
+  .monday-task:first-of-type { border-top: none; padding-top: 0.3rem; }
+  .monday-task.done { opacity: 0.45; }
+  .monday-task.done .monday-task-label-text { text-decoration: line-through; }
+  .monday-check {
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--merlot);
+    border-radius: 5px;
+    background: white;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.18s ease;
+  }
+  .monday-task.done .monday-check { background: var(--merlot); }
+  .monday-check::after {
+    content: '';
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.18s ease;
+    margin-top: -2px;
+  }
+  .monday-task.done .monday-check::after { transform: rotate(45deg) scale(1); }
+  .monday-task-body { flex: 1; min-width: 0; }
+  .monday-task-label {
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .monday-task-badge {
+    display: inline-block;
+    background: var(--merlot);
+    color: white;
+    font-size: 0.62rem;
+    letter-spacing: 0.07em;
+    padding: 0.12rem 0.45rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    margin-right: 0.4rem;
+    vertical-align: 2px;
+    font-weight: 700;
+  }
+  .monday-task-note {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    margin-top: 0.25rem;
+    line-height: 1.45;
+  }
+  .monday-copy-link {
+    background: white;
+    border: 1px solid var(--rose);
+    color: var(--merlot);
+    font-size: 0.72rem;
+    padding: 0.3rem 0.65rem;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    width: auto;
+  }
+  .monday-copy-link:hover { background: var(--cream); }
+  .monday-copy-link.copied {
+    background: var(--ok-green-bg);
+    color: var(--ok-green);
+    border-color: var(--ok-green);
+  }
 </style>
 </head>
 <body>
@@ -432,6 +541,8 @@
       <a href="#" id="editNameLink">edit name</a>
     </div>
   </header>
+
+  <div id="mondayCardSlot"></div>
 
   <button class="add-btn-top" id="addBtn">+ Add a new lead</button>
   <button class="add-btn-secondary" id="addCallBtn">+ Add a planning call</button>
@@ -576,6 +687,120 @@ const db = getFirestore(app);
     if (days === 0) return { text: 'Due today — ' + prettyDate(targetYMD), urgent: true };
     if (days === 1) return { text: 'Due tomorrow — ' + prettyDate(targetYMD), urgent: false };
     return { text: 'Due in ' + days + ' days — ' + prettyDate(targetYMD), urgent: false };
+  }
+
+  // ----- monday checklist -----
+  const OUTDOOR_REMINDER_TEXT = `Since your reception is outdoors, we want to make sure everything goes smoothly! A few friendly reminders as the big day approaches:
+
+- A tent is needed to cover the DJ/entertainment setup. If there's any chance of rain in the forecast, please make sure the tent has side flaps as well.
+
+- Our equipment needs to be set up on a hard, level surface that isn't affected by weather — like a deck, patio, or flooring. We're unable to set up directly on dirt, sand, or grass, as it isn't safe for the gear (or our team!).
+
+If you have any questions about the setup space, just let us know — we're happy to help you plan it out.`;
+
+  const MONDAY_TASKS = [
+    {
+      key: 'pdf',
+      label: 'Clean up & send the PDF to the couple',
+      note: 'Review the event PDF, tidy it up, and send it to the couple ahead of the weekend. If the reception is outdoors, paste the outdoor reminder into the same email.',
+      copyLabel: 'Copy outdoor reminder',
+      copyText: OUTDOOR_REMINDER_TEXT
+    },
+    {
+      key: 'crate',
+      label: 'Build the formality crate in the DJ software',
+      note: 'Put together the formality crate so the key moments are ready and organized.'
+    },
+    {
+      key: 'musicians',
+      label: 'Musicians check',
+      note: 'If you have live players this week — confirm they have all the songs they need AND know what time load-in is.',
+      badge: 'IF MUSICIANS'
+    },
+    {
+      key: 'kyleReview',
+      label: 'Send Kyle your review answer',
+      note: 'If you haven\'t already — send Kyle a yes or no for reviews.'
+    }
+  ];
+
+  let mondayChecklist = { weekOf: null, done: {} };
+
+  function currentWeekMonday() {
+    const d = new Date();
+    const day = d.getDay(); // 0=Sun, 1=Mon ... 6=Sat
+    const offset = day === 0 ? -6 : -(day - 1);
+    d.setDate(d.getDate() + offset);
+    return ymd(d);
+  }
+
+  function ensureMondayCurrent() {
+    const monday = currentWeekMonday();
+    if (mondayChecklist.weekOf !== monday) {
+      mondayChecklist = { weekOf: monday, done: {} };
+      return true;
+    }
+    return false;
+  }
+
+  function toggleMondayTask(key) {
+    ensureMondayCurrent();
+    mondayChecklist.done[key] = !mondayChecklist.done[key];
+    persist();
+    render();
+  }
+
+  function renderMondayCard() {
+    const wasReset = ensureMondayCurrent();
+    if (wasReset && firstLoadDone) persist();
+
+    const allDone = MONDAY_TASKS.every(t => mondayChecklist.done[t.key]);
+    if (allDone) return null;
+
+    const div = document.createElement('div');
+    div.className = 'monday-card';
+    div.innerHTML = `
+      <div class="monday-card-head">
+        <p class="monday-card-title">This week's checklist</p>
+        <span class="monday-card-sub">resets every Monday</span>
+      </div>
+    `;
+
+    MONDAY_TASKS.forEach(task => {
+      const done = !!mondayChecklist.done[task.key];
+      const row = document.createElement('div');
+      row.className = 'monday-task' + (done ? ' done' : '');
+      row.innerHTML = `
+        <div class="monday-check"></div>
+        <div class="monday-task-body">
+          <div class="monday-task-label">${task.badge ? '<span class="monday-task-badge">' + task.badge + '</span>' : ''}<span class="monday-task-label-text"></span></div>
+          <div class="monday-task-note"></div>
+        </div>
+      `;
+      row.querySelector('.monday-task-label-text').textContent = task.label;
+      row.querySelector('.monday-task-note').textContent = task.note;
+
+      if (task.copyText) {
+        const copyBtn = document.createElement('button');
+        copyBtn.type = 'button';
+        copyBtn.className = 'monday-copy-link';
+        copyBtn.textContent = task.copyLabel || 'Copy';
+        copyBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          copyToClipboard(task.copyText, copyBtn);
+        });
+        row.querySelector('.monday-task-body').appendChild(copyBtn);
+      }
+
+      row.addEventListener('click', (e) => {
+        if (e.target.closest('.monday-copy-link')) return;
+        toggleMondayTask(task.key);
+      });
+
+      div.appendChild(row);
+    });
+
+    return div;
   }
 
   // ----- 2-2-3 schedule -----
@@ -728,8 +953,9 @@ Wishing you both the best with everything,
     render(); // show loading state
     const ref = doc(db, 'trackers', code);
     unsubscribe = onSnapshot(ref, (snap) => {
-      const remote = snap.exists() ? (snap.data().leads || []) : [];
-      leads = remote;
+      const data = snap.exists() ? snap.data() : {};
+      leads = data.leads || [];
+      mondayChecklist = data.mondayChecklist || { weekOf: null, done: {} };
       firstLoadDone = true;
       setSyncDot('synced');
       render();
@@ -762,7 +988,7 @@ Wishing you both the best with everything,
     setSyncDot('syncing');
     try {
       const ref = doc(db, 'trackers', syncCode);
-      await setDoc(ref, { leads: leads, updatedAt: serverTimestamp() });
+      await setDoc(ref, { leads: leads, mondayChecklist: mondayChecklist, updatedAt: serverTimestamp() });
       setSyncDot('synced');
     } catch (err) {
       console.error('Save error', err);
@@ -1008,12 +1234,18 @@ Wishing you both the best with everything,
     $('#addBtn').disabled = loading;
     $('#addCallBtn').disabled = loading;
     if (loading) {
+      $('#mondayCardSlot').innerHTML = '';
       $('#activeList').innerHTML = '<div class="empty"><h3>Loading your leads…</h3><p>Connecting to the cloud — one sec.</p></div>';
       $('#returnList').innerHTML = '';
       $('#closedList').innerHTML = '';
       $('#closedHeader').style.display = 'none';
       return;
     }
+
+    const mondaySlot = $('#mondayCardSlot');
+    mondaySlot.innerHTML = '';
+    const mondayCard = renderMondayCard();
+    if (mondayCard) mondaySlot.appendChild(mondayCard);
 
     const active = leads.filter(l => {
       const s = leadState(l);
