@@ -589,6 +589,7 @@
       <span class="sync-dot" id="syncDot" data-state="connecting" title="Sync status"></span>
       <a href="#" id="signOutLink">sign out</a>
       <a href="#" id="editNameLink">edit name</a>
+      <a href="#" id="reimportLink">re-import</a>
     </div>
   </header>
 
@@ -1579,6 +1580,31 @@ Wishing you both the best with everything,
     }
     localStorage.setItem(NAME_KEY, trimmed);
     render();
+  });
+
+  $('#reimportLink').addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (!currentUser) return;
+    const code = prompt('Re-import from old sync code\n\nType your old sync code. This REPLACES your current leads and Monday checklist with whatever is in that old tracker.');
+    if (code === null) return;
+    const trimmed = (code || '').trim().toLowerCase();
+    if (!trimmed) return;
+    if (!confirm(`Replace your current data with the contents of "${trimmed}"? This can't be undone.`)) return;
+    setSyncDot('syncing');
+    try {
+      const payload = await importFromOldSyncCode(trimmed);
+      await setDoc(userDocRef(), {
+        leads: payload.leads,
+        mondayChecklist: payload.mondayChecklist,
+        email: currentUser.email || null,
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+      setSyncDot('synced');
+      alert(`Imported ${payload.leads.length} item${payload.leads.length === 1 ? '' : 's'} from "${trimmed}".`);
+    } catch (err) {
+      setSyncDot('offline');
+      alert(err.message || 'Re-import failed.');
+    }
   });
 
   // ----- boot -----
