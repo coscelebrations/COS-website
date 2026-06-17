@@ -1,5 +1,246 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: June 3, 2026
+## Last Updated: June 16, 2026
+
+---
+
+## Session: June 16, 2026 — Flagler College venue pages (COS + AE) launched
+
+Built and deployed both Flagler College / Hotel Ponce de Leon venue pages from Kailey & Reed Waldenmaier's June 14, 2026 wedding (Lunic Visuals photography). St. Augustine venue keyword push.
+
+**Why now:** seo-actions.json had two stacked St. Aug pushes ("st augustine wedding dj" COS #5 → page-1 target; AE same kw dropped from #5 to unranked). Florida competitor research (June 2) confirmed top winners use one venue page per landmark; we lacked Flagler. New page targets `flagler college wedding dj` (primary) + supports city-level keywords.
+
+**COS** (`/flagler-college-wedding-dj/`, luxury template, ~$1,500+):
+- Hero: first dance under frescoed Dining Hall ceiling
+- 4-image bento gallery (Rotunda kiss → Tiffany staircase → grand exit sparks → dance floor energy)
+- Real Wedding callout — Corey lead DJ, swapped to live sax during the dance set while DJ Noah took the decks; 10 cold sparks staged in 3 moments (dance floor first dance, sax-set riser, grand exit stairs); full uplighting + moving heads
+- 5 FAQs with FAQPage schema (can-you-marry-here, cost, dining-hall sound, cold sparks safety, near-me)
+- Service + LocalBusiness schema
+
+**AE** (`/flagler-college-wedding-dj/`, budget template, $800+):
+- 4-image clickable grid + lightbox (added at user request — AE Clay Theatre precedent skipped this; missed SEO opportunity)
+- OG image upgraded from logo to first-dance shot
+- 4 FAQs including two-setup explainer for Rotunda + Dining Hall weddings
+- "Affordable" preserved in title/H1/meta per protected-keyword rule
+
+**Files touched:**
+- `~/cos-website/flagler-college-wedding-dj/index.html` (new)
+- `~/ae-entertainment/flagler-college-wedding-dj/index.html` (new)
+- `~/cos-website/images/flagler-college-wedding/` (5 WebP, 27-69KB each + mobile poster 15KB)
+- `~/ae-entertainment/images/flagler-college-wedding/` (mirrored)
+- Both sitemaps (priority 0.8, lastmod 2026-06-16)
+
+**Watch list:** Recheck `flagler college wedding dj` ranking ~July 14 (30 days post-publish for first signal).
+
+---
+
+## Session: June 15, 2026 — Weekly Rank Scan (Manager Agent, week 25)
+
+First cycle of new ISO week 25 (weekend June 13-14 = weddings). Busy week — 20 changes, net positive:
+
+- **w1 rankings** (89 keywords): **Two June-8 confirmed declines recovered on their own** — The Orlo #8→#1 and River Club Jacksonville #4→#1 (no intervention). More wins: Live Saxophone #5→#1, Wedding DJ w/ Live Sax #6→#1, Best Wedding DJ Jax #10→#6, Ponte Vedra Inn & Club #10→#8, Ribault Club #10→#9, Crystal Ballroom Daytona NEW #7. Drops (none a fresh 5+ on an established page): Jax #4→#5, St Aug #3→#5 (still top 5), Gainesville #2→#3, Garden Club #2→#4, Sawgrass #2→#5, Epping Forest #1→#2, "how much does a wedding dj cost jacksonville" COS #4→#8.
+- **w4 AI visibility**: COS 88% (7/8), AE 25% (2/8). Both flat vs June 8. AE homepage rewrite (June 8) hasn't lifted AI citations yet — d32 reassessment June 22.
+- **w5 competitors**: No new threats. Orlando (Our DJ Rocks #4, Soundwave #5) and St. Aug (Future Stereo #8/#5) unchanged; no fresh competitor content since March.
+- **ranking_watch**: 12 watching, **1 confirmed** (down from 5 — the Orlo/River Club/Alfond/Deerwood recoveries resolved), 37 resolved. Lone confirmed: budget wedding dj jacksonville #4→#7 (June-1 origin, frozen by w9 pause). WATCHING set is dominated by **AE St. Augustine-area keywords wobbling after the June 5 rewrite** (AE St Aug #5→#10; AE Jax / wedding-dj-jax / Fountain of Youth / Tringali Barn / luxury-St-Aug all dropped out) — expected post-rewrite settling flux, **d31 reassessment due June 19**; do not touch before then.
+- GSC data self-refreshed today (10:41). unify-actions: 55 actions (1 auto / 54 human), down from 67 as recoveries cleared the backlog. **The self-recoveries are early evidence the w9 rewrite pause is safe — reassess June 22.**
+
+---
+
+## Session: June 8, 2026 — Weekly Rank Scan (Manager Agent, week 24)
+
+First cycle of new ISO week 24 (weekend June 6-7 = weddings). Weekly Perplexity scans ran clean:
+
+- **w1 rankings** (89 keywords): Quiet week, 3 changes only. Glass Factory wedding DJ #3→#2 (up), Live Saxophone wedding DJ #4→#5 (down 1), Walkers Landing wedding DJ #10→off top 10 (continuation of June 1 confirmed alert). No 5+ movers.
+- **w4 AI visibility**: COS 88% (7/8), AE 25% (2/8). Both flat vs June 3 monthly. COS's only miss remains the flickering "Top rated wedding DJ Jacksonville" query.
+- **w5 competitors**: No new threats. Orlando (Our DJ Rocks #2/#3, Classic Disc Jockeys #3/#2) and St. Aug (Future Stereo #7/#5) unchanged.
+- **ranking_watch**: 5 confirmed declines now (the Orlo #4→#8, Alfond Inn #3→#9, Deerwood gone, River Club Jax #1→#4, Budget Jax #4→#7). All matured from the June 1 "watching" set — not fresh. **w9 rewrite pipeline paused until June 22**, so these are frozen by design; reassess at pause end.
+- GSC data refreshed today (11:58). unify-actions: 67 actions (1 auto / 66 human).
+
+---
+
+## Session: June 5, 2026 — Keyword Volume Enrichment (Phase 2 — Google KP Upload)
+
+**Trigger:** Phase 1 left 58 kws (mostly venues) without volume. Corey did the Google Keyword Planner upload tonight: `~/Downloads/Saved Keywords Stats 2026-06-05 at 20_35_26.csv` (Florida location, May 2025 - Apr 2026 window).
+
+**Result:**
+- 2 kws got measured volumes: `atlanta wedding dj` = 20/mo (Medium comp), `wedding dj atlanta ga` = 20/mo (Medium comp). Both brands currently unranked.
+- 56 kws came back blank — meaning <10/mo and below Google KP's reporting threshold. These are almost entirely venue-specific kws ("treasury on the plaza wedding dj", "LPGA international wedding dj", etc.).
+- Applied to 113 keyword entries across both brands. Skipped 0 (no pre-existing conflicts).
+
+**Final coverage:**
+- COS: 94/94 (100%) — 39 measured + 55 estimated as <10
+- AE: 94/94 (100%) — 39 measured + 55 estimated as <10
+
+**Treatment of below-threshold kws:** marked with `_monthlySearches: 5` (midpoint of 1-9 range), `_volumeSource: "google-kp-fl-2026-06-05-below-threshold"`, and `_volumeNote: "<10/mo (below Google KP reporting threshold)"`. They're in the priority model but flagged so they're not over-weighted.
+
+**Top priorities don't change from Phase 1** because head terms (cities) dominate the upside curve. The full prioritized push list (top 5):
+
+| # | Brand | Rank | Vol/mo | +Clicks at #1 | Keyword |
+|---|-------|------|--------|----------------|---------|
+| 1 | COS | #9 | 260 | +79 | orlando wedding dj |
+| 2 | COS | #17 | 170 | +54 | tampa wedding dj |
+| 3 | AE | #9 | 170 | +52 | tampa wedding dj |
+| 4 | AE | #52 | 70 | +22 | wedding dj jacksonville fl |
+| 5 | COS | #8 | 70 | +21 | wedding dj jacksonville fl |
+
+**Total modeled traffic upside (everything to #1):**
+- COS: ~86 clicks/mo today → ~590 at #1 (upside +504)
+- AE: ~41 clicks/mo today → ~594 at #1 (upside +553)
+- Combined ~1,057/mo organic clicks of upside on the table
+
+**Surprises / things to look at:**
+- **Atlanta is unranked but has 20/mo for both brands.** Pages were launched April 16 with zero impressions in 24+ days (per task d15 notes). The volume IS there — this is an indexing problem, not a market problem. Action: confirm GSC URL Inspection, request indexing.
+- **Tampa is the next biggest miss after Orlando.** No Tampa rewrite is currently queued. Both brands rank #9-#17 on a 170/mo kw. Worth adding to the rewrite roadmap (suggest after Orlando).
+- **"wedding dj near me" (390/mo, both brands unranked)** — biggest single volume gap. Hard to win (localized) but worth a separate strategy session.
+
+**Long-term followup:** configure DataForSEO MCP credentials so future enrichment runs without browser login. Not done.
+
+---
+
+## Session: June 5, 2026 — Keyword Volume Enrichment (Phase 1)
+
+**Why:** Until today, only 2 of 95 tracked keywords had a `_monthlySearches` value in `rankings.json`. That meant prioritization was based on rank position alone, with no signal for which wins deliver the most actual traffic. Corey asked for the best volume data we can get.
+
+**Sources used (in priority order):**
+1. `keyword-tracker.json` — 37 kws with Jax-targeted volumes (data: 2026-01-11 via Google Keyword Planner)
+2. `keyword-planner-merged.json` — regenerated today from existing CSVs (`~/Downloads/Saved Keywords Stats 2026-04-16 at 15_*.csv`); 29 general wedding-industry terms, Jax + US volumes
+3. Cross-brand mirror — same kw, same volume → applied to both COS and AE tracking
+
+**Result:**
+- COS: 37 of 94 kws (39%) now have `_monthlySearches` + `_volumeSource`
+- AE: 38 of 94 kws (40%) now have `_monthlySearches` + `_volumeSource`
+- All known prior values preserved (validation passed for the 2 pre-existing entries)
+- 58 unique kws still missing — mostly venue keywords (50) that aren't in any existing CSV
+
+**Phase 2 — pending Corey action:**
+- CSV ready at `~/Downloads/keywords-to-research-2026-06-05.csv` (58 missing kws, one per row)
+- Instructions at `~/Downloads/HOW-TO-EXPORT-KW-VOLUMES.md` (~5-min manual KP export)
+- Tracked as workspace task `d32-kw-volume-enrichment-kp-export`, due 2026-06-12
+- After Corey uploads the result, auto-merge will get us to ~95% coverage
+
+**Long-term fix:** configure DataForSEO MCP credentials (~$50/mo Labs tier) so volume enrichment can run server-side without browser login. Noted, not done.
+
+**Top volumes after enrichment (sanity check):**
+- `wedding dj near me` (longtail) — 390/mo
+- `orlando wedding dj` (city) — 260/mo
+- `tampa wedding dj` (city) — 170/mo
+- `st augustine wedding dj` (city) — 50/mo
+- `jacksonville wedding dj` (city) — 40/mo
+- `affordable wedding dj jacksonville` (budget) — 30/mo
+- `daytona beach wedding dj` (city) — 30/mo
+
+Distribution looks healthy: most kws fall in the 1-50/mo range with the head terms appropriately concentrated.
+
+---
+
+## Session: June 5, 2026 — AE Gainesville Differentiation Rewrite
+
+**Trigger:** Third page in the AE catch-up rewrite series. Gainesville city kw: COS #2, AE null. Page was the thinnest of the three — title missing "Affordable" + brand name; 1 generic intro paragraph; only 3 FAQs; no COS reference anywhere.
+
+**Changes on /gainesville-wedding-dj/ (AE):**
+- **Title** corrected to match Daytona pattern: `Gainesville Wedding DJ | Affordable Packages from $800 | AE Entertainment` (added "Affordable" anchor + brand name)
+- Meta description, hero subtitle, freshness line bumped
+- Intro expanded from 1 paragraph to 3. Para 1: Gainesville wedding scene + flat-rate offer. Para 2: **honest travel handling** (Gainesville is 80mi from St. Augustine, outside the no-fee zone — quoted transparently, not buried in fine print). Para 3: COS training-pipeline credibility credential.
+- FAQs expanded from 3 to 6 (schema + visible HTML synced). New questions: "difference between AE and COS", "DJ quality at AE price point", "Gainesville venues served", "what's NOT included". Dropped the weak "cheap wedding DJ near me" Q.
+- Service schema description rewritten; dateModified 2026-06-05.
+
+**Travel-fee handling was the Gainesville-specific move.** Unlike St. Aug/Daytona/Ponte Vedra (all no-fee), Gainesville requires a travel quote. Old page mentioned it once as "a small travel fee may apply." New page flags it upfront in the intro and the FAQ as transparent line-item pricing — a trust win rather than a footnote.
+
+**Protected:** H1 (`Gainesville Wedding DJ`), "Starting at $800" pill, stats bar, service cards, add-ons list, venue list, also-serving links, footer.
+
+**Live ranking state on commit day:**
+- "gainesville wedding dj" (city kw): AE null since March; COS #1-#2 — this is the target.
+
+**Reassess:** June 19, 2026 (14 days). Watch AE for top-20 emergence.
+
+---
+
+## Session: June 5, 2026 — AE Daytona Beach Differentiation Rewrite
+
+**Trigger:** Second page in the AE catch-up rewrite series. Daytona Beach city kw: COS #3, AE null (page exists but ranks invisibly). Daytona is high-volume and AE has 4 Daytona-area venue pages that would benefit from a stronger city hub above them.
+
+**Changes on /daytona-beach-wedding-dj/ (AE):** Same playbook as St. Augustine — surgical wording fixes, structure untouched.
+- Meta description, hero subtitle, freshness line ("Last updated June 2026")
+- 3 intro paragraphs rewritten. Removed "budget-friendly sister brand of COS" + "AE strips out the premium extras" framing (both disparaged COS pricing). New angle: AE as a standalone Daytona DJ company; COS as the training-pipeline credential.
+- "Why" section card 1 rewritten — was "Real Experience, Real Price" with 2,000-weddings overclaim; now "Trained with the Best" crediting the COS pipeline.
+- FAQ #3 + #4 (schema + visible HTML): removed "Same experienced DJs" and "same talent pool" claims; new framing positions AE and COS as two distinct companies under shared ownership serving different scopes.
+- Service schema description rewritten; dateModified bumped to 2026-06-05.
+
+**Protected:** title (`Daytona Beach Wedding DJ | Affordable Packages from $800 | AE Entertainment`), H1, "Starting at $800" pill, stats bar, 4 service cards (already neutral), add-ons grid, venue list, area list, footer.
+
+**Live ranking state on commit day:**
+- "daytona beach wedding dj" (city kw): AE unranked / null; COS #3 — this is the target
+- "wedding dj daytona beach" (variant): track for both
+
+**Reassess:** June 19, 2026 (14 days). Watch AE Daytona for first appearance in top-20.
+
+---
+
+## Session: June 5, 2026 — AE St. Augustine Differentiation Rewrite
+
+**Trigger:** Continuation of June 4 revert. After putting "Affordable" back in title/meta and bumping freshness, the page was protected but still read as a thinner version of COS's St. Augustine page — limiting AE's ability to compete on the generic "wedding dj st augustine" city kw (null in tracker since 2026-05-17). Goal of today: rewrite wording so AE reads as its own DJ company with its own angle, letting both brands rank simultaneously.
+
+**Strategic shift agreed with Corey:** Stop using luxury-vs-budget as the differentiator. New differentiator: service scope (COS = DJ + live musicians, AE = DJ + MC). Both brands compete on every venue/city keyword they can legitimately claim. Plan: `~/.claude/plans/ae-vs-cos-celebrations-quirky-umbrella.md`. Project tracked in `~/projects.json` as `ae-catch-up-rewrites`.
+
+**Changes on /st-augustine-wedding-dj/ (AE):**
+- Meta description rewritten — leverages "trained alongside COS" trust signal without disparaging COS
+- Hero subtitle — "Professional DJ + MC service starting at $800. Local to the Ancient City, every major venue covered."
+- Intro paragraphs — completely rewritten. Opens with what AE IS (flat-rate DJ company), positions COS as a quiet credibility credential (training pipeline), not the punchline
+- AI-quotable block — distinct facts from intro (per Rule #9)
+- 6 feature cards rewritten — generic gear language only (no fabricated brands), added "Trained with the Best" card crediting COS training pipeline
+- 7 FAQs rewritten — different questions than COS's St Aug page asks. No "Same DJ as COS" overclaim; downgraded to "trained alongside / developed with"
+- Pricing intro paragraph tightened
+- Service schema dateModified bumped to 2026-06-05, description rewritten
+- CTA section copy updated
+
+**Protected (untouched):**
+- Title "Affordable St. Augustine Wedding DJ | From $800 | AE Entertainment"
+- H1
+- "Affordable" anchor everywhere (per `feedback_protect_affordable_on_ae`)
+- Pricing cards, venue cards, form, footer
+
+**First pass was rejected by Corey** for (1) calling COS pricing a "luxury markup", (2) fabricating shared specifics ("Same JBL gear", "shared calendars", "same DJ roster as COS"), (3) leading every paragraph with the sister-brand link. New memory `feedback_ae_positioning.md` written so this doesn't recur. Revised pass landed and was approved.
+
+**Live ranking state on commit day:**
+- "affordable wedding dj st augustine" (budget kw): AE #4 holding — protected by keeping "Affordable" anchor
+- "wedding dj st augustine" (city kw): AE null since 2026-05-17; COS #3 — this is the target
+
+**Reassess:** June 19, 2026 (14 days). Watch the AE city keyword for first signs of ranking emergence (top-20 = early win). Budget keyword should stay #4 or improve. If AE city kw appears in top-10 AND COS slips from #3, may indicate cannibalization → act per plan Phase 3 rules.
+
+---
+
+## Session: June 4, 2026 — AE St. Augustine Page Revert (Ranking Recovery)
+
+**Problem:** AE was ranking #4 for "wedding dj st augustine" through early April. On April 13 the GSC auto-rewrite pipeline (commit cefbd6a, "zero-CTR fix") stripped "Affordable" from title/H1/meta and removed the "Last updated" freshness signal. Ranking dropped to #9-10 immediately, then fell off the top-10 check entirely starting May 17. Live SERP check today: AE is at #11 — not None, just outside the tracker's top-10 window.
+
+**Action:** Reverted the cefbd6a changes (commit 016f3a7):
+- Title back to "Affordable St. Augustine Wedding DJ | From $800 | AE Entertainment"
+- H1 back to "Affordable St. Augustine Wedding DJ"
+- Meta description back to budget/affordable angle
+- Restored "Last updated: June 2026" line (was deleted by rewriter)
+- Schema dateModified bumped to 2026-06-04
+- Added Fountain of Youth to venue list with internal link to /fountain-of-youth-wedding-dj/
+
+**Lesson for auto-rewriter:** "Affordable" is AE's positioning, not redundant filler. The rewriter saw "Affordable St. Augustine Wedding DJ" with the H1 matching "Affordable" and treated it as keyword stuffing. It's not — it's AE's brand differentiator from COS. Pipeline rules should protect "Affordable"/"Budget" on AE pages the same way they protect "Luxury" on COS pages.
+
+**Reassess:** June 25, 2026. Target: recover toward #4-7.
+
+**Ranking-alerts.json:** Resolved entry updated with correct slug (`/st-augustine-wedding-dj/` — the original "URL artifact" resolution was wrong).
+
+---
+
+## Session: June 3, 2026 — New Venue Page: The Clay Theatre
+
+Built and deployed Clay Theatre (Green Cove Springs, FL) venue pages on BOTH sites. Real wedding photos from Laura & Dusko (DJ Noah, May 23 2026; photo credit: Haley DeSouza). 4-photo bento gallery on COS, FAQ schema on AE.
+
+**Keyword added to rankings.json:** "clay theatre wedding dj" (both brands, awaiting first rank check).
+
+**Why this venue:** Between Jacksonville and St. Augustine (35 min south of Jax, 45 min west of St. Aug). Distinct Art Deco aesthetic — only NE FL venue with custom marquee + LED tray ceiling. Should rank well because there's almost no DJ competitor content targeting it yet (Perplexity found zero existing DJ pages for this venue).
+
+**URLs:**
+- https://coscelebrations.com/clay-theatre-wedding-dj/
+- https://ae-djs.com/clay-theatre-wedding-dj/
+
+**Next:** Request indexing in GSC for both URLs. Watch rankings over the next 2-3 weeks.
 
 ---
 
