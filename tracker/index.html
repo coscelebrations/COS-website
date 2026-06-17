@@ -311,7 +311,7 @@
     margin: 1rem 0 0.4rem;
     font-weight: 500;
   }
-  input[type="text"], input[type="date"] {
+  input[type="text"], input[type="date"], input[type="email"], input[type="password"] {
     width: 100%;
     padding: 0.85rem 0.9rem;
     font-size: 1rem;
@@ -508,37 +508,88 @@
     color: var(--ok-green);
     border-color: var(--ok-green);
   }
+
+  /* Login screen */
+  .login-error {
+    background: var(--due-red-bg);
+    color: var(--due-red);
+    padding: 0.7rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    display: none;
+  }
+  .login-error.show { display: block; }
+  .forgot-link {
+    background: none;
+    border: none;
+    color: var(--merlot);
+    font-size: 0.85rem;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    width: auto;
+    text-align: left;
+    font-weight: 500;
+  }
 </style>
 </head>
 <body>
 
-<!-- Sync code entry screen (first run) -->
-<div id="screen-sync" class="screen">
+<!-- Login screen (shown when not signed in) -->
+<div id="screen-login" class="screen">
   <div class="app">
     <h1 style="color: var(--merlot); font-size: 1.4rem; margin: 1rem 0 0.5rem;">Lead Tracker</h1>
-    <p style="color: var(--text-soft); margin: 0 0 1.5rem;">Type your personal sync code to load your leads. Corey gave you one — check your text messages.</p>
+    <p style="color: var(--text-soft); margin: 0 0 1.5rem;">Sign in with the email and password Corey gave you.</p>
 
-    <label for="syncInput">Your sync code</label>
-    <input type="text" id="syncInput" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="">
-    <p class="hint">Keep this private. Anyone with your code can see your leads. Treat it like a locker combination.</p>
+    <label for="emailInput">Email</label>
+    <input type="email" id="emailInput" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="you@example.com">
 
-    <label for="nameInput">Your name (for message signatures)</label>
-    <input type="text" id="nameInput" autocomplete="off" placeholder="e.g. Corey + Cailee">
-    <p class="hint">Used inside the email and text templates so messages are signed by you.</p>
+    <label for="passwordInput">Password</label>
+    <input type="password" id="passwordInput" autocomplete="current-password" placeholder="">
 
-    <button class="btn-primary" id="syncSave" style="margin-top: 1.5rem;">Continue</button>
+    <div class="login-error" id="loginError"></div>
+
+    <button class="btn-primary" id="loginBtn" style="margin-top: 1.5rem;">Sign in</button>
+    <button class="forgot-link" id="forgotBtn" type="button">Forgot password?</button>
+  </div>
+</div>
+
+<!-- Migration screen (shown on first sign-in if no leads doc exists yet) -->
+<div id="screen-migrate" class="screen">
+  <div class="app">
+    <h1 style="color: var(--merlot); font-size: 1.4rem; margin: 1rem 0 0.5rem;">Welcome to the new tracker</h1>
+    <p style="color: var(--text-soft); margin: 0 0 1rem;">Looks like this is your first time signing in. Do you have an old sync code from the previous version of the tracker?</p>
+
+    <div class="intro">
+      <h3>Bring your leads over</h3>
+      Type your old sync code (something like <strong>corey-p-cos</strong>). We'll copy your active leads, planning calls, and Monday checklist into your new account. You only have to do this once.
+    </div>
+
+    <label for="oldSyncInput">Your old sync code</label>
+    <input type="text" id="oldSyncInput" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="">
+
+    <label for="migrateNameInput">Your name (for message signatures)</label>
+    <input type="text" id="migrateNameInput" autocomplete="off" placeholder="e.g. Corey + Cailee">
+    <p class="hint">Used inside email and text templates so messages are signed by you.</p>
+
+    <div class="login-error" id="migrateError"></div>
+
+    <button class="btn-primary" id="migrateImportBtn" style="margin-top: 1.5rem;">Import my leads</button>
+    <button class="btn-ghost" id="migrateSkipBtn" style="margin-top: 0.75rem;">Skip - start with an empty tracker</button>
   </div>
 </div>
 
 <!-- Main app -->
-<div class="app" id="screen-home">
+<div class="app" id="screen-home" style="display:none">
   <header class="bar">
     <h1>Lead Tracker</h1>
     <div class="who">
       <span id="whoLabel"></span>
       <span class="sync-dot" id="syncDot" data-state="connecting" title="Sync status"></span>
-      <a href="#" id="settingsLink">switch code</a>
+      <a href="#" id="signOutLink">sign out</a>
       <a href="#" id="editNameLink">edit name</a>
+      <a href="#" id="reimportLink">re-import</a>
     </div>
   </header>
 
@@ -618,8 +669,21 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  sendPasswordResetEmail,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  onSnapshot,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAaUvaWjrlkwp5q7qqlWPAJiiL7lVTvVgU",
@@ -637,12 +701,10 @@ const db = getFirestore(app);
 (function() {
   'use strict';
 
-  // ----- sync state -----
-  const SYNC_KEY = 'tracker.syncCode';
+  // ----- state -----
   const NAME_KEY = 'tracker.senderName';
   let unsubscribe = null;
-  let authReady = false;
-  let pendingSyncCode = null;
+  let currentUser = null;
   let firstLoadDone = false;
 
   function setSyncDot(state) {
@@ -651,7 +713,6 @@ const db = getFirestore(app);
   }
 
   // ----- date helpers -----
-  // We work in local date strings (YYYY-MM-DD) to avoid timezone drift.
   function todayStr() {
     const d = new Date();
     return ymd(d);
@@ -663,7 +724,6 @@ const db = getFirestore(app);
     return y + '-' + m + '-' + da;
   }
   function parseYMD(s) {
-    // Build a local-time Date from YYYY-MM-DD
     const [y, m, d] = s.split('-').map(Number);
     return new Date(y, m - 1, d);
   }
@@ -728,7 +788,7 @@ If you have any questions about the setup space, just let us know — we're happ
 
   function currentWeekMonday() {
     const d = new Date();
-    const day = d.getDay(); // 0=Sun, 1=Mon ... 6=Sat
+    const day = d.getDay();
     const offset = day === 0 ? -6 : -(day - 1);
     d.setDate(d.getDate() + offset);
     return ymd(d);
@@ -827,7 +887,6 @@ If you have any questions about the setup space, just let us know — we're happ
     }
   ];
 
-  // ----- message templates (per day, optional keys) -----
   const TEMPLATE_LABELS = { email: 'Email', text: 'Text', voicemail: 'Voicemail script' };
   const TEMPLATES = {
     2: {
@@ -903,7 +962,7 @@ Wishing you both the best with everything,
     for (let i = 0; i < STEPS.length; i++) {
       if (!lead.completedSteps.includes(STEPS[i].day)) return i;
     }
-    return -1; // all done
+    return -1;
   }
 
   function leadState(item) {
@@ -929,29 +988,20 @@ Wishing you both the best with everything,
   // ----- UI rendering -----
   const $ = (sel) => document.querySelector(sel);
 
-  let syncCode = null;
   let leads = [];
 
-  function setSyncCode(raw) {
-    const code = String(raw || '').trim().toLowerCase();
-    if (!code) return false;
-    syncCode = code;
-    localStorage.setItem(SYNC_KEY, code);
-    if (authReady) {
-      subscribeToCode(code);
-    } else {
-      pendingSyncCode = code;
-      setSyncDot('connecting');
-    }
-    return true;
+  function userDocRef() {
+    if (!currentUser) return null;
+    return doc(db, 'users', currentUser.uid);
   }
 
-  function subscribeToCode(code) {
+  function subscribeToUser() {
     if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+    if (!currentUser) return;
     firstLoadDone = false;
     setSyncDot('syncing');
-    render(); // show loading state
-    const ref = doc(db, 'trackers', code);
+    render();
+    const ref = userDocRef();
     unsubscribe = onSnapshot(ref, (snap) => {
       const data = snap.exists() ? snap.data() : {};
       leads = data.leads || [];
@@ -984,11 +1034,15 @@ Wishing you both the best with everything,
   }
 
   async function persist() {
-    if (!syncCode || !authReady) return;
+    if (!currentUser) return;
     setSyncDot('syncing');
     try {
-      const ref = doc(db, 'trackers', syncCode);
-      await setDoc(ref, { leads: leads, mondayChecklist: mondayChecklist, updatedAt: serverTimestamp() });
+      await setDoc(userDocRef(), {
+        leads: leads,
+        mondayChecklist: mondayChecklist,
+        email: currentUser.email || null,
+        updatedAt: serverTimestamp()
+      }, { merge: true });
       setSyncDot('synced');
     } catch (err) {
       console.error('Save error', err);
@@ -1228,9 +1282,10 @@ Wishing you both the best with everything,
   }
 
   function render() {
-    $('#whoLabel').textContent = syncCode || '';
+    if (!currentUser) return;
+    $('#whoLabel').textContent = currentUser.email || '';
 
-    const loading = syncCode && !firstLoadDone;
+    const loading = !firstLoadDone;
     $('#addBtn').disabled = loading;
     $('#addCallBtn').disabled = loading;
     if (loading) {
@@ -1254,7 +1309,6 @@ Wishing you both the best with everything,
     const toReturn = leads.filter(l => leadState(l) === 'awaiting-return');
     const closed = leads.filter(l => l.replied || l.returnedToKyle || l.scheduled);
 
-    // Sort active by next due date (most overdue first)
     active.sort((a, b) => parseYMD(nextDueDate(a)) - parseYMD(nextDueDate(b)));
 
     const activeList = $('#activeList');
@@ -1286,7 +1340,6 @@ Wishing you both the best with everything,
     closedList.innerHTML = '';
     if (closed.length > 0) {
       $('#closedHeader').style.display = 'block';
-      // newest first
       closed.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
       closed.forEach(l => closedList.appendChild(renderClosedLead(l)));
     } else {
@@ -1295,12 +1348,38 @@ Wishing you both the best with everything,
   }
 
   // ----- screen routing -----
-  function showSyncScreen() {
-    $('#nameInput').value = localStorage.getItem(NAME_KEY) || '';
-    $('#screen-sync').classList.add('open');
+  function showLoginScreen() {
+    $('#screen-home').style.display = 'none';
+    $('#screen-migrate').classList.remove('open');
+    $('#screen-login').classList.add('open');
+    $('#emailInput').value = '';
+    $('#passwordInput').value = '';
+    $('#loginError').classList.remove('show');
+    setTimeout(() => $('#emailInput').focus(), 50);
   }
-  function hideSyncScreen() {
-    $('#screen-sync').classList.remove('open');
+  function hideLoginScreen() {
+    $('#screen-login').classList.remove('open');
+  }
+  function showMigrateScreen() {
+    $('#screen-home').style.display = 'none';
+    $('#screen-migrate').classList.add('open');
+    $('#migrateNameInput').value = localStorage.getItem(NAME_KEY) || '';
+    $('#migrateError').classList.remove('show');
+    // Reset button state in case a previous attempt left them disabled
+    const importBtn = $('#migrateImportBtn');
+    importBtn.disabled = false;
+    importBtn.textContent = 'Import my leads';
+    const skipBtn = $('#migrateSkipBtn');
+    skipBtn.disabled = false;
+    skipBtn.textContent = 'Skip - start with an empty tracker';
+  }
+  function hideMigrateScreen() {
+    $('#screen-migrate').classList.remove('open');
+  }
+  function showMainApp() {
+    hideLoginScreen();
+    hideMigrateScreen();
+    $('#screen-home').style.display = '';
   }
   function showAddScreen() {
     $('#dateInput').value = todayStr();
@@ -1325,32 +1404,135 @@ Wishing you both the best with everything,
   document.querySelectorAll('[data-close]').forEach(b => {
     b.addEventListener('click', () => {
       document.querySelectorAll('.screen.open').forEach(s => {
-        if (s.id !== 'screen-sync') s.classList.remove('open');
+        if (s.id !== 'screen-login' && s.id !== 'screen-migrate') s.classList.remove('open');
       });
     });
   });
 
-  $('#syncSave').addEventListener('click', () => {
-    const v = $('#syncInput').value;
-    const nameVal = $('#nameInput').value;
-    if (!v || !v.trim()) {
-      alert('Type your sync code first.');
+  // Login
+  function showLoginError(msg) {
+    const el = $('#loginError');
+    el.textContent = msg;
+    el.classList.add('show');
+  }
+  function friendlyAuthError(err) {
+    const code = err && err.code ? err.code : '';
+    if (code === 'auth/invalid-email') return 'That email doesn’t look right.';
+    if (code === 'auth/user-not-found') return 'No account with that email. Ask Corey to set one up.';
+    if (code === 'auth/wrong-password' || code === 'auth/invalid-credential') return 'Wrong password. Try again or tap "Forgot password?"';
+    if (code === 'auth/too-many-requests') return 'Too many attempts. Wait a minute and try again.';
+    if (code === 'auth/network-request-failed') return 'No internet connection.';
+    if (code === 'auth/operation-not-allowed') return 'Email sign-in isn’t enabled yet on the Firebase project.';
+    return 'Sign-in failed: ' + (err && err.message ? err.message : 'unknown error');
+  }
+
+  $('#loginBtn').addEventListener('click', async () => {
+    const email = $('#emailInput').value.trim();
+    const pw = $('#passwordInput').value;
+    if (!email || !pw) {
+      showLoginError('Type your email and password first.');
       return;
     }
-    if (!nameVal || !nameVal.trim()) {
-      alert('Type your name so message templates can be signed by you.');
-      return;
-    }
-    localStorage.setItem(NAME_KEY, nameVal.trim());
-    if (setSyncCode(v)) {
-      hideSyncScreen();
-      render();
+    $('#loginError').classList.remove('show');
+    $('#loginBtn').disabled = true;
+    $('#loginBtn').textContent = 'Signing in…';
+    try {
+      await signInWithEmailAndPassword(auth, email, pw);
+      // onAuthStateChanged handles what happens next
+    } catch (err) {
+      showLoginError(friendlyAuthError(err));
+      $('#loginBtn').disabled = false;
+      $('#loginBtn').textContent = 'Sign in';
     }
   });
-  $('#syncInput').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') $('#syncSave').click();
+  $('#passwordInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') $('#loginBtn').click();
   });
 
+  $('#forgotBtn').addEventListener('click', async () => {
+    const email = $('#emailInput').value.trim();
+    if (!email) {
+      showLoginError('Type your email above first, then tap "Forgot password?" again.');
+      return;
+    }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      showLoginError('Check your email for a reset link (might land in spam).');
+      $('#loginError').style.color = 'var(--ok-green)';
+      $('#loginError').style.background = 'var(--ok-green-bg)';
+    } catch (err) {
+      showLoginError(friendlyAuthError(err));
+    }
+  });
+
+  // Migration
+  async function importFromOldSyncCode(code) {
+    const trimmed = (code || '').trim().toLowerCase();
+    if (!trimmed) throw new Error('Type your old sync code first.');
+    const oldRef = doc(db, 'trackers', trimmed);
+    const snap = await getDoc(oldRef);
+    if (!snap.exists()) throw new Error('No tracker found with that sync code. Double-check spelling or tap "Skip" to start fresh.');
+    const data = snap.data() || {};
+    return {
+      leads: data.leads || [],
+      mondayChecklist: data.mondayChecklist || { weekOf: null, done: {} }
+    };
+  }
+
+  async function finishMigration(payload) {
+    const name = $('#migrateNameInput').value.trim();
+    if (name) localStorage.setItem(NAME_KEY, name);
+    await setDoc(userDocRef(), {
+      leads: payload.leads,
+      mondayChecklist: payload.mondayChecklist,
+      email: currentUser.email || null,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    }, { merge: true });
+    hideMigrateScreen();
+    showMainApp();
+    subscribeToUser();
+  }
+
+  function showMigrateError(msg) {
+    const el = $('#migrateError');
+    el.textContent = msg;
+    el.classList.add('show');
+  }
+
+  $('#migrateImportBtn').addEventListener('click', async () => {
+    const code = $('#oldSyncInput').value;
+    const name = $('#migrateNameInput').value.trim();
+    if (!name) { showMigrateError('Type your name so message templates can sign messages.'); return; }
+    $('#migrateError').classList.remove('show');
+    $('#migrateImportBtn').disabled = true;
+    $('#migrateImportBtn').textContent = 'Importing…';
+    try {
+      const payload = await importFromOldSyncCode(code);
+      await finishMigration(payload);
+    } catch (err) {
+      showMigrateError(err.message || 'Import failed.');
+      $('#migrateImportBtn').disabled = false;
+      $('#migrateImportBtn').textContent = 'Import my leads';
+    }
+  });
+
+  $('#migrateSkipBtn').addEventListener('click', async () => {
+    const name = $('#migrateNameInput').value.trim();
+    if (!name) { showMigrateError('Type your name so message templates can sign messages.'); return; }
+    $('#migrateError').classList.remove('show');
+    $('#migrateSkipBtn').disabled = true;
+    $('#migrateSkipBtn').textContent = 'Setting up…';
+    try {
+      await finishMigration({ leads: [], mondayChecklist: { weekOf: null, done: {} } });
+    } catch (err) {
+      showMigrateError(err.message || 'Setup failed.');
+      $('#migrateSkipBtn').disabled = false;
+      $('#migrateSkipBtn').textContent = 'Skip - start with an empty tracker';
+    }
+  });
+
+  // Main app actions
   $('#addBtn').addEventListener('click', showAddScreen);
   $('#addCallBtn').addEventListener('click', showAddCallScreen);
 
@@ -1374,13 +1556,16 @@ Wishing you both the best with everything,
     render();
   });
 
-  $('#settingsLink').addEventListener('click', (e) => {
+  $('#signOutLink').addEventListener('click', async (e) => {
     e.preventDefault();
-    const next = prompt('Type a different sync code to switch:', syncCode || '');
-    if (next && next.trim()) {
-      setSyncCode(next);
-      render();
-    }
+    if (!confirm('Sign out of the tracker?')) return;
+    if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+    leads = [];
+    mondayChecklist = { weekOf: null, done: {} };
+    firstLoadDone = false;
+    currentUser = null;
+    try { await signOut(auth); } catch (err) { console.error(err); }
+    showLoginScreen();
   });
 
   $('#editNameLink').addEventListener('click', (e) => {
@@ -1397,37 +1582,58 @@ Wishing you both the best with everything,
     render();
   });
 
-  // boot: sign in anonymously, then load sync code
-  setSyncDot('connecting');
-  signInAnonymously(auth).catch((err) => {
-    console.error('Anonymous sign-in failed', err);
-    setSyncDot('offline');
-    alert('Could not connect to the sync service. Check your internet and reload.');
+  $('#reimportLink').addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (!currentUser) return;
+    const code = prompt('Re-import from old sync code\n\nType your old sync code. This REPLACES your current leads and Monday checklist with whatever is in that old tracker.');
+    if (code === null) return;
+    const trimmed = (code || '').trim().toLowerCase();
+    if (!trimmed) return;
+    if (!confirm(`Replace your current data with the contents of "${trimmed}"? This can't be undone.`)) return;
+    setSyncDot('syncing');
+    try {
+      const payload = await importFromOldSyncCode(trimmed);
+      await setDoc(userDocRef(), {
+        leads: payload.leads,
+        mondayChecklist: payload.mondayChecklist,
+        email: currentUser.email || null,
+        updatedAt: serverTimestamp()
+      }, { merge: true });
+      setSyncDot('synced');
+      alert(`Imported ${payload.leads.length} item${payload.leads.length === 1 ? '' : 's'} from "${trimmed}".`);
+    } catch (err) {
+      setSyncDot('offline');
+      alert(err.message || 'Re-import failed.');
+    }
   });
 
-  onAuthStateChanged(auth, (user) => {
-    if (!user) return;
-    authReady = true;
-    const stored = pendingSyncCode || localStorage.getItem(SYNC_KEY);
-    pendingSyncCode = null;
-    if (stored) {
-      syncCode = stored;
-      $('#whoLabel').textContent = stored;
-      subscribeToCode(stored);
-      // Existing users who synced before message templates existed won't
-      // have a sender name yet — ask them once so their templates sign properly.
-      if (!localStorage.getItem(NAME_KEY)) {
-        setTimeout(() => {
-          const v = prompt('Quick one-time setup: your name for message templates (e.g. "Corey + Cailee")');
-          if (v && v.trim()) {
-            localStorage.setItem(NAME_KEY, v.trim());
-            render();
-          }
-        }, 400);
+  // ----- boot -----
+  setSyncDot('connecting');
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      currentUser = null;
+      showLoginScreen();
+      setSyncDot('synced');
+      return;
+    }
+    currentUser = user;
+    setSyncDot('syncing');
+    // First-time login check: does this user have a doc yet?
+    try {
+      const snap = await getDoc(userDocRef());
+      if (snap.exists()) {
+        showMainApp();
+        subscribeToUser();
+      } else {
+        showMigrateScreen();
+        setSyncDot('synced');
       }
-    } else {
-      setSyncDot('synced'); // connected, just waiting for code
-      showSyncScreen();
+    } catch (err) {
+      console.error('User doc check failed', err);
+      // If rules aren't set up yet, this will fail - fall back to migrate flow
+      showMigrateScreen();
+      setSyncDot('offline');
     }
   });
 })();
