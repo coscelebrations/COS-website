@@ -116,7 +116,10 @@ h2:first-of-type{margin-top:0}
 
 /* Video */
 .video-section{max-width:500px;margin:3rem auto;padding:0 1rem}
+.video-section-wide{max-width:760px;margin:3rem auto;padding:0 1rem}
 .video-container{position:relative;width:100%;max-width:380px;margin:0 auto;aspect-ratio:9/16;border-radius:8px;overflow:hidden;box-shadow:0 20px 50px rgba(114,47,55,0.2)}
+.video-container-wide{position:relative;width:100%;max-width:720px;margin:0 auto;aspect-ratio:4/3;border-radius:8px;overflow:hidden;box-shadow:0 20px 50px rgba(114,47,55,0.2)}
+.video-container-wide video{width:100%;height:100%;object-fit:cover;display:block;border-radius:8px}
 .video-container video{width:100%;height:100%;object-fit:cover;display:block;border-radius:8px}
 .video-poster{position:absolute;top:0;left:0;width:100%;height:100%;cursor:pointer;background:var(--charcoal);transition:opacity 0.3s ease}
 .video-poster.hidden{opacity:0;pointer-events:none}
@@ -543,6 +546,21 @@ footer{padding:3rem 2rem;background:var(--charcoal);color:white;text-align:cente
     <cite>- Lexi K, White Room Wedding, January 2025</cite>
   </section>
 
+  <!-- Video: Reception Energy -->
+  <section class="video-section-wide">
+    <div class="video-container-wide">
+      <video id="white-room-celebration-video" playsinline preload="none" poster="/videos/white-room-celebration-poster.webp">
+        <source src="/videos/white-room-celebration.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-poster" id="celebration-video-poster" onclick="playCelebrationVideo()">
+        <img src="/videos/white-room-celebration-poster.webp" width="800" height="600" srcset="/videos/white-room-celebration-poster-400w.webp 400w, /videos/white-room-celebration-poster.webp 800w" sizes="(max-width: 900px) 400px, 720px" alt="DJ Corey playing live saxophone while bride dances at White Room wedding reception" loading="lazy" decoding="async">
+        <div class="play-button" aria-label="Play video"></div>
+      </div>
+    </div>
+    <p class="video-caption">Live saxophone + DJ on the dance floor at The White Room</p>
+  </section>
+
   <!-- Why COS Feature Cards -->
   <section class="content-section">
     <h2>Why White Room Couples Choose COS</h2>
@@ -917,6 +935,19 @@ footer{padding:3rem 2rem;background:var(--charcoal);color:white;text-align:cente
     document.getElementById('white-room-video').addEventListener('ended', function() {
       this.controls = false;
       document.getElementById('video-poster').classList.remove('hidden');
+    });
+
+    function playCelebrationVideo() {
+      const video = document.getElementById('white-room-celebration-video');
+      const poster = document.getElementById('celebration-video-poster');
+      poster.classList.add('hidden');
+      video.controls = true;
+      video.play();
+    }
+
+    document.getElementById('white-room-celebration-video').addEventListener('ended', function() {
+      this.controls = false;
+      document.getElementById('celebration-video-poster').classList.remove('hidden');
     });
 
     // Lightbox
