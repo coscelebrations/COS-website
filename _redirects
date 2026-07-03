@@ -10,6 +10,9 @@
 # Moved pages - 301 redirect
 /live-musicians/ /services/live-musicians/ 301
 
+# Closed venues - 301 redirect to relevant hub
+/crystal-ballroom-daytona-wedding-dj/ /daytona-beach-wedding-dj/ 301
+
 # Old WordPress URLs - 410 Gone (tells Google to stop crawling)
 /blog/* / 410
 /our-team/* / 410
