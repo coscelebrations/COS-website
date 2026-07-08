@@ -1,5 +1,137 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: June 16, 2026
+## Last Updated: July 8, 2026
+
+---
+
+## Session: July 8, 2026 — COS Clay Theatre freshness + Azaleana Manor pages built
+
+**Trigger:** Corey reported on 2026-07-08 that COS was NOT ranking page 1 for "clay theatre wedding dj" or "azaleana manor wedding dj" while AE was ranking well on both. Investigation found:
+- COS Clay Theatre page existed but had NO FAQ section, NO FAQPage schema, NO freshness stamp — while AE's Clay Theatre page had all three.
+- **No Azaleana Manor page existed on either site.** AE was ranking organically (probably from Orange Park city area authority + generic Jax coverage). COS had zero venue mention beyond a dropdown option on the contact page.
+
+**What I built:**
+
+**1. COS Clay Theatre freshness + AEO pass** (`~/cos-website/clay-theatre-wedding-dj/`)
+- Added `Common Questions About Clay Theatre Weddings` section with 6 unique Q&As (distinct from AE's 3 — luxury angle: LED tray ceiling sync, live sax fit, sparkler timing, dual ceremony/reception spaces)
+- Added FAQPage schema (6 Q&As mirroring the visible section)
+- Added `dateModified: 2026-07-08` to Service schema
+- Added "Page last updated: July 8, 2026" freshness stamp near final CTA
+- Sitemap `lastmod` bumped to 2026-07-08
+
+**2. COS Azaleana Manor venue page built from scratch** (`~/cos-website/azaleana-manor-wedding-dj/`)
+- Merlot COS styling with sax hero placeholder (will swap for real photos when Corey provides)
+- Intro paragraph in Corey voice — "one of those venues we end up at often enough that setup feels like muscle memory"
+- 4 feature cards, quick facts, testimonial, services + add-ons, venue info block
+- Full FAQ section (6 Q&As) + FAQPage schema
+- Service + LocalBusiness schema + freshness stamp
+- Internal links to Clay Theatre, Club Continental, River House, Epping Forest, Timuquana, Bowing Oaks
+
+**3. AE Azaleana Manor venue page built from scratch** (`~/ae-entertainment/azaleana-manor-wedding-dj/`)
+- Blue AE styling, $800 positioning, stats bar, 4 service cards
+- FAQ section (4 Q&As) + FAQPage schema
+- No specific "we DJ there often" claim on AE (I don't have evidence AE has been there, only that AE ranks organically without a page)
+- Internal links match COS: Clay Theatre, Club Continental, River House, White Room, Bowing Oaks
+
+**TODO for Corey:**
+- **Send real Azaleana Manor wedding photos** — placeholder hero currently uses generic sax image. Once photos arrive: replace hero background image, add a photo gallery section, add a "Real Wedding" block with couple names + photographer credit (like Clay Theatre / River House / Flagler pattern).
+- **Any insider details** (specific room names, ceremony location on property, sound quirks) can be added to the intro paragraph and feature cards.
+
+**Confidence this ranks:**
+- COS Clay Theatre freshness pass: 80% moves it back to page 1 within 4 weeks. Same FAQ+schema+freshness pattern that worked for River House (April 14) and Ponte Vedra (June 4).
+- COS Azaleana Manor page: 70% ranks page 1 within 6 weeks. Low-competition venue keyword + we have brand authority. Note: AE ranks without a page, so adding COS shouldn't cannibalize AE.
+
+**Reassess:** Rank check ~2026-08-05.
+
+**Files updated:**
+- `~/cos-website/clay-theatre-wedding-dj/index.html` — FAQ + schema + freshness
+- `~/cos-website/azaleana-manor-wedding-dj/index.html` — new
+- `~/ae-entertainment/azaleana-manor-wedding-dj/index.html` — new
+- `~/cos-website/sitemap.xml`, `~/ae-entertainment/sitemap.xml`
+- `~/seo-data/rankings.json` — both keywords tracked with notes
+
+---
+
+## Session: July 7, 2026 — AE St. Augustine page rewrite (positioning pivot)
+
+**Executed the June-6 AE positioning pivot on the St. Augustine city page.** Rewrote to lead with venue expertise instead of "Affordable" framing. Commit `77a3d1f` pushed to `main`, Netlify deploying.
+
+**What changed:**
+- Title/H1 dropped "Affordable" — now pure "St. Augustine Wedding DJ" positioning
+- Intro rewritten in Corey voice: bridge lifts, Treasury room flips, Fountain of Youth rain plans (per WRITING-VOICE.md)
+- 6 feature cards refocused on craft + venues (was budget-first)
+- New "Recent St. Augustine Weddings" section: Dani & Thomas (White Room), Morgan & Dan (Crosswater Hall), Shelby & Tyler (The Oldest House) — all real AE bookings
+- 4 FAQs rewritten around venues, weather, downtown/beach/barn contrasts
+- Schema description + FAQPage schema updated, dateModified `2026-07-07`
+- Sitemap `lastmod` bumped
+
+**Ranking risk to watch:** Memory `feedback_protect_affordable_on_ae.md` documents that a similar removal on April 13 dropped this page from #4 to #11 on "affordable wedding dj st augustine" for 7 weeks. This time is deliberate (June-6 pivot away from budget keywords toward generic "st augustine wedding dj") — but the older feedback rule is now stale and should be updated. Reassess on the next rank scan (~July 13):
+- Winning bet: generic "st augustine wedding dj" (AE currently null since 2026-05-17) picks up ranking
+- Losing bet: budget kw "affordable wedding dj st augustine" (was #4) drops
+- Success = net traffic up
+
+---
+
+## Session: July 6, 2026 — Weekly Rank Scan (Manager Agent, week 28)
+
+**The Jacksonville "wipe" was volatility, not a penalty — it fully recovered.** Last week (week 27) the entire COS Jacksonville keyword cluster dropped off the map in a single scan. This week it's all back. This is a clean validation of the w9-retire "don't-poke" decision: had the auto-rewriter been on, it would have rewritten a dozen already-ranking pages to "fix" a drop that reversed itself.
+
+**Rankings (89 keywords, 39 changes):**
+- **Jacksonville cluster recovered:** jacksonville wedding dj NEW #3, wedding dj jacksonville NEW #3, jacksonville fl wedding dj #9→#3, luxury wedding dj jacksonville NEW #3, best wedding dj jacksonville NEW #2, wedding dj near me jacksonville NEW #3, how much does a wedding dj cost jacksonville #5→#1.
+- **City surge:** st augustine #3→#1, amelia island #2→#1, gainesville #10→#5, garden club jacksonville #6→#1 (self-recovered the m1 Jul-1 #1→#6 drop), the orlo #6→#4, ribault club #9→#5, wedding dj under 1000 jacksonville #5→#3.
+- **New venue rankings:** oyster bay yacht club #1, st johns golf #1, florida aquarium #8, fernandina beach #3.
+- **Drops (single-scan, mostly known oscillators/minor):** treasury #1→#2, white room #7→#8, river house #3→#4, ponte vedra inn & club #3→#4, crystal ballroom daytona #2→#3, hard rock daytona #1→#2, daytona beach #2→#4, sawgrass marriott #6→#7, live saxophone #5→#8. LOST: alfond inn #10→out, marsh landing CC #7→out.
+
+**ranking_watch:** 4 watching (the 4 new venue rankings, unconfirmed), 4 confirmed / 67 resolved / 0 persistent. The 4 "confirmed" are noise: 2 sax terms (#1→#8/#9, known weekly oscillators), `cos celebrations` #1→#10 (brand-term scan artifact), and AE `amelia island wedding dj` #2→#7 (only real one, single confirmation). **No rewrite tasks created** — recovery week, w9 retired. WATCH AE Amelia Island next scan (~Jul 13).
+
+**AI visibility:** COS 75% (6/8, up from 62% on Jul 1 — tracks the recovery), AE 38% (3/8, flat). **Competitors:** no new threats; Classic Disc Jockeys still #2 for "best wedding dj orlando." No fresh competitor content since March.
+
+---
+
+## Session: June 29, 2026 — Weekly Rank Scan (Manager Agent, week 27)
+
+First cycle of ISO week 27 (last scan June 24). Weekly w1/w4/w5 ran. **Jacksonville-area SERP instability hit BOTH brands — read as volatility, NOT a penalty. No rewrite tasks created. w9 stays paused.**
+
+**The pattern that defines this week:** the entire COS Jacksonville keyword cluster wiped out in one scan — `jacksonville wedding dj` #8→out, `wedding dj jacksonville` #10→out, `jacksonville fl wedding dj` #9→out, `luxury wedding dj jacksonville` #3→out, `best wedding dj jacksonville` #8→out — **and the brand term `cos celebrations` dropped #1→#8.** A brand term moving 7 positions is almost certainly a Perplexity scan artifact; brands don't really lose their own name overnight. The clincher that this is churn, not decay: **St Augustine and Daytona surged in the very same scan.**
+
+**Wins (same scan as the Jax drop — proof it's volatility):**
+- `st augustine wedding dj` #3→**#1**, `wedding dj st augustine` #3→**#1**
+- `daytona beach wedding dj` #4→**#2**; **`crystal ballroom daytona` #7→#2 — recovered on its own** (it was a w9-frozen CONFIRMED drop last week; validates the don't-poke decision)
+- `hard rock daytona` #1, `shores resort` #1, `timuquana` #1, `how much does a wedding dj cost jacksonville` #9→#4, `river club jax` #4→#3
+
+**AE mirrors COS:** AE Jacksonville terms (`wedding dj jacksonville`, `jacksonville wedding dj`) also #7→out — same Jax churn affecting both brands — while AE `st augustine` #8→#6 and `white room` #3→#2 held/improved. Both brands' Jax down + both brands' St Aug up = a **market-level Jacksonville SERP wobble**, not a brand problem.
+
+**June-24 flag RESOLVED:** last week ~15 AE venue keywords read #1→gone in one scan; this week AE venues are stable (only 16 AE changes). That collapse did not persist — confirmed single-scan noise, no action needed.
+
+**ranking_watch:** 8 watching, **6 CONFIRMED**, 53 resolved. Confirmed = `the orlo` #4→#5 (tiny), `jacksonville wedding dj` #2→#8 (the Jax cluster), `sawgrass marriott` #3→#7 (2nd week — already on seo-actions top5), `wedding dj with live saxophone` + `live saxophone wedding dj` #1→#7 (known weekly oscillators per scan history), `cheap wedding dj jacksonville` #4→#8. None warrant a new rewrite during a volatile week with w9 paused. **Re-check the Jax cluster next scan (~July 6, week 28) before acting.**
+
+**w4 AI visibility:** COS **62%** (5/8, flat vs June 24), AE **50%** (4/8, flat — holding the doubled rate a 2nd week). AE durability strengthens the d32 homepage verdict.
+
+**w5 competitors:** No new threats. Orlando contested (Classic Disc Jockeys #1 both Orlando terms; Soundwave #9/#7) — relevant since COS holds Orlando #3. No fresh competitor content since March.
+
+**d32 (AE homepage rewrite) closed with GSC data:** pulled AE homepage GSC — post-14 (Jun 8–21) vs prior-14: **impressions +36% (467→636), clicks +69% (13→22), pos flat.** Clears the +20% target. Verdict upgraded CAUTIOUS WIN → **clear WIN.** Recommend green-lighting the AE Jacksonville city page rewrite. `ae-seo-plan-june6` milestone marked done.
+
+---
+
+## Session: June 24, 2026 — Weekly Rank Scan (Manager Agent, week 26)
+
+First cycle of ISO week 26 (last run June 20). Weekly w1/w4/w5 ran. **Busy, broadly-down week — 35 changes, net negative, but reads as volatility/algo ripple, not page decay.**
+
+**Big picture:** Softening hit BOTH brands AND AI visibility simultaneously this week — the signature of a late-June SERP shuffle / scan-day volatility, not page-specific decay. Same pattern as the late-March core update (city keywords dip, then recover). **w9 stays paused — do NOT auto-rewrite into this.** Held off creating any rewrite tasks; single-scan drops are WATCHING, not confirmed.
+
+**Wins:**
+- **Orlando wedding dj NEW → #2** — COS finally cracked Orlando after months off top 10. Genuine win. (Note: seo-actions still lists `refresh-cos-orlando` in top5 — stale, Orlando is now a win not a refresh target.)
+- St Augustine #5→#3, Garden Club Jax #4→#2, River House #3, Ponte Vedra Inn & Club #8→#3, White Room #8→#7.
+
+**Drops (mostly single-scan WATCHING — likely volatility):**
+- **Live saxophone keywords swung back down**: "wedding dj with live saxophone" #1→#7, "live saxophone wedding dj" #1→#6. These were #5/#6→#1 on June 15 — i.e. they swing between #1 and #6-7 week to week. Volatile, not decaying. Watch next scan.
+- Jacksonville wedding dj #5→#8, Gainesville #3→out, River Club Jax #1→#4, The Orlo #1→#4, Sawgrass CC #1→#2.
+- **AE-wide venue softening**: ~15 AE venue keywords (Casa Monica, Lodge Club, Treasury, White Room, Sawgrass, TPC, Lightner, etc.) read #1→gone in one scan. Unusually broad — flagged to re-check next scan. Most are long-tail terms where AE was uncontested #1; single-scan Perplexity volatility is the likely cause, but the breadth warrants a confirm.
+
+**ranking_watch:** 28 watching, **2 CONFIRMED** (sustained 2-wk): Crystal Ballroom Daytona #2→#7, Sawgrass Marriott #3→#6. Both already on the seo-actions top5 as invest-* items. w9 paused so no auto-fix.
+
+**w4 AI visibility:** COS **88%→62%** (down — tracks the COS softening; lost "Top rated wedding DJ Jacksonville" + a couple others). AE **25%→50%** (doubled — AE homepage rewrite June 8 paying off; now cited on "Budget friendly wedding DJ Jacksonville" → ae-djs.com/jacksonville-wedding-dj/ and "Professional wedding DJ northeast Florida").
+
+**w5 competitors:** No new threats. Orlando still contested (Classic Disc Jockeys #1 "best wedding dj orlando", Soundwave #3 "orlando wedding dj") — relevant now that COS entered Orlando at #2. Future Stereo St Aug #7/#5. No fresh competitor content since March.
 
 ---
 
@@ -1445,6 +1577,20 @@ npm run audit               # Full site audit (includes indexing check)
 ---
 
 ## 📝 RECENT SESSION NOTES
+
+### Session: July 1, 2026 - Monthly Scan (Manager Agent, month-start)
+
+**m1 full 140-keyword scan** (2m23s clean, rankings.json refreshed):
+- AI visibility: COS 62% (5/8), AE 38% (3/8 — dipped from 50% on Jun 29; AE held "budget friendly jax" + "professional NE FL").
+- ranking_watch: 7 watching, 7 confirmed drops, 57 resolved.
+- **Confirmed drops read as continued week-27 volatility, NOT decay:** jacksonville wedding dj #2→#8, garden club jax #1→#6, the orlo #4→#6, amelia island AE #2→#6 (Jax-cluster churn); live saxophone #1→#5 + w/ live sax #1→#7 (known weekly oscillators); `cos celebrations` #1→#8 (brand-term artifact = Perplexity scan noise).
+- No rewrite tasks created — w9 paused, re-check ~July 6 (week 28) before acting on the Jax cluster.
+
+**m10 keyword discovery:** 387 gaps across 6 markets (down from 398 in June). Daytona 98, St. Aug 77, Jax 65, Gainesville 55, Tampa 48, Orlando 44.
+
+**Action surface:** refreshed to 65 actions. Top5 push list: AE GBP fix, refresh COS Daytona, refresh COS Orlando, invest The Orlo, invest Garden Club Jacksonville (new).
+
+---
 
 ### Session: March 26, 2026 - Rankings Check + Google Ads 7-Day Review
 
