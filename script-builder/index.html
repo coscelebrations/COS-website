@@ -36,6 +36,30 @@
       text-transform: uppercase;
     }
 
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .preview-header h2 { margin: 0; }
+    .layout-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: #555;
+      flex-wrap: wrap;
+    }
+    .layout-toggle label {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+    }
+
     .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
     .grid .full { grid-column: 1 / -1; }
     label.field { display: flex; flex-direction: column; font-size: 0.85rem; color: #555; }
@@ -259,8 +283,6 @@
         padding: 0;
         font-family: Georgia, "Times New Roman", serif;
         color: black;
-        font-size: 20pt;
-        line-height: 1.7;
       }
       .wrap { max-width: none; margin: 0; padding: 0; }
       header, section.card.no-print, .actions, .no-print { display: none !important; }
@@ -270,25 +292,31 @@
         margin: 0;
         background: white;
       }
-      section.preview-card > h2 { display: none; }
+      section.preview-card > .preview-header { display: none; }
       #preview {
         border: none;
         padding: 0;
         background: white;
         min-height: 0;
       }
-      #preview .script-section {
+      #preview .empty { display: none; }
+      #preview mark.highlight {
+        background: transparent;
+        color: black;
+        font-weight: 900;
+      }
+
+      /* ---- STAGE MODE: one section per page, big text ---- */
+      body.layout-stage { font-size: 20pt; line-height: 1.7; }
+      body.layout-stage #preview .script-section {
         page-break-after: always;
         page-break-inside: avoid;
         border: none;
         padding: 1in 0.75in;
         min-height: 8in;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
       }
-      #preview .script-section:last-child { page-break-after: auto; }
-      #preview .script-section h3 {
+      body.layout-stage #preview .script-section:last-child { page-break-after: auto; }
+      body.layout-stage #preview .script-section h3 {
         font-size: 14pt;
         text-transform: uppercase;
         letter-spacing: 0.15em;
@@ -298,25 +326,15 @@
         margin-bottom: 1.5em;
         font-weight: normal;
       }
-      #preview .script-section p {
+      body.layout-stage #preview .script-section p {
         font-size: 20pt;
         line-height: 1.7;
         margin: 0 0 1.2em;
         color: black;
       }
-      #preview mark.highlight {
-        background: transparent;
-        color: black;
-        font-weight: 900;
-        font-size: 1.3em;
-      }
-      #preview .stage-dir {
-        font-style: italic;
-        color: #666;
-        font-size: 16pt;
-      }
-      #preview .empty { display: none; }
-      #preview .print-cover {
+      body.layout-stage #preview mark.highlight { font-size: 1.3em; }
+      body.layout-stage #preview .stage-dir { font-style: italic; color: #666; font-size: 16pt; }
+      body.layout-stage #preview .print-cover {
         display: flex !important;
         flex-direction: column;
         justify-content: center;
@@ -325,16 +343,58 @@
         page-break-after: always;
         min-height: 9in;
       }
-      #preview .print-cover h1 {
-        font-size: 36pt;
-        margin: 0 0 0.5em;
-        font-weight: normal;
+      body.layout-stage #preview .print-cover h1 { font-size: 36pt; margin: 0 0 0.5em; font-weight: normal; }
+      body.layout-stage #preview .print-cover .meta { font-size: 18pt; color: #444; margin-top: 2em; }
+
+      /* ---- COMPACT MODE: continuous flow, front + back ---- */
+      body.layout-compact { font-size: 12pt; line-height: 1.45; }
+      body.layout-compact #preview .print-cover {
+        display: block !important;
+        text-align: left;
+        padding: 0 0 0.75em;
+        margin: 0 0 0.75em;
+        border-bottom: 2px solid #333;
+        page-break-after: auto;
+        page-break-inside: avoid;
       }
-      #preview .print-cover .meta {
+      body.layout-compact #preview .print-cover h1 {
         font-size: 18pt;
-        color: #444;
-        margin-top: 2em;
+        margin: 0 0 0.15em;
+        font-weight: bold;
       }
+      body.layout-compact #preview .print-cover .meta {
+        font-size: 11pt;
+        color: #333;
+        display: flex;
+        gap: 1.5em;
+        margin: 0;
+      }
+      body.layout-compact #preview .print-cover .meta div { display: inline; }
+      body.layout-compact #preview .script-section {
+        page-break-inside: avoid;
+        border: none;
+        padding: 0.35em 0 0.5em;
+        border-top: 1px solid #bbb;
+        margin-top: 0.5em;
+      }
+      body.layout-compact #preview .script-section:first-of-type { border-top: none; margin-top: 0; }
+      body.layout-compact #preview .script-section h3 {
+        font-size: 10pt;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #666;
+        margin: 0 0 0.3em;
+        font-weight: bold;
+      }
+      body.layout-compact #preview .script-section p {
+        font-size: 12pt;
+        line-height: 1.45;
+        margin: 0 0 0.35em;
+        color: black;
+      }
+      body.layout-compact #preview mark.highlight { font-size: 1.15em; }
+      body.layout-compact #preview .stage-dir { font-style: italic; color: #666; font-size: 10pt; }
+
       @page { margin: 0.5in; }
     }
     .print-cover { display: none; }
@@ -380,7 +440,14 @@
     </section>
 
     <section class="card preview-card">
-      <h2>Script Preview</h2>
+      <div class="preview-header no-print">
+        <h2>Script Preview</h2>
+        <div class="layout-toggle">
+          <span>Print layout:</span>
+          <label><input type="radio" name="layout" value="compact" checked onchange="setLayout('compact')"> Compact (front + back)</label>
+          <label><input type="radio" name="layout" value="stage" onchange="setLayout('stage')"> One per page (stage flips)</label>
+        </div>
+      </div>
       <div id="preview"></div>
     </section>
   </div>
@@ -1113,11 +1180,30 @@
       });
     }
 
+    /* ============ LAYOUT TOGGLE ============ */
+    const LAYOUT_KEY = 'cosScriptBuilderLayout_v1';
+    function setLayout(mode) {
+      const m = (mode === 'stage') ? 'stage' : 'compact';
+      document.body.classList.remove('layout-compact', 'layout-stage');
+      document.body.classList.add('layout-' + m);
+      try { localStorage.setItem(LAYOUT_KEY, m); } catch (e) {}
+      // Sync radios in case called from JS
+      document.querySelectorAll('input[name="layout"]').forEach(r => {
+        r.checked = (r.value === m);
+      });
+    }
+    function initLayout() {
+      let saved = 'compact';
+      try { saved = localStorage.getItem(LAYOUT_KEY) || 'compact'; } catch (e) {}
+      setLayout(saved);
+    }
+
     /* ============ INIT ============ */
     loadState();
     ensureDefaultEvents();
     hydrateGlobals();
     wireGlobals();
+    initLayout();
     renderEvents();
     renderPreview();
   </script>
