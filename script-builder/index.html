@@ -636,6 +636,20 @@
         }
       },
 
+      'dinner': {
+        title: 'Dinner Announcement',
+        defaults: () => ({ style: 'buffet', customEdit: '' }),
+        renderInputs: (data, uid) => {
+          return `<label class="field field-row">
+            <span>Dinner style</span>
+            <select onchange="updateData('${uid}', 'style', this.value)">
+              <option value="buffet" ${data.style === 'buffet' ? 'selected' : ''}>Stations / Buffet</option>
+              <option value="plated" ${data.style === 'plated' ? 'selected' : ''}>Plated</option>
+            </select>
+          </label>`;
+        }
+      },
+
       'toasts': {
         title: 'Toasts',
         defaults: () => ({ location: 'head table', speakers: [], closer: 'A', customEdit: '' }),
@@ -825,16 +839,33 @@
 
     /* ============ EVENT LIST INIT ============ */
     const DEFAULT_EVENT_ORDER = [
-      'grand-entrance', 'welcome-speech', 'blessing', 'toasts',
+      'grand-entrance', 'welcome-speech', 'blessing', 'dinner', 'toasts',
       'first-dance', 'father-daughter', 'mother-son',
       'cake-cutting', 'bouquet-toss', 'last-dance'
     ];
 
     function ensureDefaultEvents() {
-      if (state.events.length > 0) return;
-      DEFAULT_EVENT_ORDER.forEach(defId => {
+      // For each default event, make sure it exists in state.events
+      // (handles both fresh sessions and existing users whose localStorage
+      // predates newly-added default events).
+      DEFAULT_EVENT_ORDER.forEach((defId, targetIdx) => {
+        if (state.events.some(e => e.defId === defId)) return;
         const def = EVENT_DEFS[defId];
-        state.events.push({
+        if (!def) return;
+        // Find best insert spot: right after the most recent default event
+        // (working backwards) that already exists in state.
+        let insertAt = state.events.length;
+        for (let i = targetIdx - 1; i >= 0; i--) {
+          const prevDefId = DEFAULT_EVENT_ORDER[i];
+          const prevPos = state.events.findIndex(e => e.defId === prevDefId);
+          if (prevPos >= 0) { insertAt = prevPos + 1; break; }
+        }
+        // If no earlier default exists, insert before the first custom event
+        if (insertAt === state.events.length) {
+          const firstCustom = state.events.findIndex(e => e.defId === 'custom');
+          if (firstCustom >= 0) insertAt = firstCustom;
+        }
+        state.events.splice(insertAt, 0, {
           uid: nextUid(),
           defId,
           enabled: false,
@@ -1005,6 +1036,7 @@
         case 'grand-entrance':      return genGrandEntrance(ev.data, g);
         case 'welcome-speech':      return genWelcomeSpeech(ev.data, g);
         case 'blessing':            return genBlessing(ev.data, g);
+        case 'dinner':              return genDinner(ev.data, g);
         case 'toasts':              return genToasts(ev.data, g);
         case 'first-dance':         return genFirstDance(ev.data, g);
         case 'father-daughter':
@@ -1064,6 +1096,13 @@
     function genBlessing(d, g) {
       const person = d.descriptor ? `${d.descriptor}, ${d.name}` : d.name;
       return `<p>We are now going to have ${h(person)} do a blessing for us.</p>`;
+    }
+
+    function genDinner(d, g) {
+      if (d.style === 'plated') {
+        return `<p>Dinner will be served shortly. ${h('Enjoy your neighbors.')}</p>`;
+      }
+      return `<p>Dinner will be starting soon. If you would please, stay seated and someone will come by and invite you to go through the stations. ${h('Enjoy your neighbors.')}</p>`;
     }
 
     function genToasts(d, g) {
