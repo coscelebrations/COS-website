@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Script Builder — COS Celebrations</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5;
+      color: #1a1a1a;
+      line-height: 1.5;
+      padding: 2rem 1rem 6rem;
+    }
+    .wrap { max-width: 900px; margin: 0 auto; }
+    header { margin-bottom: 2rem; }
+    header h1 { margin: 0 0 0.25rem; font-size: 1.75rem; font-weight: 600; }
+    header p { margin: 0; color: #666; font-size: 0.95rem; }
+
+    section.card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    section.card > h2 {
+      margin: 0 0 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+    .grid .full { grid-column: 1 / -1; }
+    label.field { display: flex; flex-direction: column; font-size: 0.85rem; color: #555; }
+    label.field span { margin-bottom: 0.35rem; font-weight: 500; }
+    input[type="text"], select, textarea {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: white;
+    }
+    input[type="text"]:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #722F37;
+      box-shadow: 0 0 0 3px rgba(114, 47, 55, 0.1);
+    }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+    /* Event list */
+    .event-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      background: #fafafa;
+      transition: background 0.15s;
+    }
+    .event-row.enabled { background: white; border-color: #c9c9c9; }
+    .event-row input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; margin: 0; }
+    .event-row .title { flex: 1; font-weight: 500; }
+    .event-row .move-btns { display: flex; gap: 0.25rem; }
+    .event-row button.move {
+      width: 30px; height: 30px;
+      border: 1px solid #ccc;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .event-row button.move:hover { background: #f0f0f0; }
+    .event-row button.move:disabled { opacity: 0.3; cursor: not-allowed; }
+    .event-row button.remove {
+      padding: 0.35rem 0.6rem;
+      border: 1px solid #ccc;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      color: #a33;
+    }
+
+    /* Event inputs (revealed when enabled) */
+    .event-inputs {
+      padding: 0 0.75rem 0.75rem;
+      margin-top: -0.5rem;
+      margin-bottom: 0.5rem;
+      background: white;
+      border: 1px solid #c9c9c9;
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+    }
+    .event-inputs .inputs-inner { padding-top: 0.75rem; border-top: 1px dashed #e0e0e0; }
+    .event-inputs .field-row { margin-bottom: 0.75rem; }
+    .event-inputs .party-list, .event-inputs .speaker-list { margin: 0.5rem 0; }
+    .party-row, .speaker-row {
+      display: grid;
+      grid-template-columns: 30px 1fr 1fr auto;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .party-row .idx, .speaker-row .idx {
+      color: #999;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    .party-row select, .speaker-row select { font-size: 0.9rem; padding: 0.5rem; }
+    .party-row input, .speaker-row input { font-size: 0.9rem; padding: 0.5rem; }
+    .party-row .row-actions, .speaker-row .row-actions { display: flex; gap: 0.25rem; }
+    .party-row button, .speaker-row button {
+      padding: 0.35rem 0.5rem;
+      border: 1px solid #ccc;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      color: #555;
+    }
+    .party-row button.remove-row, .speaker-row button.remove-row { color: #a33; }
+    button.add-row {
+      margin-top: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: #f5f5f5;
+      border: 1px dashed #999;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #555;
+    }
+    button.add-row:hover { background: #eee; }
+
+    button.add-custom {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      background: #f5f5f5;
+      border: 1px dashed #999;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #555;
+      width: 100%;
+    }
+    button.add-custom:hover { background: #eee; }
+
+    /* Custom edit area */
+    .custom-edit { margin-top: 0.75rem; }
+    .custom-edit label { font-size: 0.8rem; color: #666; display: block; margin-bottom: 0.35rem; }
+    .custom-edit textarea { min-height: 100px; font-size: 0.9rem; }
+
+    /* Closer dropdown for toasts */
+    .closer-select { margin-top: 0.75rem; font-size: 0.85rem; }
+
+    /* Preview / script output */
+    #preview {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      min-height: 200px;
+    }
+    #preview .script-section {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    #preview .script-section:last-child { border-bottom: none; }
+    #preview .script-section h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      margin: 0 0 1rem;
+      font-weight: 600;
+    }
+    #preview .script-section p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 0 0 0.9rem;
+      color: #1a1a1a;
+    }
+    #preview .stage-dir {
+      font-style: italic;
+      color: #888;
+      font-size: 0.95rem;
+    }
+    #preview mark.highlight {
+      background: transparent;
+      color: #1a1a1a;
+      font-weight: 700;
+      font-size: 1.2em;
+    }
+    #preview .empty {
+      color: #999;
+      font-style: italic;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    /* Bottom action bar */
+    .actions {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: white;
+      border-top: 1px solid #e0e0e0;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+      z-index: 100;
+    }
+    .actions button {
+      padding: 0.85rem 1.75rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-family: inherit;
+    }
+    .actions button.primary {
+      background: #722F37;
+      color: white;
+      border-color: #722F37;
+    }
+    .actions button.primary:hover { background: #5C262D; }
+    .actions button.secondary {
+      background: white;
+      color: #555;
+      border-color: #ccc;
+    }
+    .actions button.secondary:hover { background: #f5f5f5; }
+
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      body { padding: 1rem 0.5rem 6rem; }
+      section.card { padding: 1rem; }
+      .party-row, .speaker-row { grid-template-columns: 20px 1fr 1fr; }
+      .party-row .row-actions, .speaker-row .row-actions { grid-column: 1 / -1; justify-content: flex-end; }
+    }
+
+    /* ============ PRINT STYLES ============ */
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        color: black;
+        font-size: 20pt;
+        line-height: 1.7;
+      }
+      .wrap { max-width: none; margin: 0; padding: 0; }
+      header, section.card, .actions, .no-print { display: none !important; }
+      #preview {
+        border: none;
+        padding: 0;
+        background: white;
+        min-height: 0;
+      }
+      #preview .script-section {
+        page-break-after: always;
+        page-break-inside: avoid;
+        border: none;
+        padding: 1in 0.75in;
+        min-height: 8in;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+      #preview .script-section:last-child { page-break-after: auto; }
+      #preview .script-section h3 {
+        font-size: 14pt;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: #666;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 0.5em;
+        margin-bottom: 1.5em;
+        font-weight: normal;
+      }
+      #preview .script-section p {
+        font-size: 20pt;
+        line-height: 1.7;
+        margin: 0 0 1.2em;
+        color: black;
+      }
+      #preview mark.highlight {
+        background: transparent;
+        color: black;
+        font-weight: 900;
+        font-size: 1.3em;
+      }
+      #preview .stage-dir {
+        font-style: italic;
+        color: #666;
+        font-size: 16pt;
+      }
+      #preview .empty { display: none; }
+      #preview .print-cover {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        page-break-after: always;
+        min-height: 9in;
+      }
+      #preview .print-cover h1 {
+        font-size: 36pt;
+        margin: 0 0 0.5em;
+        font-weight: normal;
+      }
+      #preview .print-cover .meta {
+        font-size: 18pt;
+        color: #444;
+        margin-top: 2em;
+      }
+      @page { margin: 0.5in; }
+    }
+    .print-cover { display: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Script Builder</h1>
+      <p>Fill in the wedding info, pick your moments in order, print. Auto-saves as you go.</p>
+    </header>
+
+    <section class="card">
+      <h2>Wedding Info</h2>
+      <div class="grid">
+        <label class="field full">
+          <span>Couple names (as spoken)</span>
+          <input type="text" id="g-couple" placeholder="Laura + Dusko">
+        </label>
+        <label class="field">
+          <span>Venue</span>
+          <input type="text" id="g-venue" placeholder="The Clay Theatre">
+        </label>
+        <label class="field">
+          <span>Wedding date</span>
+          <input type="text" id="g-date" placeholder="June 15, 2026">
+        </label>
+        <label class="field">
+          <span>Your name (spoken as "my name is ___")</span>
+          <input type="text" id="g-djName" placeholder="Noah">
+        </label>
+        <label class="field">
+          <span>Introduction as (also used for send-off)</span>
+          <input type="text" id="g-introAs" placeholder="Mr. + Mrs. Petkovic">
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Events — check to include, use arrows to reorder</h2>
+      <div id="events-list"></div>
+      <button class="add-custom" onclick="addCustomEvent()">+ Add Custom Section</button>
+    </section>
+
+    <section class="card">
+      <h2>Script Preview</h2>
+      <div id="preview"></div>
+    </section>
+  </div>
+
+  <div class="actions no-print">
+    <button class="secondary" onclick="clearAll()">Clear All</button>
+    <button class="primary" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <script>
+    /* ============ STATE ============ */
+    const STATE_KEY = 'cosScriptBuilderState_v1';
+
+    let state = {
+      globals: { couple: '', venue: '', date: '', djName: '', introAs: '' },
+      events: []  // ordered list; each: {uid, defId, enabled, data}
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STATE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.globals && Array.isArray(parsed.events)) {
+            state = parsed;
+          }
+        }
+      } catch (e) { console.warn('load failed', e); }
+    }
+
+    function saveState() {
+      try { localStorage.setItem(STATE_KEY, JSON.stringify(state)); } catch (e) {}
+    }
+
+    let uidCounter = 1;
+    function nextUid() { return 'e' + (uidCounter++) + '_' + Date.now().toString(36); }
+
+    /* ============ HELPERS ============ */
+    function stripLeadingThe(s) {
+      return (s || '').replace(/^the\s+/i, '').trim();
+    }
+    function escapeHtml(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, c =>
+        ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])
+      );
+    }
+    function h(text) {
+      const val = text == null || text === '' ? '_____' : text;
+      return `<mark class="highlight">${escapeHtml(val)}</mark>`;
+    }
+
+    /* ============ TRANSITIONS (auto-cycle) ============ */
+    const PARTY_TRANSITIONS = [
+      'Put your hands together for',
+      'Keep it going for',
+      'Next up,',
+      'Give it up for',
+      'Please welcome',
+      'Show some love for'
+    ];
+    const TOAST_TRANSITIONS = [
+      'Please make them feel welcome to the microphone, our',
+      'Keep it going — please make them feel welcome, our',
+      'Next up, please welcome our',
+      'Give it up for our'
+    ];
+
+    /* ============ ROLE PRESETS (wedding party) ============ */
+    const PARTY_ROLES = [
+      { id: 'parents-bride',       label: 'Parents of the Bride',   format: (n) => `the parents of the bride, ${n}` },
+      { id: 'parents-groom',       label: 'Parents of the Groom',   format: (n) => `the parents of the groom, ${n}` },
+      { id: 'bridesmaid-groomsman',label: 'Bridesmaid + Groomsman', format: (n) => {
+          const parts = (n || '').split('+').map(s => s.trim()).filter(Boolean);
+          if (parts.length >= 2) return `Bridesmaid ${parts[0]} + Groomsman ${parts[1]}`;
+          return `Bridesmaid + Groomsman ${n}`;
+      }},
+      { id: 'bridesmaid',          label: 'Bridesmaid',              format: (n) => `Bridesmaid ${n}` },
+      { id: 'groomsman',           label: 'Groomsman',               format: (n) => `Groomsman ${n}` },
+      { id: 'moh',                 label: 'Maid of Honor',           format: (n) => `Maid of Honor ${n}` },
+      { id: 'best-man',            label: 'Best Man',                format: (n) => `Best Man ${n}` },
+      { id: 'moh-best-man',        label: 'MOH + Best Man',          format: (n) => {
+          const parts = (n || '').split('+').map(s => s.trim()).filter(Boolean);
+          if (parts.length >= 2) return `Maid of Honor ${parts[0]} + Best Man ${parts[1]}`;
+          return `Maid of Honor + Best Man ${n}`;
+      }},
+      { id: 'matron',              label: 'Matron of Honor',         format: (n) => `Matron of Honor ${n}` },
+      { id: 'flower-girl',         label: 'Flower Girl',             format: (n) => `Flower Girl ${n}` },
+      { id: 'ring-bearer',         label: 'Ring Bearer',             format: (n) => `Ring Bearer ${n}` },
+      { id: 'custom',              label: 'Custom (type full phrase)', format: (n) => n }
+    ];
+    function formatPartyMember(row) {
+      const role = PARTY_ROLES.find(r => r.id === row.role) || PARTY_ROLES[0];
+      return role.format(row.names || '');
+    }
+
+    /* ============ TOAST SPEAKER PRESETS ============ */
+    const TOAST_TITLES = [
+      'Maid of Honor', 'Matron of Honor', 'Best Man',
+      'Father of the Bride', 'Mother of the Bride',
+      'Father of the Groom', 'Mother of the Groom',
+      'Custom...'
+    ];
+
+    /* ============ PARENT DANCE PRESETS ============ */
+    const PARENT_PRESETS = [
+      { id: 'brides-dad',   label: "Bride's Dad",      pronoun: 'her',   formal: 'father',     casual: 'dad'      },
+      { id: 'brides-mom',   label: "Bride's Mom",      pronoun: 'her',   formal: 'mother',     casual: 'mom'      },
+      { id: 'grooms-dad',   label: "Groom's Dad",     pronoun: 'his',   formal: 'father',     casual: 'dad'      },
+      { id: 'grooms-mom',   label: "Groom's Mom",      pronoun: 'his',   formal: 'mother',     casual: 'mom'      },
+      { id: 'stepfather',   label: 'Stepfather',       pronoun: 'her',   formal: 'stepfather', casual: 'dad'      },
+      { id: 'stepmother',   label: 'Stepmother',       pronoun: 'her',   formal: 'stepmother', casual: 'mom'      },
+      { id: 'uncle',        label: 'Uncle',            pronoun: 'her',   formal: 'uncle',      casual: 'uncle'    },
+      { id: 'aunt',         label: 'Aunt',             pronoun: 'her',   formal: 'aunt',       casual: 'aunt'     },
+      { id: 'grandpa',      label: 'Grandfather',      pronoun: 'her',   formal: 'grandfather',casual: 'grandpa'  },
+      { id: 'grandma',      label: 'Grandmother',      pronoun: 'her',   formal: 'grandmother',casual: 'grandma'  },
+      { id: 'custom',       label: 'Custom...',        pronoun: 'her',   formal: 'father',     casual: 'dad'      }
+    ];
+
+    /* ============ EVENT DEFINITIONS ============ */
+    const EVENT_DEFS = {
+      'grand-entrance': {
+        title: 'Grand Entrance',
+        defaults: () => ({ variant: 'couple-only', party: [], customEdit: '' }),
+        renderInputs: (data, uid) => {
+          let html = `<label class="field field-row">
+            <span>Style</span>
+            <select onchange="updateData('${uid}', 'variant', this.value)">
+              <option value="couple-only" ${data.variant === 'couple-only' ? 'selected' : ''}>Couple only</option>
+              <option value="with-party" ${data.variant === 'with-party' ? 'selected' : ''}>With wedding party</option>
+            </select>
+          </label>`;
+          if (data.variant === 'with-party') {
+            html += `<div class="field-row"><span style="font-size:0.85rem;color:#555;font-weight:500;">Wedding party (in order they walk in)</span>`;
+            html += `<div class="party-list">`;
+            (data.party || []).forEach((row, i) => {
+              html += renderPartyRow(uid, i, row, (data.party || []).length);
+            });
+            html += `</div>`;
+            html += `<button class="add-row" onclick="addPartyRow('${uid}')">+ Add wedding party member</button>`;
+            html += `</div>`;
+          }
+          return html;
+        }
+      },
+
+      'welcome-speech': {
+        title: 'Welcome Speech (before dinner)',
+        defaults: () => ({ title: 'Father of the Bride', customTitle: '', name: '', customEdit: '' }),
+        renderInputs: (data, uid) => {
+          return `<div class="field-row grid">
+            <label class="field">
+              <span>Title</span>
+              <select onchange="updateData('${uid}', 'title', this.value)">
+                ${TOAST_TITLES.map(t => `<option value="${t}" ${data.title === t ? 'selected' : ''}>${t}</option>`).join('')}
+              </select>
+            </label>
+            <label class="field">
+              <span>Name</span>
+              <input type="text" value="${escapeHtml(data.name)}" placeholder="John" oninput="updateData('${uid}', 'name', this.value)">
+            </label>
+            ${data.title === 'Custom...' ? `<label class="field full">
+              <span>Custom title (freeform)</span>
+              <input type="text" value="${escapeHtml(data.customTitle)}" placeholder="Grandfather of the Bride" oninput="updateData('${uid}', 'customTitle', this.value)">
+            </label>` : ''}
+          </div>`;
+        }
+      },
+
+      'blessing': {
+        title: 'Blessing',
+        defaults: () => ({ name: '', descriptor: '', customEdit: '' }),
+        renderInputs: (data, uid) => {
+          return `<div class="field-row grid">
+            <label class="field">
+              <span>Person's name</span>
+              <input type="text" value="${escapeHtml(data.name)}" placeholder="Grandfather Robert" oninput="updateData('${uid}', 'name', this.value)">
+            </label>
+            <label class="field">
+              <span>Optional descriptor (before name)</span>
+              <input type="text" value="${escapeHtml(data.descriptor)}" placeholder="e.g., father of the bride" oninput="updateData('${uid}', 'descriptor', this.value)">
+            </label>
+          </div>`;
+        }
+      },
+
+      'toasts': {
+        title: 'Toasts',
+        defaults: () => ({ location: 'head table', speakers: [], closer: 'A', customEdit: '' }),
+        renderInputs: (data, uid) => {
+          let html = `<label class="field field-row">
+            <span>Location of speeches (spoken as "attention to the ___")</span>
+            <input type="text" value="${escapeHtml(data.location)}" placeholder="head table" oninput="updateData('${uid}', 'location', this.value)">
+          </label>`;
+          html += `<div class="field-row"><span style="font-size:0.85rem;color:#555;font-weight:500;">Speakers (in order)</span>`;
+          html += `<div class="speaker-list">`;
+          (data.speakers || []).forEach((row, i) => {
+            html += renderSpeakerRow(uid, i, row, (data.speakers || []).length);
+          });
+          html += `</div>`;
+          html += `<button class="add-row" onclick="addSpeakerRow('${uid}')">+ Add speaker</button>`;
+          html += `</div>`;
+          html += `<label class="closer-select field field-row">
+            <span>How to close out toasts</span>
+            <select onchange="updateData('${uid}', 'closer', this.value)">
+              <option value="A" ${data.closer === 'A' ? 'selected' : ''}>"Let's give it up one more time for our incredible speakers! Cheers!"</option>
+              <option value="B" ${data.closer === 'B' ? 'selected' : ''}>"Cheers!" (quick close)</option>
+              <option value="C" ${data.closer === 'C' ? 'selected' : ''}>No closer (just move on)</option>
+            </select>
+          </label>`;
+          return html;
+        }
+      },
+
+      'first-dance': {
+        title: 'First Dance',
+        defaults: () => ({ partyOnFloor: false, customEdit: '' }),
+        renderInputs: (data, uid) => {
+          return `<label class="field field-row" style="flex-direction:row;align-items:center;gap:0.5rem;">
+            <input type="checkbox" ${data.partyOnFloor ? 'checked' : ''} onchange="updateData('${uid}', 'partyOnFloor', this.checked)" style="width:18px;height:18px;">
+            <span style="margin:0;">Wedding party still on floor after intro?</span>
+          </label>`;
+        }
+      },
+
+      'father-daughter': {
+        title: 'Parent Dance #1 (Father-Daughter style)',
+        defaults: () => ({ preset: 'brides-dad', personDancing: '', partnerName: '', pronoun: 'her', formal: 'father', casual: 'dad', customEdit: '' }),
+        renderInputs: (data, uid) => renderParentDanceInputs(data, uid)
+      },
+
+      'mother-son': {
+        title: 'Parent Dance #2 (Mother-Son style)',
+        defaults: () => ({ preset: 'grooms-mom', personDancing: '', partnerName: '', pronoun: 'his', formal: 'mother', casual: 'mom', customEdit: '' }),
+        renderInputs: (data, uid) => renderParentDanceInputs(data, uid)
+      },
+
+      'cake-cutting': {
+        title: 'Cake Cutting',
+        defaults: () => ({ customEdit: '' }),
+        renderInputs: () => `<div style="font-size:0.85rem;color:#666;">Uses couple names from top of page. Use the "Custom edit" box below to tweak.</div>`
+      },
+
+      'bouquet-toss': {
+        title: 'Bouquet Toss',
+        defaults: () => ({ brideName: '', customEdit: '' }),
+        renderInputs: (data, uid) => {
+          return `<label class="field field-row">
+            <span>Bride's name (person tossing)</span>
+            <input type="text" value="${escapeHtml(data.brideName)}" placeholder="Laura" oninput="updateData('${uid}', 'brideName', this.value)">
+          </label>`;
+        }
+      },
+
+      'last-dance': {
+        title: 'Last Dance / Send-Off',
+        defaults: () => ({ exitDirections: '', customEdit: '' }),
+        renderInputs: (data, uid) => {
+          return `<label class="field field-row">
+            <span>Exit directions (from planning call)</span>
+            <textarea placeholder="Head out the main entrance for the sparkler exit — grab a sparkler from the basket on your way out." oninput="updateData('${uid}', 'exitDirections', this.value)">${escapeHtml(data.exitDirections)}</textarea>
+          </label>`;
+        }
+      },
+
+      'custom': {
+        title: 'Custom Section',
+        defaults: () => ({ sectionTitle: 'Custom Moment', script: '', customEdit: '' }),
+        renderInputs: (data, uid) => {
+          return `<label class="field field-row">
+            <span>Section title</span>
+            <input type="text" value="${escapeHtml(data.sectionTitle)}" placeholder="Garter Toss / Anniversary Dance / etc." oninput="updateData('${uid}', 'sectionTitle', this.value)">
+          </label>
+          <label class="field field-row">
+            <span>Script (highlight words with **double asterisks**)</span>
+            <textarea placeholder="Type your script. Wrap words like **name** to make them bold + larger on print." oninput="updateData('${uid}', 'script', this.value)">${escapeHtml(data.script)}</textarea>
+          </label>`;
+        }
+      }
+    };
+
+    /* ============ HELPERS: parent dance ============ */
+    function renderParentDanceInputs(data, uid) {
+      const showCustom = data.preset === 'custom';
+      return `<div class="grid field-row">
+        <label class="field">
+          <span>Relationship preset</span>
+          <select onchange="applyParentPreset('${uid}', this.value)">
+            ${PARENT_PRESETS.map(p => `<option value="${p.id}" ${data.preset === p.id ? 'selected' : ''}>${p.label}</option>`).join('')}
+          </select>
+        </label>
+        <label class="field">
+          <span>Person dancing (name)</span>
+          <input type="text" value="${escapeHtml(data.personDancing)}" placeholder="Laura" oninput="updateData('${uid}', 'personDancing', this.value)">
+        </label>
+        <label class="field">
+          <span>Partner's name</span>
+          <input type="text" value="${escapeHtml(data.partnerName)}" placeholder="John" oninput="updateData('${uid}', 'partnerName', this.value)">
+        </label>
+        <label class="field">
+          <span>Pronoun (for later-in-night variant)</span>
+          <select onchange="updateData('${uid}', 'pronoun', this.value)">
+            <option value="her" ${data.pronoun === 'her' ? 'selected' : ''}>her</option>
+            <option value="his" ${data.pronoun === 'his' ? 'selected' : ''}>his</option>
+            <option value="their" ${data.pronoun === 'their' ? 'selected' : ''}>their</option>
+          </select>
+        </label>
+        ${showCustom ? `
+        <label class="field">
+          <span>Formal relationship (e.g., "father")</span>
+          <input type="text" value="${escapeHtml(data.formal)}" placeholder="father" oninput="updateData('${uid}', 'formal', this.value)">
+        </label>
+        <label class="field">
+          <span>Casual word (e.g., "dad")</span>
+          <input type="text" value="${escapeHtml(data.casual)}" placeholder="dad" oninput="updateData('${uid}', 'casual', this.value)">
+        </label>` : ''}
+      </div>`;
+    }
+
+    function applyParentPreset(uid, presetId) {
+      const preset = PARENT_PRESETS.find(p => p.id === presetId);
+      if (!preset) return;
+      const ev = state.events.find(e => e.uid === uid);
+      if (!ev) return;
+      ev.data.preset = preset.id;
+      if (preset.id !== 'custom') {
+        ev.data.pronoun = preset.pronoun;
+        ev.data.formal = preset.formal;
+        ev.data.casual = preset.casual;
+      }
+      saveState(); renderEvents(); renderPreview();
+    }
+
+    /* ============ PARTY / SPEAKER ROW RENDER ============ */
+    function renderPartyRow(uid, i, row, total) {
+      return `<div class="party-row">
+        <div class="idx">${i + 1}</div>
+        <select onchange="updatePartyRow('${uid}', ${i}, 'role', this.value)">
+          ${PARTY_ROLES.map(r => `<option value="${r.id}" ${row.role === r.id ? 'selected' : ''}>${r.label}</option>`).join('')}
+        </select>
+        <input type="text" value="${escapeHtml(row.names || '')}" placeholder="${row.role === 'bridesmaid-groomsman' || row.role === 'moh-best-man' ? 'Name1 + Name2' : 'Names'}" oninput="updatePartyRow('${uid}', ${i}, 'names', this.value)">
+        <div class="row-actions">
+          <button onclick="movePartyRow('${uid}', ${i}, -1)" ${i === 0 ? 'disabled' : ''} title="Move up">&uarr;</button>
+          <button onclick="movePartyRow('${uid}', ${i}, 1)" ${i === total - 1 ? 'disabled' : ''} title="Move down">&darr;</button>
+          <button class="remove-row" onclick="removePartyRow('${uid}', ${i})" title="Remove">&times;</button>
+        </div>
+      </div>`;
+    }
+
+    function renderSpeakerRow(uid, i, row, total) {
+      const isCustom = row.title === 'Custom...';
+      return `<div class="speaker-row">
+        <div class="idx">${i + 1}</div>
+        <select onchange="updateSpeakerRow('${uid}', ${i}, 'title', this.value)">
+          ${TOAST_TITLES.map(t => `<option value="${t}" ${row.title === t ? 'selected' : ''}>${t}</option>`).join('')}
+        </select>
+        <input type="text" value="${escapeHtml(row.name || '')}" placeholder="Name" oninput="updateSpeakerRow('${uid}', ${i}, 'name', this.value)">
+        <div class="row-actions">
+          <button onclick="moveSpeakerRow('${uid}', ${i}, -1)" ${i === 0 ? 'disabled' : ''} title="Move up">&uarr;</button>
+          <button onclick="moveSpeakerRow('${uid}', ${i}, 1)" ${i === total - 1 ? 'disabled' : ''} title="Move down">&darr;</button>
+          <button class="remove-row" onclick="removeSpeakerRow('${uid}', ${i})" title="Remove">&times;</button>
+        </div>
+        ${isCustom ? `<input type="text" style="grid-column:2/-1;margin-top:0.35rem;" value="${escapeHtml(row.customTitle || '')}" placeholder="Custom title (e.g., Sister of the Bride)" oninput="updateSpeakerRow('${uid}', ${i}, 'customTitle', this.value)">` : ''}
+      </div>`;
+    }
+
+    /* ============ EVENT LIST INIT ============ */
+    const DEFAULT_EVENT_ORDER = [
+      'grand-entrance', 'welcome-speech', 'blessing', 'toasts',
+      'first-dance', 'father-daughter', 'mother-son',
+      'cake-cutting', 'bouquet-toss', 'last-dance'
+    ];
+
+    function ensureDefaultEvents() {
+      if (state.events.length > 0) return;
+      DEFAULT_EVENT_ORDER.forEach(defId => {
+        const def = EVENT_DEFS[defId];
+        state.events.push({
+          uid: nextUid(),
+          defId,
+          enabled: false,
+          data: def.defaults()
+        });
+      });
+      saveState();
+    }
+
+    /* ============ EVENT ACTIONS ============ */
+    function toggleEvent(uid, enabled) {
+      const ev = state.events.find(e => e.uid === uid);
+      if (!ev) return;
+      ev.enabled = enabled;
+      saveState(); renderEvents(); renderPreview();
+    }
+    function moveEvent(uid, dir) {
+      const i = state.events.findIndex(e => e.uid === uid);
+      if (i < 0) return;
+      const j = i + dir;
+      if (j < 0 || j >= state.events.length) return;
+      const [ev] = state.events.splice(i, 1);
+      state.events.splice(j, 0, ev);
+      saveState(); renderEvents(); renderPreview();
+    }
+    function removeEvent(uid) {
+      const i = state.events.findIndex(e => e.uid === uid);
+      if (i < 0) return;
+      const ev = state.events[i];
+      // Only allow removing custom events
+      if (ev.defId !== 'custom') return;
+      state.events.splice(i, 1);
+      saveState(); renderEvents(); renderPreview();
+    }
+    function addCustomEvent() {
+      state.events.push({
+        uid: nextUid(),
+        defId: 'custom',
+        enabled: true,
+        data: EVENT_DEFS.custom.defaults()
+      });
+      saveState(); renderEvents(); renderPreview();
+    }
+    function updateData(uid, key, value) {
+      const ev = state.events.find(e => e.uid === uid);
+      if (!ev) return;
+      ev.data[key] = value;
+      saveState(); renderPreview();
+      // Some updates need input re-render (e.g., changing style dropdown)
+      if (key === 'variant' || key === 'title') renderEvents();
+    }
+
+    /* party row ops */
+    function addPartyRow(uid) {
+      const ev = state.events.find(e => e.uid === uid);
+      if (!ev) return;
+      ev.data.party = ev.data.party || [];
+      ev.data.party.push({ role: 'parents-bride', names: '' });
+      saveState(); renderEvents(); renderPreview();
+    }
+    function updatePartyRow(uid, i, key, value) {
+      const ev = state.events.find(e => e.uid === uid);
+      if (!ev) return;
+      ev.data.party[i][key] = value;
+      saveState(); renderPreview();
+      if (key === 'role') renderEvents();
+    }
+    function movePartyRow(uid, i, dir) {
+      const ev = state.events.find(e => e.uid === uid);
+      if (!ev) return;
+      const arr = ev.data.party;
+      const j = i + dir;
+      if (j < 0 || j >= arr.length) return;
+      const [row] = arr.splice(i, 1);
+      arr.splice(j, 0, row);
+      saveState(); renderEvents(); renderPreview();
+    }
+    function removePartyRow(uid, i) {
+      const ev = state.events.find(e => e.uid === uid);
+      if (!ev) return;
+      ev.data.party.splice(i, 1);
+      saveState(); renderEvents(); renderPreview();
+    }
+
+    /* speaker row ops */
+    function addSpeakerRow(uid) {
+      const ev = state.events.find(e => e.uid === uid);
+      if (!ev) return;
+      ev.data.speakers = ev.data.speakers || [];
+      ev.data.speakers.push({ title: 'Maid of Honor', name: '' });
+      saveState(); renderEvents(); renderPreview();
+    }
+    function updateSpeakerRow(uid, i, key, value) {
+      const ev = state.events.find(e => e.uid === uid);
+      if (!ev) return;
+      ev.data.speakers[i][key] = value;
+      saveState(); renderPreview();
+      if (key === 'title') renderEvents();
+    }
+    function moveSpeakerRow(uid, i, dir) {
+      const ev = state.events.find(e => e.uid === uid);
+      if (!ev) return;
+      const arr = ev.data.speakers;
+      const j = i + dir;
+      if (j < 0 || j >= arr.length) return;
+      const [row] = arr.splice(i, 1);
+      arr.splice(j, 0, row);
+      saveState(); renderEvents(); renderPreview();
+    }
+    function removeSpeakerRow(uid, i) {
+      const ev = state.events.find(e => e.uid === uid);
+      if (!ev) return;
+      ev.data.speakers.splice(i, 1);
+      saveState(); renderEvents(); renderPreview();
+    }
+
+    /* clear */
+    function clearAll() {
+      if (!confirm('Clear all inputs and start fresh?')) return;
+      localStorage.removeItem(STATE_KEY);
+      state = { globals: { couple: '', venue: '', date: '', djName: '', introAs: '' }, events: [] };
+      ensureDefaultEvents();
+      hydrateGlobals();
+      renderEvents(); renderPreview();
+    }
+
+    /* ============ RENDER EVENT LIST ============ */
+    function renderEvents() {
+      const container = document.getElementById('events-list');
+      let html = '';
+      state.events.forEach((ev, idx) => {
+        const def = EVENT_DEFS[ev.defId];
+        if (!def) return;
+        const title = ev.defId === 'custom' && ev.data.sectionTitle
+          ? escapeHtml(ev.data.sectionTitle)
+          : def.title;
+        const canRemove = ev.defId === 'custom';
+        html += `<div class="event-row ${ev.enabled ? 'enabled' : ''}">
+          <input type="checkbox" ${ev.enabled ? 'checked' : ''} onchange="toggleEvent('${ev.uid}', this.checked)">
+          <div class="title">${title}</div>
+          <div class="move-btns">
+            <button class="move" onclick="moveEvent('${ev.uid}', -1)" ${idx === 0 ? 'disabled' : ''} title="Move up">&uarr;</button>
+            <button class="move" onclick="moveEvent('${ev.uid}', 1)" ${idx === state.events.length - 1 ? 'disabled' : ''} title="Move down">&darr;</button>
+          </div>
+          ${canRemove ? `<button class="remove" onclick="removeEvent('${ev.uid}')" title="Remove">Remove</button>` : ''}
+        </div>`;
+        if (ev.enabled) {
+          html += `<div class="event-inputs"><div class="inputs-inner">`;
+          html += def.renderInputs(ev.data, ev.uid);
+          html += `<div class="custom-edit">
+            <label>Custom edit for this section (overrides auto-generated text)</label>
+            <textarea placeholder="Leave blank to use auto-generated script. Fill in to override with your own wording." oninput="updateData('${ev.uid}', 'customEdit', this.value)">${escapeHtml(ev.data.customEdit || '')}</textarea>
+          </div>`;
+          html += `</div></div>`;
+        }
+      });
+      container.innerHTML = html;
+    }
+
+    /* ============ GENERATE SCRIPT ============ */
+    function generateSection(ev, prevEv) {
+      // If customEdit is filled, use that verbatim (with **highlights** support)
+      if (ev.data.customEdit && ev.data.customEdit.trim()) {
+        return renderCustomText(ev.data.customEdit);
+      }
+      const g = state.globals;
+      switch (ev.defId) {
+        case 'grand-entrance':      return genGrandEntrance(ev.data, g);
+        case 'welcome-speech':      return genWelcomeSpeech(ev.data, g);
+        case 'blessing':            return genBlessing(ev.data, g);
+        case 'toasts':              return genToasts(ev.data, g);
+        case 'first-dance':         return genFirstDance(ev.data, g);
+        case 'father-daughter':
+        case 'mother-son':          return genParentDance(ev.data, g, prevEv);
+        case 'cake-cutting':        return genCakeCutting(ev.data, g);
+        case 'bouquet-toss':        return genBouquetToss(ev.data, g);
+        case 'last-dance':          return genLastDance(ev.data, g);
+        case 'custom':              return renderCustomText(ev.data.script);
+      }
+      return '';
+    }
+
+    function renderCustomText(text) {
+      // Support **word** for highlights, blank lines for paragraph breaks
+      const paras = String(text || '').split(/\n\s*\n/);
+      return paras.map(p => {
+        const withHighlights = p.replace(/\*\*(.+?)\*\*/g, (_, w) => `<mark class="highlight">${escapeHtml(w)}</mark>`);
+        // preserve line breaks within a paragraph
+        const linesJoined = withHighlights.split(/\n/).map(l => escapeInline(l)).join('<br>');
+        return `<p>${linesJoined}</p>`;
+      }).join('');
+    }
+    function escapeInline(s) {
+      // Escape everything except our <mark> tags we just injected
+      return s.replace(/(<mark class="highlight">.+?<\/mark>)|[<>&"']/g, (match, mark) => {
+        if (mark) return mark;
+        return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[match];
+      });
+    }
+
+    function genGrandEntrance(d, g) {
+      const venueClean = stripLeadingThe(g.venue);
+      let out = `<p>Good evening ladies and gentlemen, friends and family. How is everybody doing tonight?! That was fun, let's do it again — how is everyone doing tonight?!</p>`;
+      out += `<p>Welcome to the always beautiful ${h(venueClean)}, my name is ${h(g.djName)} and I'm going to be your DJ and MC this evening.</p>`;
+      out += `<p>On behalf of ${h(g.couple)}, I want to thank you all so much for being here to join them on their wedding day.</p>`;
+      out += `<p>Now we are about to bring in our stars of the show, but before we do I like to ramp up the love and energy in the room. So by a big round of applause or any kind of noise you want to make — who here's ready to celebrate some love tonight?!</p>`;
+      if (d.variant === 'with-party' && d.party && d.party.length) {
+        out += `<p>Let's get this party started! First up we have some important people to introduce.</p>`;
+        d.party.forEach((row, i) => {
+          const transition = PARTY_TRANSITIONS[i % PARTY_TRANSITIONS.length];
+          const desc = formatPartyMember(row);
+          out += `<p>${transition} ${h(desc)}!</p>`;
+        });
+      }
+      out += `<p>It is now that time. I'm going to invite you to stand out of your seats — if you're able to do so — put your hands together and make all the noise you can make for ${h(g.introAs)}!</p>`;
+      return out;
+    }
+
+    function genWelcomeSpeech(d, g) {
+      const title = d.title === 'Custom...' ? (d.customTitle || 'guest') : d.title;
+      const phrase = `${title}${d.name ? ', ' + d.name : ''}`;
+      let out = `<p>Before we get dinner started, we have someone that would like to share some words with everybody.</p>`;
+      out += `<p>Please make them feel welcome to the microphone, our ${h(phrase)}.</p>`;
+      return out;
+    }
+
+    function genBlessing(d, g) {
+      const person = d.descriptor ? `${d.descriptor}, ${d.name}` : d.name;
+      return `<p>We are now going to have ${h(person)} do a blessing for us.</p>`;
+    }
+
+    function genToasts(d, g) {
+      let out = `<p>If I could focus your attention to the ${h(d.location)}, we have some toasts.</p>`;
+      (d.speakers || []).forEach((row, i) => {
+        const transition = TOAST_TRANSITIONS[i % TOAST_TRANSITIONS.length];
+        const title = row.title === 'Custom...' ? (row.customTitle || 'guest') : row.title;
+        const phrase = row.name ? `${title} ${row.name}` : title;
+        out += `<p>${transition} ${h(phrase)}.</p>`;
+        out += `<p class="stage-dir">[speech]</p>`;
+      });
+      if (d.closer === 'A') {
+        out += `<p>Let's give it up one more time for our incredible speakers! ${h('Cheers!')}</p>`;
+      } else if (d.closer === 'B') {
+        out += `<p>${h('Cheers!')}</p>`;
+      }
+      return out;
+    }
+
+    function genFirstDance(d, g) {
+      const preface = d.partyOnFloor ? `Guests ${h('and wedding party')}, you may take your seats` : `Guests, you may take your seats`;
+      return `<p>${preface} — but please keep your eyes and attention to the dance floor as ${h(g.couple)} are going to have their first dance.</p>`;
+    }
+
+    function genParentDance(d, g, prevEv) {
+      const person = d.personDancing;
+      const partner = d.partnerName;
+      const formal = d.formal || 'father';
+      const casual = d.casual || 'dad';
+      const pronoun = d.pronoun || 'her';
+      const rightAfterFirstDance = prevEv && prevEv.defId === 'first-dance' && prevEv.enabled;
+
+      let out;
+      if (rightAfterFirstDance) {
+        out = `<p>${h(person)}, I'm going to have you stay on the floor to have a dance with your ${h(formal)}. ${h(partner)}, make your way to the floor.</p>`;
+      } else {
+        out = `<p>At this time, we're going to invite ${h(person)} back to the floor for a dance with ${h(pronoun + ' ' + formal)}. ${h(partner)}, make your way to the floor.</p>`;
+      }
+      out += `<p class="stage-dir">[song plays / fades]</p>`;
+      out += `<p>Give it up for ${h(casual)}!</p>`;
+      return out;
+    }
+
+    function genCakeCutting(d, g) {
+      return `<p>At this time, I'm going to invite ${h(g.couple)} to cut their cake.</p>`;
+    }
+
+    function genBouquetToss(d, g) {
+      let out = `<p>I need all the single ladies to the center of the dance floor. We're about to do the bouquet toss.</p>`;
+      out += `<p>If you are not married, you are single. Make your way to the center of the dance floor.</p>`;
+      out += `<p class="stage-dir">[wait for single ladies to gather]</p>`;
+      out += `<p>Alright ${h(d.brideName || g.couple.split('+')[0].trim())}, I'll give you a countdown.</p>`;
+      out += `<p>${h('Three... two... one!')}</p>`;
+      return out;
+    }
+
+    function genLastDance(d, g) {
+      let out = `<p>One more time for ${h(g.introAs)}!</p>`;
+      if (d.exitDirections && d.exitDirections.trim()) {
+        out += `<p>${h(d.exitDirections)}</p>`;
+      }
+      return out;
+    }
+
+    /* ============ RENDER PREVIEW ============ */
+    function renderPreview() {
+      const container = document.getElementById('preview');
+      const enabled = state.events.filter(e => e.enabled);
+      let html = '';
+
+      // Cover page (print only)
+      if (enabled.length > 0) {
+        html += `<div class="print-cover">
+          <h1>${escapeHtml(state.globals.couple || 'Wedding Script')}</h1>
+          <div class="meta">
+            ${state.globals.venue ? '<div>' + escapeHtml(state.globals.venue) + '</div>' : ''}
+            ${state.globals.date ? '<div>' + escapeHtml(state.globals.date) + '</div>' : ''}
+            ${state.globals.djName ? '<div>DJ ' + escapeHtml(state.globals.djName) + '</div>' : ''}
+          </div>
+        </div>`;
+      }
+
+      if (enabled.length === 0) {
+        html += `<div class="empty">Check some events on the left to build your script.</div>`;
+      } else {
+        enabled.forEach((ev, i) => {
+          const prev = i > 0 ? enabled[i - 1] : null;
+          const def = EVENT_DEFS[ev.defId];
+          const title = ev.defId === 'custom' && ev.data.sectionTitle
+            ? ev.data.sectionTitle
+            : def.title;
+          html += `<div class="script-section">
+            <h3>${escapeHtml(title)}</h3>
+            ${generateSection(ev, prev)}
+          </div>`;
+        });
+      }
+      container.innerHTML = html;
+    }
+
+    /* ============ GLOBAL INPUT WIRING ============ */
+    function hydrateGlobals() {
+      document.getElementById('g-couple').value = state.globals.couple || '';
+      document.getElementById('g-venue').value = state.globals.venue || '';
+      document.getElementById('g-date').value = state.globals.date || '';
+      document.getElementById('g-djName').value = state.globals.djName || '';
+      document.getElementById('g-introAs').value = state.globals.introAs || '';
+    }
+
+    function wireGlobals() {
+      const map = {
+        'g-couple': 'couple',
+        'g-venue': 'venue',
+        'g-date': 'date',
+        'g-djName': 'djName',
+        'g-introAs': 'introAs'
+      };
+      Object.entries(map).forEach(([id, key]) => {
+        document.getElementById(id).addEventListener('input', (e) => {
+          state.globals[key] = e.target.value;
+          saveState();
+          renderPreview();
+        });
+      });
+    }
+
+    /* ============ INIT ============ */
+    loadState();
+    ensureDefaultEvents();
+    hydrateGlobals();
+    wireGlobals();
+    renderEvents();
+    renderPreview();
+  </script>
+</body>
+</html>
