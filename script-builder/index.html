@@ -263,7 +263,14 @@
         line-height: 1.7;
       }
       .wrap { max-width: none; margin: 0; padding: 0; }
-      header, section.card, .actions, .no-print { display: none !important; }
+      header, section.card.no-print, .actions, .no-print { display: none !important; }
+      section.preview-card {
+        border: none;
+        padding: 0;
+        margin: 0;
+        background: white;
+      }
+      section.preview-card > h2 { display: none; }
       #preview {
         border: none;
         padding: 0;
@@ -340,7 +347,7 @@
       <p>Fill in the wedding info, pick your moments in order, print. Auto-saves as you go.</p>
     </header>
 
-    <section class="card">
+    <section class="card no-print">
       <h2>Wedding Info</h2>
       <div class="grid">
         <label class="field full">
@@ -366,13 +373,13 @@
       </div>
     </section>
 
-    <section class="card">
+    <section class="card no-print">
       <h2>Events — check to include, use arrows to reorder</h2>
       <div id="events-list"></div>
       <button class="add-custom" onclick="addCustomEvent()">+ Add Custom Section</button>
     </section>
 
-    <section class="card">
+    <section class="card preview-card">
       <h2>Script Preview</h2>
       <div id="preview"></div>
     </section>
