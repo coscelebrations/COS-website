@@ -519,23 +519,26 @@
     const PARTY_ROLES = [
       { id: 'parents-bride',       label: 'Parents of the Bride',   format: (n) => `the parents of the bride, ${n}` },
       { id: 'parents-groom',       label: 'Parents of the Groom',   format: (n) => `the parents of the groom, ${n}` },
-      { id: 'bridesmaid-groomsman',label: 'Bridesmaid + Groomsman', format: (n) => {
+      { id: 'bridesmaid-groomsman',label: 'Bridesmaid + Groomsman (paired)', format: (n) => {
           const parts = (n || '').split('+').map(s => s.trim()).filter(Boolean);
           if (parts.length >= 2) return `Bridesmaid ${parts[0]} + Groomsman ${parts[1]}`;
           return `Bridesmaid + Groomsman ${n}`;
       }},
-      { id: 'bridesmaid',          label: 'Bridesmaid',              format: (n) => `Bridesmaid ${n}` },
-      { id: 'groomsman',           label: 'Groomsman',               format: (n) => `Groomsman ${n}` },
+      { id: 'bridesmaids-group',   label: 'Bridesmaids (group)',    format: (n) => n && n.trim() ? `the bridesmaids: ${n}` : `the bridesmaids` },
+      { id: 'groomsmen-group',     label: 'Groomsmen (group)',      format: (n) => n && n.trim() ? `the groomsmen: ${n}` : `the groomsmen` },
+      { id: 'bridesmaid',          label: 'Bridesmaid (single)',    format: (n) => `Bridesmaid ${n}` },
+      { id: 'groomsman',           label: 'Groomsman (single)',     format: (n) => `Groomsman ${n}` },
       { id: 'moh',                 label: 'Maid of Honor',           format: (n) => `Maid of Honor ${n}` },
+      { id: 'matron',              label: 'Matron of Honor',         format: (n) => `Matron of Honor ${n}` },
       { id: 'best-man',            label: 'Best Man',                format: (n) => `Best Man ${n}` },
       { id: 'moh-best-man',        label: 'MOH + Best Man',          format: (n) => {
           const parts = (n || '').split('+').map(s => s.trim()).filter(Boolean);
           if (parts.length >= 2) return `Maid of Honor ${parts[0]} + Best Man ${parts[1]}`;
           return `Maid of Honor + Best Man ${n}`;
       }},
-      { id: 'matron',              label: 'Matron of Honor',         format: (n) => `Matron of Honor ${n}` },
       { id: 'flower-girl',         label: 'Flower Girl',             format: (n) => `Flower Girl ${n}` },
       { id: 'ring-bearer',         label: 'Ring Bearer',             format: (n) => `Ring Bearer ${n}` },
+      { id: 'wedding-party-all',   label: 'Entire Wedding Party (all together)', format: (n) => n && n.trim() ? `the entire wedding party: ${n}` : `the entire wedding party` },
       { id: 'custom',              label: 'Custom (type full phrase)', format: (n) => n }
     ];
     function formatPartyMember(row) {
@@ -781,13 +784,20 @@
     }
 
     /* ============ PARTY / SPEAKER ROW RENDER ============ */
+    function partyRowPlaceholder(roleId) {
+      if (roleId === 'bridesmaid-groomsman' || roleId === 'moh-best-man') return 'Name1 + Name2';
+      if (roleId === 'bridesmaids-group' || roleId === 'groomsmen-group') return 'Emily, Rachel, Sarah (optional)';
+      if (roleId === 'wedding-party-all') return 'Names (optional — leave blank for just "the entire wedding party")';
+      return 'Names';
+    }
+
     function renderPartyRow(uid, i, row, total) {
       return `<div class="party-row">
         <div class="idx">${i + 1}</div>
         <select onchange="updatePartyRow('${uid}', ${i}, 'role', this.value)">
           ${PARTY_ROLES.map(r => `<option value="${r.id}" ${row.role === r.id ? 'selected' : ''}>${r.label}</option>`).join('')}
         </select>
-        <input type="text" value="${escapeHtml(row.names || '')}" placeholder="${row.role === 'bridesmaid-groomsman' || row.role === 'moh-best-man' ? 'Name1 + Name2' : 'Names'}" oninput="updatePartyRow('${uid}', ${i}, 'names', this.value)">
+        <input type="text" value="${escapeHtml(row.names || '')}" placeholder="${partyRowPlaceholder(row.role)}" oninput="updatePartyRow('${uid}', ${i}, 'names', this.value)">
         <div class="row-actions">
           <button onclick="movePartyRow('${uid}', ${i}, -1)" ${i === 0 ? 'disabled' : ''} title="Move up">&uarr;</button>
           <button onclick="movePartyRow('${uid}', ${i}, 1)" ${i === total - 1 ? 'disabled' : ''} title="Move down">&darr;</button>
