@@ -1,5 +1,59 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: July 8, 2026
+## Last Updated: July 14, 2026
+
+---
+
+## Session: July 14, 2026 — COS Homepage Hero Rewrite (Original Hybrid Positioning)
+
+**Change:** Rewrote hero on coscelebrations.com/ to lean into "Florida's Original Wedding DJ + Live Music Hybrid" positioning.
+
+**Before → After:**
+- Eyebrow: "Your Wedding Soundtrack, Performed Live" → "Serving North + Central Florida"
+- H1: "North + Central Florida / Wedding DJ + Live Musicians" → "Florida's Original / Wedding DJ + Live Music Hybrid"
+- Subtitle: Generic "unforgettable weddings" prose → Founder-first lead ("played sax at weddings for years before opening COS in 2022"), positions as original hybrid, links to /services/live-musicians/ and /pulse/
+
+**SEO preservation:**
+- "Wedding DJ" retained in H1
+- "North + Central Florida" moved to eyebrow (still on page prominently)
+- City keywords (St. Augustine, Jacksonville, Orlando, Tampa) retained in subtitle with `<strong>` tags — Tampa added as expansion signal since it's Central FL and already on our target list
+- Added "Original" and "Hybrid" as new differentiators
+
+**Rationale:** Outside-look review flagged homepage as "premium mid-market" not luxury. Corey's founder-first-musician-then-DJ path is genuinely differentiated in the FL market — no competitor has this origin story.
+
+**Watch (reassess ~Aug 4, 2026):** Any dip on `jacksonville wedding dj`, `st augustine wedding dj`, `orlando wedding dj`, `ponte vedra wedding dj`, `north florida wedding dj`, or `central florida wedding dj`. If any drops meaningfully → revert commit and try adding positioning section BELOW hero without touching H1. If rankings hold, consider rewriting other high-value pages the same way.
+
+**Confidence:** 75% this doesn't hurt rankings. Not 95% — SEO isn't fully predictable. Rollback is one git revert.
+
+**Corey's guardrails documented (do not repeat in future drafts):**
+1. Do NOT claim "since 2005" for DJ services — Corey was touring/playing sax at weddings in 2005, not DJing. COS DJ business opened 2022.
+2. Do NOT claim "not sub-contracted" for live musicians — COS uses a rolodex of trusted pro musicians as needed.
+
+---
+
+## Session: July 13, 2026 — Weekly Rank Scan (Manager Agent, week 29)
+
+**w1 rank_checker:** 89 keywords, **27 changes — broadly UP.** COS city cluster strengthened across the board: `jacksonville wedding dj` #4→#3, `st augustine wedding dj` #4→#2, `orlando wedding dj` #3→#2, `gainesville wedding dj` #5→#4, `jacksonville fl wedding dj` #4→#3, `wedding dj st augustine` #3→#2. Venue wins: `the white room` #7→#4, `deerwood country club` #10→#2, `don cesar` #3→#2, `florida aquarium` #7→#3, `lodge club ponte vedra` #3→#1, `lightner museum` #6→#5. NEW: `barn at deep creek` #7. DROPS (mostly known oscillators / minor): `wedding dj under 1000 jacksonville` #1→#4, `best wedding dj jacksonville` #5→#7, `garden club jacksonville` #8→#10, `river house` #3→#4, `luxury wedding dj st augustine` #1→#2, `wedding dj with live saxophone` #2→#3, plus budget-kw softening (`affordable wedding dj jacksonville` #3→#4, `affordable wedding dj st augustine` #5→#6, `how much cost jax` #3→#4).
+
+**ranking_watch:** 2 watching (COS `barn at deep creek` #7→gone — a brand-new ranking, likely settling; AE `the orlo` #3→gone), **1 CONFIRMED** (COS `cheap wedding dj jacksonville` #4→#8 → /jacksonville-wedding-dj/), 77 resolved, 0 persistent. **No rewrite task created** — the confirmed drop is an intent-mismatch "cheap" keyword against the luxury Jax page (which itself IMPROVED to #3 this week); w9 retired, don't-poke discipline holds. Watch `barn at deep creek` next scan before acting.
+
+**w4 AI visibility:** COS **75%** (6/8, flat vs Jul 6), AE **50%** (4/8, UP from 38% on Jul 6). AE now cited on both "Budget friendly wedding DJ Jacksonville" (ae-djs.com/jacksonville-wedding-dj/) and "Professional wedding DJ northeast Florida." COS misses: "Top rated wedding DJ Jacksonville" (still flickering) + 1 other.
+
+**w5 competitor scan:** No new threats. Orlando remains the only contested market — Classic Disc Jockeys #2 "best wedding dj orlando" / #6 "orlando wedding dj" (relevant now that COS holds Orlando #2). Future Stereo St Aug #9. No fresh competitor content since March across all tracked rivals.
+
+---
+
+## Session: July 11, 2026 — Payton + Cody wedding assets deployed (FoY + Live Musicians)
+
+**Additions (Fountain of Youth):**
+- COS FoY: New 5-photo bento gallery "Payton + Cody's Wedding" featuring live ceremony trio (violin, sax, drums) + reception DJ+sax hybrid. Photo credit Brittany Morgan. Now 4 real weddings featured on this page.
+- AE FoY: First real-wedding gallery on the page — previously text-only. 3 reception/dance-floor shots with lightbox. Placement between "Optional Add-Ons" and "About Fountain of Youth."
+
+**Additions (COS Live Musicians page):**
+- Sax, Violin, and Drums service cards now have real event photos (previously text-only). Cards edge-to-edge photo with hover zoom. Piano/Guitar/Trumpet still text-only until we have shots.
+
+**Positioning note:** AE FoY gallery photos happen to show sax player but captions/framing don't call out live musicians. AE positioning stays "budget DJ" while COS retains "DJ + live musicians" differentiator. Rolodex offering used as a closing tool for AE, not front-page pitch.
+
+**Files:** COS commit `882397f`, AE commit `3152312`. Netlify auto-deploy triggered.
 
 ---
 
