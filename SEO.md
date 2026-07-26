@@ -1,5 +1,27 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: July 14, 2026
+## Last Updated: July 21, 2026
+
+---
+
+## Session: July 21, 2026 — GSC Review snippets fix (Timuquana)
+
+**Alert:** GSC flagged 1 Review snippets structured data issue on coscelebrations.com — "Invalid object type for field itemReviewed." Traced to /timuquana-country-club-wedding-dj/, the Joel + Kristin featured Review microdata used `itemReviewed` typed as `Service`. Google's review snippet spec only accepts LocalBusiness, Organization, Product, Book, Movie, etc. — Service is not on the list.
+
+**Fix:** Swapped `itemReviewed` type Service → LocalBusiness, filled name/telephone/priceRange/address to match site-wide COS LocalBusiness schema. Only page affected (grep confirmed). Commit e96b8d0 pushed. Click "Validate Fix" in GSC once Netlify deploys.
+
+**Follow-up:** If we add featured reviews to more venue pages, use LocalBusiness (or Organization) for `itemReviewed`, never Service.
+
+---
+
+## Session: July 21, 2026 — Weekly Rank Scan (Manager Agent, week 30)
+
+**w1 rank_checker:** 89 keywords, **~40 changes — broadly DOWN/mixed.** Reads as weekly SERP volatility, not decay: St. Augustine SURGED the same scan the city cluster softened (classic volatility signature). WINS: `wedding dj st augustine` #2→#1, `best wedding dj st augustine` #3→#1, `river club jacksonville` #5→#1, `wedding dj under 1000 jacksonville` #4→#1, `budget wedding dj jacksonville` #2→#1, `affordable wedding dj jacksonville` #4→#3, `how much cost jax` #4→#3, `river house` #4→#3, `florida aquarium` #3→#2, `castle hotel orlando` #4→#3; NEW `bella collina` #5 / `dr phillips house` #7 / `kelly farm events` #9. DROPS (mostly single-scan venue oscillators): `crystal ballroom daytona` #1→#10, `deerwood country club` #2→#9, `st johns golf` #1→out, `oyster bay yacht club` #1→#4, `the orlo` #1→#3, `shores resort` #1→#3, `walkers landing` #1→#2, `marsh landing CC` #2→#3, `the white room` #9→out, `luxury wedding dj st augustine` #2→#5, `live saxophone` #2→#3. CITY softening: `jacksonville` #3→#4, `orlando` #2→#4, `gainesville` #4→#6, `jacksonville fl` #3→#7, `wedding dj jacksonville` #8→#9, `tampa` #9→out, `wedding dj near me jacksonville` #7→out, `garden club jacksonville` lost.
+
+**ranking_watch:** 9 watching, **1 CONFIRMED** (COS `cheap wedding dj jacksonville` #4→#8 → /jacksonville-wedding-dj/), 75 resolved, 0 persistent. **No rewrite task created** — same intent-mismatch flagged week 29: a "cheap" query against the luxury Jax page, which improved on its real terms this week. w9 retired, don't-poke discipline holds. WATCH `deerwood country club` + `crystal ballroom daytona` next scan (both large single-scan venue drops).
+
+**w4 AI visibility:** COS **75%** (6/8, flat vs Jul 13), AE **50%** (4/8, flat vs Jul 13). AE holds citations on "Budget friendly wedding DJ Jacksonville" (ae-djs.com/jacksonville-wedding-dj/) + "Professional wedding DJ NE Florida." COS misses: "Top rated wedding DJ Jacksonville" (still flickering) + 1 other. Both brands stable — no AI-visibility movement despite the organic softening, which supports the volatility (not decay) read.
+
+**w5 competitor scan:** No new threats. Orlando remains the only contested market — Classic Disc Jockeys #2 "best wedding dj orlando" / #5 "orlando wedding dj," Soundwave #9 (relevant now that COS Orlando slipped #2→#4). Future Stereo St Aug #8/#7 (no threat — COS holds St Aug #1). No fresh competitor content since March.
 
 ---
 

@@ -338,9 +338,9 @@ Each kit contains:
 5. Post to Instagram
 6. Immediately paste first comment
 
-### Current Inventory (Apr 19, 2026)
+### Current Inventory (Jun 16, 2026)
 
-**COS Celebrations: 30 posts**
+**COS Celebrations: 32 posts** (latest: #32 Flagler College cold sparks)
 | # | Post | Type |
 |---|------|------|
 | 01 | Treasury sax showcase | Reel/Carousel |
