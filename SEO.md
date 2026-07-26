@@ -1821,6 +1821,39 @@ See COMPLETED sections above for full details.
 
 ---
 
+### Session Notes (Jul 26, 2026) - Ribault Club Page Sharpening (P1 push to #1)
+
+**Trigger:** `p1-cos-ribault-club-wedding-dj` — "ribault club wedding dj" holding at #2 (COS) with an **AI Overview present** on the SERP. Last content touch was June 26 (site-wide nav change only). Keep-working mode pick.
+
+**Competitor finding:** AMPLIFY ranks above us (`amplifymyevent.com/ribault-club/`, ~1,200–1,500 words). They have **no FAQ section at all** and cover zero DJ-relevant logistics — no sound, power, load-in, or end-time detail. That was the gap this pass attacks. Confirms the June 2 finding that AMPLIFY is the one competitor running our venue-page playbook.
+
+**Changes (commits `a0e3469`, `73a65ec`):**
+- Visible **6-question FAQ section** added — page previously had 2 questions in schema only, nothing on-page
+- `FAQPage` schema rebuilt to mirror the visible copy word-for-word (was 7 schema Qs vs 6 visible, drifting wording — Google can discount mismatched FAQ markup)
+- 2 **AI-quotable blocks**, distinct angles: three-space sound setup, and Fatio/state-park history
+- Statement H2s → **question H2s** (AEO, matches Epping Forest pattern)
+- 2 generic feature cards replaced with venue-specific ones: terrazzo + 36 French doors acoustics; 9:30am vendor load-in during park public hours
+- **Capacity error fixed** — page claimed "up to 400 guests"; actual is 350 seated / 400 cocktail full facility, 190 ballroom+north salon, 160 dining+south salon
+- `dateModified: 2026-07-26` + visible "Last updated: July 2026"
+- Meta + og descriptions sharpened
+- Word count ~800 → ~1,270 (now parity with AMPLIFY)
+
+**Accuracy correction (`73a65ec`):** First pass asserted the ceremony lawn has limited power and cited "twelve-foot ceilings." Neither was sourced — the power line was inference, the ceilings came only from AMPLIFY's page. Reframed the power answer as COS practice (self-powered ceremony rig) and swapped in details confirmed by theribaultclub.com / ameliaisland.com. See `memory/feedback_no_fabricated_venue_details.md`.
+
+**Verified venue facts used** (theribaultclub.com, ameliaisland.com, floridastateparks.org): 1928 Maurice Fatio design, 16,000 sq ft, ~6,000 sq ft event space, National Register + Jacksonville Landmark, 100-acre Fort George Island Cultural State Park, park open to public 9am–5pm Wed–Sun, vendor access 9:30am, free on-site parking, no drop-off catering, 50% non-refundable deposit, venue rental from $6,800.
+
+**Open items:**
+- Hero still uses a **Treasury fallback photo** — no real Ribault images exist in `~/cos-website/images/`. Same gap Walker's Landing had pre-Jul 3. Biggest remaining upgrade to this page.
+- Still no real insider note from Corey for Ribault on the Jax venue hub (`d22`/`d34` backlog).
+
+**Reassess:** ~Aug 23 (4 weeks). Watch `ribault club wedding dj` for #2 → #1 and check whether the AI Overview starts citing COS.
+
+**Tooling issues found this session:**
+- `~/seo-data/perplexity/*.py` all dead — **no Perplexity API key** loaded (`.env` or `PERPLEXITY_API_KEY`). Used WebSearch/WebFetch instead. Blocks every `rewrite-research` / `venue_research` action in the queue.
+- `~/seo-data/evaluator/venue-gaps.json` **does not exist**, so `unify_actions.py` emits empty-query venue tasks. 3 of the current top5 are junk: "garden club" (page already live on both sites), "hotel crystal ballroom" (venue closed), "live saxophone reception resort" (not a venue).
+
+---
+
 ### Session Notes (Apr 27, 2026) - Treasury Page Sharpening (P1 push to #1)
 
 **Trigger:** "treasury on the plaza wedding dj" dropped #1 → #2 on Apr 27. Page was already strong (714 lines, bento gallery, insider tips, real reviews). Surgical edits, not a rewrite.
