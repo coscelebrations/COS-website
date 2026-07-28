@@ -1,5 +1,77 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: July 21, 2026
+## Last Updated: July 28, 2026
+
+---
+
+## Session: July 28, 2026 — 53 COS pages have NEVER been crawled by Google
+
+**Headline: everything COS published after Dec 17 2025 is invisible in search. Not ranking badly — not indexed at all, so not eligible to rank for anything.**
+
+Triggered by a GSC email about "Page with redirect." That reason turned out to be **1 page** — `/crystal-ballroom-daytona-wedding-dj/`, the closed venue we deliberately redirected. Expected, not a bug. The real finding was underneath it.
+
+**COS Page Indexing, GSC data through 7/23/26: 30 indexed / 69 not indexed.**
+
+| Reason | Pages |
+|---|---|
+| Discovered - currently not indexed | **53** |
+| Crawled - currently not indexed | 13 |
+| Not found (404) | 2 |
+| Page with redirect | 1 |
+
+All 53 show **Last crawled: N/A** — Google knows the URLs and has never fetched them. First detected 1/3/26, so this has been true for ~7 months. ~51 of the 53 are venue pages.
+
+**The cutoff is a date, not a quality problem.** Checked creation dates against index status: every indexed page was created 2025-12-04 to 2025-12-11; every never-crawled page was created 2025-12-17 or later. No overlap. Google indexed the site's first ~30 pages and stopped crawling new ones.
+
+Ruled out: robots.txt clean, all 53 were in sitemap.xml, noindex-excluded count 0, no canonical mismatches, most have 7–18 inbound internal links. Internal linking is **not** the cause — `/river-house-wedding-dj/` (14 links) and `/the-white-room-wedding-dj/` (18 links + a homepage link) are equally uncrawled. This is crawl demand.
+
+Corroborated independently against local GSC data: **zero of the 53 had a single impression in the last 30 days.** The 32 pages that do have impressions match the ~30 indexed count.
+
+**Fixed and deployed (COS `1dc31c9`, `36ea887`; AE `52736ec`):**
+- Azaleana Manor schema had `addressLocality: "St. Augustine"` while the page is about Orange Park — template copy-paste artifact. Corrected.
+- Azaleana Manor and Embassy Suites St. Augustine Beach had **zero inbound internal links**. Linked from Clay Theatre nearby-venues and the St. Augustine hub respectively.
+- Removed `/pricing-guide/` from sitemap.xml — it's `noindex, nofollow` by design, so listing it spent crawl budget on a page Google was told to ignore.
+- **Tampa Garden Club pages on BOTH sites were 404ing live** — built 2026-07-26 (migration day), added to both sitemaps, linked from both Tampa hubs, never committed. Now deployed, verified 200.
+
+**Next action, and it's manual:** Request Indexing in GSC URL Inspection, ~10/day. Priority order by internal-link equity: `/jacksonville-wedding-venues/` (hub first), `/the-white-room-wedding-dj/`, `/river-house-wedding-dj/`, `/bowing-oaks-wedding-dj/`, `/club-continental-wedding-dj/`, `/ribault-club-wedding-dj/`, `/glass-factory-wedding-dj/`, `/bella-collina-wedding-dj/`, `/casa-monica-wedding-dj/`, `/san-jose-country-club-wedding-dj/`. ~5-6 days for all 53.
+
+**Two consequences for existing plans:**
+1. **Rank checks aimed at never-crawled pages measure nothing.** Push out Embassy Suites (~Aug 18), Azaleana Manor (~Aug 5), Walker's Landing.
+2. **The action queue is generating phantom tasks.** `invest-azaleana-manor-wedding-dj` ("Investigate ranking drop") was for a page that never ranked. Logged done with the real cause. Suspect others in the 186 human tasks for the same reason — same family as the rank-checker unreliability from Jul 27.
+
+**Left uncommitted deliberately — needs review:** `jacksonville-wedding-dj/index.html` has an uncommitted rewrite that deletes 108 lines **including the entire FAQPage schema block**. That page pulls 2,527 impressions/30d. Do not ship until someone confirms the schema removal is intentional. Also uncommitted: `SEO.md` (pre-existing), `amelia-island`, `orlando`, `ponte-vedra` (dated-urgency copy removal pass). AE: `contact`, `first-call/quote`, `jacksonville-wedding-dj`, `welcome`, untracked `blog/questions-to-ask-a-budget-wedding-dj/`.
+
+**Housekeeping:** COS git remote has moved — GitHub warns `cos-website` → `COS-website` on every push. Works via redirect for now; update the remote URL.
+
+Secondary hypothesis, ~40%, unproven: 51 near-identical venue pages may trip Google's "this pattern isn't worth crawling" heuristic — the exact risk Rule #2 exists to prevent.
+
+---
+
+## Session: July 27, 2026 — Weekly Rank Scan + rank checker fails GSC validation (Manager Agent, week 31)
+
+**Headline: the Perplexity rank checker does not agree with Google about which direction we're moving. Stop treating its drop alerts as findings.**
+
+**w1 rank_checker + ranking_watch:** Produced 12 watching / **9 confirmed** / 79 resolved. Before logging those as drops I cross-checked them against GSC (real Google data, window Jun 15–Jul 9 vs Jul 10–23). Every spot-check reversed:
+
+| Alert | rank_checker | GSC avg position |
+|---|---|---|
+| AE `st augustine wedding dj` | #5 → #9 | 15.8 → **9.6 (improved)** |
+| AE `wedding dj st augustine` | #4 → #8 | 13.5 → **8.0 (improved)** |
+| AE `lightner museum wedding dj` | #2 → gone | 15.0 → **11.7 (improved)** |
+| COS `gainesville wedding dj` | #2 → #7 | 12.7 → **10.4 (improved)** |
+
+Widened to all 53 keywords carrying data in both sources: **47% directional agreement; 36% on the subset rank_checker says moved.** Worse than chance. Absolute levels disagree too — rank_checker has COS `orlando wedding dj` at #4, GSC has avg 21.0 across 106 impressions.
+
+Caveats stated honestly: GSC average position aggregates all locations/devices/variants while rank_checker takes one SERP snapshot; samples are thin (10–30 impressions on most keywords); GSC ends Jul 23 vs a Jul 27 scan. None of that explains direction flipping 6 of 6, or 36% on the moved subset.
+
+**Consequences:** (1) No rewrite tasks created from the 9 confirmed alerts. (2) **`d21` should be rejected** — promoting this detector from watch-only to *active* would auto-rewrite healthy pages. (3) Proposed guard: in `ranking_watch.py`, require GSC corroboration before an alert reaches `confirmed` (only confirm when GSC avg position for the same query also worsened over the same window). That single change suppresses all 9 of today's alerts. Alerts were left flagged in `ranking-alerts.json`, not resolved or suppressed. Full 53-keyword table: `~/manager-agent/drafts/rankcheck-2026-07-27-validation/`.
+
+This is the **third monitor in three days** to fail a reality check (see `idx-2026-07-26-coverage` Jul 26, and the stale hand-typed "CRITICAL deindexing" number). Feeds the `seo-monitoring-trustworthiness` project; new task `mgr-2026-07-27-1` (high, due Aug 6).
+
+**w4 AI visibility:** COS **75%** (6/8), AE **50%** (4/8). Flat vs Jul 21 and Jul 13. COS has held 75% four consecutive checks; AE oscillating 38–50% since late June. No movement to act on.
+
+**w5 competitor scan:** Clean, no new entrants. Two standing threats unchanged — Classic Disc Jockeys #2 `best wedding dj orlando`, Future Stereo #3 `st augustine wedding dj`. No fresh competitor content since March.
+
+**Also verified:** `pipeline-log.txt` tails with "Pushing cos… Pushing ae… Done. 3 rewrites" at `00:54`, which reads as the retired w9 pipeline having run today. It did not — backup filenames in those lines date them to 2026-07-13 and the file's mtime is Jul 26 12:50. Nothing auto-committed; the uncommitted Tampa Garden Club working-tree edits are intact in both repos.
 
 ---
 
@@ -1851,6 +1923,100 @@ See COMPLETED sections above for full details.
 **Tooling issues found this session:**
 - `~/seo-data/perplexity/*.py` all dead — **no Perplexity API key** loaded (`.env` or `PERPLEXITY_API_KEY`). Used WebSearch/WebFetch instead. Blocks every `rewrite-research` / `venue_research` action in the queue.
 - `~/seo-data/evaluator/venue-gaps.json` **does not exist**, so `unify_actions.py` emits empty-query venue tasks. 3 of the current top5 are junk: "garden club" (page already live on both sites), "hotel crystal ballroom" (venue closed), "live saxophone reception resort" (not a venue).
+
+---
+
+### Session Notes (Jul 26, 2026 PM) - Monitoring Was Lying; Tampa Garden Club Built
+
+**Theme:** three separate scripts were reporting confidently wrong numbers, all with the same root cause: **absence of measurement treated as measured data.** Fixed all three.
+
+**1. Indexing monitor false alarm - FIXED**
+- `monitor_indexing.py` in `--auto` mode returned `history["checks"][-1]["indexed"]`. That traced back to a hand-typed **10** (COS) and **2** (AE) from 2025, copied forward every Sunday. Hence the standing "CRITICAL - 11.8% indexed" and a weekly pointless auto-resubmit.
+- Rewired to the **GSC URL Inspection API** via new `cos-tools/seo-tracking/gsc_index_client.py` - asks Google per URL. Now refuses to write history or raise an alert when it cannot measure.
+- **Real numbers: COS 30/85 (35.3%), AE 16/78 (20.5%).** The alert was fake; **the gap underneath it is real.** Most misses are `Discovered - currently not indexed` - a crawl-budget/quality signal that resubmitting does not fix.
+- Added a cross-check against `gsc-data.json`: 4 AE pages with real impressions (`/services/` 163, `/contact/` 55, `/leu-gardens-wedding-dj/`, `/the-orlo-wedding-dj/`) come back "URL is unknown to Google", so AE's true count is **at least 20/78**. Monitor now labels its own number a floor rather than overstating confidence.
+- Corrections to prior notes: the "54 COS / 23 AE pages" figures were **all-time**, not 60-day. Last 60 days is 32 COS / 22 AE.
+
+**2. Sixteen "confirmed" ranking drops - 10 were false**
+- `ranking_watch.analyze_keyword()` fired `lost_ranking` whenever the 5-check window had **no non-null baseline**, hardcoding `current: None` while the most recent real check showed a healthy rank.
+- Actually ranking on Jul 21: **club continental #1**, casa monica #3, the wooly #3, bella collina #5, kelly farm #7, flagler college #7 (COS) and #10 (AE). Bella Collina and Kelly Farm never "fell off."
+- Second, deeper bug found while testing the fix: `current` was computed as *last non-null position anywhere in the window*, not *position at the latest check*. A keyword that ranked #3 then vanished still reported `current = 3` and never reached the loss branch. **Every alert the detector emitted came from the buggy condition, and every genuine loss was invisible.**
+- Both fixed. Regression test: `seo-data/gsc/tests/test_ranking_watch.py`, 7 cases covering both directions. 10 false alerts resolved with written reasons; `ranking-alerts.json.bak-2026-07-26` kept.
+- **Treat pre-2026-07-26 `lost_ranking` history as unreliable in both directions.**
+
+**6 real drops (all from the Jul 21 sweep):**
+
+| Brand | Keyword | Move |
+|---|---|---|
+| COS | jacksonville wedding dj | #2 -> #6 |
+| COS | jacksonville fl wedding dj | #3 -> #6 |
+| COS | gainesville wedding dj | #2 -> #7 |
+| COS | wedding dj with live saxophone | #1 -> #7 |
+| AE | budget wedding dj jacksonville | #2 -> #6 |
+| AE | lightner museum wedding dj | #2 -> #8 |
+
+All six landed on the same sweep. The Jul 14 homepage hero rewrite is a candidate cause (Jacksonville + Gainesville both dipped), **but AE dipped identically and AE's homepage was never touched**, which points to an external SERP event. Confidence hero-caused: **~35%**. Do not revert on this evidence alone.
+
+**3. Perplexity keyword discovery - FIXED**
+- `search()` used `data.get("results", [])`. The default only fires when the key is **absent**; Perplexity returns `{"results": null}` for some queries, handing callers a `None` to iterate. That was the intermittent `'NoneType' object is not iterable` silently skipping keywords. Same pattern hardened in `chat()`.
+- Separate silent bug: `load_tracked_keywords()` looked for brands `"cos"`/`"ae"` but `rankings.json` uses `cos_celebrations`/`ae_entertainment`, so it **always returned 0** and every keyword looked like a fresh gap. Now returns 99.
+- `run_weekly.sh` now runs `python3 -u`. Without it a stalled sweep and a healthy one produce an identical empty log - which caused a misdiagnosis this session.
+
+**4. Tampa Garden Club venue pages - BUILT, NOT DEPLOYED**
+- GSC gap: `dj tampa garden club` - 59 impressions, 0 clicks, no page. **Distinct from the existing Jacksonville Garden Club page.**
+- Perplexity research found **zero competitor DJ pages** for this venue - clean opening.
+- Hook: 2629 Bayshore Blvd is residential, and **Tampa ordinance Sec. 14-154 caps sound at 55 dBA from 10 p.m.** Both pages are built around planning the reception backward from that cutoff. Phrased as a city ordinance with "confirm your contract," since the venue's own curfew could not be sourced.
+- Verified facts: founded 1927 (Genevieve Stringer, over tea, originally Platt Street), 3 acres, 6,000 sq ft, up to 325 guests / ~240 indoors with a dance floor / ~250 outdoor ceremony, large free private lot, rental ~$4,500-7,500.
+- Validated: Service + WebPage + FAQPage + LocalBusiness schema parse; FAQ schema matches visible copy **word-for-word**; no Rule 15 unicode; no broken internal links. Sitemaps updated (COS 86, AE 79).
+- **No claim of past events at this venue** - we have not worked it.
+- **Open:** both pages use a generic dance-floor fallback hero. No Tampa Garden Club images exist in either repo. Same gap as Ribault Club.
+
+**5. EVERY DataForSEO location code was wrong - FIXED (the big one)**
+
+Ran the Sunday sweep to confirm the 6 drops. It failed 38% of keywords, which led here:
+
+| sweep.py label | code | actually resolved to |
+|---|---|---|
+| jacksonville | 1013964 | **Los Gatos, California** |
+| st augustine | 1014229 | **San Leandro, California** |
+| orlando | 1015214 | Tampa, Florida |
+| tampa | 1015754 | **Dubuque, Iowa** |
+| ponte vedra | 1015354 | Forsyth, Georgia |
+| palm coast | 1015300 | Cobb, Georgia |
+| **DEFAULT (Florida statewide)** | **21149** | **Kansas** |
+| fernandina / daytona / gainesville | - | invalid codes, hard API errors |
+
+Only Atlanta was correct. The statewide default is what nearly every venue keyword falls back to, so **most venue rankings were measured from Kansas**, and the invalid codes are why those keywords kept returning null - which is what generated the null runs that fed the false `lost_ranking` alerts. Corrected against `/v3/serp/google/locations/US`; `Invalid Field` errors went to zero.
+
+**This invalidates the "6 real drops" above.** Only ONE prior sweep exists (2026-07-21), so the Jul 21 column is the only DataForSEO-derived data in `rankings.json`; everything before it came from Perplexity `rank_checker`. Those 6 keywords therefore compare Perplexity measurements (Jul 13 and earlier) against a Kansas/California DataForSEO reading (Jul 21). That is a **measurement-source change, not ranking movement** - which is why all six moved on the same sweep and why COS and AE dipped together.
+
+**Net: zero of the 16 alerts are established ranking losses.** 10 were the detector bug, 6 are a source artifact. Do not act on any of them. Do not revert the homepage hero on this evidence.
+
+**6. `retry_errors.py` had a hardcoded filename - FIXED**
+Hardcoded to `sweep-2026-07-21.json`, so running it after a newer sweep silently repaired and rewrote the OLD file while printing "Saved". Worse, it re-fetches with the *current* location codes, so it mixed correctly-located rows into a file whose other rows were measured from Kansas. Now takes a path argument and defaults to the newest sweep.
+
+**Manager agent:** fired 14:25 and failed - `~/.local/bin/claude: No such file or directory` (Homebrew install on the iMac). `run-manager.sh` now resolves the binary via `command -v`. **Confirmed working: ran successfully at 16:25.** It also ran at 14:25 and 16:25, so **the plist's every-2-hours is what is actually live** and CLAUDE.md's "daily 7:03am" is stale documentation. Open question is whether every 2h is wanted - that is 12 full Claude Code invocations a day. Also fixed the `Write(...)` vs `Edit(...)` permission rules it warned about in both settings files.
+
+**5. DataForSEO location codes were all wrong - FIXED (biggest finding of the day)**
+- **Every** code in `sweep.py` except Atlanta pointed elsewhere: jacksonville -> **Los Gatos CA**, st augustine -> **San Leandro CA**, orlando -> Tampa FL, tampa -> **Dubuque IA**, ponte vedra -> Forsyth GA, palm coast -> Cobb GA, and the statewide default (used by most venue keywords) -> **Kansas**. Fernandina/Daytona/Gainesville were invalid codes that hard-errored.
+- The stored JSON *labelled* rows `"Florida,United States"` while sending code 21149 (Kansas), so bad data looked correct on inspection.
+- Corrected against `/v3/serp/google/locations/US` and re-swept. Invalid-code errors went **2+ -> 0**.
+- `retry_errors.py` had the sweep filename **hardcoded** to `sweep-2026-07-21.json`, so it silently repaired the wrong file while reporting success, and re-fetched with current codes - mixing correctly-located rows into a wrong-located file. Now takes a path argument, defaults to newest.
+
+**This invalidates the "6 real drops" above.** Jul 21 was the **only** DataForSEO column in `rankings.json`; everything earlier came from Perplexity `rank_checker`. Those 6 compared Perplexity numbers against a Kansas measurement - a source + location change, not ranking movement. **None of the 16 alerts were established losses.**
+
+**First trustworthy sweep (2026-07-26, correct Florida locations), 72/101 keywords usable:**
+
+| | measured | top 3 | top 10 | pos 11-20 | not ranking |
+|---|---|---|---|---|---|
+| COS | 71 | 21 | 39 | 7 | 22 |
+| AE | 69 | 8 | 18 | 5 | 34 |
+
+The 6 formerly-"dropped" keywords at correct location: jacksonville wedding dj **#7**, jacksonville fl wedding dj **#11**, gainesville **#7**, wedding dj with live saxophone **#1**, AE budget wedding dj jacksonville **#4**, AE lightner museum **#8**.
+
+**Do not read these as a trend.** New baseline on a new instrument; DataForSEO and Perplexity disagree systematically (consistent with the known ~36% agreement rate). **Trend requires the next correct-location sweep (Sun Aug 2).** Actionable now: `jacksonville fl wedding dj` at **#11 is genuinely off page 1**; `wedding dj with live saxophone` at **#1** is a win, not the loss it was reported as.
+
+29 keywords still fail with transient `Internal SE Server Error` (mostly statewide-default venue keywords). `merge_sweep.py` correctly **skips** errored rows rather than writing null, so no false "not ranking" entries were created. Backup: `rankings.json.bak-pre-merge-2026-07-26`.
 
 ---
 
