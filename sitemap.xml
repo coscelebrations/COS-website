@@ -156,12 +156,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-  <url>
-    <loc>https://coscelebrations.com/pricing-guide/</loc>
-    <lastmod>2026-01-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
 
   <!-- St. Augustine Venues -->
   <url>
@@ -441,6 +435,12 @@
   <url>
     <loc>https://coscelebrations.com/le-meridien-tampa-wedding-dj/</loc>
     <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://coscelebrations.com/tampa-garden-club-wedding-dj/</loc>
+    <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
