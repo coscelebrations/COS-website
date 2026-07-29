@@ -1,5 +1,43 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: July 28, 2026
+## Last Updated: July 29, 2026
+
+---
+
+## Session: July 29, 2026 — Venue directory crawl hub + two corrections to the Jul 28 notes
+
+**Two things in the July 28 entry below were wrong. Both are corrected here.**
+
+**Correction 1: the uncommitted Jacksonville rewrite did NOT delete the FAQPage schema.** It minified it onto a single line, which a line-based diff reads as a deletion. The schema was intact the whole time. What the diff actually did was better than what was live: HEAD had **12 questions in schema but only 8 visible on the page** — a real mismatch Google can treat as markup for invisible content. Shipped version is 11 and 11, exactly matched. The page sat blocked for a day on a misread.
+
+Two judgment calls made before shipping: restored `COS Celebrations` to the title (the rewrite had swapped it for a second keyword on a page pulling 2,527 impressions/30d), and re-added **"Who is the best wedding DJ in Jacksonville, Florida?"** — the only direct answer to the AEO query COS keeps missing in AI visibility checks. Reworded from the old "no other Jacksonville company offers" to the sanctioned "Florida's original wedding DJ + live music hybrid" framing.
+
+**Correction 2: "internal linking is not the cause" was measured wrong.** The Jul 28 note cited 7–18 inbound links per page. That count includes links from pages Google has *also* never fetched, which pass nothing. Splitting inbound links by whether the linking page has been crawled:
+
+| Page | Total inbound | From a crawled page |
+|---|---|---|
+| /leu-gardens-wedding-dj/ | 8 | **1** |
+| /sydonie-mansion-wedding-dj/ | 8 | **1** |
+| /castle-hotel-orlando-wedding-dj/ | 8 | **1** |
+| /jacksonville-wedding-venues/ | 11 | 3 |
+| /the-white-room-wedding-dj/ | 18 | 11 |
+
+**23 of the 53 had exactly one crawl-visible inbound link.** The venue pages mostly link to each other and that whole cluster is dark to Google. This does not overturn the crawl-demand diagnosis — it is a second, compounding problem, and unlike Request Indexing it is fixable in code. It also matches what `idx-2026-07-26-coverage` already said in April: *"resubmitting does NOT fix this — needs internal linking + content depth work."*
+
+**Shipped (COS `66836aa`, verified live):**
+- **`/vendors/venues/` was a "Directory Coming Soon" placeholder linking to zero venue pages.** Thin content on a crawled URL is exactly what earns "Crawled - currently not indexed," so it was likely one of the 13. Now a real directory of **all 60 venue pages** grouped into 8 markets, each market heading linking to its city hub. Added to `sitemap.xml` — it was never in it.
+- **The homepage did not link to `/vendors/` at all**, so the directory was unreachable from the highest-authority page. Added a link under the venue proof strip and one in the footer.
+- **`/team/corey-peterson/` was an orphan duplicate of `/team/djs/corey/`** — zero inbound links, in the sitemap, never crawled. Forced 301 (`301!`, because the file still exists on disk and Netlify serves real files before non-forced rules) and dropped from the sitemap.
+- Git remote URL updated to `COS-website` — the push warning from the Jul 28 note is gone.
+
+**Measured result:** venue pages with only one crawl-visible inbound link went **23 → 0**. Minimum for any venue page is now 2. `/fernandina-beach-wedding-dj/` is still at 1, but it is a city page and outside the venue directory's scope.
+
+**A false alarm worth recording so nobody re-raises it:** grouping venues by schema `addressLocality` appeared to show Epping Forest and Timuquana (Jacksonville venues) labeled "St. Augustine," which looked like the same template artifact fixed on Azaleana Manor. It is not. Those are COS's own `LocalBusiness` address blocks, which correctly say St. Augustine — most venue pages carry no venue-address block at all. **No venue is mislabeled.** (Epping Forest does have its `LocalBusiness` block duplicated — cosmetic, low priority.)
+
+**Still blocked: Request Indexing (`idx-2026-07-28-request-indexing`).** Chrome automation cannot reach GSC. The `chrome-devtools` MCP runs with no arguments, so it launches its *own* browser at `~/.cache/chrome-devtools-mcp/chrome-profile` signed into `corey@coscelebrations.com` — while both GSC properties live on `coscelebrations@gmail.com`. Fix is `--autoConnect` (Chrome 150 supports it): enable the debug server at `chrome://inspect/#remote-debugging`, add `--autoConnect` to the MCP args in `~/.claude.json`, restart. That also unblocks Google Ads, Analytics, and review responses. Caveat once working: Request Indexing is quota-limited to roughly 10-12 URLs/day per property, so it is still ~5 days for all 53 — automation saves the clicking, not the calendar.
+
+**Still uncommitted, unreviewed:** `amelia-island`, `orlando`, `ponte-vedra` (dated-urgency copy removal pass, carried over from Jul 28). AE: `contact`, `first-call/quote`, `jacksonville-wedding-dj`, `welcome`, untracked `blog/questions-to-ask-a-budget-wedding-dj/`.
+
+**Reassess:** check GSC Page Indexing ~2026-08-26 — if the 53 start moving out of "Discovered," the linking work is contributing. Confidence it helps on its own: **65%**. It does not create crawl demand; it makes each Request Indexing submission land on a page with real equity instead of a phantom count.
 
 ---
 
