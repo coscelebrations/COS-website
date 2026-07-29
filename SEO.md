@@ -3,6 +3,50 @@
 
 ---
 
+## Session: July 29, 2026 — Jacksonville "ranking drop" was a false alarm; rankings.json was mixing two measuring tools
+
+**No page was changed. The drop did not happen.** The alert said
+`jacksonville fl wedding dj` fell #3 → #9 on `/jacksonville-wedding-dj/`. It didn't.
+
+**What was actually wrong:** `rankings.json` stores one number per keyword per day
+with nothing recording where that number came from — and **two different tools write
+into it**: the DataForSEO sweep (a real SERP read) and `perplexity/rank_checker.py`
+(a language model's estimate). They silently overwrite each other.
+
+- The **#9** was a Perplexity estimate written Jul 27 at 10:02.
+- The DataForSEO sweep ran the same day at 13:37 and said **#6** — and was **never merged**.
+  `rankings.json` was last written at 10:02, before that sweep existed.
+- **62 of 112** values in the Jul 27 column disagreed with the real SERP.
+- The **#3** baseline was worse: measured before the Jul 27 location-code fix, i.e.
+  from **Los Gatos, California**.
+
+Merged the Jul 27 sweep. Real numbers: **Jul 21 = #6, Jul 27 = #6.** Flat.
+GSC agrees the alert was noise — the keyword drew **5 impressions and 0 clicks in six weeks**,
+so those positions came off one or two impressions a week.
+
+**Fixes shipped (tooling only, no site changes):**
+
+| Fix | File |
+|---|---|
+| Rank values now carry a `_sources` map (`dataforseo` / `perplexity`) | `merge_sweep.py` |
+| Perplexity will not overwrite a DataForSEO number for the same date | `perplexity/rank_checker.py` |
+| Won't compare ranks across the `2026-07-27` `MEASUREMENT_EPOCH` | `gsc/ranking_watch.py` |
+| Refuses any sweep without `location_codes_verified` | `merge_sweep.py` |
+| Stamps `location_codes_verified: true` on new sweeps | `sweep.py` |
+
+**Also found:** the Jul 21 sweep was logged as repaired on Jul 27 but **never was** —
+`retry_errors.py` only re-fetches rows that *errored*, so every other row kept its
+Los Gatos data. The file is byte-identical to its own `.bak-wrong-locations` backup.
+Jul 21 and Jul 26 sweeps are now marked unverified and can't be merged. They can't be
+repaired either — DataForSEO's live endpoint returns *today's* SERP.
+
+**Expect a quiet watch list for ~2 weeks.** The epoch guard resolved all 21 open alerts,
+because every one compared against a pre-fix baseline. That is not "everything is healthy" —
+it's "we never had a trustworthy *before*." Detection resumes once 2+ post-epoch sweeps land.
+Each resolved alert carries the reason in `ranking-alerts.json`.
+
+---
+
 ## Session: July 29, 2026 — Venue directory crawl hub + two corrections to the Jul 28 notes
 
 **Two things in the July 28 entry below were wrong. Both are corrected here.**
