@@ -13,6 +13,12 @@
 # Closed venues - 301 redirect to relevant hub
 /crystal-ballroom-daytona-wedding-dj/ /daytona-beach-wedding-dj/ 301
 
+# Duplicate team page - 2026-07-28. /team/corey-peterson/ was an orphan copy of
+# /team/djs/corey/ with zero inbound links, sitting in sitemap.xml and burning
+# crawl budget while never being crawled. Forced (!) because the old file still
+# exists on disk and Netlify serves real files before non-forced rules.
+/team/corey-peterson/ /team/djs/corey/ 301!
+
 # Old WordPress URLs - 410 Gone (tells Google to stop crawling)
 /blog/* / 410
 /our-team/* / 410
