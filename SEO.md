@@ -39,6 +39,24 @@ Two judgment calls made before shipping: restored `COS Celebrations` to the titl
 
 **Reassess:** check GSC Page Indexing ~2026-08-26 — if the 53 start moving out of "Discovered," the linking work is contributing. Confidence it helps on its own: **65%**. It does not create crawl demand; it makes each Request Indexing submission land on a page with real equity instead of a phantom count.
 
+### Follow-up same day: Vendors link in the footer sitewide (COS `47e1806`)
+
+Corey noticed the directory wasn't reachable from the front page nav and asked whether it should be hidden, since competitors watch the site. **It can't be hidden and shouldn't be:** `sitemap.xml` is public and already lists all 70 venue URLs — Google requires it — so the directory exposes nothing new, and hiding it from crawlers is the one thing that would break the crawl fix. Showing a page to Google but not to people is cloaking, a manual-penalty offense. The real moat is the insider detail on each venue page, not the venue list.
+
+**Nav audit found the site runs two different navs.** Only 8 of 101 pages carry a Vendors tab — the 8 vendor pages themselves. The homepage and every venue and city page use a different nav without it, so the vendor section was an island linking only to itself. Pre-existing, not introduced here.
+
+**Decision (Corey's):** footer link, not a nav tab, and point it at `/vendors/` rather than `/vendors/venues/` so the hub can grow to cover planners, photographers and the rest.
+
+- **Vendors added to the footer on 86 more pages (95 total).** Every page Google fetches now has a path into the directory; before this only the homepage did.
+- Deliberately skipped: `/go/` (landing page), `/pricing-guide/` (noindex), `/script-builder/`, `/tracker/`, `/tracker-legacy/` (internal tools).
+- **The Venues card on `/vendors/` still read "Coming Soon"** after the directory went live. Fixed to "60+ venues."
+
+**Open, needs Corey's input:** six of the seven vendor category pages are genuine placeholders — `planners`, `photographers`, `catering`, `bar-service`, `videographers`, `guest-experiences`, all ~97 words of "Coming Soon." Thin pages on crawled URLs are what earns "Crawled - currently not indexed," so they are probably already in that bucket of 13. Filling them needs the actual vendor names Corey recommends. Worth doing for a second reason: named vendors tend to link back, and per `guidelines-2026-05-26.md` unlinked brand mentions beat backlinks 3x for AI citation.
+
+**Also noted, not fixed:** `fernandina-beach-wedding-dj` and `st-johns-golf-wedding-dj` each have an unclosed `<div>` before `</section></body></html>`. Confirmed identical in HEAD, so pre-existing, but worth a pass. The `/vendors/` hub also uses emoji category icons, which Rule #15 prohibits.
+
+**Left uncommitted, still awaiting Corey's review:** `amelia-island`, `orlando`, `ponte-vedra` — the dated-urgency copy removal pass carried over from Jul 28. They now also carry the footer link. Kept out of the footer commit deliberately rather than bundling unreviewed content changes.
+
 ---
 
 ## Session: July 28, 2026 — 53 COS pages have NEVER been crawled by Google
