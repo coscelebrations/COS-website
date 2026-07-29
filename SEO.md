@@ -97,7 +97,13 @@ Corey noticed the directory wasn't reachable from the front page nav and asked w
 
 **Open, needs Corey's input:** six of the seven vendor category pages are genuine placeholders — `planners`, `photographers`, `catering`, `bar-service`, `videographers`, `guest-experiences`, all ~97 words of "Coming Soon." Thin pages on crawled URLs are what earns "Crawled - currently not indexed," so they are probably already in that bucket of 13. Filling them needs the actual vendor names Corey recommends. Worth doing for a second reason: named vendors tend to link back, and per `guidelines-2026-05-26.md` unlinked brand mentions beat backlinks 3x for AI citation.
 
-**Also noted, not fixed:** `fernandina-beach-wedding-dj` and `st-johns-golf-wedding-dj` each have an unclosed `<div>` before `</section></body></html>`. Confirmed identical in HEAD, so pre-existing, but worth a pass. The `/vendors/` hub also uses emoji category icons, which Rule #15 prohibits.
+**Fixed after a closer look (COS `339bd8f`):** I first reported an unclosed `<div>` on `fernandina-beach-wedding-dj` and `st-johns-golf-wedding-dj`, and called it cosmetic. Both parts were wrong. The real cause was a **stray double-quote — `<h3">` instead of `<h3>`** — Fernandina line 217, St. Johns line 187. Same typo in both places, so a template copy-paste.
+
+It was not cosmetic. The browser parsed `<h3"` as an unknown element, so those cards rendered with **no heading at all**: "No Travel Fees" and "DJ + Live Saxophone" lost their h3 styling and Google saw no heading there — on a page whose whole point is the DJ + live sax angle. Verified in-browser after the fix: both are real `h3` elements again at the same 20px as their siblings, page h3 count 6 → 7.
+
+Swept the site for the same pattern — only these two. A full tag-balance rescan of all 101 pages now reports zero problems. **Lesson: a tag-balance checker reports where the parse breaks, not where the typo is. Read the actual line before calling it low-priority.**
+
+**Still open:** the `/vendors/` hub uses emoji category icons, which Rule #15 prohibits.
 
 **Left uncommitted, still awaiting Corey's review:** `amelia-island`, `orlando`, `ponte-vedra` — the dated-urgency copy removal pass carried over from Jul 28. They now also carry the footer link. Kept out of the footer commit deliberately rather than bundling unreviewed content changes.
 
