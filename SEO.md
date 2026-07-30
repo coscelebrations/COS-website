@@ -105,6 +105,22 @@ Swept the site for the same pattern — only these two. A full tag-balance resca
 
 **Still open:** the `/vendors/` hub uses emoji category icons, which Rule #15 prohibits.
 
+### Follow-up same day: Request Indexing unblocked, 12 of 53 submitted
+
+**The Chrome problem was an account mismatch, and Corey fixed it in about a minute.** The `chrome-devtools` MCP launches its own browser (`~/.cache/chrome-devtools-mcp/chrome-profile`), which was signed into `corey@coscelebrations.com` — an account with access to neither GSC property. Rather than the `--autoConnect` route (toggle at `chrome://inspect`, edit `~/.claude.json`, restart), Corey just signed *that* browser into `coscelebrations@gmail.com`. It stays signed in, so GSC, Google Ads and Analytics are all reachable in future sessions with no setup.
+
+Worth recording why `--autoConnect` was needed at all: his own Chrome was already running, so command-line debug flags would not apply, and Chrome 136+ refuses `--remote-debugging-port` on the default profile anyway. Signing into the MCP browser sidesteps both.
+
+**Submitted 12 URLs, all confirmed "added to a priority crawl queue":** `/jacksonville-wedding-venues/`, `/the-white-room-`, `/river-house-`, `/bowing-oaks-`, `/club-continental-`, `/ribault-club-`, `/glass-factory-`, `/bella-collina-`, `/casa-monica-`, `/san-jose-country-club-`, `/ponte-vedra-inn-club-`, `/marsh-landing-country-club-wedding-dj/`. Every one read "Discovered - currently not indexed / Last crawl: N/A" beforehand, matching the Jul 28 pull exactly.
+
+**The daily quota is 12, not ~10.** I had estimated ~10-12 and hedged at 80% confidence; now measured. The 13th (`walkers-landing`) returned *"Quota Exceeded — you've exceeded your daily quota. Please try submitting this again tomorrow."* 41 left, so four more days. Full day-by-day queue: `~/seo-data/gsc-indexing-queue.md`.
+
+**Google independently confirmed the linking diagnosis.** URL Inspection on `/jacksonville-wedding-venues/` reported **"Referring page: None detected"** — on the hub page, the highest-priority item on the list. That is Google's own read of the same gap found by splitting inbound links by crawl status, and it is the strongest evidence yet that the Jul 28 "internal linking is not the cause" conclusion was measuring the wrong thing. All 12 were submitted *after* the venue-directory deploy, so they enter the crawl queue with the new inbound links already live.
+
+**One scripting note for next time:** the Request Indexing control is a `div[role="button"]`, not a `<button>` — matching on `aria-label*="Request indexing"` is what works.
+
+**Reassess ~2026-08-26.** Request Indexing buys a priority crawl, not an index. If these pages get crawled and then land in "Crawled - currently not indexed," the bottleneck is content quality across 51 near-identical venue pages — the unproven ~40% hypothesis above — and that needs different work entirely.
+
 **Left uncommitted, still awaiting Corey's review:** `amelia-island`, `orlando`, `ponte-vedra` — the dated-urgency copy removal pass carried over from Jul 28. They now also carry the footer link. Kept out of the footer commit deliberately rather than bundling unreviewed content changes.
 
 ---
