@@ -1,5 +1,114 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: July 29, 2026
+## Last Updated: August 3, 2026
+
+---
+
+## Session: August 3, 2026 — AE was still selling a venue that closed 32 days ago
+
+**Shipped: AE commit `28a0d60`, pushed to main, 301 confirmed live on ae-djs.com.**
+
+The Crystal Ballroom at Sunset Harbor closed and was confirmed 2026-07-02. COS was
+cleaned that day. **AE never was** — `ae-djs.com/crystal-ballroom-daytona-wedding-dj/`
+stayed live for 32 days, titled *"Crystal Ballroom at Sunset Harbor Wedding DJ |
+Daytona | $800"*, still in the sitemap, still linked from the Daytona city page. A
+couple searching Daytona could land on it and enquire about a venue that doesn't exist.
+
+Applied: page deleted, 301 to `/daytona-beach-wedding-dj/` (mirrors COS), sitemap
+`<url>` block removed, stale `_data/indexingStatus.json` entry dropped. Data side:
+keyword removed from `kw_list.json` (101 → 100, it had been erroring on the Aug 2
+sweep after up to 6 retried API calls), ranking alert resolved as `venue closed`,
+`unify_actions.py` re-run — 0 Crystal Ballroom items left in the live queue,
+including the impact-65 one that was proposing we **build** a page for it.
+
+### The part the prepared script missed
+
+`apply.py` removed the one inbound link it knew about. The venue name appeared in
+**five** places on `/daytona-beach-wedding-dj/`: the link, the venue-list chip, the
+**FAQPage schema**, the visible FAQ, and a body line reading *"Estate on the Halifax
+has different acoustics than the Crystal Ballroom."* Stripping only the link would
+have left AE asserting in structured data that it *regularly performs at* a closed
+venue — the exact text AI search quotes back. **Rule going forward: grep the repo
+for the venue name, not just the slug.**
+
+### Bug found and fixed: `log_task.py` was silently cooling off the wrong brand
+
+Logging this task suppressed `refresh-cos-daytona-beach-wedding-dj` for 45 days —
+a **COS** action, from **AE-only** work. Cause: `log_task.py` defaults `brand` to
+`"both"` whenever a task isn't in `seo-actions.json` (manager `mgr-*` ids never
+are), and `unify_actions.py` correctly treats `"both"` as covering both brands.
+The matcher was right; the log entry was wrong.
+
+Wrong in the invisible direction — a suppressed action looks identical to one that
+legitimately isn't due yet. Caught only by reading `cooling_off` immediately after
+running it. Re-logged with `--brand AE`, COS action restored. Added a
+`warn_default_brand()` guard to `log_task.py` with a dated comment, mirroring the
+existing missing-`--pages` warning. **Any un-branded entry logged before 2026-08-03
+may have silently cooled off the other brand's action on the same slug.**
+
+### Still open
+
+`ponce de leon hall wedding dj` is swept weekly, has no page on either site, and
+also errored on the Aug 2 sweep. Either a venue page we meant to build or a keyword
+to drop — left alone, it's a judgement call.
+
+---
+
+## Session: August 3, 2026 — Weekly Rank Scan (Manager Agent, week 32) + the tool-mixing bug is still live
+
+**Three weekly tasks ran: w1 rank scan, w4 AI visibility, w5 competitor scan.**
+
+### AI visibility — the one clean win
+
+**COS 7/8 (88%), up from 75%.** That 75% was not drift: it was exactly 6/8 on Jul 13,
+Jul 21 *and* Jul 27. First movement in five checks. The new hit is "Affordable wedding DJ
+near Jacksonville FL." AE flat at 4/8 (50%) for a third check.
+
+**"Top rated wedding DJ Jacksonville" is the only query where neither brand appears.**
+Clean content target.
+
+### Competitor scan — quiet, and the one alert is good news
+
+No new entrants in Jacksonville, Orlando or St. Augustine. Classic Disc Jockeys moved
+**#2 → #3** for "best wedding dj orlando" — the script flags any top-3 competitor as a
+THREAT, but they *lost* a slot. Future Stereo #4 "st augustine wedding dj" and Soundwave
+#5 "orlando wedding dj" both unchanged.
+
+### The rank scan printed 54 changes. Every one is an instrument artifact.
+
+Same defect the July 29 session below recorded, still unfixed and now measured on the same
+day it happened. `rank_checker.py` compared today's **Perplexity** readings against
+Sunday's **DataForSEO** sweep:
+
+| Comparison against previous reading | n |
+|---|---|
+| **Cross-instrument** | **151** |
+| Same-instrument | 27 |
+| Source untagged | 0 |
+
+103 of the 151 return a different number, which is exactly what the scan reports as
+IMPROVED / DROPPED / LOST / NEW. The worst case **inverts**:
+
+| Keyword | Reported | Actual (Perplexity → Perplexity) |
+|---|---|---|
+| casa monica wedding dj | **#1 → out of top 10** | 8 → 7 *(slightly up)* |
+| glass factory wedding dj | #2 → #8 | 5 → 8 |
+| deerwood country club wedding dj | #2 → #10 | unranked → 10 *(a gain)* |
+
+**Do not treat any number from the Aug 3 scan as a ranking change.** Acting on the Casa
+Monica line would mean rewriting a page that is fine — the same mistake that nearly reverted
+the AE St. Augustine rewrite that worked.
+
+`ranking_watch.py` was deliberately **not** run: consecutive Perplexity checks are what
+confirm phantom alerts onto the dashboard, and confirmed alerts feed `unify_actions.py`'s
+top-5. Verified afterward — `ranking-alerts.json` untouched (Aug 2 21:20, 7 confirmed /
+11 watching, unchanged) and `rank_checker.py` wrote only `rankings.json`. The readings
+themselves are legitimate and correctly tagged `perplexity` in `_sources`; nothing needs
+backing out. **The data is fine, the comparison is broken.**
+
+`_sources` is populated for 178 of 178 keywords with zero untagged — the fix data is already
+in the file. Evidence + re-runnable script:
+`~/manager-agent/drafts/w1-2026-08-03-source-mixing/`. Tracked on `mgr-2026-08-01-1` and
+`mgr-2026-07-27-1`.
 
 ---
 
@@ -2173,3 +2282,35 @@ The 6 formerly-"dropped" keywords at correct location: jacksonville wedding dj *
 ---
 
 *For older session notes, see `SEO-ARCHIVE.md`*
+
+### Session Notes (Aug 3, 2026) - Re-baseline read on the corrected instrument
+
+First honest week-over-week ranking read since the DataForSEO location codes were fixed on
+Jul 27. Two location-verified sweeps now exist: **Jul 27 and Aug 2**. Everything earlier is
+either wrong-location (Jul 21, Jul 26 - both stamped `location_codes_verified: false`) or a
+Perplexity estimate, and must not be compared across.
+
+**Only 34 of 101 keywords produced a valid reading.** The other 67 split into 25 that crossed
+the truncated/full SERP boundary (not comparable), 26 that got their first correct-location
+reading on Aug 2 (baseline only), and 16 with no valid rank at all.
+
+Within the 34 comparable keywords: **COS 11 up, 2 down, 1 entered, 2 dropped out. AE 5 up,
+7 down, 2 entered, 2 dropped out.** Best COS gains: glass factory 23 -> 2, ponte vedra inn and
+club 13 -> 3, lodge club 9 -> 4, paradise cove 23 -> 14, `jacksonville wedding dj` 8 -> 6.
+
+**Watch item:** COS fell out of the top 100 for `jacksonville fl wedding dj` (was #6 on
+Jul 27). Same instrument, same mode, same location - not one of the three known measurement
+bugs. But `/jacksonville-wedding-dj/` is present and moving *up* on all three sibling
+variants in the same sweep, so this reads as one-variant volatility. **No page edits. Recheck
+on the Aug 9 sweep** - absent twice on full-mode reads is a real loss.
+
+**No verified rank data exists for Epping Forest or Treasury on the Plaza.** Both are listed
+in CLAUDE.md as needing insider content "after dropping off rankings." Epping Forest has
+errored on every verified sweep; Treasury worked Jul 27 and errored Aug 2. Any claim about
+where those two rank is currently unfounded.
+
+Two instrument problems still block trend analysis and will shrink the comparable set every
+week until fixed: a ~16% per-sweep error rate (`sweep.py` claims its retry logic holds this
+near 1%; Aug 2 missed 15.8%) and the fact that nothing records which SERP mode a rank came
+from. Full analysis and reproducible script:
+`~/manager-agent/drafts/dfs-rebaseline-2026-08-03/`.
