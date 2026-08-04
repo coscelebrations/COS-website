@@ -1,5 +1,25 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 3, 2026
+## Last Updated: August 4, 2026
+
+---
+
+## Session: August 4, 2026 — IT WORKED. 10 of the first 12 never-crawled pages are indexed.
+
+**Six days after submission, 10 of the 12 pages from the Jul 29 batch have gone from "Discovered - currently not indexed / Last crawl: N/A" to "URL is on Google / Page is indexed."** These are pages Google had never once fetched in roughly seven months. "View crawled page" is now enabled on them, and River House reports 6 valid Review snippet items — the schema work on those pages is finally being read.
+
+Indexed: `/jacksonville-wedding-venues/`, `/the-white-room-`, `/river-house-`, `/bowing-oaks-`, `/ribault-club-`, `/glass-factory-`, `/bella-collina-`, `/casa-monica-`, `/san-jose-country-club-`, `/ponte-vedra-inn-club-wedding-dj/`.
+
+Still stuck on "Discovered": `/club-continental-wedding-dj/` and `/marsh-landing-country-club-wedding-dj/`. **Not resubmitting** — Google states resubmitting does not change queue position. If they are still stuck in ~2 weeks they become the first genuine evidence for the content-quality hypothesis (51 near-identical venue pages) rather than crawl access. Worth waiting for rather than guessing at.
+
+**What we cannot claim.** Three things shipped together — the `/vendors/venues/` crawl hub, the sitewide footer link, and Request Indexing. This data cannot separate their contributions. The honest read is that the combination worked; asserting Request Indexing alone did it would be a guess. The one supporting detail is that Google reported "Referring page: None detected" on the hub *before* the fix and detected referring pages afterward.
+
+**Measurement warning, and it nearly caused a false negative.** The GSC aggregate Pages report still read **69 not-indexed / 30 indexed** today, unchanged, while 10 of those pages were demonstrably indexed. That report lags several days. Trust per-URL inspection over the aggregate in the short term, and do not read a flat aggregate as failure. Same family as the rank-checker and indexing-monitor problems from late July.
+
+**Day 3 submissions:** 11 more sent, all confirmed queued — `/don-cesar-`, `/florida-aquarium-`, `/golf-club-amelia-island-`, `/le-meridien-tampa-`, `/nova-535-`, `/omni-amelia-island-`, `/the-orlo-`, `/alfond-inn-`, `/casa-feliz-`, `/castle-hotel-orlando-`, `/dr-phillips-house-wedding-dj/`. Quota hit on Leu Gardens.
+
+**Running total: 34 of 53.** 19 real ones left (two of the 53 are deliberate skips — `/team/corey-peterson/` now 301s, `/pricing-guide/` is noindex). Roughly two more sessions. Queue: `~/seo-data/gsc-indexing-queue.md`.
+
+**Atlanta note:** `/atlanta-wedding-dj/` was submitted Jul 30. The standing recommendation to park the Atlanta expansion rests on zero impressions over three months, but the page had never been crawled — it could not have produced impressions. **Do not action the park decision until Atlanta has been indexed and given a fair window.**
 
 ---
 
