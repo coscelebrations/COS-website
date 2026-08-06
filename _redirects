@@ -19,6 +19,15 @@
 # exists on disk and Netlify serves real files before non-forced rules.
 /team/corey-peterson/ /team/djs/corey/ 301!
 
+# Retired lead tracker - 2026-08-06. /tracker-legacy/ was the pre-cutover tracker
+# (see db6df9f, 2026-06-17). Its only protection was a guessable sync code typed
+# into an anonymous Firebase session, so anyone who knew a code could read another
+# DJ's leads - which is the whole reason /tracker/ moved to email + password.
+# The page is deleted; this sends old bookmarks to the new login screen.
+# NOTE: the Firestore 'trackers/{syncCode}' data is deliberately NOT deleted -
+# the new tracker's one-time import still reads it (tracker/index.html:1477).
+/tracker-legacy/* /tracker/ 301!
+
 # Old WordPress URLs - 410 Gone (tells Google to stop crawling)
 /blog/* / 410
 /our-team/* / 410
