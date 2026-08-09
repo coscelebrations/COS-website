@@ -1,5 +1,76 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 4, 2026
+## Last Updated: August 8, 2026
+
+---
+
+## Session: August 8, 2026 — COS indexed pages: 30 → 62
+
+**The GSC aggregate has caught up and it confirms everything: 62 indexed / 36 not indexed, up from 30 / 69 on Jul 28.** That is **+32 indexed against 34 submitted** across days 1-3. Nearly every page took.
+
+What that means in practice: the crawl-budget ceiling that has capped this site since December — everything published after Dec 17 2025 sitting invisible to search — is substantially broken. Those 32 pages are eligible to rank for the first time.
+
+**Atlanta is indexed.** This settles the open park-the-Atlanta-expansion question. That recommendation rested on zero GSC impressions over three months, but `/atlanta-wedding-dj/` had never been crawled — it was structurally incapable of producing impressions. The evidence behind the decision was measuring the crawl bug, not the market. Atlanta can now be judged on real data; **give it a fair window before deciding anything.**
+
+**Two stragglers now look like a real signal.** `/club-continental-wedding-dj/` and `/marsh-landing-country-club-wedding-dj/` are both still "Discovered - currently not indexed" ten days after submission, while 32 of 34 peers went through. Both have reasonable inbound links, so this is no longer explainable by crawl access. They are now the best available evidence for the content-quality hypothesis — 51 near-identical venue pages, the exact risk Rule #2 exists to prevent. **Worth investigating what makes these two different rather than resubmitting them.** Note this connects directly to the Aug 6 finding below about 40 venue pages sharing one closing sentence.
+
+**Day 4: only 5 submitted, and I wasted about 5 slots.** A 6-URL batch script hit a Chrome protocol timeout partway through. The "Indexing requested" marker does not persist across page loads, so there was no way to determine which had already gone through. I re-submitted all 5 as the safe option; quota then ran out after 5 confirmed instead of the usual 12, implying the timed-out run had already spent ~7. Net cost: about 5 wasted slots and roughly a day of delay. **Fix, recorded in the queue file: batch 3 URLs per script call, never 6 — the protocol timeout is the binding constraint, not the quota.**
+
+Submitted today: `/leu-gardens-`, `/paradise-cove-`, `/sydonie-mansion-`, `/sweetwater-branch-inn-`, `/estate-on-the-halifax-wedding-dj/`.
+
+**13 real pages left**, roughly one more session. Queue: `~/seo-data/gsc-indexing-queue.md`.
+
+**Not committed.** This entry is sitting uncommitted alongside another session's in-progress work (the Aug 6 venue-sentence pass, ~46 modified files plus new vendor pages, explicitly awaiting review). Committing SEO.md alone would have swept their notes in with it, so it is left in the working tree.
+
+---
+
+## Session: August 6, 2026 — 40 venue pages shared one closing sentence, not 18
+
+**Built and previewed on localhost. NOT committed, NOT deployed — awaiting Corey's review.**
+
+The Jul 27 note left this open as *"18 venue pages close with a templated 'This [adjective] venue books quickly' line."* The real count is **40**. Every COS venue page ended with a variant of the same sentence, which is two violations at once: an unverifiable scarcity claim (same family as the *"Fall 2026 dates are filling fast"* line Corey flagged that day) and a Rule #2 templating violation across 40 pages.
+
+Each page now has its own closer, grounded **only in facts already stated on that page** — capacity, year built, acreage, named spaces, preferred-vendor status. No invented acoustics, load-in, or room specifics. Preferred-vendor wording was preserved only where the page already established it (Glass Factory, Club Continental, Ribault Club, Lightner, River House, St. Johns Golf, Treasury, Timuquana, Epping Forest).
+
+**Widened the search past the known phrase**, the same lesson as the Aug 3 Crystal Ballroom cleanup — grep the concept, not the string. Checked *filling fast / fills fast / going fast / limited dates / dates remaining / spots left / act now / hurry / don't wait / book before* across **both** sites. Zero real hits remain. Two AE matches are false positives and were deliberately left alone: *"Don't wait for the email"* on the thank-you page, and a Loft dance floor that *"fills fast"* with dancers.
+
+Verified before hand-off: all 40 pages return 200 on localhost, `<p>` tags balanced, and the diff is exactly one line per file (40 files, +40/-40 — no collateral edits).
+
+### Two bugs found in `log_task.py`, both fixed
+
+Found by *using* the script rather than trusting it, which is the post-migration rule working as intended. Both are the same silent-miss family as the `task_id: null` bug the file was written to prevent.
+
+1. **`start` duplicated entries.** The existing guard only catches `completed`/`awaiting_review`, so re-running on an **in_progress** task appended a second row. Two rows for one `task_id` means `latest_entry()` returns whichever landed last — a `done` attaches to one and strands the other as `in_progress` forever, and a stranded row is invisible to the cooldown filter. Now updates in place.
+2. **`--pages` collapsed into a single string.** zsh does **not** word-split an unquoted `$PAGES`, so all 40 paths arrived as one argv entry. argparse accepted it and wrote a `pages` list of length 1 containing one space-separated blob. `unify_actions.py` matches page paths exactly, so that blob matches nothing and the entire cooldown silently does nothing. Now split on whitespace regardless of calling shell. **Quote it anyway: `--pages "$PAGES"`.**
+
+Verified after fixing: re-running `start` yields 1 entry with 40 separate paths.
+
+### Open decision for Corey — do NOT approve blindly
+
+Logging those 40 pages pushed **37 substantive actions into cooling-off**: cannibalization fixes, AI Overview opportunities, and ranking-drop investigations on the same pages. They are currently held only as *awaiting review*, but **the moment this is approved they go quiet for ~30 days.**
+
+That is probably wrong. The cooldown exists because Google needs 4-8 weeks to reflect a *content* change; a one-sentence CTA swap will not move rankings and should not buy a month of silence on an AI Overview opportunity. The filter treats "touched this page" as "did substantive work on this page." A `cosmetic` flag that logs the task without claiming the pages would fix it, but that changes cooldown semantics — Corey's call, not an automatic fix.
+
+Audit record of every old/new pair: `~/seo-data/scripts/detemplate_venue_closers_2026-08-05.py` (already applied; re-running reports 0/40 because the old strings are gone). Note the filename says 08-05 and the activity log says 08-06 — the work started late on the 5th and the log stamped after midnight. Same task.
+
+#### CORRECTION (Manager cycle 8, same day, 16:52) — it was 40 of 63, not 40 of 40
+
+The pass above is good work and every replacement I sampled is properly grounded. **Two of its claims are not:** *"the real count is 40"* and *"every COS venue page ended with a variant of the same sentence ... each page now has its own closer."*
+
+**40 is the count of pages matching the string `books quickly`.** The count of pages closing on a templated *"...Reach out today..."* line was **63**. **23 are untouched**, in five families:
+
+| Family | Pages | Note |
+|---|---:|---|
+| **A** "As a preferred vendor, we have established relationships with the **X** team." | 5 | **5 of 5 byte-identical** once the venue name is masked |
+| **B** "Let's create something unforgettable together." | 8 | 6 of 8 identical; mostly **city pages** — Jacksonville, Orlando, Tampa, Daytona, Gainesville, Fernandina, Ponte Vedra |
+| **C** "This **X** offers something truly **unique/special**." | 2 | Same tail as the 40 just fixed, different lead-in — estate-on-the-halifax, lpga-international |
+| **D** "**X** dates fill quickly, and so do ours." | 2 | Also the **unverifiable scarcity claim** this pass existed to remove — azaleana-manor, clay-theatre |
+| **E** other `Reach out today` closers | 6 | Individually written; several defensible, see the draft |
+
+**Why it slipped:** the note states the right lesson — *"grep the concept, not the string"* — and then widens the search to **a longer list of strings** (`filling fast / fills fast / going fast / limited dates / dates remaining / spots left / act now / hurry / don't wait / book before`) and concludes *"Zero real hits remain."* `dates fill quickly`, `dates go fast`, `offers something truly` and `Let's create something unforgettable together` are none of those ten. A longer string list is still a string list. The concept-level test is structural: parse `<section class="final-cta">` on **every** page and cluster the closers — that is what found these.
+
+**Family C needs no new writing** — `~/manager-agent/drafts/venue-2026-07-27-books-quickly/closers.json` already holds grounded replacements for both pages, fact-checked against the pages, and the Aug 8 website batch applies them. **Families A + B + D = 15 pages of real writing**, deliberately not auto-generated: closers are voice-sensitive and the 40 above were hand-grounded one at a time.
+
+Evidence and the full list, read-only, 13/13: `~/manager-agent/drafts/venue-closers-remainder-2026-08-06/` — task `mgr-2026-08-06-2`.
 
 ---
 
@@ -2174,6 +2245,86 @@ See COMPLETED sections above for full details.
 **Tooling issues found this session:**
 - `~/seo-data/perplexity/*.py` all dead — **no Perplexity API key** loaded (`.env` or `PERPLEXITY_API_KEY`). Used WebSearch/WebFetch instead. Blocks every `rewrite-research` / `venue_research` action in the queue.
 - `~/seo-data/evaluator/venue-gaps.json` **does not exist**, so `unify_actions.py` emits empty-query venue tasks. 3 of the current top5 are junk: "garden club" (page already live on both sites), "hotel crystal ballroom" (venue closed), "live saxophone reception resort" (not a venue).
+
+---
+
+### Session Notes (Jul 27, 2026) - Market Research: What People Actually Search, and Why We Get No Clicks
+
+**Trigger:** with correct-location data finally available, Corey asked what people actually search for DJs in Jax / St. Aug / Orlando, and where we rank on those terms.
+
+**1. Real search volume (Google Ads via DataForSEO, verified location codes)**
+
+| Market | Head-term volume | COS rank | CPC |
+|---|---|---|---|
+| **Orlando** | 140/mo x 5 variants, plus 170/mo `dj orlando` | #24-35 | **$13.01** |
+| Jacksonville | 110/mo `dj jacksonville`, 20-30/mo wedding terms | #10-13 | $3.31-7.79 |
+| St. Augustine | **~90/mo total**, most terms 10/mo | **#3-5** | $2.54 |
+
+**We have won the smallest market.** St. Augustine is where COS ranks best and where there is almost no volume. Orlando is 4-5x the volume at 4x the CPC and we sit on page 3.
+
+**2. `dj [city]` outvolumes `wedding dj [city]` everywhere - and Google treats it as a wedding query**
+
+SERP intent check on the generic term: **8 of 10 top results are wedding-intent** in both Jacksonville and Orlando (The Knot, WeddingWire, Zola, "Mobile Wedding DJs"). Couples type "dj jacksonville" and Google supplies the wedding intent. Volume comparison: `dj jacksonville` 110/mo vs `wedding dj jacksonville` 20/mo; `dj orlando` 170 vs 140; `dj st augustine` 50 vs 10.
+
+**Trap:** do NOT chase `dj st augustine` (50/mo). Positions #3, #4 and #7 on that SERP are **DJ's Clam Shack**, a restaurant. Only 5/10 results are wedding-related. The volume is real, the intent is not ours.
+
+**3. Jacksonville vs Orlando are not equally winnable**
+- `wedding dj jacksonville`: **4 of the top 12 are directories** (Knot x2, WeddingWire, Zola) plus Reddit at #3 and Facebook at #9. Only 3 slots belong to actual DJ operators. Seven of the nine results above COS are not competitors.
+- `dj orlando`: only ONE directory in the top 10. Elegant Entertainment, Orlando DJ Group, Our DJ Rocks, Soundwave - all operators, all beatable in a way The Knot is not.
+- **Orlando has the most volume, the highest CPC, wedding intent, AND the softest competition.** It is the best target on every axis and the one we have barely touched.
+
+**4. The "zero click" alarm was mostly a position artifact - and then a measurement artifact**
+
+The rebuilt action queue flagged `zero_ctr` on Treasury and Epping Forest. First read was wrong: those pages average **position 18-33**, so low clicks are expected. AE Jacksonville at #33.3 is actually running slightly ABOVE expected CTR. Page-level averages hide everything - one page serves many queries at wildly different positions.
+
+Query-level filter (top-10 position, 40+ impressions, zero clicks) found the real cases: **1,698 impressions in top-10 positions producing zero clicks**, including `timuquana wedding dj` at **position 1.8 with 101 impressions and 0 clicks** for COS, and #2.9 for AE on the same term.
+
+**5. THE ANSWER: Local Pack, and it changes Jacksonville strategy** *(not previously documented anywhere)*
+
+**57% of COS's top-10 keywords have a Local Pack above the organic results** (27 of 47). 29% have an AI Overview.
+
+Checked who occupies those packs:
+
+```
+st augustine wedding dj            COS organic #1
+  Local Pack: 1. COS Celebrations  2. Beachside  3. Someone Said Yes
+affordable wedding dj st augustine COS organic #1
+  Local Pack: 1. COS Celebrations  2. DJ Voodoo  3. Beachside
+jacksonville wedding dj            COS organic #10
+  Local Pack: Legacy Events 119, Generation Y, Mark Aria   <- COS ABSENT
+budget wedding dj jacksonville     COS organic #4
+  Local Pack: Generation Y, White Tie Events, DJ Voodoo    <- COS ABSENT
+```
+
+In St. Augustine we hold **#1 organic AND #1 in the pack**. Local Pack clicks do not appear in Search Console - they land in GBP Insights as calls / directions / website taps. So GSC logs the organic impression with no click and it looks like a CTR failure. **~80% confidence; verify against GBP Insights (business.google.com > Performance).** That is the third time in two days a number turned out to be measuring the wrong thing.
+
+**Jacksonville maps reality (DataForSEO maps, 2026-07-27):** every one of the top 10 has a **Jacksonville street address**. Legacy Events sits at #2 with **13 reviews**; COS has **186** and does not appear at all. **COS is no longer in the Jacksonville maps top 20** (own baseline had it at #19 on 2026-06-26).
+
+**Why that is fine:** the Jax listing was removed deliberately because the address was not genuinely ours. That was the right call - a fake-address listing risks suspension of the entire profile, which would cost the St. Augustine **#1 with 186 reviews** to defend a #19 that earns nothing. Do not re-create it. **Proximity decides the Local Pack, and no amount of content or reviews overcomes a 40-mile gap.** Service-area settings do NOT fix this - they govern where you travel, not where you rank.
+
+**Strategic consequence:** Jacksonville cannot be won on the city name. Pushing `/jacksonville-wedding-dj/` from #10 to #4 still loses most traffic to three map listings we cannot enter. Jacksonville is winnable on **venues and modifiers**, not on the city term.
+
+**6. Jacksonville venue coverage is COMPLETE - the real gap is live music**
+
+All major Jax venues have pages on both sites (Timuquana, Epping Forest, TPC Sawgrass, Sawgrass Marriott, River Club, Deerwood, Garden Club, Bowing Oaks, Clay Theatre). The automated gap-finder agrees - its only 3 candidates were junk (Tampa Garden Club, now built; a closed Daytona venue; a non-venue string).
+
+**The undeveloped gap, ~400 impressions / 90d:**
+
+| Query | Impressions | Position |
+|---|---|---|
+| `wedding entertainment jacksonville fl` | 152 | #20 |
+| `pulse jax` | 177 | **#6.1** |
+| `wedding musicians in jacksonville` | 79 | #28.5 |
+
+There is no Jacksonville-targeted live-music page; `/services/live-musicians/` and `/pulse/` mention Jacksonville only in passing. That SERP is softer than the DJ one - **2 directories instead of 4, no Reddit**, and the operators ranking are string quartets, not DJ+live-sax hybrids. `pulse jax` already draws 177 impressions at #6 with no page built for it.
+
+**RECOMMENDED NEXT: build a Jacksonville live music / wedding entertainment page for COS.** Real gap, plays to the one thing that cannot be copied, least-defended SERP in the cluster. AE does not get this one - live musicians are not AE's product.
+
+**Page work done this session:**
+- COS + AE Jacksonville city pages retargeted for `dj [city]` alongside `wedding dj [city]`; new non-wedding section on both (honest about NOT doing club/nightlife work). *Note: the COS title retarget was later superseded by the `de-cannibalize venue keywords` pass (commit 0d1924e); AE's survives.*
+- COS Jacksonville FAQ schema was **almost entirely fictional** - 12 questions of which **11 appeared nowhere on the page**, while 8 visible questions were absent from the schema. Rebuilt word-for-word. Rule #6's required "wedding DJ near me" FAQ existed only in schema; now visible.
+- AE Jacksonville: 16 em dashes, 17 checkmarks, 3 bullets converted to entities, **6 emoji icons removed** (Rule #15). Watch out: em dashes inside JSON-LD are stored as `—` escapes, so a plain find-replace misses them and silently re-breaks schema/visible parity - regenerate schema with `ensure_ascii=False` after any such cleanup.
+- Removed unverifiable availability claims sitewide ("Booking now: Fall 2026 dates are filling fast", "Now booking 2026 and 2027", "dates are filling fast") from COS Jacksonville, Ponte Vedra, Orlando and Amelia Island. **Still outstanding: 18 venue pages end with a templated "This [adjective] venue books quickly" closer** - same unverifiable claim plus a Rule #2 templating violation.
 
 ---
 
