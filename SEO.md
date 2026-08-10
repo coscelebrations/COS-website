@@ -1,5 +1,31 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 9, 2026
+## Last Updated: August 10, 2026
+
+---
+
+## Session: August 10, 2026 — Breadcrumbs site-wide, a real Areas hub, and an encoding bug that had been live for months
+
+**Started as a competitor teardown of robfutrell.com** (Rob Futrell, the St. Augustine photographer). He has 361 pages to our 85; the gap that mattered was structural, not volume: breadcrumb schema site-wide, nested URL hubs, and 53 internal links on a venue page where we had 22. What he does *not* have is FAQ schema anywhere, or Review/AggregateRating — so the trade goes both ways.
+
+**Breadcrumbs: COS 5 of 101 pages -> 94. AE 1 -> 79.** `BreadcrumbList` schema plus a visible trail on every indexable page. Trail is `Home / Areas We Serve / <City> / <Venue>`. Our URLs are flat, so the hierarchy is logical rather than path-derived — each venue's parent city is **read from that page's own body copy**, which is ground truth rather than a guess. Script at `~/seo-data/add_breadcrumbs.py`, idempotent, `--force` to regenerate.
+
+**Two bugs caught mid-run, both mine, both fixed before shipping:**
+1. First pass took the first city link *anywhere* in the document. AE's nav menu lists Orlando and Jacksonville, so **13 AE venues were filed under the wrong city** — Flagler College, in St. Augustine, came out as Orlando. Fixed by reading only the body between `</nav>` and `<footer`. All 59 shared venues now agree across both brands.
+2. `/cheap-wedding-dj/` is not a venue; its H1 reduced to the crumb "Cheap That Doesn't Feel Cheap".
+
+**New `/areas-we-serve/` hub on both sites** — 10 cities, every venue linked, 77 internal links (COS) and 76 (AE). This is what Rob has and we did not: a real parent for the city pages. It also fixes badly under-linked cities — **Atlanta was reachable from 4 pages**, Daytona/Gainesville/Fernandina from 7.
+
+**AE was running three different navs at once** — 12 pages linked cities directly, 19 linked a `/#areas` homepage anchor, 54 had neither. Now every page carries one stable "Areas We Serve" link. Contextual city links were deliberately kept: a couple on the TPC Sawgrass page benefits from a Ponte Vedra link there.
+
+**The encoding bug is the find worth remembering.** AE put the Meta Pixel script above `<meta charset="UTF-8">`, pushing the declaration to byte 1433. **Browsers only scan the first 1024 bytes for an encoding hint**, so **81 of AE's 86 pages** were being decoded with a guessed encoding — "Le Meridien Tampa" rendered as "Le MÃ©ridien". The bytes on disk were always valid UTF-8; only the declaration was misplaced. COS was unaffected (charset at byte 48). Fixed by `~/seo-data/fix_charset_position.py`. **This was live for as long as the Meta Pixel has been on those pages** — worth assuming any non-ASCII character on AE has been rendering wrong for months.
+
+**Caught a schema regression on the way out.** The uncommitted AE Jacksonville rewrite (sitting since ~Aug 3) had deleted the entire `Service` block — `Service` + `Offer` + `areaServed` City. Task `idx-2026-07-28-jax-schema-review` had flagged exactly this risk; it got committed as part of the breadcrumb batch without that check, then restored verbatim in `acd7824`. Every other page in both commits was audited for schema loss — none found. **Lesson: a batch commit that sweeps in someone else's pending work needs a schema diff before it ships, not after.**
+
+**Sitemaps:** COS 89 -> 98 urls. Nine indexable pages were missing entirely (the blog post, 3 team pages, 5 vendor category pages). `lastmod` refreshed only for files that actually changed.
+
+**Committed, NOT pushed.** `0dfa9e8` (COS), `0a385e6` + `acd7824` (AE). Waiting on Corey's review at localhost:8000 / :8001.
+
+**Reassess ~2026-09-10** — breadcrumb rich results take a few weeks to appear in GSC. The measurable target is enhanced search appearances, which were flat zero on both properties across a 60-day window (`mgr-2026-08-04-3`).
 
 ---
 
