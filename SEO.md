@@ -23,7 +23,7 @@
 
 **Sitemaps:** COS 89 -> 98 urls. Nine indexable pages were missing entirely (the blog post, 3 team pages, 5 vendor category pages). `lastmod` refreshed only for files that actually changed.
 
-**Committed, NOT pushed.** `0dfa9e8` (COS), `0a385e6` + `acd7824` (AE). Waiting on Corey's review at localhost:8000 / :8001.
+**DEPLOYED 2026-08-10.** `bbb7ffb` (COS), `acd7824` (AE). Netlify built in ~60s. Verified live: all 79 AE pages have charset inside the 1024-byte window, accented text renders correctly, and all 169 outbound links on the two new hub pages return 200.
 
 **Reassess ~2026-09-10** — breadcrumb rich results take a few weeks to appear in GSC. The measurable target is enhanced search appearances, which were flat zero on both properties across a 60-day window (`mgr-2026-08-04-3`).
 
