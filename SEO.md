@@ -29,6 +29,14 @@
 
 **And a mistake of mine, caught by sweeping live URLs rather than local files.** Earlier today I added nine "indexable pages missing from the sitemap" to COS. One of them, `/team/corey-peterson/`, **301s to `/team/djs/corey/`** via a Netlify rule — my check read the local file for a `noindex` tag and never requested the live URL, so the redirect was invisible to it. Removed. **Sitemap additions need a live HTTP status check, not just a file-on-disk check.** All 176 sitemap URLs across both sites now return 200.
 
+**Shell consistency audit, same day.** Corey asked whether the navs and footers are actually coherent across both sites. They were not: **22 distinct nav layouts and 51 distinct footer layouts** across COS and AE. Most of that is *not* drift — AE deliberately shows the nearest city in the nav and footer (Tampa venues link Tampa, Gainesville venues link Gainesville) on 59 pages, and COS footers carry per-page contextual venue links. Flattening those would destroy something real.
+
+Fixed only what nobody chose: **16 COS and 1 AE footer had no Contact link at all**; `casa-marina-hotel` was the site's only COS page with a city link in its nav (and already linked Jacksonville from its footer); and "Areas We Serve" sat at **five different positions** — my own doing, because the morning rollout inserted it after Pricing where it found one and at the start of the row where it did not. Now one rule on all 176 live pages: immediately after Pricing, else immediately before Contact. Verified live — 0 missing Contact, 0 wrong position, 0 left in nav.
+
+**Correction to something I asserted earlier today:** I told Corey that Rule #5 ruled out having the hub link in both nav and footer. That was overstated — both sites already carry `/contact/`, `/pricing/` and `/services/` in nav *and* footer on every page, which is ordinary practice for site chrome. Rule #5 is about body-copy links. The footer decision still stands on its other merits (nav crowding, the breadcrumbs already covering the need, and the proven crawl value of the July `/vendors/` footer link), but the rule was not the reason.
+
+**Full shell unification deferred.** One nav and one footer partial per site would make future changes a single edit instead of four handlers — today's footer rollout needed four separate code paths for AE alone. That is a maintenance win, not a ranking one, so it sits below the COS `/services/` and `/team/` hubs and the venue-page internal-link work.
+
 **Reassess ~2026-09-10** — breadcrumb rich results take a few weeks to appear in GSC. The measurable target is enhanced search appearances, which were flat zero on both properties across a 60-day window (`mgr-2026-08-04-3`).
 
 ---
