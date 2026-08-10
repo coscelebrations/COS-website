@@ -25,6 +25,10 @@
 
 **DEPLOYED 2026-08-10.** `bbb7ffb` (COS), `acd7824` (AE). Netlify built in ~60s. Verified live: all 79 AE pages have charset inside the 1024-byte window, accented text renders correctly, and all 169 outbound links on the two new hub pages return 200.
 
+**Follow-up same day: the hub link moved from nav to footer (Corey's call).** Same decision he made for `/vendors/` in July, and for the same reasons — the COS nav was at 9 items with "AREAS WE SERVE" wrapping to two lines, nav items should be booking steps, and the breadcrumbs already give every venue and city page a contextual link up to the hub. Rule #5 rules out having it in both. Live on **97 COS + 79 AE pages, zero left in nav**. AE needed four different footer handlers — 57 venue pages use a bare `<p>` of city links, 17 have a "Service Areas:" row (the label itself became the link), 5 have a `.footer-links` div, and 2 put bare `<a>` tags straight inside `<footer>`. One of those last two is `/club-continental-wedding-dj/`, still stuck on "Discovered - currently not indexed", so a sitewide hub link onto it is worth having.
+
+**And a mistake of mine, caught by sweeping live URLs rather than local files.** Earlier today I added nine "indexable pages missing from the sitemap" to COS. One of them, `/team/corey-peterson/`, **301s to `/team/djs/corey/`** via a Netlify rule — my check read the local file for a `noindex` tag and never requested the live URL, so the redirect was invisible to it. Removed. **Sitemap additions need a live HTTP status check, not just a file-on-disk check.** All 176 sitemap URLs across both sites now return 200.
+
 **Reassess ~2026-09-10** — breadcrumb rich results take a few weeks to appear in GSC. The measurable target is enhanced search appearances, which were flat zero on both properties across a 60-day window (`mgr-2026-08-04-3`).
 
 ---
