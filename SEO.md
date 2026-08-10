@@ -1,5 +1,23 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 8, 2026
+## Last Updated: August 9, 2026
+
+---
+
+## Session: August 9, 2026 — Indexing queue COMPLETE. Google is now crawling on its own.
+
+**All 53 originally-never-crawled pages are handled.** Submitted 11 tonight; everything else is either already indexed or a deliberate skip (`/team/corey-peterson/` now 301s, `/pricing-guide/` is noindex). COS sits at **62 indexed / 35 not indexed**, from 30 / 69 on Jul 28.
+
+**The most important result is not the count.** `/hard-rock-daytona-wedding-dj/` and `/sawgrass-country-club-wedding-dj/` came back **INDEXED without ever having been submitted.** Google found them on its own, by following links.
+
+That is the difference between a workaround and a fix. Request Indexing is a manual, quota-capped, one-URL-at-a-time intervention — if that were the only thing working, every future page would need the same hand-holding forever. Organic discovery means the underlying crawl-demand problem is genuinely resolving, and it points at the `/vendors/venues/` hub plus the sitewide footer link as the thing that did the real work, with Request Indexing only accelerating it. Future venue pages should get picked up without manual submission. **Confidence: 80%** — worth verifying on the next new page we publish rather than assuming.
+
+**Two holdouts, and they are now diagnostic.** `/club-continental-wedding-dj/` and `/marsh-landing-country-club-wedding-dj/` are still "Discovered - currently not indexed" eleven days after submission, while every peer went through. Crawl access no longer explains this. They are the clearest evidence yet for the content-quality hypothesis — 51 near-identical venue pages, the risk Rule #2 exists to prevent — and they connect directly to the Aug 6 finding that 40 venue pages shared one closing sentence (`1629a55`).
+
+**Next step here is diagnostic, not another submission.** Work out what makes those two different from the 32 that indexed: uniqueness of body copy, thin sections, duplicate schema, whatever it turns out to be. **Do not resubmit** — Google states resubmitting does not change queue position, and two more requests would only obscure the signal.
+
+Submitted tonight: `/lpga-international-`, `/shores-resort-`, `/kanapaha-botanical-gardens-`, `/1908-grand-`, `/oyster-bay-yacht-club-`, `/st-johns-golf-`, `/fernandina-beach-`, `/azaleana-manor-`, `/embassy-suites-st-augustine-beach-`, `/kelly-farm-events-`, `/tringali-barn-wedding-dj/`.
+
+**Reassess ~2026-08-23** — check how many of tonight's batch took, and whether the two holdouts moved.
 
 ---
 
