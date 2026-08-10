@@ -262,7 +262,7 @@ footer{padding:3rem 2rem;background:var(--charcoal);color:white;text-align:cente
   .feature-card{flex:0 1 100%}
   .stats-bar{grid-template-columns:repeat(2,1fr)}
 }
-  </style>
+  .breadcrumb{max-width:900px;margin:0 auto;padding:1.5rem 2rem 0;font-size:0.85rem}.breadcrumb a{color:var(--merlot,#722F37);text-decoration:none}.breadcrumb a:hover{text-decoration:underline}.breadcrumb span{color:var(--text-soft,#4A4547)}</style>
 
   <!-- Schema Markup -->
   <script type="application/ld+json">
@@ -389,6 +389,37 @@ footer{padding:3rem 2rem;background:var(--charcoal);color:white;text-align:cente
     }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://coscelebrations.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Areas We Serve",
+        "item": "https://coscelebrations.com/areas-we-serve/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "St. Augustine Wedding DJ",
+        "item": "https://coscelebrations.com/st-augustine-wedding-dj/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "The White Room"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -419,6 +450,7 @@ footer{padding:3rem 2rem;background:var(--charcoal);color:white;text-align:cente
         </div>
       </li>
       <li><a href="/vip-login/">VIP Login</a></li>
+      <li><a href="/areas-we-serve/" title="Wedding DJ service areas across North and Central Florida">Areas We Serve</a></li>
       <li><a href="/contact/" class="nav-cta">Contact</a></li>
     </ul>
     <div class="hamburger" onclick="toggleMenu()">
@@ -439,6 +471,20 @@ footer{padding:3rem 2rem;background:var(--charcoal);color:white;text-align:cente
       </div>
     </div>
   </section>
+
+  <div class="breadcrumb" role="navigation" aria-label="Breadcrumb">
+    <a href="/">Home</a> /
+    <a href="/areas-we-serve/">Areas We Serve</a> /
+    <a href="/st-augustine-wedding-dj/">St. Augustine Wedding DJ</a> /
+    <span>The White Room</span>
+  </div>
+
+
+
+
+
+
+
 
   <!-- Intro + Stats -->
   <section class="content-section">
