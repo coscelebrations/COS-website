@@ -1,5 +1,25 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 10, 2026
+## Last Updated: August 13, 2026
+
+---
+
+## Session: August 13, 2026 — Search Console flagged the Aug 10 breadcrumb rollout. Three days live.
+
+**Google emailed a CRITICAL Breadcrumbs error: `Missing field "item" (in "itemListElement")`.** It was real, it was ours, and it came from the breadcrumb rollout three days earlier.
+
+**The rule people get wrong:** Google requires `item` on every crumb **except the last one**, where it falls back to the containing page's own URL. So of the 105 omissions on COS, **94 were perfectly legal** (final crumb) and **11 were hard errors** (a middle crumb with no URL). AE had 2 more. Splitting those two buckets is the whole job — "fixing" all 105 would have been 94 pointless edits.
+
+**Why the middle crumbs had no URL: the hub pages don't exist.** `/services/` and `/team/` return 404, `/blog/` returns 410 via a `_redirects` rule. Nothing links to them and they aren't in either sitemap. `add_breadcrumbs.py` was actually *right* to refuse to link them — `hub()` deliberately returns `url=None` when the hub file isn't on disk, because pointing schema at a 404 is worse. The bug was one layer down in `schema_block()`, which emitted the URL-less crumb into the JSON-LD anyway.
+
+**Fixed by dropping the dead crumb and renumbering** — `/services/weddings/` is now `Home > Weddings`. The visible trail still reads `Home / Services / Weddings` with "Services" as plain text, which is fine: the schema is allowed to be shorter than the visible trail, it just can't contain an item-less middle entry.
+
+**The generator is fixed too, which matters more than the 13 pages.** `add_breadcrumbs.py` has a `--force` mode; without patching `schema_block()`, the next run would have quietly put all 13 errors back. Verified in throwaway clones of both repos: a full `--force` regeneration now yields 172 BreadcrumbList blocks with zero missing-item errors.
+
+**Commits:** COS `9b36fb1`, AE `834f55b`, generator `1d4bb2d`. Verified live on both domains. **Still to do: click "Validate Fix" in Search Console** — recrawl takes 1-2 weeks.
+
+**Two things worth knowing that turned up on the way:**
+1. Re-running `add_breadcrumbs.py` appends two blank lines per page where the old block was stripped. Cosmetic, pre-existing, not fixed — but it means a `--force` run always shows ~170 files "changed" even when nothing meaningful moved.
+2. `add_breadcrumbs.py` was never committed. Neither were `add_areas_nav.py`, `fix_charset_position.py`, `move_areas_to_footer.py`, or `normalize_shells.py` — every script from the Aug 10 session. They're on disk only. `add_breadcrumbs.py` is now tracked; the other four are not.
 
 ---
 
