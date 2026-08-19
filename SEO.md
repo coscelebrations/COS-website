@@ -2731,3 +2731,51 @@ week until fixed: a ~16% per-sweep error rate (`sweep.py` claims its retry logic
 near 1%; Aug 2 missed 15.8%) and the fact that nothing records which SERP mode a rank came
 from. Full analysis and reproducible script:
 `~/manager-agent/drafts/dfs-rebaseline-2026-08-03/`.
+
+---
+
+### Session Notes (Aug 19, 2026) - First two vendor partner pages, and a partner-name cleanup
+
+Built individual pages for two vendors who send COS referrals, under `/vendors/`.
+Committed as `e568460`, **not deployed** - Kaitlyn's page still needs Corey's own
+words in two sections.
+
+**The point of these pages is not rankings.** Nobody searches "COS preferred
+photographers." The value is the backlink and the unlinked brand mention when the
+featured vendor shares their own page, plus referral reciprocity. Per
+`venue_pages_low_ceiling`, expecting traffic from them would be a mistake. The page
+does nothing at all until the vendor is told it exists - the launch *is* the email.
+
+| Page | State |
+|---|---|
+| `/vendors/planners/a-lavish-event/` (Kaitlyn Brumfield) | Two sections contain **invented** characterization. Blocked on Corey. Photo permission also unconfirmed. |
+| `/vendors/photographers/rob-jill-futrell/` | Fully sourced. Nothing invented. |
+
+The photographer page came out much stronger for one reason: **there was real shared
+history on file.** Craig and Ashley's wedding at Sawgrass Country Club - COS on DJ and
+live sax, Rob shooting - with five of his photos already on the site. That gallery is
+evidence of an actual working relationship rather than a traded favor. The lesson for
+the next vendor page is to search our own records for a shared job *before* writing
+anything.
+
+Also converted `/vendors/planners/` and `/vendors/photographers/` from "Coming Soon"
+stubs to real category pages, both of which were missing LocalBusiness schema.
+
+**Partner-name cleanup, 8 credits across 7 pages.** Rob was credited three different
+ways - "Rob Futrell Photography", "Rob & Jill Futrell", and a bare unlinked "Photo by
+Rob Futrell" - and none of them was his business name. All now read **"Photos by Rob +
+Jill Futrell"**, the rebrand he confirmed via Corey on Aug 19. Since that name already
+begins with "Photos by", the redundant lead-in was folded into the link text instead of
+being left doubled. The homepage credit had no link at all and now has one, which is a
+free gift of the strongest link on the site to a partner.
+
+**Sitemap.** Added the `/vendors/` hub, which had never been listed despite being the
+crawl path to every vendor page. Removed the four still-empty category stubs
+(bar-service, catering, guest-experiences, videographers) that something had added on
+Aug 10 - with 53 pages still uncrawled, empty pages should not be competing for crawl
+budget. Note this stops *submitting* them, not indexing them: the hub still links to
+all four, so a `noindex` would be needed to actually hold them back.
+
+**Gotcha for next time:** `.gitignore` had `*.bak`, which does not match this
+workspace's dated backup convention (`index.html.bak-futrell-20260819`). Eight backups
+were sitting untracked and would have been committed. Now covered by `*.bak-*`.
