@@ -1,5 +1,67 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 18, 2026
+## Last Updated: August 19, 2026
+
+---
+
+## Session: August 19, 2026 - The St. Augustine page finally sounds like Corey, and it exposed a sentence we had written four times
+
+First run of the new voice-interview system (`~/INTERVIEW.md`, `/interview`
+skill). Corey talked into the mic, 14 questions across two rounds, raw answers
+captured verbatim at `~/cos-operations/interviews/cities/st-augustine.md`.
+
+**Shipped to COS `/st-augustine-wedding-dj/` (commit 0d2d6ae). 3,589 -> 5,253 words.**
+
+Four sections that did not exist, all local knowledge no competitor can copy:
+
+- **Which venue is right for you** - deliberately does NOT rank venues. Corey is a
+  preferred vendor at several and will not pick a favorite. The framing is
+  outdoor-waterfront vs historic-indoor, "best is the wrong question." His refusal
+  turned out to be better positioning than a favorites list would have been.
+- **Put a tent in the budget** - the strongest block on the page. Heat disables the
+  gear that runs the reception, not just rain. Go stand in Plan B before signing.
+- **Getting married from out of state** - roughly 70% of his couples. Hotels,
+  downtown parking and shuttles, and Nights of Lights opening/closing weekends at
+  "Fourth of July" crowd levels.
+- **What a wedding day actually looks like** - Villa Blanca through the walk
+  downtown for nightcaps.
+
+Plus five FAQs with matching FAQPage schema (6 -> 11 questions).
+
+### Two things the rewrite exposed
+
+**The same sentence was on the page four times.** "COS is the preferred wedding DJ
+at Treasury on the Plaza, Lightner Museum, The White Room, and River House"
+appeared four times inside one section, including in the `ai-quotable` block -
+which is precisely what Rule #9 forbids. Now once. The ai-quotable was rewritten to
+carry a different fact (the 70% destination stat). **Worth auditing other city
+pages for the same pattern.**
+
+**A false experience claim.** The page said "working St. Augustine venues for over
+a decade." Corey's answer makes that wrong in both directions: it is since the
+early 2000s, and it started on saxophone with bands, not behind a booth. Replaced
+with the real arc. Same trap as the COS-founded-2022 rule - the experience is
+Corey's personally, and the honest version is more impressive than the invented one.
+
+Also cleared two pre-existing Rule #15 violations (em dash, en dash) that had been
+sitting on the live page.
+
+### What was deliberately NOT done
+
+**The AE version.** There is a crawl re-measure due Aug 23, and
+`affordable wedding dj st augustine` currently has an unresolved reading (59.0 in
+early August vs 5.0 recorded in July) on the exact page that would be rewritten.
+Rewriting now would make Monday's measurement uninterpretable. Material is captured
+and waiting. Revisit Aug 23.
+
+**One line Corey asked to withhold.** His answer about egotistical vendors is in the
+capture file marked do-not-publish for this page. Note that a softer version was
+already live on the page and was left alone.
+
+### Watch
+
+City rewrites cascade - the St. Augustine venue children (Treasury, Lightner, White
+Room, Casa Monica, Fountain of Youth, Flagler, Embassy Suites) typically dip 2-4
+weeks. Treasury was at GSC position 8.7 going in. Do not re-edit them; wait 30 days.
 
 ---
 
