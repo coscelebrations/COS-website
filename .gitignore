@@ -10,4 +10,8 @@ node_modules/
 .DS_Store
 
 # Local backups
+# The dated form (index.html.bak-futrell-20260819) is the convention used
+# across this workspace, and plain "*.bak" does not match it. Added 2026-08-19
+# after 8 such backups showed up as untracked files in a commit.
 *.bak
+*.bak-*
