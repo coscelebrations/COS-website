@@ -40,3 +40,7 @@
 /wp-*.php / 410
 /preferred-vendors/ / 410
 /cos-info-page/ / 410
+
+# McKarls shortened their name from "McKarl's Libations & Cuisine" in Aug 2026.
+# Old vendor URL was live for about an hour before the rename reached us.
+/vendors/bar-service/mckarls-libations/ /vendors/bar-service/mckarls/ 301
