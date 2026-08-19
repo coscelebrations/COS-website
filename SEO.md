@@ -1,5 +1,113 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 13, 2026
+## Last Updated: August 18, 2026
+
+---
+
+## Session: August 18, 2026 — Nine add-on service pages shipped, and Corey caught a photo that had been lying on a live page for seven weeks
+
+**Deployed COS `b8b1415` + `5ea0485`, AE `a1c1543`.** Five COS pages (`/photo-booth/` hub, `/360-photo-booth/`, `/cold-sparklers/`, `/audio-guestbook/`, `/uplighting/`) and four AE pages (same minus audio guestbook, which AE genuinely does not sell). All nine had been built since **July 28** and sat in `~/manager-agent/drafts/` for three weeks; the oldest task was 3 weeks overdue. The pre-deploy verifier still passed 70/71 on the day of deploy, so the delay cost nothing but time.
+
+### They could not have shipped piecemeal
+
+COS `/cold-sparklers/` links to `/360-photo-booth/`, and `/audio-guestbook/` links to `/photo-booth/`. Shipping only the two tasks that were due on Aug 3 would have put **two live 404s** on coscelebrations.com. Smallest link-safe set was 4 URLs / 7 files. Uplighting went in the same push behind them.
+
+### Both discovery paths, on purpose
+
+Five inbound links added from `/services/weddings/` Add-On Services cards (verified 5 live), two from the AE homepage add-ons line, plus 9 sitemap entries (COS 97 → 102, AE 80 → 84). This was the step with no artifact behind it in the original deploy plan, and it is the step that decides whether Google ever sees these pages — **COS still has 53 pages that have never been crawled at all.** The prepared link package refused to run because both target files had drifted since Aug 3; it was redone by hand rather than forced.
+
+**Expect COS traction before AE.** AE is 30/80 indexed and Google has not fetched its sitemap since January. The four AE pages may sit uncrawled for a while. Shipping starts the clock; it does not beat the ceiling.
+
+### The photo problem Corey found, and how far it went
+
+Reviewing `/cold-sparklers/` he spotted that a "grand exit" photo was actually a private last dance. It was worse than one bad caption:
+
+- `joel-kristin-cold-sparks-exit-timuquana.webp` is Joel + Kristin **alone in an empty ballroom**. No sparks in the frame at all.
+- That file had been the **hero of the live `/timuquana-country-club-wedding-dj/` page since 2026-06-26 — about 7.5 weeks** — with alt text describing a portico and cheering guests that are not in the shot.
+- Gallery slots 4 and 5 held **each other's captions**.
+- The Real Wedding callout claimed a cold-spark grand exit under the portico. That claim was **true** — the exit happened, we just had the wrong file wired to it. Corey found three real exit frames in the couple's folder.
+
+Every image on that page was reopened and re-described from what is actually in it. **3 of 5 were already correct**; the two that were wrong are now right, a real exit photo (frame 374) is in slot 5, and frame 378 replaced the bad image on `/cold-sparklers/` — which restored that page's honest "four weddings, four rooms" framing. Added frame 326 (bride back to back with Corey on tenor sax) as a 6th gallery item; the bento grid was extended to 6 across all three breakpoints, with the 4th row made explicit so a portrait image cannot balloon the row on mobile.
+
+**The lesson is the one already in memory: reopen the image, never caption from a filename.** The filename here was wrong, and the page prose, the alt text and the caption were all written downstream of it.
+
+### Still open
+
+- **Two filenames still lie** — `...cold-sparks-exit-timuquana.webp` (last dance, now hero-only) and `...first-dance-timuquana-ballroom.webp` (crowd shot). Deliberately not renamed mid-deploy to avoid churning a live preloaded hero URL. Next photo pass.
+- **Still not one photo-booth photo on either site.** `/photo-booth/` and `/360-photo-booth/` ship on gradient heroes while the COS homepage carries a "Top 3 Photo Booth - Premier Bride" award badge. `mgr-2026-07-28-5` covers shooting them.
+- Fixed as part of this: `/vendors/guest-experiences/` no longer implies we refer photo booths out.
+
+---
+
+## Session: August 17, 2026 — Gainesville quietly left page 1, and it's the one drop that survives the instrument test
+
+**Manager Agent cycle 1, ISO week 34.** Ran the drop detector against Sunday's fresh DataForSEO sweep. Three alerts came back "confirmed"; **one of the three is real.**
+
+**COS `gainesville wedding dj`: #8 → #11 → #12** across 2026-08-02, 08-09 and 08-16. All three are DataForSEO reads at **full depth**, all post-epoch — same instrument, same depth, no mixing. That is the standard `rankings-instrument-mixing-2026-08-13` demands, and this is the first drop in weeks to meet it. A city page crossing from page 1 to page 2 is the tier worth defending. Filed as `mgr-2026-08-17-1`; **not diagnosed and deliberately not rewritten** — check the SERP and GSC first.
+
+**AE `wedding dj flagler college`: #2 → #4 → #41** (full-depth reads). A 37-position step is too big for oscillation, but one reading is one reading. Waiting on the Aug 23 sweep for a second confirmation before touching anything. Filed as `mgr-2026-08-17-2`.
+
+**AE `budget wedding dj jacksonville` is noise.** The alert says "#2 → #8"; the honest same-depth comparison is **#5 → #8**, and this keyword has read 2, 6, 4, 3, 3, 6, 3, 5, 1, 8 since mid-July. Nothing to do.
+
+### The headline numbers on all three alerts are wrong, and the record already contains the right ones
+
+Every confirmed alert fails its own `best_recent + drop == current` arithmetic — `best_recent` is a stale baseline (Gainesville's "#2" is a **June 15 Perplexity** reading), while the `drop` field is correct. So the dashboard prints the wrong one of two numbers the alert already holds. Live reproduction of `mgr-2026-08-05-1`, now on post-epoch data rather than only historical.
+
+### w1's Perplexity rank check was held this week — on purpose
+
+Running it on a Monday takes the newest slot on **179 of 196** keyword series and stamps them `perplexity` with no depth mode, which blinds the drop detector until the next Sunday sweep. Measured before deciding: **82 of 196 series are alertable right now** because Sunday's sweep landed; a w1 run today takes that to **0** for the week. Ran the read-only half (`ranking_watch.py`) instead. Cost is one week of the weaker instrument's estimates.
+
+### AI visibility, week 34
+
+| | Named anywhere | Own site ranked |
+|---|---|---|
+| COS (6 premium queries) | 5/6 — 83% | 5/6 — 83% |
+| AE (8 budget queries) | 7/8 — 88% | 7/8 — 88% |
+
+COS slipped one query versus the Aug 13 rebuild (6/6 → 5/6); AE is flat. **Only comparable back to Aug 13** — the query list was rebuilt that day, so the older "COS 100% / AE 38%" figures are a different ruler.
+
+### Competitors: the pressure is in Orlando
+
+Soundwave Entertainment moved **#3 → #2** for "orlando wedding dj"; Classic Disc Jockeys holds **#2** for "best wedding dj orlando". Future Stereo is now #4 on both St Augustine terms and #5 on both Jacksonville terms. This agrees with `orl-2026-07-27-priority`. The scanner's "pages updated in March 2026" line is still frozen five months stale (`mgr-2026-08-10-1`) and contributed nothing.
+
+---
+
+## Session: August 13, 2026 — AE's "38% AI visibility" was a broken ruler, not a broken brand
+
+**Corey asked why the dashboard showed COS 100% (8/8) and AE 38% (3/8). The gap was almost entirely measurement.** Both brands were scored against a single shared 8-query list — and **6 of those 8 were premium-intent** ("best", "luxury", "top rated", "wedding DJ with live saxophone"). AE is deliberately positioned as the budget brand and does not compete for any of them. Its ceiling on that list was ~25%. On the only two budget queries in it, AE went **2 for 2**.
+
+**Re-scored with each brand measured against the queries it's actually built to win:**
+
+| | Named anywhere | Own site ranked |
+|---|---|---|
+| COS (6 premium queries) | 6/6 — 100% | 5/6 — 83% |
+| AE (8 budget queries) | 7/8 — **88%** | 7/8 — **88%** |
+
+AE's real number is 88%, not 38%.
+
+### Second bug: each brand was scoring off the other brand's website
+
+AE's pages name-drop "COS Celebrations" as a credential (the standing positioning rule). The matcher only looked for the brand *name* in a result's title or snippet, with no check that the result was our page — so those hits counted as COS visibility. **On the Aug 10 run, COS scored MENTIONED for "Budget friendly wedding DJ Jacksonville area" with zero coscelebrations.com URLs in the results.** The only sources were AE's own page and a directory. Sibling-domain hits are now excluded and reported separately as `cross_credit`.
+
+Also added `owned_rate` (our domain ranked) alongside `mention_rate` (name anywhere, including The Knot / Zola / WeddingWire). They move independently and both matter — the May 26 guidelines note unlinked brand mentions beat backlinks 3x for AI citation, so directory mentions are worth counting, just not worth conflating.
+
+### The label was overselling it too
+
+This is the Perplexity **Search** API — a web index. A "mention" means the brand name appeared in a top-10 result snippet. It is **not** a Google AI Overview or ChatGPT citation count, and the dashboard note said "queries cited", which claimed more than the data supports. Fixed to "N/M of its own queries · X% own site", with an info-dot on each card explaining that the two brands' percentages are scored against different lists and **cannot be compared head-to-head**.
+
+### What's actually left to work on
+
+- **AE's one genuine miss: "Cheap DJ for wedding reception Florida."** Statewide, no city anchor, and no AE page targets it. Every AE win is city-anchored (Jacksonville, St. Augustine). This is a content question, not a measurement one.
+- **COS's one non-owned hit: "Professional wedding DJ northeast Florida"** — carried entirely by Zola. COS is named but no COS page ranks. Same shape of gap: a regional phrase with no page behind it.
+- **"Top rated wedding DJ Jacksonville" is finally won** with COS's own `/jacksonville-wedding-dj/` page. That query flickered in and out for months and was called a genuine content gap on Aug 1.
+
+### Housekeeping
+
+- Resolves manager draft `mgr-2026-08-01-5`, which diagnosed the mention-vs-citation problem on Aug 1 and correctly declined to auto-apply it. Its four recommended fixes all shipped; see `RESOLVED.md` in that folder. Its `verify.py` is now *expected* to fail — the checks assert the buggy behaviour.
+- Old `history` in `ai-mentions.json` is **frozen at Aug 10**, not migrated. Its denominators came from the shared list; merging them into the new series would repeat the two-instruments-mixed mistake already documented for the rank checker. New runs append to `history_v2`, which now also stores per-query detail (so "which query flipped?" is answerable), tags `--quick` runs, and replaces rather than duplicates same-day entries.
+- **Do not compare any AI-visibility percentage from before Aug 13 with one after it.** Different instruments.
+- `perplexity_client.check_ai_mention()` deprecated in place — no callers left, docstring explains why not to rewire it.
+
+Files: `seo-data/perplexity/ai_visibility.py` (rewritten), `seo-data/scripts/config.json`, `cos-operations/dashboard.html`, `seo-data/ai-mentions.json`. Backups: `*.bak-pre-brand-split-2026-08-13`.
 
 ---
 
