@@ -31,9 +31,36 @@ Pulled 15 images off their site, used 8. Converted to WebP, resized, geotagged t
 
 Found a stale `python3 -m http.server` from an earlier session **listening on port 8001 while serving the COS directory** — so an "AE preview" on 8001 could silently show COS files. Killed it. Preview servers are now threaded (the single-threaded default was stalling image loads and made a working bento gallery look broken). Worth checking `lsof -nP -iTCP:8000,8001 -sTCP:LISTEN` before trusting a localhost preview.
 
+### The interview ran the same day, and it caught the pages being wrong
+
+Voice interview done a few hours after launch (`~/cos-operations/interviews/venues/9-aviles.md`). It immediately invalidated a section written from inference:
+
+**The "ceremony-to-reception flip" was largely fiction.** Both pages had a whole block about the room being reset while guests waited on the patio. Corey: *"most of the time, people are kind of sitting at their tables for the ceremony. And the ceremony just kinda takes place right there in the center of the room."* Usually there's no meaningful flip at all. Rewritten on both brands.
+
+**And it missed a real service.** Plenty of couples marry offsite — the Oldest House, the gazebo in the plaza — and walk over for the reception. We run a satellite ceremony rig for that. It was completely absent from both pages. Now a feature card, an FAQ, and an add-on line on each.
+
+**This is the argument for interviewing before publishing, not after.** The venue's own website was the best source available and it still produced a confidently wrong section. Inference reads exactly like knowledge until someone who has actually been in the room corrects it.
+
+### What the interview bought
+
+- **~40-50 weddings in that room** since it opened. Concrete, replaced a vague claim.
+- **Dave built the venue's in-house DJ system modeled on the COS rig.** Confirmed with Corey before publishing. Lead differentiator on the COS page and genuinely uncopyable.
+- **The booth goes on the balcony**, and Dave mounted a camera looking down at the floor so the DJ can read the room without leaning over the railing. Best detail of the round; it became the AI-quotable block.
+- **Lively room, mics dialed in for it** — replaced generic "we manage volume" filler.
+- **Real Wedding: Asya + Tugra.** Musician groom who got into DJing after his own wedding; they're now a husband-and-wife DJ duo. Named with permission. Corey asked that we *not* link their duo, to avoid brand confusion.
+- **Two-hour vendor access**, parking at the Trinity lot.
+
+**Deliberately left off:** a possible 10pm outdoor-music limit. Corey said he wasn't sure. An unverified curfew is worse than no curfew, so it's on neither page. Worth confirming with Dave.
+
+### Directories are alphabetical now
+
+Corey's call: no favoritism, keep it clean. Applied to every venue list on both `/areas-we-serve/` pages (8 lists each), both St. Augustine city-page directories, and the related-venue lists on the two new pages. Sort ignores a leading "The" (so The Glass Factory files under G); numerals sort first. St. Augustine venue counts were stale at 11 and are now 12 on both brands.
+
+**Not done, needs a decision:** the *city cards* on `/areas-we-serve/` are still ordered by importance, St. Augustine and Jacksonville first. Alphabetizing those would bury the home market behind Amelia Island — that's the "one or two on top" exception Corey described, so it's left alone pending his word. The other ~68 venue pages also have unsorted related-venue lists; separate sweep.
+
 ### Watch
 
-No baseline measured. First rank check on "9 aviles wedding dj" ~September 19 for both brands; keyword added to `rankings.json`. Expect low volume — this is a small venue and `venue_pages_low_ceiling` applies. The real value here is the relationship and the referral, not the search volume. Insider-detail interview still pending.
+No baseline measured. First rank check on "9 aviles wedding dj" ~September 19 for both brands; keyword added to `rankings.json`. Expect low volume — this is a small venue and `venue_pages_low_ceiling` applies. The real value here is the relationship and the referral, not the search volume.
 
 ---
 
