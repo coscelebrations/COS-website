@@ -1,5 +1,39 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 19, 2026
+## Last Updated: August 22, 2026
+
+---
+
+## Session: August 22, 2026 - 9 Aviles shipped on both brands, and the venue handed us the differentiator
+
+New venue page live on both sites: `/9-aviles-wedding-dj/` (COS commit `b3cf8f3`, AE commit `3723fba`). 9 Aviles is the boutique 50-guest venue at 9 Aviles Street downtown, and Corey says we're effectively the DJ company for them. He chose **"house DJ team"** as the public wording over "exclusive" or "preferred."
+
+### The angle came from the venue's own copy
+
+Their site says the venue has "an exclusive, top-tier DJ setup with interactive dance lighting, spotlights, and special features unique to 9 Aviles." That's the page's spine on the COS side: **a DJ who has never worked there burns the first hour of the night learning that system, and we don't.** It's a buying reason no competitor can copy or claim, and it isn't a brag about us — it's a fact about the room.
+
+Second angle, also unclaimed by anyone: 9 Aviles is a **single event space**, so ceremony and dinner happen in the same room and it gets flipped while guests are on the patio. That flip is the most fragile twenty minutes of the day and music is what decides how it lands. Both brands have a section on it.
+
+### AE got a genuinely different page, not a reskin
+
+AE's argument is arithmetic, not prestige: a hard 50-guest cap plus the venue allowing outside-retailer alcohol instead of a bar package makes this one of the cheaper realistic ways to get married downtown. Per the AE positioning rule, the page never mentions COS, live musicians, or shared gear.
+
+### Facts used, all sourced
+
+9 Aviles St at Artillery Lane, 32084 · up to 50 guests · ~2,500 sq ft, one room · built 1911, formerly City Electric then St. Johns Motor Company · renovated 2018, opened as a venue 2023 · vaulted ceiling, iron chandeliers, balcony over the floor, bridal lounge, gated patio · outside caterers OK · owners Dave and Christy. Sources: the venue site (JS-rendered, needed a real browser — `curl` returns nav only), Cvent, WeddingWire, Visit St. Augustine.
+
+Capacity numbers conflict across directories (50 seated / 64 / 80 standing). We used the venue's own "up to 50 guests" everywhere.
+
+### Photos are the venue's, and that's an open loop
+
+Pulled 15 images off their site, used 8. Converted to WebP, resized, geotagged to 29.8917, -81.3115. Corey approved grabbing them. **Nobody has asked Dave and Christy yet, and these were shot by wedding photographers** — the same permission gap currently blocking the Kaitlyn Brumfield vendor page. Low risk given the relationship, but it should be closed with a text, not left implicit.
+
+### Infrastructure note
+
+Found a stale `python3 -m http.server` from an earlier session **listening on port 8001 while serving the COS directory** — so an "AE preview" on 8001 could silently show COS files. Killed it. Preview servers are now threaded (the single-threaded default was stalling image loads and made a working bento gallery look broken). Worth checking `lsof -nP -iTCP:8000,8001 -sTCP:LISTEN` before trusting a localhost preview.
+
+### Watch
+
+No baseline measured. First rank check on "9 aviles wedding dj" ~September 19 for both brands; keyword added to `rankings.json`. Expect low volume — this is a small venue and `venue_pages_low_ceiling` applies. The real value here is the relationship and the referral, not the search volume. Insider-detail interview still pending.
 
 ---
 
