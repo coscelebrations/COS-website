@@ -1,5 +1,54 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 22, 2026
+## Last Updated: August 25, 2026
+
+---
+
+## Session: August 25, 2026 - Golden Creek Ranch, a new Palatka market, and two hub pages that don't earn anything
+
+Four URLs live: `/golden-creek-ranch-wedding-dj/` and `/palatka-wedding-dj/` on both brands (COS `9bf7aa0`, AE `8208131`). Golden Creek Ranch is a 62-acre working Angus cattle ranch at 133 Ranch Road, East Palatka, Putnam County - 25 min from St. Augustine, 45 from Jacksonville, up to 200 guests, barn plus open-pasture ceremony sites.
+
+**We have not DJd there.** Neither page claims otherwise. No "we know this venue," no invented load-in or acoustics. Barn observations (metal truss roof, concrete floor, open sides) came from the venue's own published photos, and every hard fact came from their structured data.
+
+### The angle came out of the photos, not the copy
+
+Their ceremonies use **no arch** - the pasture and the moss oaks are the backdrop. So there is nowhere to hide a speaker, and every stand you set down lands in the photo the photographer spent all day chasing. That is the spine of the COS page, and it is a real buying reason rather than a brag.
+
+AE got a completely different argument so the pages don't compete: **the two-location cost trap.** Pasture ceremony plus barn reception is two sound systems, and plenty of DJs quote the reception, let you say yes, then add the ceremony fee. Ours is on the quote from the start. Zero identical sentences between the two brands.
+
+### The city page's differentiator is a calendar, not a keyword
+
+The Florida Azalea Festival takes downtown Palatka the **first weekend of March**; the Blue Crab Festival runs **Memorial Day weekend**. Both fill the county's limited lodging and put traffic on the roads guests need. It is genuinely useful date-planning advice and nobody else publishes it. AE's city page runs on travel fees instead - Palatka is far enough from Jacksonville and Orlando that DJs quoting from there add mileage, and we don't.
+
+Expect little traffic. Putnam County is ~74k people. The city page's real job is being a credible parent for venue pages and catching "wedding dj near me" locally.
+
+### The pages shipped orphaned, and Corey caught it
+
+First deploy linked the new pages only to each other. Gainesville, a comparable city page, has 12 inbound links. Fixed in the same push: homepage areas list, `/areas-we-serve/` (new city card), `/vendors/venues/` (new market section), and the Also Serving block on all 8 COS city pages and the 5 AE ones that have it. Palatka now has 12 inbound links on COS, 8 on AE.
+
+### The finding worth acting on: /vendors/venues/ earns literally nothing
+
+Corey asked whether having both `/vendors/` and `/areas-we-serve/` in the footer, both leading to venue lists, was hurting us. GSC, page dimension, Jun 22 - Aug 20:
+
+| Page | COS | AE |
+|---|---|---|
+| `/vendors/venues/` | **absent from GSC - 0 impressions** | **absent - 0 impressions** |
+| `/vendors/` | absent - 0 | absent - 0 |
+| `/areas-we-serve/` | 0 clicks, 6 impr, pos 66.5 | 0 clicks, 29 impr, pos 51.8 |
+| *(scale)* `/tampa-wedding-dj/` | 19 clicks, 9,670 impr | - |
+
+`/vendors/venues/` is a **97% subset** of `/areas-we-serve/` - all 71 of its venue links already appear there, with 333 body words against 684. It has 2 inbound links on COS, 1 on AE, and no breadcrumb role.
+
+`/areas-we-serve/` is not earning in search either, but it is the **breadcrumb parent of ~145 venue pages** across both sites (73 COS / 74 AE BreadcrumbList schemas reference it). It carries site structure, not rankings. Keep it.
+
+**Recommended, not yet done:** 301 `/vendors/venues/` to `/areas-we-serve/`, or noindex it and keep it browsable. We have a known crawl ceiling, so a zero-return duplicate is the part that actually costs.
+
+### Open items
+
+- **Photo permission unconfirmed.** All 7 images are Golden Creek Ranch's own, self-hosted and optimized. Corey chose to ship before confirming. If they object, swap the images - the pages don't depend on them.
+- `/areas-we-serve/`: **Fernandina Beach and Atlanta have 0 venue links** (empty cards). Atlanta is missing from `/vendors/venues/` entirely.
+- `/vendors/venues/` meta description still says "where COS Celebrations is a preferred vendor" - that is preferred-vendor status published where competitors read it.
+- Palatka has 1 venue; Corey has more to add.
+- Rank check ~September 22 (both new keywords added to `rankings.json`, no baseline yet).
 
 ---
 
