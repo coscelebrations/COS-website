@@ -44,3 +44,12 @@
 # McKarls shortened their name from "McKarl's Libations & Cuisine" in Aug 2026.
 # Old vendor URL was live for about an hour before the rename reached us.
 /vendors/bar-service/mckarls-libations/ /vendors/bar-service/mckarls/ 301
+
+# /vendors/venues/ was a 97% duplicate of /areas-we-serve/ - all 71 of its venue
+# links already appeared there, with 333 body words against 684, and it had ZERO
+# Google impressions on either site across the 60 days to 2026-08-20. Meanwhile
+# /areas-we-serve/ is the breadcrumb parent of ~145 venue pages. Consolidated
+# 2026-08-25: the richer page wins, and we stop spending crawl budget (we have a
+# known ceiling) on a page that returned nothing. Directory deleted, so this is a
+# plain 301 - no force flag needed.
+/vendors/venues/ /areas-we-serve/ 301
