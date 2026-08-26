@@ -5,7 +5,12 @@
 
 ## Session: August 25, 2026 - Golden Creek Ranch, a new Palatka market, and two hub pages that don't earn anything
 
-Four URLs live: `/golden-creek-ranch-wedding-dj/` and `/palatka-wedding-dj/` on both brands (COS `9bf7aa0`, AE `8208131`). Golden Creek Ranch is a 62-acre working Angus cattle ranch at 133 Ranch Road, East Palatka, Putnam County - 25 min from St. Augustine, 45 from Jacksonville, up to 200 guests, barn plus open-pasture ceremony sites.
+Four URLs live: `/golden-creek-ranch-wedding-dj/` and `/palatka-wedding-dj/` on both brands (COS `9bf7aa0`, AE `8208131`). Golden Creek Ranch is a 62-acre working Angus cattle ranch at 133 Ranch Road, East Palatka, Putnam County - 25 min from St. Augustine, 45 from Jacksonville, up to 150 guests, barn plus open-pasture ceremony sites.
+<!-- CORRECTED 2026-08-26: both pages shipped saying "up to 200 guests"; Corey confirmed the real
+     capacity is 150. Fixed on both brands (COS cf72846, AE 0e1b8f6) in 6 places on COS (intro, stat
+     block, Quick Facts, barn-acoustics paragraph, and the sound FAQ in both visible copy and FAQPage
+     schema) and 2 on AE (intro, Quick Facts). The 200 came from the venue's own published material
+     during the Aug 25 build - do not "restore" it from that source. -->
 
 **We have not DJd there.** Neither page claims otherwise. No "we know this venue," no invented load-in or acoustics. Barn observations (metal truss roof, concrete floor, open sides) came from the venue's own published photos, and every hard fact came from their structured data.
 
