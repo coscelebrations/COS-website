@@ -71,3 +71,28 @@
   to = "https://coscelebrations.com/:splat"
   status = 301
   force = true
+
+# ---------------------------------------------------------------------------
+# Serverless functions. Added 2026-08-26 for the Group Reply Assistant.
+# Matches the block already in use on the AE site.
+# ---------------------------------------------------------------------------
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Group Reply Assistant is an internal tool. Never cache it, never index it.
+# The meta robots tag on the page says the same thing - this is belt and
+# braces, and it also covers the /.netlify/functions/ response.
+# The "/*.html" rule above does not reliably match the pretty URL
+# "/group-reply/", which is why this is its own explicit block.
+[[headers]]
+  for = "/group-reply/*"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
+[[headers]]
+  for = "/group-reply"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow, noarchive"

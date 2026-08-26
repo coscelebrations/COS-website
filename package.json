@@ -22,7 +22,9 @@
     "optimize": "python3 ../cos-tools/page-optimizer/page_optimizer.py",
     "optimize:fix-images": "python3 ../cos-tools/page-optimizer/fix_image_dimensions.py",
     "monitor:indexing": "python3 ../cos-tools/seo-tracking/monitor_indexing.py",
-    "tasks": "python3 ../cos-tools/task_runner.py"
+    "tasks": "python3 ../cos-tools/task_runner.py",
+    "check:group-reply": "node scripts/check-group-reply-links.mjs",
+    "test:group-reply": "node scripts/test-group-reply-routing.mjs"
   },
   "private": true
 }

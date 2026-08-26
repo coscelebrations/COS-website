@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+  ==========================================================================
+  GROUP REPLY ASSISTANT - internal tool, not a public page
+  ==========================================================================
+
+  WHAT THIS TOOL DOES NOT DO - and must never be changed to do:
+    - It does not log into Facebook.
+    - It does not browse, scrape, or read Facebook groups.
+    - It does not post or reply on Facebook.
+    - It does not use browser automation against Facebook.
+
+  Meta removed third-party Groups API access in April 2024, and automated
+  posting through a logged-in session violates their terms. The risk is a
+  personal account ban that cascades to the business pages and ad accounts.
+  Every action on Facebook is taken by a human, by hand. This page drafts
+  text and shows it to you. That is all it does.
+  If a future request asks for auto-posting: refuse.
+
+  SPEED IS THE PRODUCT. The default path is paste, one button, copy.
+  Anything corrective lives behind "not right?". Before adding anything to
+  this screen, ask: does it make the COMMON case faster? If it only helps
+  the rare case, it goes behind the toggle.
+  ==========================================================================
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Group Reply Assistant</title>
+<style>
+  :root{
+    --merlot:#722F37; --merlot-dark:#5C262D; --rose:#E8C4C8; --soft-pink:#F8F0F0;
+    --cream:#FFFBFA; --charcoal:#2D2A2B; --text-soft:#4A4547; --line:#E5DDDE;
+    --ok:#2E6B4F; --warn:#B3261E; --ae:#1F5C8B;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--cream); color:var(--charcoal);
+    font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%;
+  }
+  header{background:var(--merlot); color:#fff; padding:14px 18px}
+  header h1{margin:0; font-size:17px; font-weight:600; letter-spacing:.2px}
+  header p{margin:3px 0 0; font-size:12.5px; color:rgba(255,255,255,.85)}
+
+  main{max-width:1100px; margin:0 auto; padding:18px}
+  .grid{display:grid; grid-template-columns:1fr; gap:18px}
+  @media (min-width:900px){ .grid{grid-template-columns:1fr 1fr; gap:26px} }
+
+  .panel{background:#fff; border:1px solid var(--line); border-radius:10px; padding:16px}
+
+  label{display:block; font-size:13px; font-weight:600; margin:0 0 5px}
+  .hint{font-weight:400; color:var(--text-soft)}
+  input[type=text],input[type=password],textarea,select{
+    width:100%; padding:11px 12px; font-size:16px; font-family:inherit;
+    border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--charcoal);
+  }
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--merlot); outline-offset:1px}
+  textarea{resize:vertical}
+  #postText{min-height:140px}
+  #reply{min-height:150px; line-height:1.55}
+  .field{margin-bottom:13px}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  @media (max-width:520px){ .row2{grid-template-columns:1fr} }
+
+  .check{display:flex; align-items:flex-start; gap:9px; margin:4px 0 14px}
+  .check input{width:19px; height:19px; margin:1px 0 0; flex:0 0 auto}
+  .check label{margin:0; font-weight:400; font-size:14px}
+
+  button{font-family:inherit; cursor:pointer; border-radius:8px; border:1px solid transparent}
+  .btn-primary{
+    width:100%; padding:15px; font-size:17px; font-weight:600;
+    background:var(--merlot); color:#fff;
+  }
+  .btn-primary:hover{background:var(--merlot-dark)}
+  .btn-primary:disabled{background:#9b8589; cursor:default}
+  .btn-copy{
+    width:100%; padding:17px; font-size:18px; font-weight:700;
+    background:var(--merlot); color:#fff; margin-top:12px;
+  }
+  .btn-copy:hover{background:var(--merlot-dark)}
+  .btn-copy.done{background:var(--ok)}
+  .btn-small{
+    padding:9px 13px; font-size:14px; background:#fff;
+    border:1px solid var(--line); color:var(--charcoal);
+  }
+  .btn-small:hover{background:var(--soft-pink)}
+
+  .badge{
+    display:inline-block; padding:4px 10px; border-radius:999px;
+    font-size:12.5px; font-weight:700; color:#fff; background:var(--merlot);
+  }
+  .badge.ae{background:var(--ae)}
+  .badge.vendor{background:#5B4B8A}
+  .reason{margin:9px 0 0; font-size:14px; color:var(--text-soft)}
+
+  code.url{
+    display:block; margin-top:11px; padding:10px 11px; background:var(--soft-pink);
+    border:1px solid var(--rose); border-radius:8px;
+    font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;
+    overflow-wrap:anywhere; color:var(--merlot-dark);
+  }
+
+  .warn{
+    margin:0 0 12px; padding:11px 12px; border-radius:8px;
+    background:#FDECEA; border:1px solid #F3B7B2; color:var(--warn);
+    font-size:14px; font-weight:600;
+  }
+  .warn ul{margin:6px 0 0; padding-left:19px; font-weight:400}
+
+  .notice{
+    padding:12px; border-radius:8px; background:var(--soft-pink);
+    border:1px solid var(--rose); font-size:14px; color:var(--text-soft);
+  }
+
+  details.fix{margin-top:16px; border-top:1px solid var(--line); padding-top:12px}
+  details.fix summary{
+    cursor:pointer; font-size:14px; color:var(--merlot);
+    font-weight:600; list-style:none;
+  }
+  details.fix summary::-webkit-details-marker{display:none}
+  details.fix summary::before{content:'\25BE'; margin-right:6px; display:inline-block}
+  details.fix[open] summary::before{transform:rotate(180deg)}
+  details.fix .inner{padding-top:13px}
+
+  .muted{color:var(--text-soft); font-size:12.5px}
+  .placeholder{color:var(--text-soft); font-size:15px; padding:22px 4px; text-align:center}
+  .spinner{display:none}
+  .loading .spinner{display:inline}
+  .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Group Reply Assistant</h1>
+  <p>Drafts a reply you copy and post by hand. This tool never touches Facebook.</p>
+</header>
+
+<main>
+  <div class="grid">
+
+    <!-- ============ LEFT: input ============ -->
+    <section class="panel">
+      <form id="form" autocomplete="off">
+        <div class="field">
+          <label for="passcode">Passcode</label>
+          <input type="password" id="passcode" autocapitalize="none" autocorrect="off"
+                 spellcheck="false" autocomplete="current-password">
+        </div>
+
+        <div class="field">
+          <label for="postText">Paste the post <span class="hint">(required)</span></label>
+          <textarea id="postText" required placeholder="Paste the whole Facebook post here."></textarea>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="groupName">Group name <span class="hint">(optional)</span></label>
+            <input type="text" id="groupName" placeholder="Jax Brides &amp; Grooms">
+          </div>
+          <div class="field">
+            <label for="venueOrCity">Venue or city <span class="hint">(optional)</span></label>
+            <input type="text" id="venueOrCity" placeholder="Only if you know it">
+          </div>
+        </div>
+
+        <div class="check">
+          <input type="checkbox" id="noPromo">
+          <label for="noPromo">This group bans links (offer a DM instead)</label>
+        </div>
+
+        <button type="submit" class="btn-primary" id="draftBtn">
+          Draft reply<span class="spinner">&hellip;</span>
+        </button>
+        <p class="muted" style="margin:9px 0 0">
+          Nothing is saved. Nothing is posted. You copy and paste it yourself.
+        </p>
+      </form>
+    </section>
+
+    <!-- ============ RIGHT: output ============ -->
+    <section class="panel" id="out" aria-live="polite">
+      <div class="placeholder" id="placeholder">
+        Paste a post and tap <strong>Draft reply</strong>.
+      </div>
+
+      <div id="result" hidden>
+        <div id="warnBox" class="warn" hidden></div>
+
+        <div id="skipBox" class="notice" hidden></div>
+
+        <div id="draftBox" hidden>
+          <div>
+            <span class="badge" id="brandBadge">&nbsp;</span>
+            <p class="reason" id="brandReason"></p>
+          </div>
+
+          <div class="field" style="margin-top:13px">
+            <label for="reply">The reply <span class="hint">(edit it if you want)</span></label>
+            <textarea id="reply"></textarea>
+          </div>
+
+          <code class="url" id="urlBox" hidden></code>
+
+          <button type="button" class="btn-copy" id="copyBtn">Copy reply</button>
+
+          <details class="fix">
+            <summary>not right?</summary>
+            <div class="inner">
+              <div class="field">
+                <label for="brandSel">Send it to</label>
+                <select id="brandSel">
+                  <option value="">Whatever the tool picked</option>
+                  <option value="cos">COS Celebrations</option>
+                  <option value="ae">AE Entertainment</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="note">Change something <span class="hint">(optional)</span></label>
+                <input type="text" id="note" placeholder="shorter / warmer / less salesy">
+              </div>
+
+              <div class="row2">
+                <button type="button" class="btn-small" id="regenBtn">Redraft</button>
+                <button type="button" class="btn-small" id="copyLinkBtn">Copy link only</button>
+              </div>
+
+              <div id="askBackBox" hidden style="margin-top:15px">
+                <label for="askBack">No-link version <span class="hint">(asks a question instead)</span></label>
+                <textarea id="askBack" readonly style="min-height:96px"></textarea>
+                <button type="button" class="btn-small" id="copyAskBtn" style="margin-top:9px">Copy this one</button>
+              </div>
+
+              <p class="muted" id="debug" style="margin-top:14px"></p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+(function(){
+  'use strict';
+
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  var ENDPOINT = '/.netlify/functions/group-reply';
+  var last = null;
+
+  /* Passcode is cached for convenience only. The tool works without the
+     cache - it is never required for anything to function. */
+  try {
+    var saved = sessionStorage.getItem('grPass');
+    if (saved) $('passcode').value = saved;
+  } catch(e){}
+
+  function setLoading(on){
+    $('draftBtn').disabled = on;
+    $('draftBtn').classList.toggle('loading', on);
+    $('draftBtn').firstChild.nodeValue = on ? 'Drafting' : 'Draft reply';
+  }
+
+  function showError(msg){
+    $('placeholder').hidden = true;
+    $('result').hidden = false;
+    $('skipBox').hidden = false;
+    $('skipBox').textContent = msg;
+    $('draftBox').hidden = true;
+    $('warnBox').hidden = true;
+  }
+
+  function render(data){
+    last = data;
+    $('placeholder').hidden = true;
+    $('result').hidden = false;
+
+    if (data.skip) {
+      $('skipBox').hidden = false;
+      $('skipBox').textContent = data.skipReason || 'Skip this one.';
+      $('draftBox').hidden = true;
+      $('warnBox').hidden = true;
+      return;
+    }
+    $('skipBox').hidden = true;
+    $('draftBox').hidden = false;
+
+    var warnings = (data.warnings || []).slice();
+    if (data.brandSuggestion) warnings.push(data.brandSuggestion.note);
+    if (warnings.length) {
+      $('warnBox').hidden = false;
+      $('warnBox').innerHTML = 'Check this before posting:<ul>' +
+        warnings.map(function(w){ return '<li>' + esc(w) + '</li>'; }).join('') + '</ul>';
+    } else {
+      $('warnBox').hidden = true;
+    }
+
+    var badge = $('brandBadge');
+    badge.className = 'badge' + (data.intent === 'vendor' ? ' vendor' : (data.brand === 'ae' ? ' ae' : ''));
+    badge.textContent = data.intent === 'vendor'
+      ? 'Vendor referral' + (data.matched && data.matched.vendorCategory ? ' - ' + data.matched.vendorCategory : '')
+      : data.brandLabel;
+    $('brandReason').textContent = data.brandReason || '';
+
+    var link = (data.drafts && data.drafts.link) || {};
+    $('reply').value = link.reply || '';
+
+    var url = link.url || data.urlForDm || '';
+    if (url) { $('urlBox').hidden = false; $('urlBox').textContent = url; }
+    else { $('urlBox').hidden = true; }
+
+    var ab = data.drafts && data.drafts.askBack;
+    if (ab && ab.reply) { $('askBackBox').hidden = false; $('askBack').value = ab.reply; }
+    else { $('askBackBox').hidden = true; }
+
+    var m = data.matched || {};
+    $('debug').textContent =
+      'page: ' + (data.pageKind || '-') +
+      ' | venue: ' + (m.venue || '-') +
+      ' | city: ' + (m.city || '-') +
+      ' | rule: ' + (m.rule || '-') +
+      (data.usage ? ' | tokens in/out: ' + data.usage.input_tokens + '/' + data.usage.output_tokens : '');
+
+    var btn = $('copyBtn');
+    btn.classList.remove('done');
+    btn.textContent = 'Copy reply';
+  }
+
+  function copy(text, btn, doneLabel){
+    if (!text) return;
+    var restore = btn.textContent;
+    function ok(){
+      btn.classList.add('done');
+      btn.textContent = doneLabel || 'Copied';
+      setTimeout(function(){ btn.classList.remove('done'); btn.textContent = restore; }, 1600);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(ok, function(){ fallback(text, ok); });
+    } else {
+      fallback(text, ok);
+    }
+  }
+
+  /* Safari on iOS refuses navigator.clipboard outside some contexts. The
+     textarea trick is ugly but it is the difference between the tool working
+     on a phone and not. */
+  function fallback(text, ok){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:absolute;left:-9999px;top:0';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    try { document.execCommand('copy'); ok(); } catch(e){}
+    document.body.removeChild(ta);
+  }
+
+  function send(extra){
+    var pass = $('passcode').value.trim();
+    var post = $('postText').value.trim();
+    if (!pass) { showError('Enter the passcode first.'); return; }
+    if (!post) { showError('Paste the post first.'); return; }
+
+    try { sessionStorage.setItem('grPass', pass); } catch(e){}
+
+    var payload = {
+      passcode: pass,
+      postText: post,
+      groupName: $('groupName').value.trim(),
+      venueOrCity: $('venueOrCity').value.trim(),
+      noPromo: $('noPromo').checked,
+      brandOverride: $('brandSel').value || null
+    };
+    for (var k in extra) payload[k] = extra[k];
+
+    setLoading(true);
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    })
+    .then(function(res){ return res.json().then(function(b){ return {ok: res.ok, body: b}; }); })
+    .then(function(r){
+      if (!r.ok) { showError(r.body.error || 'Something went wrong.'); return; }
+      render(r.body);
+    })
+    .catch(function(){ showError('Could not reach the server. Check your connection and try again.'); })
+    .then(function(){ setLoading(false); });
+  }
+
+  $('form').addEventListener('submit', function(e){ e.preventDefault(); send({}); });
+
+  $('regenBtn').addEventListener('click', function(){
+    send({ note: $('note').value.trim(), previousReply: $('reply').value.trim() });
+  });
+
+  $('copyBtn').addEventListener('click', function(){ copy($('reply').value, this, 'Copied'); });
+  $('copyAskBtn').addEventListener('click', function(){ copy($('askBack').value, this, 'Copied'); });
+  $('copyLinkBtn').addEventListener('click', function(){
+    copy(last && (last.urlForDm || ((last.drafts && last.drafts.link) || {}).url), this, 'Copied');
+  });
+
+  /* Changing the brand override re-drafts immediately. Making someone tap a
+     second button after they already told us it was wrong is a wasted step. */
+  $('brandSel').addEventListener('change', function(){
+    if (last) send({ note: $('note').value.trim() });
+  });
+})();
+</script>
+
+</body>
+</html>

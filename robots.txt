@@ -3,6 +3,7 @@ Allow: /
 Disallow: /tracker/
 Disallow: /tracker-legacy/
 Disallow: /gear/
+Disallow: /group-reply/
 
 # AI Search Crawlers - explicitly allowed
 User-agent: GPTBot

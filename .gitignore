@@ -15,3 +15,8 @@ node_modules/
 # after 8 such backups showed up as untracked files in a commit.
 *.bak
 *.bak-*
+
+# Local env for netlify dev (holds a live API key - never commit)
+.env
+.env.*
+!.env.example
