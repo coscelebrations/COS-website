@@ -1,5 +1,39 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 25, 2026
+## Last Updated: August 27, 2026
+
+---
+
+## Session: August 27, 2026 - Maci's Pour vendor page, and a third bar company that needed its own argument
+
+Two URLs built, **not yet committed or deployed**: `/vendors/bar-service/macis-pour/` on COS and AE. Samantha Moore, Maci's Pour Custom Bartending, Jacksonville. Corey confirmed the relationship is real shared wedding days, so "we have worked weddings alongside her" is the only relationship claim on either page - no counts, no venues named.
+
+### The constraint that shaped this page
+
+There are now **three bar companies** in `/vendors/bar-service/` and they were one careless paragraph away from arguing the same thing. Rule #2 is not just about copy-paste between brands; it applies to two pages on the same site making the same case.
+
+- **McKarls** = craft programme, deliberately slower (Corey's own correction on that build)
+- **The Perfect Pour** = throughput. Short bar line, staffed to headcount
+- **Maci's Pour** = focal point. The bar's styling decides where the venue puts it, and where it sits decides where the crowd stands for the opening hour
+
+Corey picked the focal-point angle from four options. The DJ-seat version of it is genuinely ours and not on her site: cocktail hour ends, the room walks in one direction, and a bar that looks like a folding table gets tucked into a service hallway and takes the crowd with it. **Do not give Maci's Pour a bar-line argument later** - that one is spoken for.
+
+### AE got the money version
+
+Her rates are published, which almost nobody in this market does, so the AE page just prints them: $500 base (4 hours, one licensed bartender, up to 75 guests, insurance, water station, custom bar sign, shopping list) plus $3 / $5 / $8 per head for beer-and-wine, two-cocktails, or full bar. We did the 100-guest arithmetic on the page - roughly $800 to $1,300 for the service - and flagged it as our maths on her numbers, not a quote from her.
+
+Zero shared sentences between the two brands.
+
+### What is deliberately absent
+
+No aggregate rating in the schema. Four testimonials on a vendor's own website is not a star average we get to assert about somebody else's business. One review is quoted **verbatim** (Phaedra Dejarnette, Green Cove Springs) and credited; the other three are not used. No invented venue detail, no wedding count, no claim she has reviewed us - a full workspace grep for her name and domain returned zero hits before the build, so there was nothing to quote back.
+
+### Photos: used first, permission asked second
+
+Two images off her site, hosted on ours, credited in the caption. The outreach email at `~/Desktop/macis-pour-email.md` asks retroactively and offers same-day removal, same as the Perfect Pour email did. **Her gallery is mostly Premier Bride editorial by Laura Perez Photography and Savannah Bates Photo** - third-party copyright on styled shoots, avoided entirely.
+
+Squarespace gotcha worth remembering: it serves **WebP under a `.JPG` URL**, so `sips` refuses to resize what looks like a JPEG. Route is `dwebp` to PNG, then `cwebp`.
+
+Both sitemaps updated, both `/vendors/bar-service/` index pages have the new card, and the AE index ItemList schema gained a third entry. Build notes: `~/Desktop/Design-Assets/vendor-partners/macis-pour/NOTES.md`.
 
 ---
 
