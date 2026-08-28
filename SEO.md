@@ -1,5 +1,45 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 27, 2026
+## Last Updated: August 28, 2026
+
+---
+
+## Session: August 28, 2026 - Fern Oak Estate, and a template bug that put another venue's hero on the page
+
+Two new venue URLs, **built but not deployed**: `/fern-oak-estate-wedding-dj/` on COS and AE. Fern Oak Estate, 322 Lake Como Drive, Pomona Park, Putnam County - a gated 15-acre lakefront estate about 40 miles from St. Augustine. Corey confirmed **both brands have worked weddings there**, so both pages say so; neither names a couple, counts weddings, or invents a room detail.
+
+### The angle is the overnight capacity, not the scenery
+
+Every venue page in this market opens with the scenery. The fact that actually changes a quote here is that **32 guests sleep on the property, behind a gate, across four houses.** Nobody drives home. So the wedding is the middle day of three, and the real planning question is which parts of a weekend want a DJ and which just want a speaker and a playlist. That is the spine of the COS page and I have not seen another DJ in Florida argue it.
+
+Second COS hook, straight from the venue's own copy: **two gazebos "that can be utilized as stage areas."** A venue handing you a pre-built covered stage at the edge of a lake is an unusually direct invitation for live sax.
+
+AE got a completely different argument: **80 is the number.** The estate caps weddings at 80 guests, which is a small room by wedding standards, and the venue's own packages already include tables, chairs, setup/breakdown, a parking attendant and day-of management. The AE page tells couples to confirm that list before they price rentals, and adds the hotel-block point - 32 people staying on site means no block and no shuttle for that share of the guest list. **Zero identical sentences between the two brands.**
+
+### The bug: copying a venue template imports the previous venue's hero
+
+Both pages initially shipped with `url('/images/golden-creek-ranch-wedding/golden-creek-ranch-wedding-dj-hero.webp')` in their CSS - desktop and mobile - because the hero image is set in the inline `<style>` block rather than in markup, so it travels invisibly with the template. The page looked finished. The hero was a cattle ranch 30 miles away.
+
+**Anyone building the next venue page from an existing one must grep the new file for `url(` before calling it done.** It will not show up in a schema check, a link check, or a read of the body markup. Fixed here by generating `fern-oak-estate-wedding-dj-hero.webp` (1200x800, 145KB) and `-hero-mobile.webp` (800x534, 82KB) and repointing both rules.
+
+### Photos, and what is deliberately absent
+
+Five images off fernoakestate.com, hosted locally and credited, with the permission email drafted at `~/Desktop/fern-oak-estate-email.md` and **not sent**. Wix serves them under opaque hash filenames; higher resolution comes from appending `/v1/fill/w_2000,h_1200,al_c,q_85/x.jpg` to the base media URL, which is how the hero got past 1024px.
+
+**Both brands are on their preferred partner list, at the top tier.** I got this wrong on the first pass and Corey caught it. The estate's Preferred Partners *page* only renders eight dynamic entries and neither brand is among them - the actual list is a four-page PDF behind a download button, and it has "COS Entertainment - Platinum, Corey Peterson" and "AE Entertainment - Platinum, Kyle Peterson" in it. **Lesson: a vendor directory that offers a download is not the directory. Fetch the file.** PDF archived at `~/Desktop/Design-Assets/venues/fern-oak-estate/`.
+
+Their tier definitions, in their words: **Platinum = toured the estate AND provided products and services there. Gold = toured it only.** So the top tier is itself a statement that we have worked the property, which corroborates Corey independently.
+
+Both pages now state preferred-vendor status per Rule #9 and point couples at the list for the other categories. **They deliberately do not print the word "Platinum"** - publishing our tier implicitly ranks the Gold vendors on the same list, which is what `feedback_referral_details_stay_offline` exists to prevent, and one of those Gold vendors is Matt Connelly, who also DJs for COS. Open question with Corey.
+
+Two things to action off that PDF: they have us as **"COS Entertainment", not COS Celebrations** - a NAP inconsistency on a live public document, raised in the outreach email. And three vendors we already have partner pages for are on the list (In Good Company and Honey Bee Events at Platinum, Photos by Futrell at Gold).
+
+The CRM's leads sourced "Venue - Fern Oak" and the AE booking against them stay off the website per the standing rule.
+
+Also updated: both Palatka city pages now link Fern Oak and no longer say "the one venue we have a full page for." The AE Palatka line claiming *nearly every* Putnam County venue is vendor-friendly was softened, because Fern Oak is a counterexample and the two pages contradicted each other.
+
+### Unrelated fix, found while building
+
+The `venue-page` skill's own instructions were arriving corrupted. The loader substitutes positional arguments into the skill body, so the `$1` inside `$1,500` was being replaced by the second word of the venue name - the instructions literally read "Oak,500 starting price." Any multi-word venue name triggers it. Prices in `~/.claude/skills/venue-page/SKILL.md` are now written "USD 1,500" so no `$N` survives to be interpolated; dated comment left in the file.
 
 ---
 
