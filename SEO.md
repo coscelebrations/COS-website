@@ -3,6 +3,38 @@
 
 ---
 
+## Session: August 28, 2026 (later) - That Cannoli Guy, and a stylesheet that does not travel between vendor categories
+
+Two URLs built, **not committed**: `/vendors/guest-experiences/that-cannoli-guy/` on COS and AE. Anthony and Sarah, a roaming cannoli service covering Florida. Corey confirmed we have worked events alongside them; that is the only relationship claim on either page.
+
+### The argument is room management, not dessert
+
+Second vendor in guest-experiences, and it needed to argue something Extreme Mobile Entertainment does not. Calvin's page is about **filling a gap** - karaoke and sketch portraits for a night with dead air. This one is about **not creating one**: a dessert table gets fifty people out of their chairs and pointed at a wall, and a share of them keep walking, so you lose the room for twenty minutes right when it was warm. A tray carried to people does the opposite. That observation is ours, it is not on their site, and it is the spine of the COS page along with a section on where in the night it belongs (after dinner / instead of the cake cutting / late night).
+
+**AE got a genuinely different hook: it can replace the cake rather than sit beside it.** A tiered cake is among the most wasted line items at a wedding; a small cutting cake plus a dessert that is handed to every guest often comes in cheaper and actually gets eaten. Told couples to price the two against each other. Zero shared sentences between the brands.
+
+Both pages carry a **"when to skip it"** section naming the cases where we would talk a couple out of it. That is the guest-experiences category promise and it should stay.
+
+### The bug: vendor CSS is per-category, and the classes silently differ
+
+The COS page was written using `.pair`, `.tiers`, `.tier`, `.pullquote` and `.pair-caption` - all standard on the **bar-service** vendor pages. **None of them exist in the guest-experiences stylesheet.** No error, no warning; the page would simply have rendered as an unstyled stack of text and full-width images. Caught by diffing the class list in the file against the class list in the CSS before previewing.
+
+Lifted the exact rules from the bar-service sheet plus the matching mobile overrides and appended them before `</style>`, so the design system stays identical rather than approximated. **Whenever a vendor page borrows layout from another category, diff the classes it uses against the classes its stylesheet defines.**
+
+### Square sites return nothing to a normal fetch
+
+`thatcannoliguy.square.site` is fully JS-rendered - `curl` gives back an empty shell with no `<title>` and no body text at all. Everything had to be read through a real browser. Same family of trap as the WebFetch schema-stripping note in CLAUDE.md and the Fern Oak partner PDF: **the thing you fetched is not necessarily the thing a person sees.**
+
+### What is deliberately absent
+
+**No price and no city.** They publish neither - their site says only "all over Florida" - so both pages say exactly that and tell couples to ask. Do not let a later pass "fix" the location to a city without a source. Also worth recording: **none of their four published testimonials is a wedding** (a broker's open, a birthday, a holiday party, one general). The COS page quotes one verbatim and does not describe it as a wedding review.
+
+Three photos used, all apparently their own, credited and hosted locally. **The two best wedding shots were left alone on purpose** - the filenames credit Laura Perez Photography from a St. Augustine wedding at The Shanty Co, which is her copyright and not the vendor's to license to us. The outreach email asks rather than assumes. Build notes: `~/Desktop/Design-Assets/vendor-partners/that-cannoli-guy/NOTES.md`. Email drafted at `~/Desktop/that-cannoli-guy-email.md`, not sent.
+
+Both category index pages have the new card, the AE index ItemList gained a second entry, and both sitemaps have the URL at priority 0.6 to match its sibling.
+
+---
+
 ## Session: August 28, 2026 - Fern Oak Estate, and a template bug that put another venue's hero on the page
 
 Two new venue URLs, **built but not deployed**: `/fern-oak-estate-wedding-dj/` on COS and AE. Fern Oak Estate, 322 Lake Como Drive, Pomona Park, Putnam County - a gated 15-acre lakefront estate about 40 miles from St. Augustine. Corey confirmed **both brands have worked weddings there**, so both pages say so; neither names a couple, counts weddings, or invents a room detail.
