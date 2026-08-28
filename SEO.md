@@ -3,6 +3,60 @@
 
 ---
 
+## Session: August 28, 2026 (later still) - First Coast Weddings, and a correction to how vendor pages get written
+
+Two URLs built, **not committed**: `/vendors/planners/first-coast-weddings/` on COS and AE. Heather Canada Randall's firm, founded 2002, Jacksonville. Corey: "worked many weddings together mainly at TPC. See each other at NACE as well."
+
+### Corey changed the brief, and it applies to every vendor page from here
+
+The first draft did what the previous four planner pages did: picked an argument no other vendor on the list had claimed and built the page around it. Corey stopped that:
+
+> "stop worrying about comparing the vendors. Just do a write up and such from the information you get from their website. Let THEM sell who they are and why they are different. We are putting people we like and trust in here."
+
+He is right, and it exposes a drift. By the fifth planner I was choosing an angle by what was still *unclaimed* rather than by what was *true*, and writing "Positioning - do not undo" blocks into the build notes to lock the invention in. `/vendors/` is a list of people Corey trusts, not a differentiated content portfolio.
+
+**Both pages were rewritten as write-ups sourced from First Coast's own site.** Heather's own words carry it now - her self-description ("Master Wedding Planner. Owner of First Coast Weddings & Events. Sales Manager for Bowing Oaks. Wife to Chad. Child of God. Oh, & #IloveJax"), her line about the team still being here, and her stated love of teaching planners to build "thorough timelines that vendors love," which we can vouch for from the receiving end. Cut entirely: "Twenty-four years is the headline," "Why a DJ has strong feelings about this," and "The case for spending here before you spend anywhere else."
+
+Rule #2 is unaffected - pages still must not be near-identical. The difference is that uniqueness now falls out of each vendor's own material, which is naturally different, instead of being assigned.
+
+Saved as memory `feedback_vendor_pages_describe_dont_differentiate`. The stale "Positioning - do not undo" blocks in the Maci's Pour and That Cannoli Guy build notes were written under the old approach and should be read as superseded.
+
+### And the page had no photo of Heather
+
+Corey caught that too. I had opened `/about-us`, found text-only bios, and concluded no headshot existed. **Her portraits are on `/coaching-and-speaking`** - a page I never opened. That page also carried the best first-person material on the whole site, including the Bowing Oaks sales-manager detail that gave us another internal link.
+
+Lesson, and it is the same shape as the Fern Oak partner PDF and the Square site: **walk every page before concluding something is not there.** Both pages now lead with her portrait, and both index cards use it as the thumbnail.
+
+### Their price is public and it is still not on our pages
+
+Their blog publishes "Wedding Day Management begins at $2,500" under Heather's byline. **Corey's call was to leave it off both pages**, so neither quotes a figure; both point couples at the article instead. Verified with a literal string check that "2,500" appears on neither page. Do not add it later without asking.
+
+### Three NACE attribution bugs are live right now
+
+Checked the existing pages before writing this one, because NACE has been got wrong repeatedly. The correct form is that **the Northeast Florida board seat is Corey's personally**, and **AE does not name Corey at all**. Currently live:
+
+- COS `/vendors/planners/in-good-company/` - "We also **sit on the NACE board together**". Should be Corey. Ticketed as `mgr-2026-08-22-3`.
+- AE `/vendors/bar-service/mckarls/` - "Matt is on the NACE Northeast Florida board **with us**", twice. AE claiming Corey's seat. Ticketed as `mgr-2026-08-20-3`.
+- AE `/vendors/guest-experiences/extreme-mobile-entertainment/` - "where **Corey** sits on the board." Names Corey on AE, which contradicts the AE-never-names-him rule. **I could not find a ticket for this one.**
+
+The two McKarls COS mentions are correct ("Matt and Corey also serve on the NACE board together"), so the right wording does exist in the codebase to copy from. The new First Coast pages follow it: COS attributes the seat to Corey, AE does not mention NACE at all.
+
+### Photos: two now, and the rest is a real ceiling
+
+Heather's portrait from `/coaching-and-speaking` leads both pages, and the reception-room shot from `/about-us` closes the COS page. Beyond those two, nearly every image on their site is a photographer's export - their Instagram feed credits photographers by handle in the alt text - so those are left alone. The outreach email asks Heather to clear a couple with her photographers.
+
+One inference recorded but deliberately not published: the reception shot is `20260131-782.jpg`, and `20260131-764.jpg` from the same shoot is captioned "A Winter Wedding at TPC Sawgrass" on their blog. Very likely TPC. **The page does not say so**, because a filename is not a source.
+
+### The internal linking is the real SEO win here
+
+Their published real weddings overlap our venue pages more than any other vendor on the list. Nine links out of the COS page: TPC Sawgrass, Epping Forest, Treasury on the Plaza, River House, Timuquana, Lodge and Club Ponte Vedra, Golf Club of Amelia Island, Embassy Suites St Aug Beach, Sawgrass Marriott - plus Flagler College, because three of their four planners are Flagler graduates. All ten verified 200 before shipping.
+
+Worth noting: `firstcoastweddings.com` already sits in our own `competitor-rankings.json`, correctly classified `other`, ranking around position 9 on venue queries off the back of those real-wedding posts. A planner outranking DJs on venue terms is a content-model observation worth remembering.
+
+Both planner index pages have the new card and a fifth ItemList entry; both sitemaps updated at priority 0.6 to match siblings. Build notes: `~/Desktop/Design-Assets/vendor-partners/first-coast-weddings/NOTES.md`.
+
+---
+
 ## Session: August 28, 2026 (later) - That Cannoli Guy, and a stylesheet that does not travel between vendor categories
 
 Two URLs built, **not committed**: `/vendors/guest-experiences/that-cannoli-guy/` on COS and AE. Anthony and Sarah, a roaming cannoli service covering Florida. Corey confirmed we have worked events alongside them; that is the only relationship claim on either page.
