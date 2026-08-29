@@ -540,13 +540,11 @@
             <a href="/river-house-wedding-dj/" class="wedding-card-link" title="Learn about wedding DJ services at River House">River House DJ Info</a>
           </div>
         </article>
-        <!-- TODO: Add 3-5 more recent CJ weddings. Each needs: couple names, month/year, venue, 1-2 sentence description, ideally a real photo. -->
-        <article class="wedding-card" style="opacity:0.5;border:2px dashed var(--rose)">
-          <div class="wedding-card-body" style="padding:3rem 1.75rem;text-align:center">
-            <h3 style="font-size:1.2rem;color:var(--text-soft)">+ Add Another Wedding</h3>
-            <p style="font-size:0.85rem">Couple names, venue, one-line description, photo path.</p>
-          </div>
-        </article>
+        <!-- 2026-08-29: Removed a "+ Add Another Wedding" tile that was an internal
+             editing affordance leaked into production - dashed border, opacity 0.5, body
+             text "Couple names, venue, one-line description, photo path." Public and in
+             sitemap.xml. It also broke Rule #14 (no text under 0.75 opacity).
+             TODO: add more real CJ weddings as real cards - never a placeholder tile. -->
       </div>
     </div>
   </section>
@@ -613,20 +611,23 @@
             <span class="peer-card-role">Founder &middot; DJ &middot; Sax</span>
           </div>
         </a>
-        <a href="/team/djs/noah/" class="peer-card" title="Meet DJ Noah">
+        <!-- 2026-08-23: Noah and Greg were linked to /team/djs/noah/ and /team/djs/greg/,
+             which have never existed (both 404 live). Unlinked to stop the 404 rather than
+             invented. Re-wrap these two cards in anchor tags once their bio pages exist. -->
+        <div class="peer-card">
           <img src="/images/team/dj-noah/web/dj-noah-36.webp" alt="DJ Noah - Wedding DJ at COS Celebrations" loading="lazy">
           <div class="peer-card-content">
             <h3>Noah</h3>
             <span class="peer-card-role">DJ &middot; MC</span>
           </div>
-        </a>
-        <a href="/team/djs/greg/" class="peer-card" title="Meet DJ Greg C-Zone">
+        </div>
+        <div class="peer-card">
           <img src="/images/team/dj-greg/web/dj-greg-1.webp" alt="DJ Greg C-Zone - Wedding DJ and Saxophonist" loading="lazy">
           <div class="peer-card-content">
             <h3>Greg</h3>
             <span class="peer-card-role">DJ &middot; Sax</span>
           </div>
-        </a>
+        </div>
       </div>
       <div style="text-align:center;margin-top:2.5rem">
         <a href="/team/djs/" style="display:inline-block;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--merlot);text-decoration:none;font-weight:500;border-bottom:1px solid var(--merlot);padding-bottom:2px" title="View the full COS Celebrations team">View the Full Team &rsaquo;</a>
