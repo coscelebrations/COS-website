@@ -72,17 +72,15 @@
   status = 301
   force = true
 
-# ---------------------------------------------------------------------------
-# Serverless functions. Added 2026-08-26 for the Group Reply Assistant.
-# Matches the block already in use on the AE site.
-# ---------------------------------------------------------------------------
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
+# The Link Finder at /group-reply/ is a static page - no serverless function,
+# no API key, no cost. It runs entirely in the browser from config.js and
+# routing.js. A functions block sat here from 2026-08-26 to 2026-08-29, for a
+# version that also drafted the reply text; removed when the tool was cut back
+# to link lookup only. The drafting code is in git history at commit 4e9f091.
 
-# Group Reply Assistant is an internal tool. Never cache it, never index it.
-# The meta robots tag on the page says the same thing - this is belt and
-# braces, and it also covers the /.netlify/functions/ response.
+# The Link Finder is an internal tool. Never cache it, never index it. The meta
+# robots tag on the page says the same thing - this is belt and braces, and it
+# also covers config.js and routing.js, which sit in the same directory.
 # The "/*.html" rule above does not reliably match the pretty URL
 # "/group-reply/", which is why this is its own explicit block.
 [[headers]]

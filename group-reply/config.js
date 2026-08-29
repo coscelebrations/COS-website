@@ -2,9 +2,13 @@
  * GROUP REPLY ASSISTANT - CONFIGURATION
  * ===========================================================================
  *
- * WHAT THIS TOOL DOES: a team member pastes a Facebook group post, this drafts
- * a short reply in the right brand voice with the right page link + UTM tags.
- * The team member copies it and posts it on Facebook BY HAND.
+ * WHAT THIS TOOL DOES: you type a short phrase ("photo jax", "dj treasury")
+ * and it gives you the right page link with UTM tracking already attached.
+ * You copy it and use it on Facebook BY HAND.
+ *
+ * NO SERVER, NO API KEY, NO COST. This file and routing.js are loaded straight
+ * into the browser by /group-reply/index.html and also require()'d by the Node
+ * test scripts, so there is exactly one source of truth and no build step.
  *
  * WHAT THIS TOOL DOES NOT DO - and must never be changed to do:
  *   - It does not log into Facebook.
@@ -21,17 +25,26 @@
  * ---------------------------------------------------------------------------
  * EDITING THIS FILE
  * ---------------------------------------------------------------------------
- * This is the ONLY file you need to edit to add pages, change the voice, or
- * add example replies. It is JavaScript, so a stray quote or a missing comma
- * takes the whole tool down with a 500 error.
+ * This is the ONLY file you need to edit to add pages or change how phrases
+ * map to links. It is JavaScript, so a stray quote or a missing comma stops
+ * the whole tool from loading.
  *
- * After ANY edit: open the tool and run one draft with "Test mode" on. That
- * costs nothing and proves the file still parses. Do it every time.
+ * After ANY edit, from ~/cos-website:
+ *     npm run test:group-reply     free, no network, catches routing mistakes
+ *     npm run check:group-reply    free, confirms every link still returns 200
+ * Do both every time. They take seconds and they are the whole safety net.
  *
  * Slug lists verified against both live sitemaps 2026-08-26.
  * =========================================================================== */
 
-module.exports = {
+(function (root, factory) {
+  /* Works as a plain <script> in the browser and as require() in Node, with
+   * no build step. One source of truth: the page and the tests read the same
+   * file, so they can never drift apart. */
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.GR_CONFIG = factory();
+}(typeof self !== 'undefined' ? self : this, function () {
+return {
 
   /* ---------------------------------------------------------------------
    * BRANDS
@@ -48,7 +61,16 @@ module.exports = {
   allowBothBrandLinks: false,
 
   /* ---------------------------------------------------------------------
-   * CHARACTERS + PHRASES STRIPPED FROM EVERY DRAFT, SERVER-SIDE
+   * WRITING RULES - CURRENTLY UNUSED
+   * ---------------------------------------------------------------------
+   * Everything from here down to the end of `examples` is dormant. It was
+   * built for a version of this tool that also DRAFTED the reply text, which
+   * was cut on 2026-08-29 in favour of link lookup only.
+   *
+   * Kept because it is the accumulated brand-voice work (the COS/AE split, the
+   * em-dash rule, the sax-is-not-a-ceremony-instrument rule) and it is the
+   * starting point if drafting ever comes back. Nothing reads it today.
+   * The drafting code itself is in git history at commit 4e9f091.
    * ------------------------------------------------------------------- */
 
   /* WRITING-VOICE.md says COS uses em dashes for asides. That rule is still
@@ -458,8 +480,12 @@ module.exports = {
     {
       id: 'effects',
       keywords: ['cold spark', 'cold sparks', 'sparkular', 'dancing on a cloud', 'dry ice'],
+      /* COS only - AE does not offer special effects. Without forceBrand, a
+       * bare "spark" lookup routed to AE and then fell through to the AE
+       * homepage, because there is no AE path here. */
+      forceBrand: 'cos',
       path: { cos: '/services/weddings/' },
-      /* Same note as photobooth: no dedicated page exists yet. COS only. */
+      /* Same note as photobooth: no dedicated page exists yet. */
     },
   ],
 
@@ -516,3 +542,4 @@ module.exports = {
    * whole comment thread. */
   maxPostChars: 4000,
 };
+}));

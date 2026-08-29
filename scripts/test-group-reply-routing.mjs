@@ -15,8 +15,8 @@ import path from 'node:path';
 
 const require = createRequire(import.meta.url);
 const here = path.dirname(fileURLToPath(import.meta.url));
-const { route, applyExtractedVenue } = require(
-  path.join(here, '..', 'netlify', 'functions', 'group-reply', 'routing.js')
+const { route, lookup, applyExtractedVenue } = require(
+  path.join(here, '..', 'group-reply', 'routing.js')
 );
 
 let pass = 0;
@@ -219,6 +219,78 @@ t('zero-width characters do not break matching',
 t('a wall of pasted thread junk still finds the signal',
   { postText: 'See more · 3d  Like Reply\n\nLooking for a DJ at The White Room in St Augustine\n\n12 comments' },
   { venue: 'the-white-room' });
+
+/* ---------------------------------------------------------------------------
+ * LOOKUP MODE - the short-phrase path, which is how the tool is actually used
+ * ------------------------------------------------------------------------ */
+
+function L(name, query, expected, groupName) {
+  const r = lookup({ query, groupName: groupName || '' });
+  const problems = [];
+  for (const [key, want] of Object.entries(expected)) {
+    const got = key === 'urlContains' ? r.url : r[key];
+    const ok = key === 'urlContains' ? (typeof got === 'string' && got.includes(want)) : got === want;
+    if (!ok) problems.push(`  ${key}: expected ${JSON.stringify(want)}, got ${JSON.stringify(got)}`);
+  }
+  if (problems.length) failures.push({ name: 'lookup: ' + name, problems, url: r.url, reason: r.note });
+  else pass++;
+}
+
+L('"photo jax" finds photographers', 'photo jax',
+  { kind: 'vendor', urlContains: '/vendors/photographers/' });
+
+L('"photo" alone works with no city', 'photo',
+  { kind: 'vendor', urlContains: '/vendors/photographers/' });
+
+L('"vid" shorthand finds videographers', 'vid',
+  { kind: 'vendor', urlContains: '/vendors/videographers/' });
+
+L('"coord" shorthand finds planners', 'coord',
+  { kind: 'vendor', urlContains: '/vendors/planners/' });
+
+L('"photo booth" is entertainment, NOT photographers', 'photo booth',
+  { kind: 'service' });
+
+L('"dj treasury" finds the venue page', 'dj treasury',
+  { kind: 'venue', urlContains: '/treasury-on-the-plaza-wedding-dj/' });
+
+L('"dj ritz" routes COS because it is a COS-only venue', 'dj ritz',
+  { kind: 'venue', brand: 'cos', urlContains: 'coscelebrations.com/ritz-carlton-amelia-island-wedding-dj/' });
+
+L('"staug dj" finds the city page', 'staug dj',
+  { kind: 'city', urlContains: '/st-augustine-wedding-dj/' });
+
+L('"cheap dj" lands on the pricing page', 'cheap dj',
+  { kind: 'service', brand: 'ae', urlContains: '/cheap-wedding-dj/' });
+
+L('"venues in orlando" prefers the Orlando page', 'venues in orlando',
+  { kind: 'vendor', urlContains: '/orlando-wedding-dj/' });
+
+L('"venues" with no city uses areas-we-serve', 'venues',
+  { kind: 'vendor', urlContains: '/areas-we-serve/' });
+
+L('"sax" routes COS', 'sax',
+  { brand: 'cos' });
+
+L('gibberish falls back to a homepage and warns', 'xyzzy',
+  { kind: 'home' });
+
+L('group name becomes the campaign tag', 'photo', { urlContains: 'utm_campaign=jax-brides' }, 'Jax Brides');
+
+L('no group name records unknown-group', 'photo', { urlContains: 'utm_campaign=unknown-group' });
+
+L('every lookup carries the full utm set', 'dj jax',
+  { urlContains: 'utm_source=facebook&utm_medium=group&utm_campaign=' });
+
+/* The alternate-brand link must be the SAME page on the other domain, and it
+   must exist - this is what the "use AE instead" button copies. */
+{
+  const r = lookup({ query: 'dj treasury' });
+  const altOk = r.alt && r.alt.url.includes('treasury-on-the-plaza') && r.alt.url !== r.url;
+  if (altOk) pass++;
+  else failures.push({ name: 'lookup: alt brand link is the same page on the other domain',
+                       problems: ['  alt: ' + JSON.stringify(r.alt)], url: r.url, reason: r.note });
+}
 
 /* ---------------------------------------------------------------------------
  * report

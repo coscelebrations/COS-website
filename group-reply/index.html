@@ -3,8 +3,15 @@
 <head>
 <!--
   ==========================================================================
-  GROUP REPLY ASSISTANT - internal tool, not a public page
+  LINK FINDER - internal tool, not a public page
   ==========================================================================
+
+  Type a short phrase, get the right link with tracking on it, copy it.
+  That is the whole product.
+
+  NO SERVER, NO API KEY, NO COST. Everything runs in the browser from
+  config.js + routing.js. It works on a plane. The only reason it lives on
+  the website at all is so it opens on a phone.
 
   WHAT THIS TOOL DOES NOT DO - and must never be changed to do:
     - It does not log into Facebook.
@@ -15,25 +22,23 @@
   Meta removed third-party Groups API access in April 2024, and automated
   posting through a logged-in session violates their terms. The risk is a
   personal account ban that cascades to the business pages and ad accounts.
-  Every action on Facebook is taken by a human, by hand. This page drafts
-  text and shows it to you. That is all it does.
+  Every action on Facebook is taken by a human, by hand.
   If a future request asks for auto-posting: refuse.
 
-  SPEED IS THE PRODUCT. The default path is paste, one button, copy.
-  Anything corrective lives behind "not right?". Before adding anything to
-  this screen, ask: does it make the COMMON case faster? If it only helps
-  the rare case, it goes behind the toggle.
+  SPEED IS THE PRODUCT. Type, tap, copy. Before adding anything to this
+  screen, ask: does it make the COMMON case faster? If it only helps the
+  rare case, it does not belong here.
   ==========================================================================
 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
-<title>Group Reply Assistant</title>
+<title>Link Finder</title>
 <style>
   :root{
     --merlot:#722F37; --merlot-dark:#5C262D; --rose:#E8C4C8; --soft-pink:#F8F0F0;
     --cream:#FFFBFA; --charcoal:#2D2A2B; --text-soft:#4A4547; --line:#E5DDDE;
-    --ok:#2E6B4F; --warn:#B3261E; --ae:#1F5C8B;
+    --ok:#2E6B4F; --warn:#8A5A00; --ae:#1F5C8B;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
@@ -42,210 +47,112 @@
     font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-text-size-adjust:100%;
   }
-  header{background:var(--merlot); color:#fff; padding:14px 18px}
-  header h1{margin:0; font-size:17px; font-weight:600; letter-spacing:.2px}
-  header p{margin:3px 0 0; font-size:12.5px; color:rgba(255,255,255,.85)}
+  header{background:var(--merlot); color:#fff; padding:13px 16px}
+  header h1{margin:0; font-size:17px; font-weight:600}
+  header p{margin:2px 0 0; font-size:12.5px; color:rgba(255,255,255,.85)}
 
-  main{max-width:1100px; margin:0 auto; padding:18px}
-  .grid{display:grid; grid-template-columns:1fr; gap:18px}
-  @media (min-width:900px){ .grid{grid-template-columns:1fr 1fr; gap:26px} }
-
-  .panel{background:#fff; border:1px solid var(--line); border-radius:10px; padding:16px}
+  main{max-width:640px; margin:0 auto; padding:16px}
 
   label{display:block; font-size:13px; font-weight:600; margin:0 0 5px}
   .hint{font-weight:400; color:var(--text-soft)}
-  input[type=text],input[type=password],textarea,select{
-    width:100%; padding:11px 12px; font-size:16px; font-family:inherit;
-    border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--charcoal);
+  input[type=text]{
+    width:100%; padding:14px 13px; font-size:18px; font-family:inherit;
+    border:2px solid var(--line); border-radius:9px; background:#fff; color:var(--charcoal);
   }
-  input:focus,textarea:focus,select:focus{outline:2px solid var(--merlot); outline-offset:1px}
-  textarea{resize:vertical}
-  #postText{min-height:140px}
-  #reply{min-height:150px; line-height:1.55}
-  .field{margin-bottom:13px}
-  .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-  @media (max-width:520px){ .row2{grid-template-columns:1fr} }
+  #q{font-size:20px}
+  input:focus{outline:none; border-color:var(--merlot)}
 
-  .check{display:flex; align-items:flex-start; gap:9px; margin:4px 0 14px}
-  .check input{width:19px; height:19px; margin:1px 0 0; flex:0 0 auto}
-  .check label{margin:0; font-weight:400; font-size:14px}
+  .examples{margin:9px 0 0; display:flex; flex-wrap:wrap; gap:7px}
+  .chip{
+    padding:6px 11px; font-size:13.5px; border-radius:999px;
+    background:#fff; border:1px solid var(--line); color:var(--merlot);
+    cursor:pointer; font-family:inherit;
+  }
+  .chip:hover{background:var(--soft-pink)}
 
-  button{font-family:inherit; cursor:pointer; border-radius:8px; border:1px solid transparent}
-  .btn-primary{
-    width:100%; padding:15px; font-size:17px; font-weight:600;
-    background:var(--merlot); color:#fff;
+  .card{
+    margin-top:16px; background:#fff; border:1px solid var(--line);
+    border-radius:11px; padding:15px;
   }
-  .btn-primary:hover{background:var(--merlot-dark)}
-  .btn-primary:disabled{background:#9b8589; cursor:default}
-  .btn-copy{
-    width:100%; padding:17px; font-size:18px; font-weight:700;
-    background:var(--merlot); color:#fff; margin-top:12px;
-  }
-  .btn-copy:hover{background:var(--merlot-dark)}
-  .btn-copy.done{background:var(--ok)}
-  .btn-small{
-    padding:9px 13px; font-size:14px; background:#fff;
-    border:1px solid var(--line); color:var(--charcoal);
-  }
-  .btn-small:hover{background:var(--soft-pink)}
+  .card.empty{text-align:center; color:var(--text-soft); font-size:15px; padding:26px 14px}
 
+  .what{font-size:19px; font-weight:700; margin:0; text-transform:capitalize}
   .badge{
-    display:inline-block; padding:4px 10px; border-radius:999px;
-    font-size:12.5px; font-weight:700; color:#fff; background:var(--merlot);
+    display:inline-block; margin-left:7px; padding:3px 9px; border-radius:999px;
+    font-size:11.5px; font-weight:700; color:#fff; background:var(--merlot);
+    vertical-align:2px; text-transform:none;
   }
   .badge.ae{background:var(--ae)}
-  .badge.vendor{background:#5B4B8A}
-  .reason{margin:9px 0 0; font-size:14px; color:var(--text-soft)}
+  .note{margin:7px 0 0; font-size:13.5px; color:var(--text-soft)}
 
   code.url{
-    display:block; margin-top:11px; padding:10px 11px; background:var(--soft-pink);
+    display:block; margin-top:12px; padding:11px; background:var(--soft-pink);
     border:1px solid var(--rose); border-radius:8px;
-    font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;
+    font:12.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;
     overflow-wrap:anywhere; color:var(--merlot-dark);
   }
 
+  button{font-family:inherit; cursor:pointer; border-radius:9px; border:1px solid transparent}
+  .btn-copy{
+    width:100%; margin-top:12px; padding:18px; font-size:19px; font-weight:700;
+    background:var(--merlot); color:#fff;
+  }
+  .btn-copy:hover{background:var(--merlot-dark)}
+  .btn-copy.done{background:var(--ok)}
+  .btn-alt{
+    width:100%; margin-top:9px; padding:11px; font-size:14px;
+    background:#fff; border:1px solid var(--line); color:var(--charcoal);
+  }
+  .btn-alt:hover{background:var(--soft-pink)}
+
   .warn{
-    margin:0 0 12px; padding:11px 12px; border-radius:8px;
-    background:#FDECEA; border:1px solid #F3B7B2; color:var(--warn);
-    font-size:14px; font-weight:600;
-  }
-  .warn ul{margin:6px 0 0; padding-left:19px; font-weight:400}
-
-  .notice{
-    padding:12px; border-radius:8px; background:var(--soft-pink);
-    border:1px solid var(--rose); font-size:14px; color:var(--text-soft);
+    margin-top:12px; padding:10px 11px; border-radius:8px;
+    background:#FFF6E0; border:1px solid #EBD9A8; color:var(--warn); font-size:13.5px;
   }
 
-  details.fix{margin-top:16px; border-top:1px solid var(--line); padding-top:12px}
-  details.fix summary{
-    cursor:pointer; font-size:14px; color:var(--merlot);
-    font-weight:600; list-style:none;
-  }
-  details.fix summary::-webkit-details-marker{display:none}
-  details.fix summary::before{content:'\25BE'; margin-right:6px; display:inline-block}
-  details.fix[open] summary::before{transform:rotate(180deg)}
-  details.fix .inner{padding-top:13px}
-
+  details.more{margin-top:18px; border-top:1px solid var(--line); padding-top:11px}
+  details.more summary{cursor:pointer; font-size:13.5px; color:var(--merlot); font-weight:600; list-style:none}
+  details.more summary::-webkit-details-marker{display:none}
+  details.more summary::before{content:'\25BE'; margin-right:6px; display:inline-block}
+  details.more[open] summary::before{transform:rotate(180deg)}
+  details.more .inner{padding-top:12px}
   .muted{color:var(--text-soft); font-size:12.5px}
-  .placeholder{color:var(--text-soft); font-size:15px; padding:22px 4px; text-align:center}
-  .spinner{display:none}
-  .loading .spinner{display:inline}
-  .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Group Reply Assistant</h1>
-  <p>Drafts a reply you copy and post by hand. This tool never touches Facebook.</p>
+  <h1>Link Finder</h1>
+  <p>Type what you need, copy the link. Nothing is posted anywhere.</p>
 </header>
 
 <main>
-  <div class="grid">
+  <label for="q">What do you need? <span class="hint">(try "photo jax" or "dj treasury")</span></label>
+  <input type="text" id="q" autocapitalize="none" autocorrect="off" spellcheck="false"
+         autocomplete="off" enterkeyhint="search" placeholder="photo jax">
 
-    <!-- ============ LEFT: input ============ -->
-    <section class="panel">
-      <form id="form" autocomplete="off">
-        <div class="field">
-          <label for="passcode">Passcode</label>
-          <input type="password" id="passcode" autocapitalize="none" autocorrect="off"
-                 spellcheck="false" autocomplete="current-password">
-        </div>
+  <div class="examples" id="chips"></div>
 
-        <div class="field">
-          <label for="postText">Paste the post <span class="hint">(required)</span></label>
-          <textarea id="postText" required placeholder="Paste the whole Facebook post here."></textarea>
-        </div>
-
-        <div class="row2">
-          <div class="field">
-            <label for="groupName">Group name <span class="hint">(optional)</span></label>
-            <input type="text" id="groupName" placeholder="Jax Brides &amp; Grooms">
-          </div>
-          <div class="field">
-            <label for="venueOrCity">Venue or city <span class="hint">(optional)</span></label>
-            <input type="text" id="venueOrCity" placeholder="Only if you know it">
-          </div>
-        </div>
-
-        <div class="check">
-          <input type="checkbox" id="noPromo">
-          <label for="noPromo">This group bans links (offer a DM instead)</label>
-        </div>
-
-        <button type="submit" class="btn-primary" id="draftBtn">
-          Draft reply<span class="spinner">&hellip;</span>
-        </button>
-        <p class="muted" style="margin:9px 0 0">
-          Nothing is saved. Nothing is posted. You copy and paste it yourself.
-        </p>
-      </form>
-    </section>
-
-    <!-- ============ RIGHT: output ============ -->
-    <section class="panel" id="out" aria-live="polite">
-      <div class="placeholder" id="placeholder">
-        Paste a post and tap <strong>Draft reply</strong>.
-      </div>
-
-      <div id="result" hidden>
-        <div id="warnBox" class="warn" hidden></div>
-
-        <div id="skipBox" class="notice" hidden></div>
-
-        <div id="draftBox" hidden>
-          <div>
-            <span class="badge" id="brandBadge">&nbsp;</span>
-            <p class="reason" id="brandReason"></p>
-          </div>
-
-          <div class="field" style="margin-top:13px">
-            <label for="reply">The reply <span class="hint">(edit it if you want)</span></label>
-            <textarea id="reply"></textarea>
-          </div>
-
-          <code class="url" id="urlBox" hidden></code>
-
-          <button type="button" class="btn-copy" id="copyBtn">Copy reply</button>
-
-          <details class="fix">
-            <summary>not right?</summary>
-            <div class="inner">
-              <div class="field">
-                <label for="brandSel">Send it to</label>
-                <select id="brandSel">
-                  <option value="">Whatever the tool picked</option>
-                  <option value="cos">COS Celebrations</option>
-                  <option value="ae">AE Entertainment</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="note">Change something <span class="hint">(optional)</span></label>
-                <input type="text" id="note" placeholder="shorter / warmer / less salesy">
-              </div>
-
-              <div class="row2">
-                <button type="button" class="btn-small" id="regenBtn">Redraft</button>
-                <button type="button" class="btn-small" id="copyLinkBtn">Copy link only</button>
-              </div>
-
-              <div id="askBackBox" hidden style="margin-top:15px">
-                <label for="askBack">No-link version <span class="hint">(asks a question instead)</span></label>
-                <textarea id="askBack" readonly style="min-height:96px"></textarea>
-                <button type="button" class="btn-small" id="copyAskBtn" style="margin-top:9px">Copy this one</button>
-              </div>
-
-              <p class="muted" id="debug" style="margin-top:14px"></p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
+  <div class="card empty" id="card">
+    Start typing and the link shows up here.
   </div>
+
+  <details class="more">
+    <summary>settings</summary>
+    <div class="inner">
+      <label for="group">Group name <span class="hint">(for tracking, optional)</span></label>
+      <input type="text" id="group" placeholder="Jax Brides &amp; Grooms" autocomplete="off">
+      <p class="muted" style="margin:9px 0 0">
+        Shows up in Google Analytics as the campaign, so you can see which groups
+        actually send traffic. Remembered on this device. Leave it blank and it
+        records as "unknown-group".
+      </p>
+    </div>
+  </details>
 </main>
 
+<script src="config.js"></script>
+<script src="routing.js"></script>
 <script>
 (function(){
   'use strict';
@@ -257,94 +164,89 @@
     });
   }
 
-  var ENDPOINT = '/.netlify/functions/group-reply';
-  var last = null;
+  if (!window.GR_ROUTING || !window.GR_CONFIG) {
+    $('card').className = 'card';
+    $('card').innerHTML = '<p class="what">Could not load the link data.</p>' +
+      '<p class="note">config.js or routing.js did not load. If this page was ' +
+      'just deployed, give it a minute and refresh.</p>';
+    return;
+  }
 
-  /* Passcode is cached for convenience only. The tool works without the
-     cache - it is never required for anything to function. */
+  var lookup = window.GR_ROUTING.lookup;
+  var current = null;
+  var flipped = false;
+
+  /* Group name is a convenience only - the tool works fine without it, so
+     storing it here breaks nothing if the browser clears it. */
   try {
-    var saved = sessionStorage.getItem('grPass');
-    if (saved) $('passcode').value = saved;
+    var savedGroup = localStorage.getItem('lf_group');
+    if (savedGroup) $('group').value = savedGroup;
   } catch(e){}
 
-  function setLoading(on){
-    $('draftBtn').disabled = on;
-    $('draftBtn').classList.toggle('loading', on);
-    $('draftBtn').firstChild.nodeValue = on ? 'Drafting' : 'Draft reply';
+  $('group').addEventListener('input', function(){
+    try { localStorage.setItem('lf_group', this.value); } catch(e){}
+    run();
+  });
+
+  var CHIPS = ['photo', 'video', 'planner', 'venues', 'bar', 'dj', 'sax', 'photo booth'];
+  $('chips').innerHTML = CHIPS.map(function(c){
+    return '<button type="button" class="chip" data-q="' + esc(c) + '">' + esc(c) + '</button>';
+  }).join('');
+  $('chips').addEventListener('click', function(e){
+    var b = e.target.closest('.chip');
+    if (!b) return;
+    $('q').value = b.getAttribute('data-q');
+    flipped = false;
+    run();
+    $('q').focus();
+  });
+
+  function render(r){
+    current = r;
+    var brand = flipped && r.alt ? r.alt : r;
+    var url = brand.url;
+    var label = flipped && r.alt ? r.alt.brandLabel : r.brandLabel;
+    var isAe = /AE /.test(label);
+
+    var html = '';
+    html += '<p class="what">' + esc(r.what) +
+            '<span class="badge' + (isAe ? ' ae' : '') + '">' + esc(label) + '</span></p>';
+    if (r.note) html += '<p class="note">' + esc(r.note) + '</p>';
+    html += '<code class="url" id="urlBox">' + esc(url) + '</code>';
+    html += '<button type="button" class="btn-copy" id="copyBtn">Copy link</button>';
+    if (r.alt) {
+      html += '<button type="button" class="btn-alt" id="altBtn">Use ' +
+              esc(flipped ? r.brandLabel : r.alt.brandLabel) + ' instead</button>';
+    }
+    (r.warnings || []).forEach(function(w){
+      html += '<div class="warn">' + esc(w) + '</div>';
+    });
+
+    var card = $('card');
+    card.className = 'card';
+    card.innerHTML = html;
+
+    $('copyBtn').addEventListener('click', function(){ copy(url, this); });
+    if ($('altBtn')) $('altBtn').addEventListener('click', function(){ flipped = !flipped; render(current); });
   }
 
-  function showError(msg){
-    $('placeholder').hidden = true;
-    $('result').hidden = false;
-    $('skipBox').hidden = false;
-    $('skipBox').textContent = msg;
-    $('draftBox').hidden = true;
-    $('warnBox').hidden = true;
-  }
-
-  function render(data){
-    last = data;
-    $('placeholder').hidden = true;
-    $('result').hidden = false;
-
-    if (data.skip) {
-      $('skipBox').hidden = false;
-      $('skipBox').textContent = data.skipReason || 'Skip this one.';
-      $('draftBox').hidden = true;
-      $('warnBox').hidden = true;
+  function run(){
+    var q = $('q').value.trim();
+    if (!q) {
+      current = null;
+      $('card').className = 'card empty';
+      $('card').textContent = 'Start typing and the link shows up here.';
       return;
     }
-    $('skipBox').hidden = true;
-    $('draftBox').hidden = false;
-
-    var warnings = (data.warnings || []).slice();
-    if (data.brandSuggestion) warnings.push(data.brandSuggestion.note);
-    if (warnings.length) {
-      $('warnBox').hidden = false;
-      $('warnBox').innerHTML = 'Check this before posting:<ul>' +
-        warnings.map(function(w){ return '<li>' + esc(w) + '</li>'; }).join('') + '</ul>';
-    } else {
-      $('warnBox').hidden = true;
-    }
-
-    var badge = $('brandBadge');
-    badge.className = 'badge' + (data.intent === 'vendor' ? ' vendor' : (data.brand === 'ae' ? ' ae' : ''));
-    badge.textContent = data.intent === 'vendor'
-      ? 'Vendor referral' + (data.matched && data.matched.vendorCategory ? ' - ' + data.matched.vendorCategory : '')
-      : data.brandLabel;
-    $('brandReason').textContent = data.brandReason || '';
-
-    var link = (data.drafts && data.drafts.link) || {};
-    $('reply').value = link.reply || '';
-
-    var url = link.url || data.urlForDm || '';
-    if (url) { $('urlBox').hidden = false; $('urlBox').textContent = url; }
-    else { $('urlBox').hidden = true; }
-
-    var ab = data.drafts && data.drafts.askBack;
-    if (ab && ab.reply) { $('askBackBox').hidden = false; $('askBack').value = ab.reply; }
-    else { $('askBackBox').hidden = true; }
-
-    var m = data.matched || {};
-    $('debug').textContent =
-      'page: ' + (data.pageKind || '-') +
-      ' | venue: ' + (m.venue || '-') +
-      ' | city: ' + (m.city || '-') +
-      ' | rule: ' + (m.rule || '-') +
-      (data.usage ? ' | tokens in/out: ' + data.usage.input_tokens + '/' + data.usage.output_tokens : '');
-
-    var btn = $('copyBtn');
-    btn.classList.remove('done');
-    btn.textContent = 'Copy reply';
+    render(lookup({ query: q, groupName: $('group').value.trim() }));
   }
 
-  function copy(text, btn, doneLabel){
-    if (!text) return;
+  function copy(text, btn){
     var restore = btn.textContent;
     function ok(){
       btn.classList.add('done');
-      btn.textContent = doneLabel || 'Copied';
-      setTimeout(function(){ btn.classList.remove('done'); btn.textContent = restore; }, 1600);
+      btn.textContent = 'Copied';
+      setTimeout(function(){ btn.classList.remove('done'); btn.textContent = restore; }, 1500);
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(ok, function(){ fallback(text, ok); });
@@ -353,9 +255,8 @@
     }
   }
 
-  /* Safari on iOS refuses navigator.clipboard outside some contexts. The
-     textarea trick is ugly but it is the difference between the tool working
-     on a phone and not. */
+  /* iOS Safari refuses navigator.clipboard in some contexts. This is ugly but
+     it is the difference between the tool working on a phone and not. */
   function fallback(text, ok){
     var ta = document.createElement('textarea');
     ta.value = text;
@@ -368,56 +269,10 @@
     document.body.removeChild(ta);
   }
 
-  function send(extra){
-    var pass = $('passcode').value.trim();
-    var post = $('postText').value.trim();
-    if (!pass) { showError('Enter the passcode first.'); return; }
-    if (!post) { showError('Paste the post first.'); return; }
-
-    try { sessionStorage.setItem('grPass', pass); } catch(e){}
-
-    var payload = {
-      passcode: pass,
-      postText: post,
-      groupName: $('groupName').value.trim(),
-      venueOrCity: $('venueOrCity').value.trim(),
-      noPromo: $('noPromo').checked,
-      brandOverride: $('brandSel').value || null
-    };
-    for (var k in extra) payload[k] = extra[k];
-
-    setLoading(true);
-    fetch(ENDPOINT, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
-    })
-    .then(function(res){ return res.json().then(function(b){ return {ok: res.ok, body: b}; }); })
-    .then(function(r){
-      if (!r.ok) { showError(r.body.error || 'Something went wrong.'); return; }
-      render(r.body);
-    })
-    .catch(function(){ showError('Could not reach the server. Check your connection and try again.'); })
-    .then(function(){ setLoading(false); });
-  }
-
-  $('form').addEventListener('submit', function(e){ e.preventDefault(); send({}); });
-
-  $('regenBtn').addEventListener('click', function(){
-    send({ note: $('note').value.trim(), previousReply: $('reply').value.trim() });
-  });
-
-  $('copyBtn').addEventListener('click', function(){ copy($('reply').value, this, 'Copied'); });
-  $('copyAskBtn').addEventListener('click', function(){ copy($('askBack').value, this, 'Copied'); });
-  $('copyLinkBtn').addEventListener('click', function(){
-    copy(last && (last.urlForDm || ((last.drafts && last.drafts.link) || {}).url), this, 'Copied');
-  });
-
-  /* Changing the brand override re-drafts immediately. Making someone tap a
-     second button after they already told us it was wrong is a wasted step. */
-  $('brandSel').addEventListener('change', function(){
-    if (last) send({ note: $('note').value.trim() });
-  });
+  /* Live as you type. Everything is local, so there is nothing to wait for
+     and no reason to make anyone press a button. */
+  $('q').addEventListener('input', function(){ flipped = false; run(); });
+  $('q').focus();
 })();
 </script>
 

@@ -31,7 +31,7 @@ import path from 'node:path';
 
 const require = createRequire(import.meta.url);
 const here = path.dirname(fileURLToPath(import.meta.url));
-const config = require(path.join(here, '..', 'netlify', 'functions', 'group-reply', 'config.js'));
+const config = require(path.join(here, '..', 'group-reply', 'config.js'));
 
 const CONCURRENCY = 8;
 const TIMEOUT_MS = 15000;

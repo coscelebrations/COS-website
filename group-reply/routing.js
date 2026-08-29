@@ -17,12 +17,18 @@
  *    dead. A model given that list WILL eventually emit a wrong URL. Code
  *    cannot.
  *
- * The model does exactly one structured thing: it names the venue it spotted
- * in the post. Code fuzzy-matches that name to a slug and builds the URL.
- * Extraction is not routing - the model never picks a brand or writes a URL.
+ * As of 2026-08-29 there is NO model involved at all. The tool was simplified
+ * to link lookup only, so everything here runs in the browser with no API key
+ * and no cost. route() and applyExtractedVenue() are retained because they are
+ * well tested and handle a full pasted post; lookup() is what the page uses.
  * =========================================================================== */
 
-const config = require('./config.js');
+(function (root, factory) {
+  /* Same UMD wrapper as config.js: one file, used by the browser page and
+   * by the Node tests. No build step, no duplicated logic. */
+  if (typeof module === 'object' && module.exports) module.exports = factory(require('./config.js'));
+  else root.GR_ROUTING = factory(root.GR_CONFIG);
+}(typeof self !== 'undefined' ? self : this, function (config) {
 
 /* ---------------------------------------------------------------------------
  * text helpers
@@ -333,13 +339,16 @@ function buildUrl(brandKey, path, groupSlug) {
   const query = `utm_source=${config.utm.source}&utm_medium=${config.utm.medium}&utm_campaign=${groupSlug}`;
   const url = brand.domain + path + (path.includes('?') ? '&' : '?') + query;
 
-  try {
-    new URL(url);
-    return { url, warning: null };
-  } catch (_) {
-    const fallback = brand.domain + brand.home + '?' + query;
-    return { url: fallback, warning: 'Built an invalid URL, fell back to the homepage. Check config.js.' };
-  }
+  /* Validate the shape ourselves rather than leaning on the URL constructor.
+   * The old version wrapped `new URL(url)` in a broad try/catch, which meant
+   * ANY error - including URL simply not existing in the environment - silently
+   * degraded every link to the homepage. That is a very quiet way to ship a
+   * broken tool. This check has no global dependencies and cannot throw. */
+  const looksValid = /^https:\/\/[a-z0-9.-]+\/[^\s]*$/i.test(url);
+  if (looksValid) return { url, warning: null };
+
+  const fallback = brand.domain + brand.home + '?' + query;
+  return { url: fallback, warning: 'Built an invalid link, so this is the homepage instead. Check config.js.' };
 }
 
 /* ---------------------------------------------------------------------------
@@ -447,9 +456,157 @@ function applyExtractedVenue(routed, extractedName) {
   return out;
 }
 
-module.exports = {
+/* ---------------------------------------------------------------------------
+ * LOOKUP MODE - the primary way this tool is used
+ * ---------------------------------------------------------------------------
+ * You type a short phrase ("photo jax", "dj treasury", "planner") and get the
+ * right link. Two things differ from route():
+ *
+ * 1. NO SEEKING GATE. route() requires a post to sound like someone asking for
+ *    something, so the tool does not draft replies to "just booked our venue!!".
+ *    In lookup mode YOU are the seeking signal - you typed it on purpose.
+ *
+ * 2. SHORT FORMS. Nobody types "photographer" on a phone. "photo", "vid",
+ *    "coord" and friends map to categories here and nowhere else, because they
+ *    are too loose to use against real post text ("photo" would swallow every
+ *    photo booth question).
+ * ------------------------------------------------------------------------ */
+
+const LOOKUP_SHORTCUTS = [
+  // Order matters: the first match wins, so the more specific entries -
+  // anything containing "booth" - must come before the bare photo/video ones.
+  { match: ['photo booth', 'photobooth', 'booth', '360'], kind: 'service', id: 'photobooth' },
+  { match: ['photo', 'photos', 'pic', 'pics', 'photog', 'photographer', 'photography'], kind: 'vendor', id: 'photographer' },
+  { match: ['video', 'vid', 'videos', 'videographer', 'videography'], kind: 'vendor', id: 'videographer' },
+  { match: ['planner', 'plan', 'coord', 'coordinator', 'day of'], kind: 'vendor', id: 'planner' },
+  { match: ['venue', 'venues'], kind: 'vendor', id: 'venue' },
+  { match: ['bar', 'bartender', 'bartenders', 'booze', 'drinks'], kind: 'vendor', id: 'bar' },
+  { match: ['cater', 'caterer', 'caterers', 'catering', 'food'], kind: 'vendor', id: 'catering' },
+  { match: ['sax', 'saxophone', 'live music', 'musician'], kind: 'service', id: 'sax' },
+  { match: ['uplighting', 'uplight', 'lighting', 'lights'], kind: 'service', id: 'lighting' },
+  { match: ['spark', 'sparks', 'cold spark', 'cloud', 'dancing on a cloud'], kind: 'service', id: 'effects' },
+  { match: ['dj', 'djs', 'music', 'mc', 'emcee', 'dance'], kind: 'service', id: 'dj' },
+];
+
+function lookup(input) {
+  const raw = clean(input.query);
+  const haystack = norm(raw);
+  const warnings = [];
+
+  const { slug: groupSlug, warning: slugWarning } = slugifyGroup(input.groupName);
+  if (slugWarning) warnings.push(slugWarning);
+
+  const venue = findInText(config.venues, haystack);
+  const city = findInText(config.cities, haystack);
+
+  let shortcut = null;
+  for (const s of LOOKUP_SHORTCUTS) {
+    if (s.match.some((m) => has(haystack, m))) { shortcut = s; break; }
+  }
+
+  /* --- vendor category -------------------------------------------------- */
+  if (shortcut && shortcut.kind === 'vendor') {
+    const def = config.intents.vendor[shortcut.id];
+    const usesCity = def.preferCityPage && city;
+    const path = usesCity
+      ? config.cityPathTemplate.replace('%SLUG%', city.slug)
+      : def.page;
+    const built = buildUrl(config.vendorBrand, path, groupSlug);
+    if (built.warning) warnings.push(built.warning);
+    return {
+      ok: true,
+      kind: 'vendor',
+      what: def.label,
+      brand: config.vendorBrand,
+      brandLabel: config.brands[config.vendorBrand].label,
+      note: usesCity
+        ? `Venues in ${slugToWords(city.slug)}.`
+        : `Our ${def.label} page. AE has no vendor pages, so this is always the COS one.`,
+      url: built.url,
+      alt: null,
+      matched: { venue: null, city: city ? city.slug : null, shortcut: shortcut.id },
+      warnings,
+    };
+  }
+
+  /* --- entertainment: needs a brand ------------------------------------- */
+  const svcDef = shortcut && shortcut.kind === 'service'
+    ? config.services.find((s) => s.id === shortcut.id)
+    : null;
+
+  let brandInfo = routeBrand(haystack, venue, input.brandOverride);
+
+  /* Some services only exist on one brand - sax and cold sparks are COS. The
+   * word "sax" on its own is too short for the forceCos keyword list (which
+   * has to be conservative because it runs against real post text), so honour
+   * the service definition here instead. A manual override still wins. */
+  if (svcDef && svcDef.forceBrand && !input.brandOverride) {
+    brandInfo = {
+      brand: svcDef.forceBrand,
+      reason: 'That is a COS service, so this is the COS link.',
+      rule: 'serviceForceBrand',
+      matchText: shortcut.id,
+    };
+  }
+
+  const brand = brandInfo.brand;
+  const other = brand === 'cos' ? 'ae' : 'cos';
+
+  /* If the service does not exist on the other brand at all, do not offer a
+   * "use AE instead" button - it would just point at the AE homepage, which
+   * is a worse link dressed up as a choice. */
+  const otherBrandHasIt = !svcDef || !svcDef.forceBrand;
+
+  function pathFor(b) {
+    if (venue) return config.venuePathTemplate.replace('%SLUG%', slugForBrand(venue, b));
+    // "cheap dj" should land on the pricing page, not generic services. Only
+    // on AE, and only when a budget word actually triggered the AE routing.
+    if (b === config.cheapPage.brand && brandInfo.rule === 'forceAe' && !city) return config.cheapPage.path;
+    if (city) return config.cityPathTemplate.replace('%SLUG%', city.slug);
+    if (shortcut && shortcut.kind === 'service') {
+      const svc = config.services.find((s) => s.id === shortcut.id);
+      if (svc && svc.path[b]) return svc.path[b];
+    }
+    return config.brands[b].home;
+  }
+
+  const primary = buildUrl(brand, pathFor(brand), groupSlug);
+  const secondary = buildUrl(other, pathFor(other), groupSlug);
+  if (primary.warning) warnings.push(primary.warning);
+
+  let what = 'Homepage';
+  if (venue) what = slugToWords(venue.slug);
+  else if (city) what = slugToWords(city.slug);
+  else if (shortcut) what = shortcut.id === 'dj' ? 'DJ services' : shortcut.id;
+
+  if (!venue && !city && !shortcut) {
+    warnings.push(`Nothing matched "${raw}", so this is just the homepage. Try a venue name, a city, or a category like photo / dj / planner.`);
+  }
+
+  return {
+    ok: true,
+    kind: venue ? 'venue' : city ? 'city' : shortcut ? 'service' : 'home',
+    what,
+    brand,
+    brandLabel: config.brands[brand].label,
+    note: brandInfo.reason,
+    url: primary.url,
+    /* The other brand's version of the same page, one tap away. Showing both
+     * is fine HERE because this screen is internal and you copy one - the
+     * never-link-both-brands rule is about what lands in a public comment. */
+    alt: otherBrandHasIt
+      ? { brand: other, brandLabel: config.brands[other].label, url: secondary.url }
+      : null,
+    matched: { venue: venue ? venue.slug : null, city: city ? city.slug : null, shortcut: shortcut ? shortcut.id : null },
+    warnings,
+  };
+}
+
+return {
   route,
+  lookup,
   applyExtractedVenue,
   // exported for tests
   _internal: { clean, norm, matchNorm, has, isSeeking, slugifyGroup, detectIntent, routeBrand, fuzzyMatchVenue, detectGuestCount },
 };
+}));
