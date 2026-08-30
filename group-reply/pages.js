@@ -157,14 +157,36 @@ const ALL = build();
  * box just gets you to a row faster.
  * ------------------------------------------------------------------------ */
 
+/* Rank so the thing you actually named comes first. Without this, searching
+ * "fern" put Amelia Island above Fern Oak Estate, because Amelia carries
+ * "fernandina" as an alias - a correct match, but not the one you meant.
+ *   0  the label starts with what you typed
+ *   1  the label contains it somewhere
+ *   2  only an alias or the group name matched
+ * Ties keep their original order, which keeps each group's list alphabetical. */
+function rank(row, query) {
+  const label = norm(row.label);
+  if (label.indexOf(query) === 0) return 0;
+  if (label.indexOf(query) !== -1) return 1;
+  return 2;
+}
+
+function order(rows, query) {
+  return rows
+    .map(function (row, i) { return { row: row, r: rank(row, query), i: i }; })
+    .sort(function (a, b) { return a.r - b.r || a.i - b.i; })
+    .map(function (x) { return x.row; });
+}
+
 function search(query) {
-  const terms = norm(query).split(' ').filter(Boolean);
+  const q = norm(query);
+  const terms = q.split(' ').filter(Boolean);
   if (!terms.length) return { rows: ALL, loose: false };
 
   const strict = ALL.filter(function (row) {
     return terms.every(function (t) { return row.haystack.indexOf(t) !== -1; });
   });
-  if (strict.length) return { rows: strict, loose: false };
+  if (strict.length) return { rows: order(strict, q), loose: false };
 
   /* Nothing matched all the words. Rather than show an empty screen, fall back
    * to matching ANY of them and say so. "dj sax" is a real thing someone types
@@ -173,7 +195,7 @@ function search(query) {
   const loose = ALL.filter(function (row) {
     return terms.some(function (t) { return row.haystack.indexOf(t) !== -1; });
   });
-  return { rows: loose, loose: loose.length > 0 };
+  return { rows: order(loose, terms[0]), loose: loose.length > 0 };
 }
 
 return { all: ALL, search: search, _internal: { norm: norm, titleize: titleize, buildUrl: buildUrl } };

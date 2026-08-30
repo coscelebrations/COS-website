@@ -126,6 +126,23 @@ finds('white room', 'The White Room');
 finds('lodge', 'Lodge Club Ponte Vedra');
 finds('epping', 'Epping Forest Yacht Club');
 
+/* Ranking: the page you named must come before one that only matches via an
+ * alias. "fern" used to put Amelia Island (alias "fernandina") above Fern Oak
+ * Estate. Within a group, a label match beats an alias match. */
+{
+  const rows = PAGES.search('fern').rows.filter((r) => r.group === 'Venues');
+  ok('search ranks a label match above an alias-only match',
+     rows.length > 0 && rows[0].label === 'Fern Oak Estate',
+     `first venue hit was ${rows[0] ? rows[0].label : 'none'}`);
+}
+
+{
+  const rows = PAGES.search('casa').rows;
+  ok('ranked results keep alphabetical order among equal matches',
+     rows[0].label === 'Casa Feliz',
+     `first hit was ${rows[0].label}`);
+}
+
 ok('blank search returns everything', PAGES.search('').rows.length === PAGES.all.length);
 
 ok('gibberish returns nothing rather than everything', PAGES.search('zzzqqq').rows.length === 0);
