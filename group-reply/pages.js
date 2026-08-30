@@ -134,10 +134,14 @@ function build() {
   config.venues.forEach(function (v) {
     const cosSlug = (v.slugByBrand && v.slugByBrand.cos) || v.slug;
     const aeSlug  = (v.slugByBrand && v.slugByBrand.ae)  || v.slug;
-    list.push(entry('Venues', titleize(v.slug), {
-      cos: buildUrl('cos', config.venuePathTemplate.replace('%SLUG%', cosSlug)),
-      ae:  buildUrl('ae',  config.venuePathTemplate.replace('%SLUG%', aeSlug)),
-    }, (v.aliases || []).join(' ')));
+    const urls = {};
+    /* `onlyOn` is set by scripts/sync-link-finder.mjs when a venue page exists
+     * on one site but not the other - which happens routinely, because the COS
+     * half of a pair often ships days before the AE half. Showing a button to
+     * a page that 404s is worse than showing no button. */
+    if (v.onlyOn !== 'ae') urls.cos = buildUrl('cos', config.venuePathTemplate.replace('%SLUG%', cosSlug));
+    if (v.onlyOn !== 'cos') urls.ae = buildUrl('ae', config.venuePathTemplate.replace('%SLUG%', aeSlug));
+    list.push(entry('Venues', titleize(v.slug), urls, (v.aliases || []).join(' ')));
   });
 
   return list;

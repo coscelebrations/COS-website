@@ -161,6 +161,7 @@ return {
     { slug: 'embassy-suites-st-augustine-beach' },
     { slug: 'epping-forest-yacht-club', aliases: ['epping forest'] },
     { slug: 'estate-on-the-halifax' },
+    { slug: 'fern-oak-estate' },
     { slug: 'flagler-college' },
     { slug: 'florida-aquarium' },
     { slug: 'fountain-of-youth' },

@@ -48,6 +48,9 @@ for (const brandKey of Object.keys(config.brands)) {
   const brand = config.brands[brandKey];
 
   for (const v of config.venues) {
+    // Skip the brand a venue is deliberately not listed on - the tool does not
+    // show a button for it, so a 404 there is expected, not a failure.
+    if (v.onlyOn && v.onlyOn !== brandKey) continue;
     targets.push({
       kind: 'venue',
       brand: brandKey,
