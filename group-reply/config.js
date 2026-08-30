@@ -1,14 +1,14 @@
 /* ===========================================================================
- * GROUP REPLY ASSISTANT - CONFIGURATION
+ * LINK FINDER - CONFIGURATION
  * ===========================================================================
  *
- * WHAT THIS TOOL DOES: you type a short phrase ("photo jax", "dj treasury")
- * and it gives you the right page link with UTM tracking already attached.
- * You copy it and use it on Facebook BY HAND.
+ * WHAT THIS TOOL DOES: shows a searchable list of our pages with a copy button
+ * on each one, so nobody types a URL by hand again.
  *
- * NO SERVER, NO API KEY, NO COST. This file and routing.js are loaded straight
- * into the browser by /group-reply/index.html and also require()'d by the Node
- * test scripts, so there is exactly one source of truth and no build step.
+ * NO SERVER, NO API KEY, NO COST, NO TRACKING. This file and pages.js are
+ * loaded straight into the browser by /group-reply/index.html and are also
+ * require()'d by the Node test scripts, so there is exactly one source of
+ * truth and no build step.
  *
  * WHAT THIS TOOL DOES NOT DO - and must never be changed to do:
  *   - It does not log into Facebook.
@@ -35,6 +35,9 @@
  * Do both every time. They take seconds and they are the whole safety net.
  *
  * Slug lists verified against both live sitemaps 2026-08-26.
+ * Trimmed 2026-08-30: 262 lines of brand-voice rules, example replies and
+ * post-interpreting config were removed when the tool became a link list.
+ * They are in git history at commit a46f7b8 if ever wanted back.
  * =========================================================================== */
 
 (function (root, factory) {
@@ -54,160 +57,13 @@ return {
     ae:  { label: 'AE Entertainment',  domain: 'https://ae-djs.com',        home: '/' },
   },
 
-  /* NEVER link both brands in one reply. AE presents to the public as its own
-   * company. A comment linking both tells a searchable Facebook group - venue
-   * coordinators and vendors included - that they are one operation. That is
-   * not retractable. See the plan doc, "Linking both brands in one reply". */
-  allowBothBrandLinks: false,
-
   /* ---------------------------------------------------------------------
-   * WRITING RULES - CURRENTLY UNUSED
+   * VENDOR DIRECTORIES
    * ---------------------------------------------------------------------
-   * Everything from here down to the end of `examples` is dormant. It was
-   * built for a version of this tool that also DRAFTED the reply text, which
-   * was cut on 2026-08-29 in favour of link lookup only.
-   *
-   * Kept because it is the accumulated brand-voice work (the COS/AE split, the
-   * em-dash rule, the sax-is-not-a-ceremony-instrument rule) and it is the
-   * starting point if drafting ever comes back. Nothing reads it today.
-   * The drafting code itself is in git history at commit 4e9f091.
-   * ------------------------------------------------------------------- */
-
-  /* WRITING-VOICE.md says COS uses em dashes for asides. That rule is still
-   * correct FOR WEB PAGES. It does not apply here: these are Facebook comments
-   * typed on a phone, and an em dash reads as machine-generated. CLAUDE.md
-   * Rule #15 bans them independently. Do not "fix" this back. */
-  bannedCharacters: ['—', '–', '‘', '’', '“', '”'],
-
-  /* Replacements applied before the strip, so meaning survives. */
-  characterReplacements: {
-    '—': ', ',   // em dash
-    '–': '-',    // en dash
-    '‘': "'",
-    '’': "'",
-    '“': '"',
-    '”': '"',
-  },
-
-  /* Warning only - never auto-rewritten. The human decides. */
-  bannedPhrases: [
-    'elevate', 'unforgettable', 'we pride ourselves', 'seamless', 'magical',
-    'perfect day', 'dream wedding', 'look no further', 'top-notch',
-  ],
-
-  /* ---------------------------------------------------------------------
-   * VOICE
-   * ------------------------------------------------------------------- */
-  voice: {
-    shared: [
-      'Sound like a human typing on a phone, not marketing copy.',
-      'Two to four sentences. Short.',
-      'Open with a congratulations or similar, then get straight to something specific about THEIR post: their venue, their date, their actual question. Never open with the company name.',
-      'No em dashes used as pauses.',
-      'No superlatives. Never use "elevate", "unforgettable", "we pride ourselves".',
-      'One link, at the end. Never write the URL yourself - write the token {{LINK}} and it gets substituted.',
-      'Never post a price, ours or anyone else\'s.',
-      'Have an actual opinion. A reply that hedges everything is not worth posting.',
-      'Specifics beat adjectives. "Fifty people in a backyard needs less gear than a ballroom" beats "we tailor to your needs".',
-      'Do not invent details about a venue you were not told about. If you do not know the room, do not describe it.',
-    ],
-    cos: [
-      'COS Celebrations is the luxury brand, $1,500+.',
-      'First person. "I" and "we". Never "COS Celebrations provides".',
-      'Confident, not salesy. Like a friend who happens to be really good at this giving straight advice.',
-      'Signal quality through specificity, not adjectives.',
-      'DJ plus live saxophone is the signature. Sax rides OVER the reception dance set - it is not a ceremony or cocktail-hour instrument. Piano and violin are the ceremony/cocktail instruments.',
-      'Just-a-DJ is a respected default. Never imply every event includes live musicians.',
-    ],
-    ae: [
-      'AE Entertainment is the budget-friendly brand, $800+.',
-      '"We" voice. No Corey backstory - AE is the team, not the founder story.',
-      'Direct, casual, zero pretension. Even shorter sentences than COS.',
-      'Say "price", "cost", "package". Never "investment", "fee structure", "experience".',
-      'Signal value without apologizing for it. Never punch down at more expensive companies.',
-      'AE is its own company to the public. Never mention COS Celebrations in an AE reply.',
-    ],
-    vendor: [
-      'This is a referral, not a lead. Someone asked about a photographer, planner, videographer, venue, bar or caterer.',
-      'Company "we" voice - these get posted by whoever is on their phone, so no personal-relationship claims only Corey could honestly make.',
-      'Never name an individual vendor. Point at the category page and let it do the work.',
-      'Do NOT pitch DJ services. They did not ask. A pitch inside someone else\'s question is what gets an account muted.',
-      'Earn the link with a real observation first. "Here is a list" on its own is a link drop and reads like one.',
-    ],
-  },
-
-  /* ---------------------------------------------------------------------
-   * EXAMPLE REPLIES - the single biggest quality lever in this file
-   * ---------------------------------------------------------------------
-   * The model copies the rhythm, length and structure of these closely.
-   * Keep them VARIED so it learns the voice, not one template.
-   *
-   * STATUS 2026-08-26: these are Claude's drafts, reviewed and steered by
-   * Corey but not rewritten in his own words. The tool will sound like a good
-   * imitation of him until these are replaced with real replies he has posted.
-   * Paste real ones in here as they happen - no need to write a batch.
-   * ------------------------------------------------------------------- */
-  examples: {
-    ae: [
-      {
-        post: 'Hi everyone! Getting married next October in St. Augustine and starting to look for a DJ. Any recommendations? TIA',
-        reply: 'Congrats! Do you have the venue locked in yet? That changes what you actually need more than people expect, especially if the reception is outside. We are local and do a lot of these: {{LINK}}',
-      },
-      {
-        post: 'Looking for an affordable DJ for a small backyard wedding in Jacksonville, about 50 people. Budget is tight!',
-        reply: 'Congrats! Fifty people in a backyard is a totally different setup than a ballroom, you need a lot less gear than most companies will try to sell you. We do a bunch of these. Pricing is all listed here: {{LINK}}',
-      },
-    ],
-    cos: [
-      {
-        post: 'Has anyone done a live saxophone player with their DJ? Getting married at Ponte Vedra Inn & Club next spring.',
-        reply: 'Congrats! DJ plus live sax is most of what we do, and it is usually the reception people want it for, over the dance set. Here is what that looks like at Ponte Vedra: {{LINK}}',
-      },
-    ],
-    vendor: [
-      {
-        post: 'Does anyone have a photographer they loved? Ours just cancelled on us 6 weeks out and I am panicking',
-        /* TODO before this ships: Corey has NOT confirmed that six weeks out is
-         * realistic for an October St. Augustine photographer. A confident wrong
-         * claim about another vendor's availability costs credibility with both
-         * the couple and the photographers. Fix or cut the second sentence. */
-        reply: 'Congrats, and that is a rough one. Six weeks out is stressful but it is doable, most photographers still have fall dates open. Here is the list of the ones we work with most: {{LINK}}',
-      },
-      {
-        post: 'Do I really need a day-of coordinator? Trying to decide if it is worth it.',
-        reply: 'Congrats! Honestly yes, and mostly for you, not for the vendors. Somebody has to be the person answering questions all day, and you do not want that to be you or your mom. Here is who we work with: {{LINK}}',
-      },
-    ],
-  },
-
-  /* ---------------------------------------------------------------------
-   * ASK-BACK MODE
-   * ---------------------------------------------------------------------
-   * When a post gives us nothing to route on, the strongest reply is often a
-   * question with no link at all. It gets engagement in the thread and defers
-   * the COS-vs-AE call to a DM where linking either site is safe.
-   * The server drafts both; the screen shows the link version by default with
-   * this one folded behind "not right?".
-   * ------------------------------------------------------------------- */
-  askBack: {
-    enabled: true,
-    example: 'Congrats! Do you have the venue locked in yet, and is the reception indoors or outside? That changes what you actually need more than most people expect.',
-  },
-
-  /* ---------------------------------------------------------------------
-   * INTENT - what is this post even asking for?
-   * ---------------------------------------------------------------------
-   * Checked BEFORE brand. Order matters inside entertainment: "photo booth"
-   * must be tested before the vendor "photo" keywords, or every photo-booth
-   * post misroutes to the photographer referral.
+   * The keywords are what the search box matches on, so add the words a
+   * person would actually type, not just the formal name.
    * ------------------------------------------------------------------- */
   intents: {
-    entertainment: [
-      'dj', 'djs', 'disc jockey', 'music', 'band', 'live music', 'sax', 'saxophone',
-      'mc', 'emcee', 'dancing', 'dance floor', 'entertainment', 'photo booth',
-      'photobooth', 'uplighting', 'uplight', 'lighting', 'cold spark',
-      'dancing on a cloud', 'sound system', 'ceremony music',
-    ],
     vendor: {
       photographer: {
         keywords: ['photographer', 'photog', 'photography', 'photos'],
@@ -264,78 +120,6 @@ return {
   /* Vendor referrals always link COS - AE has no vendor pages at all. */
   vendorBrand: 'cos',
 
-  /* 'our-page' = name nobody, link the category page. Decided 2026-08-26.
-   * Deliberately NO vendor name list in this config: names go stale silently
-   * while the directories are being filled out, and naming one of six reads
-   * as a slight to the other five. */
-  vendorLinkPolicy: 'our-page',
-
-  /* ---------------------------------------------------------------------
-   * BRAND ROUTING - deterministic, first match wins
-   * ---------------------------------------------------------------------
-   * Precedence: manual override > forceCos > cosOnlyVenue > forceAe /
-   * guest count > softCos > default AE.
-   *
-   * COS force-rules sit ABOVE AE budget words on purpose. "Affordable
-   * saxophonist for our Ponte Vedra wedding" is a COS lead with a price
-   * objection, not an AE lead. Sax and special effects are COS-only
-   * capabilities; budget language is a negotiating position.
-   * ------------------------------------------------------------------- */
-  routing: {
-    forceCos: [
-      { match: ['saxophone', 'sax player', 'live sax', 'live musician', 'live musicians', 'horn player', 'live band with dj'],
-        reason: 'They asked about live music, which is a COS service.' },
-      { match: ['cold spark', 'cold sparks', 'sparkular', 'dancing on a cloud', 'dry ice', 'special effects'],
-        reason: 'They asked about special effects, which is a COS service.' },
-      { match: ['lighting design', 'full production', 'uplighting package', 'monogram'],
-        reason: 'They asked about production and lighting design, which points to COS.' },
-      { match: ['wedding planner', 'our planner', 'my planner', 'coordinator is', 'working with a planner'],
-        reason: 'There is a planner involved, which usually means a bigger production. Routing to COS.' },
-      { match: ['black tie', 'black-tie', 'no expense', 'high end', 'high-end', 'luxury'],
-        reason: 'The post uses higher-budget language, so this goes to COS.' },
-    ],
-    forceAe: [
-      { match: ['on a budget', 'affordable', 'cheap', 'inexpensive', 'tight budget', 'budget is tight',
-                'not spending much', 'low budget', 'budget friendly', 'budget-friendly', 'save money',
-                'as cheap as', 'keep it simple', 'nothing fancy'],
-        reason: 'They said "%MATCH%", so this goes to AE.' },
-      { match: ['backyard', 'back yard', 'community center', 'vfw', 'church hall', 'fellowship hall',
-                'american legion', 'rec center', 'moose lodge', 'at our house', 'at my house'],
-        reason: 'A %MATCH% wedding is usually a simpler setup, so this goes to AE.' },
-      { match: ['just need a dj', 'only need a dj', 'just a dj', 'basic dj', 'simple dj'],
-        reason: 'They only want a DJ, no extras, so this goes to AE.' },
-    ],
-    softCos: [
-      { match: ['resort', 'country club', 'yacht club', 'ballroom', 'estate', 'plantation'],
-        reason: 'A %MATCH% venue usually means a bigger production, so this leans COS.' },
-    ],
-
-    /* Below this guest count, route AE. */
-    guestCountAeBelow: 75,
-    guestCountReason: 'About %COUNT% guests is a smaller wedding, so this goes to AE.',
-
-    /* When unclear, default to AE and SAY SO. Easier to move a lead up to COS
-     * than to scare one off with a luxury quote. */
-    defaultBrand: 'ae',
-    defaultReason: 'Nothing in the post points clearly either way, so this defaults to AE. Easier to move a lead up to COS than to scare one off with a luxury quote.',
-
-    /* These venues force COS regardless of budget language. Kept short and
-     * keyword-matched in the pre-call routing step, because brand has to be
-     * decided BEFORE the model writes (it sets the voice). */
-    cosOnlyVenues: [
-      'ritz-carlton-amelia-island',
-      'ponte-vedra-inn-club',
-      'lodge-club-ponte-vedra',
-      'omni-amelia-island',
-      'don-cesar',
-      'tpc-sawgrass',
-      'bella-collina',
-      'epping-forest-yacht-club',
-      'sawgrass-marriott',
-      'alfond-inn',
-    ],
-    cosOnlyVenueReason: 'That venue is one we cover under COS, so this routes to COS.',
-  },
 
   /* ---------------------------------------------------------------------
    * VENUES - 62, verified against both sitemaps 2026-08-26
@@ -489,57 +273,52 @@ return {
     },
   ],
 
-  /* AE's budget page. The reply text still never types a price - the page does
-   * the talking. Only used when a forceAe budget rule actually matched. */
-  cheapPage: { brand: 'ae', path: '/cheap-wedding-dj/', preferOverCity: true },
-
   /* ---------------------------------------------------------------------
-   * NO-PROMO GROUPS
+   * TRACKING - OFF
    * ---------------------------------------------------------------------
-   * Lowercased fragments matched against the group name. A match forces the
-   * DM-offer reply with no public link, regardless of the checkbox.
+   * Turned off 2026-08-30 at Corey's call: "honestly not worried about trying
+   * to track them. I just want a fast way to throw the link."
    *
-   * This list STARTS EMPTY and grows. The workflow is: the first time you
-   * notice a group bans links, add one line here.
+   * With this false, links are clean:
+   *     https://coscelebrations.com/vendors/photographers/
+   * With it true, they get ?utm_source=facebook&utm_medium=group&utm_campaign=
+   * appended, which is what lets Google Analytics tell you which groups send
+   * traffic. The tag never changes the page it points at - it is a label, not
+   * part of the page.
    *
-   * The checkbox on the screen can force no-promo ON, but cannot force it OFF
-   * when this list matched. Removing a group is a config edit, not a per-draft
-   * decision.
-   * ------------------------------------------------------------------- */
-  noPromoGroups: [
-    // 'jacksonville wedding vendors',
-    // 'first coast brides',
-  ],
-
-  /* ---------------------------------------------------------------------
-   * TRACKING - the only tracking in this whole tool
+   * Flip `enabled` to true if you ever want that back. Nothing else to change.
    * ------------------------------------------------------------------- */
   utm: {
+    enabled: false,
     source: 'facebook',
     medium: 'group',
     fallbackCampaign: 'unknown-group',
   },
 
   /* ---------------------------------------------------------------------
-   * MODEL
+   * EXTRA PAGES - the ones that are not a venue, city, service or vendor
    * ---------------------------------------------------------------------
-   * Opus 5 thinks by default, and max_tokens caps thinking PLUS response text
-   * together - which is why 2000 for a 2-4 sentence reply. Do not set
-   * thinking:disabled: on this model that leaks <thinking> tags into visible
-   * output, which for a tool whose entire product IS visible text is exactly
-   * the wrong failure. effort:'low' is the correct cost/latency lever.
+   * All verified live on both domains 2026-08-30. `on` lists which brands
+   * have the page; a page missing from a brand simply does not show a button
+   * for it.
    * ------------------------------------------------------------------- */
-  model: {
-    id: 'claude-opus-5',
-    maxTokens: 2000,
-    effort: 'low',
-    /* Netlify's synchronous function timeout is 10s by default. Abort before
-     * that so the user gets a friendly message instead of a raw 502. */
-    timeoutMs: 8500,
-  },
+  extraPages: [
+    { label: 'Homepage',            path: '/',                                    on: ['cos', 'ae'], keywords: 'home main front' },
+    { label: 'Contact',             path: '/contact/',                            on: ['cos', 'ae'], keywords: 'contact form quote enquiry inquiry' },
+    { label: 'Pricing',             path: '/pricing/',                            on: ['cos'],       keywords: 'price prices cost packages' },
+    { label: 'Cheap Wedding DJ',    path: '/cheap-wedding-dj/',                   on: ['ae'],        keywords: 'price prices cost cheap budget affordable' },
+    { label: 'Areas We Serve',      path: '/areas-we-serve/',                     on: ['cos', 'ae'], keywords: 'areas cities venues locations where map' },
+    { label: 'Photo + Video',       path: '/photo-video/',                        on: ['cos', 'ae'], keywords: 'photo video photography videography' },
+    { label: 'Jacksonville Venues', path: '/jacksonville-wedding-venues/',        on: ['cos'],       keywords: 'jax jacksonville venues list' },
+    { label: 'Pulse! by COS',       path: '/pulse/',                              on: ['cos'],       keywords: 'pulse band live hybrid' },
+    { label: 'Our DJs',             path: '/team/djs/',                           on: ['cos'],       keywords: 'team djs staff who people' },
+    { label: 'Our Musicians',       path: '/team/musicians/',                     on: ['cos'],       keywords: 'team musicians sax players people' },
+    { label: 'Our Team',            path: '/team/',                               on: ['ae'],        keywords: 'team staff who people' },
+    { label: 'Preferred Vendors',   path: '/vendors/',                            on: ['cos'],       keywords: 'vendors preferred partners list' },
+    { label: 'Questions to Ask a DJ',        path: '/blog/questions-to-ask-a-wedding-dj/',        on: ['cos'], keywords: 'blog questions ask advice' },
+    { label: 'What a Jax DJ Costs',          path: '/blog/wedding-dj-cost-jacksonville/',         on: ['ae'],  keywords: 'blog cost price jacksonville jax' },
+    { label: 'Questions to Ask a Budget DJ', path: '/blog/questions-to-ask-a-budget-wedding-dj/', on: ['ae'],  keywords: 'blog questions ask advice budget' },
+  ],
 
-  /* Longest post we will accept. Pasted Facebook text sometimes includes a
-   * whole comment thread. */
-  maxPostChars: 4000,
 };
 }));

@@ -74,21 +74,21 @@ for (const brandKey of Object.keys(config.brands)) {
   targets.push({ kind: 'home', brand: brandKey, label: 'homepage', url: brand.domain + brand.home });
 }
 
+/* Extra pages - homepages, pricing, contact, team, blog. Added 2026-08-30
+ * when these became part of the list the tool shows. */
+for (const p of config.extraPages || []) {
+  for (const brandKey of p.on) {
+    targets.push({ kind: 'extra', brand: brandKey, label: p.label,
+                   url: config.brands[brandKey].domain + p.path });
+  }
+}
+
 /* Vendor category pages - COS only, AE has no vendor pages */
 const vendorBrand = config.brands[config.vendorBrand];
 for (const [key, v] of Object.entries(config.intents.vendor)) {
   targets.push({ kind: 'vendor', brand: config.vendorBrand, label: key, url: vendorBrand.domain + v.page });
 }
 
-/* AE's budget page */
-if (config.cheapPage) {
-  targets.push({
-    kind: 'cheap',
-    brand: config.cheapPage.brand,
-    label: 'cheap-wedding-dj',
-    url: config.brands[config.cheapPage.brand].domain + config.cheapPage.path,
-  });
-}
 
 /* ---------- check them ---------- */
 

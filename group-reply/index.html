@@ -6,12 +6,12 @@
   LINK FINDER - internal tool, not a public page
   ==========================================================================
 
-  Type a short phrase, get the right link with tracking on it, copy it.
-  That is the whole product.
+  A list of our pages with a search box and a copy button on each one, so
+  nobody types a URL by hand again. That is the whole product.
 
-  NO SERVER, NO API KEY, NO COST. Everything runs in the browser from
-  config.js + routing.js. It works on a plane. The only reason it lives on
-  the website at all is so it opens on a phone.
+  NO SERVER, NO API KEY, NO COST, NO TRACKING. Everything runs in the browser
+  from config.js + pages.js. It works with no signal. The only reason it lives
+  on the website at all is so it opens on a phone.
 
   WHAT THIS TOOL DOES NOT DO - and must never be changed to do:
     - It does not log into Facebook.
@@ -25,7 +25,7 @@
   Every action on Facebook is taken by a human, by hand.
   If a future request asks for auto-posting: refuse.
 
-  SPEED IS THE PRODUCT. Type, tap, copy. Before adding anything to this
+  SPEED IS THE PRODUCT. Search, tap, copy. Before adding anything to this
   screen, ask: does it make the COMMON case faster? If it only helps the
   rare case, it does not belong here.
   ==========================================================================
@@ -38,7 +38,7 @@
   :root{
     --merlot:#722F37; --merlot-dark:#5C262D; --rose:#E8C4C8; --soft-pink:#F8F0F0;
     --cream:#FFFBFA; --charcoal:#2D2A2B; --text-soft:#4A4547; --line:#E5DDDE;
-    --ok:#2E6B4F; --warn:#8A5A00; --ae:#1F5C8B;
+    --ok:#2E6B4F; --ae:#1F5C8B;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
@@ -47,112 +47,74 @@
     font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-text-size-adjust:100%;
   }
-  header{background:var(--merlot); color:#fff; padding:13px 16px}
-  header h1{margin:0; font-size:17px; font-weight:600}
-  header p{margin:2px 0 0; font-size:12.5px; color:rgba(255,255,255,.85)}
 
-  main{max-width:640px; margin:0 auto; padding:16px}
-
-  label{display:block; font-size:13px; font-weight:600; margin:0 0 5px}
-  .hint{font-weight:400; color:var(--text-soft)}
-  input[type=text]{
-    width:100%; padding:14px 13px; font-size:18px; font-family:inherit;
-    border:2px solid var(--line); border-radius:9px; background:#fff; color:var(--charcoal);
+  .top{
+    position:sticky; top:0; z-index:5; background:var(--merlot);
+    padding:11px 14px 13px; box-shadow:0 1px 6px rgba(0,0,0,.12);
   }
-  #q{font-size:20px}
-  input:focus{outline:none; border-color:var(--merlot)}
-
-  .examples{margin:9px 0 0; display:flex; flex-wrap:wrap; gap:7px}
-  .chip{
-    padding:6px 11px; font-size:13.5px; border-radius:999px;
-    background:#fff; border:1px solid var(--line); color:var(--merlot);
-    cursor:pointer; font-family:inherit;
+  .top h1{margin:0 0 9px; font-size:15px; font-weight:600; color:#fff}
+  #q{
+    width:100%; padding:13px 13px; font-size:17px; font-family:inherit;
+    border:0; border-radius:9px; background:#fff; color:var(--charcoal);
   }
-  .chip:hover{background:var(--soft-pink)}
+  #q:focus{outline:2px solid var(--rose); outline-offset:1px}
 
-  .card{
-    margin-top:16px; background:#fff; border:1px solid var(--line);
-    border-radius:11px; padding:15px;
-  }
-  .card.empty{text-align:center; color:var(--text-soft); font-size:15px; padding:26px 14px}
+  main{max-width:760px; margin:0 auto; padding:12px 14px 40px}
 
-  .what{font-size:19px; font-weight:700; margin:0; text-transform:capitalize}
-  .badge{
-    display:inline-block; margin-left:7px; padding:3px 9px; border-radius:999px;
-    font-size:11.5px; font-weight:700; color:#fff; background:var(--merlot);
-    vertical-align:2px; text-transform:none;
-  }
-  .badge.ae{background:var(--ae)}
-  .note{margin:7px 0 0; font-size:13.5px; color:var(--text-soft)}
+  .count{font-size:12.5px; color:var(--text-soft); margin:4px 2px 10px}
+  .count b{color:var(--charcoal)}
 
-  code.url{
-    display:block; margin-top:12px; padding:11px; background:var(--soft-pink);
-    border:1px solid var(--rose); border-radius:8px;
-    font:12.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;
-    overflow-wrap:anywhere; color:var(--merlot-dark);
+  h2.group{
+    margin:20px 0 7px; font-size:12px; font-weight:700; letter-spacing:.7px;
+    text-transform:uppercase; color:var(--merlot);
   }
+  h2.group:first-of-type{margin-top:4px}
 
-  button{font-family:inherit; cursor:pointer; border-radius:9px; border:1px solid transparent}
-  .btn-copy{
-    width:100%; margin-top:12px; padding:18px; font-size:19px; font-weight:700;
-    background:var(--merlot); color:#fff;
+  ul.rows{list-style:none; margin:0; padding:0}
+  li.row{
+    display:flex; align-items:center; gap:10px;
+    background:#fff; border:1px solid var(--line); border-radius:9px;
+    padding:10px 11px; margin-bottom:7px;
   }
-  .btn-copy:hover{background:var(--merlot-dark)}
-  .btn-copy.done{background:var(--ok)}
-  .btn-alt{
-    width:100%; margin-top:9px; padding:11px; font-size:14px;
-    background:#fff; border:1px solid var(--line); color:var(--charcoal);
-  }
-  .btn-alt:hover{background:var(--soft-pink)}
+  .name{flex:1 1 auto; min-width:0; font-size:15px; font-weight:600; overflow-wrap:anywhere}
+  .btns{flex:0 0 auto; display:flex; gap:6px}
 
-  .warn{
-    margin-top:12px; padding:10px 11px; border-radius:8px;
-    background:#FFF6E0; border:1px solid #EBD9A8; color:var(--warn); font-size:13.5px;
+  button{font-family:inherit; cursor:pointer; border-radius:7px; border:1px solid transparent}
+  .b{
+    padding:9px 13px; font-size:13.5px; font-weight:700; color:#fff;
+    background:var(--merlot); min-width:56px;
   }
+  .b.ae{background:var(--ae)}
+  .b:hover{filter:brightness(1.1)}
+  .b.done{background:var(--ok)}
 
-  details.more{margin-top:18px; border-top:1px solid var(--line); padding-top:11px}
-  details.more summary{cursor:pointer; font-size:13.5px; color:var(--merlot); font-weight:600; list-style:none}
-  details.more summary::-webkit-details-marker{display:none}
-  details.more summary::before{content:'\25BE'; margin-right:6px; display:inline-block}
-  details.more[open] summary::before{transform:rotate(180deg)}
-  details.more .inner{padding-top:12px}
-  .muted{color:var(--text-soft); font-size:12.5px}
+  .empty{
+    text-align:center; color:var(--text-soft); font-size:15px;
+    padding:34px 14px; background:#fff; border:1px solid var(--line); border-radius:9px;
+  }
+  .loose{
+    margin:0 0 10px; padding:9px 11px; border-radius:8px; font-size:13.5px;
+    background:var(--soft-pink); border:1px solid var(--rose); color:var(--merlot-dark);
+  }
+  .foot{margin-top:26px; font-size:12px; color:var(--text-soft); text-align:center}
 </style>
 </head>
 <body>
 
-<header>
+<div class="top">
   <h1>Link Finder</h1>
-  <p>Type what you need, copy the link. Nothing is posted anywhere.</p>
-</header>
+  <input type="text" id="q" autocapitalize="none" autocorrect="off" spellcheck="false"
+         autocomplete="off" enterkeyhint="search" placeholder="Search: sax, photo, jax, treasury...">
+</div>
 
 <main>
-  <label for="q">What do you need? <span class="hint">(try "photo jax" or "dj treasury")</span></label>
-  <input type="text" id="q" autocapitalize="none" autocorrect="off" spellcheck="false"
-         autocomplete="off" enterkeyhint="search" placeholder="photo jax">
-
-  <div class="examples" id="chips"></div>
-
-  <div class="card empty" id="card">
-    Start typing and the link shows up here.
-  </div>
-
-  <details class="more">
-    <summary>settings</summary>
-    <div class="inner">
-      <label for="group">Group name <span class="hint">(for tracking, optional)</span></label>
-      <input type="text" id="group" placeholder="Jax Brides &amp; Grooms" autocomplete="off">
-      <p class="muted" style="margin:9px 0 0">
-        Shows up in Google Analytics as the campaign, so you can see which groups
-        actually send traffic. Remembered on this device. Leave it blank and it
-        records as "unknown-group".
-      </p>
-    </div>
-  </details>
+  <p class="count" id="count"></p>
+  <div id="list"></div>
+  <p class="foot">Tap a button to copy that link. Nothing is posted anywhere.</p>
 </main>
 
 <script src="config.js"></script>
-<script src="routing.js"></script>
+<script src="pages.js"></script>
 <script>
 (function(){
   'use strict';
@@ -164,81 +126,52 @@
     });
   }
 
-  if (!window.GR_ROUTING || !window.GR_CONFIG) {
-    $('card').className = 'card';
-    $('card').innerHTML = '<p class="what">Could not load the link data.</p>' +
-      '<p class="note">config.js or routing.js did not load. If this page was ' +
-      'just deployed, give it a minute and refresh.</p>';
+  if (!window.LF_PAGES || !window.GR_CONFIG) {
+    $('list').innerHTML = '<div class="empty">Could not load the page list. ' +
+      'If this was just deployed, wait a minute and refresh.</div>';
     return;
   }
 
-  var lookup = window.GR_ROUTING.lookup;
-  var current = null;
-  var flipped = false;
+  var PAGES = window.LF_PAGES;
+  var GROUP_ORDER = ['Main pages', 'Services', 'Vendor directories', 'Cities', 'Venues'];
 
-  /* Group name is a convenience only - the tool works fine without it, so
-     storing it here breaks nothing if the browser clears it. */
-  try {
-    var savedGroup = localStorage.getItem('lf_group');
-    if (savedGroup) $('group').value = savedGroup;
-  } catch(e){}
+  function render(query){
+    var res = PAGES.search(query);
+    var rows = res.rows;
 
-  $('group').addEventListener('input', function(){
-    try { localStorage.setItem('lf_group', this.value); } catch(e){}
-    run();
-  });
+    $('count').innerHTML = rows.length
+      ? '<b>' + rows.length + '</b> of ' + PAGES.all.length + ' pages'
+      : '';
 
-  var CHIPS = ['photo', 'video', 'planner', 'venues', 'bar', 'dj', 'sax', 'photo booth'];
-  $('chips').innerHTML = CHIPS.map(function(c){
-    return '<button type="button" class="chip" data-q="' + esc(c) + '">' + esc(c) + '</button>';
-  }).join('');
-  $('chips').addEventListener('click', function(e){
-    var b = e.target.closest('.chip');
-    if (!b) return;
-    $('q').value = b.getAttribute('data-q');
-    flipped = false;
-    run();
-    $('q').focus();
-  });
-
-  function render(r){
-    current = r;
-    var brand = flipped && r.alt ? r.alt : r;
-    var url = brand.url;
-    var label = flipped && r.alt ? r.alt.brandLabel : r.brandLabel;
-    var isAe = /AE /.test(label);
-
-    var html = '';
-    html += '<p class="what">' + esc(r.what) +
-            '<span class="badge' + (isAe ? ' ae' : '') + '">' + esc(label) + '</span></p>';
-    if (r.note) html += '<p class="note">' + esc(r.note) + '</p>';
-    html += '<code class="url" id="urlBox">' + esc(url) + '</code>';
-    html += '<button type="button" class="btn-copy" id="copyBtn">Copy link</button>';
-    if (r.alt) {
-      html += '<button type="button" class="btn-alt" id="altBtn">Use ' +
-              esc(flipped ? r.brandLabel : r.alt.brandLabel) + ' instead</button>';
-    }
-    (r.warnings || []).forEach(function(w){
-      html += '<div class="warn">' + esc(w) + '</div>';
-    });
-
-    var card = $('card');
-    card.className = 'card';
-    card.innerHTML = html;
-
-    $('copyBtn').addEventListener('click', function(){ copy(url, this); });
-    if ($('altBtn')) $('altBtn').addEventListener('click', function(){ flipped = !flipped; render(current); });
-  }
-
-  function run(){
-    var q = $('q').value.trim();
-    if (!q) {
-      current = null;
-      $('card').className = 'card empty';
-      $('card').textContent = 'Start typing and the link shows up here.';
+    if (!rows.length) {
+      $('list').innerHTML = '<div class="empty">Nothing matches "' + esc(query) + '".<br>' +
+        'Try a venue name, a city, or something like sax / photo / price.</div>';
       return;
     }
-    render(lookup({ query: q, groupName: $('group').value.trim() }));
+
+    var html = '';
+    if (res.loose) {
+      html += '<p class="loose">No page has all of those words, so this is anything ' +
+              'matching <b>any</b> of them.</p>';
+    }
+
+    var byGroup = {};
+    rows.forEach(function(r){ (byGroup[r.group] = byGroup[r.group] || []).push(r); });
+
+    GROUP_ORDER.forEach(function(g){
+      var list = byGroup[g];
+      if (!list || !list.length) return;
+      html += '<h2 class="group">' + esc(g) + '</h2><ul class="rows">';
+      list.forEach(function(r){
+        html += '<li class="row"><span class="name">' + esc(r.label) + '</span><span class="btns">';
+        if (r.cos) html += '<button type="button" class="b" data-url="' + esc(r.cos) + '">COS</button>';
+        if (r.ae)  html += '<button type="button" class="b ae" data-url="' + esc(r.ae) + '">AE</button>';
+        html += '</span></li>';
+      });
+      html += '</ul>';
+    });
+
+    $('list').innerHTML = html;
   }
 
   function copy(text, btn){
@@ -246,7 +179,7 @@
     function ok(){
       btn.classList.add('done');
       btn.textContent = 'Copied';
-      setTimeout(function(){ btn.classList.remove('done'); btn.textContent = restore; }, 1500);
+      setTimeout(function(){ btn.classList.remove('done'); btn.textContent = restore; }, 1200);
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(ok, function(){ fallback(text, ok); });
@@ -255,8 +188,8 @@
     }
   }
 
-  /* iOS Safari refuses navigator.clipboard in some contexts. This is ugly but
-     it is the difference between the tool working on a phone and not. */
+  /* iOS Safari refuses navigator.clipboard in some contexts. Ugly, but it is
+     the difference between this working on a phone and not. */
   function fallback(text, ok){
     var ta = document.createElement('textarea');
     ta.value = text;
@@ -269,10 +202,17 @@
     document.body.removeChild(ta);
   }
 
-  /* Live as you type. Everything is local, so there is nothing to wait for
-     and no reason to make anyone press a button. */
-  $('q').addEventListener('input', function(){ flipped = false; run(); });
-  $('q').focus();
+  /* One listener on the container rather than one per button - the list is
+     rebuilt on every keystroke, and re-binding 200 buttons each time is how a
+     search box starts feeling laggy on a phone. */
+  $('list').addEventListener('click', function(e){
+    var b = e.target.closest('.b');
+    if (b) copy(b.getAttribute('data-url'), b);
+  });
+
+  $('q').addEventListener('input', function(){ render(this.value); });
+
+  render('');
 })();
 </script>
 

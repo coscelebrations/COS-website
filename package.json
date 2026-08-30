@@ -24,7 +24,7 @@
     "monitor:indexing": "python3 ../cos-tools/seo-tracking/monitor_indexing.py",
     "tasks": "python3 ../cos-tools/task_runner.py",
     "check:group-reply": "node scripts/check-group-reply-links.mjs",
-    "test:group-reply": "node scripts/test-group-reply-routing.mjs"
+    "test:group-reply": "node scripts/test-link-finder.mjs"
   },
   "private": true
 }
