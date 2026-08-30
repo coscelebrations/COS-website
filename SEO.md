@@ -1,5 +1,39 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 28, 2026
+## Last Updated: August 30, 2026
+
+---
+
+## Session: August 30, 2026 - Fern Oak capacity corrected by the venue, and an AI-drafted review sitting in our public data
+
+### The venue's own website is the stale source, not our pages
+
+Fern Oak texted Corey with two corrections: **sleeps 36** (we had 32) and **guests up to 120** (we had 80). Applied across both brands - 13 places on COS, 12 on AE - covering hero, intro, Quick Facts tiles, feature cards, venue details, visible FAQs, FAQPage schema, meta description and the COS Service schema. Verified afterwards that no `32`, `80`, "thirty-two" or "eighty" survives in the copy on either page.
+
+**fernoakestate.com still publishes 80 and 32.** Do not "correct" our pages back to it. Recorded in `~/Desktop/Design-Assets/venues/fern-oak-estate/NOTES.md`. Second time this pattern has bitten - see the Golden Creek Ranch 200-vs-150 note from 2026-08-25.
+
+### A number change is not always a find-and-replace
+
+The AE page's entire budget argument was "80 is a small room, so you do not need a big rig, so the quote is small." At 120 that reasoning collapses, so swapping the digits would have left an argument that was fluent and wrong.
+
+First rewrite moved the argument to sizing sound to headcount. **Corey corrected that too:** 120 is covered by the same gear, so there is no headcount-based sizing story to tell. Final copy says the standard system covers the room without an upgrade and the only thing that moves the number is the ceremony, which happens away from the terrace and needs its own setup. The budget hook is now **36** - the overnight capacity, because that is a hotel block and a shuttle a couple never books.
+
+Worth generalising: **when a fact changes, check whether an argument was built on it.** The number is the easy part.
+
+### The referral ask, and the AE naming rule
+
+Fern Oak asked that couples mention Corey sent them in the enquiry form. COS says exactly that, in the venue details block and the closing CTA. **AE says "mention AE Entertainment" and does not name Corey** - Corey's call, and consistent with AE standing as its own company rather than trading on his name.
+
+Their text spells it "Cory"; our pages use Corey.
+
+### Found while spell-checking: an AI-drafted review in publicly served data
+
+`cos-website/data/reviews-all.json` is fetchable at `coscelebrations.com/data/reviews-all.json` and returns 200. Review id 156 - Haley S, The Knot, May 2025 - begins:
+
+> "Sure! Here's a polished and enthusiastic review you can use or adapt: --- We had the absolute pleasure of having DJ Cory at our event..."
+
+A real client pasted ChatGPT output into The Knot and left the assistant's preamble attached. The scraper took it verbatim, which is correct behaviour. That is also where the "Cory" spelling came from.
+
+**It is not rendered on any page and not in any Review schema** - checked. But robots.txt explicitly allows GPTBot, PerplexityBot, Google-Extended and ClaudeBot, so an AI crawler reading that file finds a five-star review that opens by announcing it was AI-written. **Left untouched** - review text is verbatim by standing rule and this is a real client's real review. Options when Corey wants it handled: strip only the preamble and the `---` so the client's own words are untouched, or drop id 156 from the file. His call.
 
 ---
 
