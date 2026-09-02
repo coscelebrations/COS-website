@@ -70,6 +70,7 @@
   }
   h2.group:first-of-type{margin-top:4px}
 
+  p.gnote{margin:-2px 2px 8px; font-size:12.5px; color:var(--text-soft)}
   ul.rows{list-style:none; margin:0; padding:0}
   li.row{
     display:flex; align-items:center; gap:10px;
@@ -135,6 +136,15 @@
   var PAGES = window.LF_PAGES;
   var GROUP_ORDER = ['Main pages', 'Services', 'Vendor directories', 'Cities', 'Venues'];
 
+  /* One line per group, shown under the heading. Cities earns one because the
+     row just says "St Augustine" and nothing tells you that page also carries
+     the venue list for that town - which is the answer when someone asks for
+     venues somewhere. */
+  var GROUP_NOTE = {
+    'Cities': 'Each city page also lists that town\'s venues.',
+    'Vendor directories': 'COS only. AE has no vendor pages.'
+  };
+
   function render(query){
     var res = PAGES.search(query);
     var rows = res.rows;
@@ -161,7 +171,9 @@
     GROUP_ORDER.forEach(function(g){
       var list = byGroup[g];
       if (!list || !list.length) return;
-      html += '<h2 class="group">' + esc(g) + '</h2><ul class="rows">';
+      html += '<h2 class="group">' + esc(g) + '</h2>';
+      if (GROUP_NOTE[g]) html += '<p class="gnote">' + esc(GROUP_NOTE[g]) + '</p>';
+      html += '<ul class="rows">';
       list.forEach(function(r){
         html += '<li class="row"><span class="name">' + esc(r.label) + '</span><span class="btns">';
         if (r.cos) html += '<button type="button" class="b" data-url="' + esc(r.cos) + '">COS</button>';

@@ -143,6 +143,33 @@ finds('epping', 'Epping Forest Yacht Club');
      `first hit was ${rows[0].label}`);
 }
 
+/* Every city page on both brands carries a venue section, so asking for
+ * "venues in <town>" should surface that town's city page. Without the shared
+ * cityExtraKeywords the row only matched on the city name, and "st augustine
+ * venues" returned a beach hotel instead of the St Augustine page. */
+{
+  const rows = PAGES.search('st augustine venues').rows;
+  ok('"st augustine venues" surfaces the St Augustine city page',
+     rows.length > 0 && rows[0].label === 'St Augustine',
+     `first hit was ${rows[0] ? rows[0].label : 'none'}`);
+}
+
+{
+  const cityRows = PAGES.search('orlando venues').rows.filter((r) => r.group === 'Cities');
+  ok('venue searches reach every city, not just St Augustine',
+     cityRows.length === 1 && cityRows[0].label === 'Orlando',
+     `city hits: ${cityRows.map((r) => r.label).join(', ')}`);
+}
+
+/* Individual venues deliberately do NOT carry the word "venue" - otherwise
+ * searching "venues" returns all 63 of them and buries the real answers. */
+{
+  const rows = PAGES.search('venues').rows;
+  const venueGroupHits = rows.filter((r) => r.group === 'Venues').length;
+  ok('searching "venues" does not dump all 63 individual venues',
+     venueGroupHits === 0, `${venueGroupHits} individual venues returned`);
+}
+
 ok('blank search returns everything', PAGES.search('').rows.length === PAGES.all.length);
 
 ok('gibberish returns nothing rather than everything', PAGES.search('zzzqqq').rows.length === 0);

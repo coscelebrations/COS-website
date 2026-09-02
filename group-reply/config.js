@@ -211,6 +211,17 @@ return {
   /* ---------------------------------------------------------------------
    * CITIES - 11, same flat /{slug}-wedding-dj/ pattern
    * ------------------------------------------------------------------- */
+  /* Every city page on BOTH brands carries a venue section - "Which St.
+   * Augustine Wedding Venues Is COS Preferred At?", "Explore Our Venue Pages",
+   * and so on (verified across all 11 cities, both sites, 2026-09-01). So the
+   * city page IS the right answer when somebody asks for venues in a town, but
+   * the row was only searchable by the city name. These keywords are appended
+   * to every city row so "st augustine venues" finds it.
+   *
+   * Deliberately NOT added to individual venue rows: searching "venues" would
+   * then return all 63 of them, which is noise rather than an answer. */
+  cityExtraKeywords: 'venue venues wedding venues where to get married reception site ceremony site locations',
+
   cityPathTemplate: '/%SLUG%-wedding-dj/',
   cities: [
     { slug: 'amelia-island', aliases: ['amelia island', 'amelia', 'fernandina'] },

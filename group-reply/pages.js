@@ -86,9 +86,15 @@ function entry(group, label, urls, keywords) {
     label: label,
     cos: urls.cos || null,
     ae: urls.ae || null,
-    // Everything searchable, flattened once at build time so filtering is a
-    // plain substring test rather than work repeated on every keystroke.
-    haystack: norm([label, group, keywords || ''].join(' ')),
+    /* Everything searchable, flattened once at build time so filtering is a
+     * plain substring test rather than work repeated on every keystroke.
+     *
+     * The GROUP NAME is deliberately NOT in here. It used to be, and it meant
+     * every one of the 63 venue rows contained the word "venues" - so searching
+     * "venues" returned all of them and buried the three pages that actually
+     * answer the question. Anything a group name would have matched is given
+     * explicit keywords instead. */
+    haystack: norm([label, keywords || ''].join(' ')),
   };
 }
 
@@ -111,7 +117,9 @@ function build() {
     const urls = {};
     Object.keys(svc.path).forEach(function (b) { urls[b] = buildUrl(b, svc.path[b]); });
     list.push(entry('Services', SERVICE_LABELS[svc.id] || titleize(svc.id), urls,
-                    (svc.keywords || []).join(' ')));
+                    // "service" restored explicitly - the group name is no longer
+                    // part of the searchable text (see the haystack note above).
+                    ['service services', (svc.keywords || []).join(' ')].join(' ')));
   });
 
   // --- vendor directories (COS only - AE has no vendor pages) -------------
@@ -119,7 +127,9 @@ function build() {
     const def = config.intents.vendor[key];
     list.push(entry('Vendor directories', titleize(def.label.replace(/ /g, '-')),
                     { cos: buildUrl(config.vendorBrand, def.page) },
-                    (def.keywords || []).join(' ')));
+                    // "vendor" / "directory" restored explicitly, since the group
+                    // name is no longer part of the searchable text.
+                    ['vendor vendors directory preferred', (def.keywords || []).join(' ')].join(' ')));
   });
 
   // --- cities -------------------------------------------------------------
@@ -127,7 +137,7 @@ function build() {
     list.push(entry('Cities', titleize(c.slug), {
       cos: buildUrl('cos', config.cityPathTemplate.replace('%SLUG%', c.slug)),
       ae:  buildUrl('ae',  config.cityPathTemplate.replace('%SLUG%', c.slug)),
-    }, (c.aliases || []).join(' ')));
+    }, [(c.aliases || []).join(' '), config.cityExtraKeywords || ''].join(' ')));
   });
 
   // --- venues -------------------------------------------------------------
