@@ -647,9 +647,9 @@
 
     <div class="intro">
       <h3>Heads up</h3>
-      After you save, the tracker will walk you through the 2-2-3 schedule:
+      We assume you're adding this lead as you send your first response, so today counts as Day 0 and the tracker picks up from Day 2:
       <ul class="steps-mini">
-        <li><strong>Day 0</strong> — First-response email</li>
+        <li><strong>Day 0</strong> — First-response email <em>(today - marked done for you)</em></li>
         <li><strong>Day 2</strong> — Follow-up email + text</li>
         <li><strong>Day 4</strong> — Follow up again (phone call OK any time from now through day 7)</li>
         <li><strong>Day 7</strong> — Final attempt</li>
@@ -658,10 +658,6 @@
 
     <label for="coupleInput">Couple's names</label>
     <input type="text" id="coupleInput" autocomplete="off" placeholder="e.g. Sarah & Mike">
-
-    <label for="dateInput">Handoff date</label>
-    <input type="date" id="dateInput">
-    <p class="hint">The day Kyle handed you this lead. Defaults to today.</p>
 
     <button class="btn-primary" id="saveLead" style="margin-top: 1.5rem;">Save lead</button>
   </div>
@@ -1024,12 +1020,19 @@ Wishing you both the best with everything,
     return 'l_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
   }
 
-  function addLead(coupleName, handoffDate) {
+  // The 2-2-3 clock starts the day the lead is entered, not the day Kyle
+  // handed it over - the guys enter it as they send the first response, so
+  // that IS day 0. Date picker removed 2026-09-10; field kept as handoffDate
+  // so existing leads keep working.
+  function addLead(coupleName) {
     const lead = {
       id: uuid(),
       coupleName: coupleName.trim(),
-      handoffDate: handoffDate,
-      completedSteps: [],
+      handoffDate: todayStr(),
+      // Day 0 (first-response email) is assumed sent as soon as the lead is
+      // entered - the guys enter the lead right after they send it, so making
+      // them tap "done" on it was a dead step. Changed 2026-09-10.
+      completedSteps: [STEPS[0].day],
       replied: false,
       returnedToKyle: false,
       createdAt: new Date().toISOString()
@@ -1155,7 +1158,7 @@ Wishing you both the best with everything,
       ${banner}
       <div class="top">
         <p class="couple"></p>
-        <span class="handoff">handoff ${prettyDate(lead.handoffDate)}</span>
+        <span class="handoff">started ${prettyDate(lead.handoffDate)}</span>
       </div>
       ${when.urgent ? '' : `<span class="status upcoming">Upcoming</span>`}
       <div class="step-label">Day ${step.day} — ${step.label}</div>
@@ -1234,7 +1237,7 @@ Wishing you both the best with everything,
     div.innerHTML = `
       <div class="top">
         <p class="couple"></p>
-        <span class="handoff">handoff ${prettyDate(lead.handoffDate)}</span>
+        <span class="handoff">started ${prettyDate(lead.handoffDate)}</span>
       </div>
       <span class="status due-now">Return to Kyle</span>
       <div class="step-label">All four attempts done — no reply</div>
@@ -1261,11 +1264,11 @@ Wishing you both the best with everything,
     } else if (item.replied) {
       statusClass = 'closed';
       statusText = 'They replied';
-      sublabel = `handoff ${prettyDate(item.handoffDate)}`;
+      sublabel = `started ${prettyDate(item.handoffDate)}`;
     } else {
       statusClass = 'returned';
       statusText = 'Returned to Kyle';
-      sublabel = `handoff ${prettyDate(item.handoffDate)}`;
+      sublabel = `started ${prettyDate(item.handoffDate)}`;
     }
     div.innerHTML = `
       <div class="top">
@@ -1387,7 +1390,6 @@ Wishing you both the best with everything,
     $('#screen-home').style.display = '';
   }
   function showAddScreen() {
-    $('#dateInput').value = todayStr();
     $('#coupleInput').value = '';
     $('#screen-add').classList.add('open');
     setTimeout(() => $('#coupleInput').focus(), 50);
@@ -1543,10 +1545,8 @@ Wishing you both the best with everything,
 
   $('#saveLead').addEventListener('click', () => {
     const name = $('#coupleInput').value.trim();
-    const date = $('#dateInput').value;
     if (!name) { alert('Type the couple’s names.'); return; }
-    if (!date) { alert('Pick the handoff date.'); return; }
-    addLead(name, date);
+    addLead(name);
     hideAddScreen();
     render();
   });
