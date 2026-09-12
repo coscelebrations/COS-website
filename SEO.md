@@ -3212,3 +3212,70 @@ all four, so a `noindex` would be needed to actually hold them back.
 **Gotcha for next time:** `.gitignore` had `*.bak`, which does not match this
 workspace's dated backup convention (`index.html.bak-futrell-20260819`). Eight backups
 were sitting untracked and would have been committed. Now covered by `*.bak-*`.
+
+### Session Notes (Sep 11-12, 2026) - Photo booth: baseline, pricing truth, and un-orphaning the pages
+
+**The question was whether to buy a photo-booth domain or use the COS/AE pages.**
+Answer for St. Augustine turned out to be "neither is currently competing," and the
+reason is worth recording.
+
+**Measured baseline, 2026-09-11.** `~/seo-data/booth-pack-baseline-2026-09-11.json`,
+DataForSEO organic/live/advanced, location 1015203 (verified), depth pinned at 20.
+Both `st augustine photo booth` and `photo booth rental st augustine` return a 3-pack.
+**COS and AE are absent from the pack AND from the organic top 20 on both queries.**
+Pack occupants: Fotolab (5.0, **2 reviews**, ranks #1), With Love (5.0, 36), The Social
+Booth (5.0, 19), and - notably - Someone Said Yes **DJ & Photo Booth** Florida (5.0, 10).
+A DJ company outranking better-reviewed booth companies is the proof-of-concept for the
+category play. Re-pull **2026-10-11**.
+
+**Demand is small here and 10x bigger in Jacksonville:** `jacksonville photo booth`
+210/mo vs `st augustine photo booth` 20/mo. `st augustine photo booth` and `photo booth
+st augustine fl` return identical volume, competition and CPC - one demand pool, do not
+sum them. All 360-booth terms return null at every geography.
+
+**Corey added photo booth as a secondary category + service to the COS GBP on 09-11,**
+which is what makes the 30-day re-pull meaningful. Photo booth can only ever be a
+*secondary* category - primary must stay "DJ service" or the #1 DJ pack position goes -
+and secondary categories rank materially weaker, so surfacing at all is the test, not
+top 3.
+
+**The pages were orphaned.** `/photo-booth/` had four inbound links and was in neither
+the nav nor the footer. Nothing pointed at it from the homepage, `/pricing/`, or any
+city page. Fixed by linking the *existing* first mention on each of index, pricing,
+jacksonville and st-augustine (Rule #5), plus the two AE city pages. COS inbound went
+4 -> 7. Nav placement deliberately deferred - Corey wants to decide it as the section
+grows. An `/add-ons/` hub is parked in focus as the better long-term parent.
+
+**Prints and props are OPTIONAL, and the site said otherwise.** All four booth pages
+promised prints/props as standard, in visible copy *and* in FAQPage JSON-LD. Corey
+confirmed 09-11 that couples choose. Fixed on all four, copy and schema together. The
+older memory claiming "no props, no prints, ever" was wrong and has been rewritten.
+Both city pages also carried a byte-identical "unlimited prints and digital sharing
+options" card (Rule #2 violation and a false promise); each is now distinct, with
+St. Augustine using the lighthouse backdrop Kyle built - from the real review already
+on that page.
+
+**Pricing corrections found along the way:**
+- **Pulse! went $5,000 -> $3,500** at Corey's direction (5 spots on `pulse/`, schema
+  Offer included). It starts at three musicians and scales, so $3,500 is accurate.
+- The DJ+sax range `$2,000-$4,500` **overlaps Pulse on purpose** - the $4,500 top is
+  Corey on sax plus lights and extras, not sax alone. It looks upside down and is not.
+  **Do not "fix" it.**
+- **No $400-$600 standalone uplighting price exists.** A memory claimed one; the
+  uplighting page shows only $1,500 and $3,500. Do not publish $400-$600.
+- **Photo booth standalone: $300 weekday.** Weekend and 360 prices are still unknown.
+- **Unresolved:** the GBP shows Corporate "From $400"; `services/corporate/` says $600
+  in five places. Corey wants corporate to read as a custom quote, so the $400 should
+  come off the listing.
+
+**15 GBP service descriptions written** to `~/seo-data/gbp-service-descriptions-2026-09-11.md`
+- every empty service plus rewrites for photo booth and corporate. All in **we/us**
+voice: Corey rejected first-person on the listing, which is now memory
+`feedback_gbp_voice_is_we_not_i`. The website keeps Corey's "I" where he speaks
+personally; a Google listing is the company speaking.
+
+**Gotcha for next time:** an outside session committed this session's uncommitted
+booth and Pulse edits into its own commit (404dfc2, "Add city links to sitewide
+footer"). Nothing was lost, but the history does not describe them. With 8 concurrent
+sessions, stage and commit your own files promptly rather than leaving them in the
+working tree.
