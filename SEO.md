@@ -1,5 +1,93 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: September 10, 2026
+## Last Updated: September 12, 2026
+
+---
+
+## Session: September 12, 2026 - AE overtook COS in Jacksonville, and the cause was a homepage, not a broken page
+
+Corey noticed AE outranking COS for Jacksonville and read it as a page-build bug. Both
+pages are structurally fine - correct canonicals, no noindex, and COS actually carries
+more content (3,527 words vs 2,467) and more schema. The cause was somewhere else.
+
+### AE wins Jacksonville with its homepage, not its city page
+
+Pulled the raw `cos_hits` / `ae_hits` URLs out of `sweep-2026-09-06.json`. The result
+that ranks for AE is `ae-djs.com/` - whose title literally reads "Affordable Wedding DJ
+Jacksonville | From $800". COS's homepage is "Florida Wedding DJ + Live Saxophone", a
+statewide page that does not rank for Jacksonville at all.
+
+| keyword | COS | AE |
+|---|---|---|
+| jacksonville wedding dj | 12 (city page) | **6 (homepage)** |
+| wedding dj jacksonville | 13 (city page) | **6 (homepage)** |
+| wedding dj jacksonville fl | 19 (city page) | **5 (homepage)** |
+
+AE's own `/jacksonville-wedding-dj/` sits at **rank_group 65** - 59 spots behind its own
+homepage. Both AE pages carried the same Party $800 / Party Plus $995 / Custom offer with
+the same bullet list and the same cost-guide CTA. Two pages, one offer, one query; Google
+picked the homepage. So AE is not ranking because its Jacksonville page is good, it is
+ranking *instead of* it.
+
+AE's climb is real and not a blip: `24 -> 25 -> 19 -> 13 -> 6` across five consecutive
+sweeps. COS held 6-7 that whole stretch and then read 12 once, on 2026-09-06 only.
+
+### Neither brand is actually winning anything in Jacksonville
+
+GSC, 2026-07-10 -> 09-07, all Jacksonville queries:
+
+| Brand | Queries | Impressions | Clicks |
+|---|---|---|---|
+| COS | 108 | 2,603 | **3** |
+| AE | 47 | 1,915 | **3** |
+
+4,518 impressions, 6 clicks. And over that window COS's *average* positions beat AE's
+("wedding dj jacksonville": COS 9.0 vs AE 27.3), because the 60-day average still
+contains the weeks AE spent at 24. Do not read the single Sep 6 crossover as settled -
+the next sweep is the confirmation.
+
+### Two things worth writing down
+
+**Word order does not need separate targeting.** `jacksonville wedding dj` and
+`wedding dj jacksonville` both report 20/mo because they are the same query to Google.
+COS's single Jacksonville page is already collecting impressions across **108 distinct
+phrasings**. One strong page catches every order - see `keyword_volume_variant_inflation`.
+
+**The ceiling here is low.** `jacksonville wedding dj` is 20/mo; `jacksonville wedding
+venues` is **1,600/mo**. The top 5 organic results are all directories (The Bash,
+GigSalad, WeddingWire) with Reddit at 9-10, and the local pack is Legacy Events, Mark
+Aria and GYE - neither brand appears in it. AE's #6 is really "second actual DJ on the
+page."
+
+### Shipped
+
+COS `404dfc2`, AE `64b0933`.
+
+- **COS footer city links (122 pages).** The 2026-08-10 "move Areas We Serve into the
+  sitewide footer" commit shipped asymmetrically: AE's footer lists the four city pages
+  directly, COS's only linked the `/areas-we-serve/` hub. `/jacksonville-wedding-dj/`
+  inbound internal links **45 -> 122**. Used `rgba(255,255,255,0.85)` per Rule #14 (AE's
+  are 0.7 and fail contrast) and suppressed self-links, both improvements on AE's version.
+- **COS Jacksonville H1 65ch -> 40ch.** It was the only COS city page with "by COS
+  Celebrations" appended and it stuttered ("Wedding DJ - DJ + Live Saxophone"). Siblings
+  run 32-55. Google was already discarding the tail of the title tag in the SERP anyway,
+  displaying COS's result as the bare "Jacksonville Wedding DJ".
+- **AE de-cannibalization.** Re-aimed the city page at what the homepage does not cover
+  (Duval venues, real cost numbers, non-wedding events); replaced the duplicate pricing
+  cards with a compact summary linking `/#pricing`. **Kept "affordable"** - stripping it
+  from AE cost St. Augustine #4 -> #11 for seven weeks. Prices stay on-page per Rule #8;
+  2,467 -> 2,428 words, so markup went, not content.
+- **Two leftovers from the same Aug 10 commit:** 15 AE pages rendered the footer row as
+  ": Jacksonville - St. Augustine ..." with an orphaned separator; and AE's `.gitignore`
+  had `*.bak` but not `*.bak-*`, the identical gap COS fixed on 2026-08-19. Third instance
+  of the same half-shipped pattern found in one session.
+
+**Honest expectation:** the internal-link fix is ~35% likely to move Jacksonville - AE's
+city page has 105 internal links and sits at #65, so links are demonstrably not the lever
+there. It was fixed because it was broken, and it helps every COS city page. The
+de-cannibalization is the better bet at ~60%.
+
+Left alone: uncommitted photo-booth and kelly-farm edits from a concurrent session, and
+an untracked Epping Forest image.
 
 ---
 
