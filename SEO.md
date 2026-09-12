@@ -1,5 +1,41 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: August 30, 2026
+## Last Updated: September 10, 2026
+
+---
+
+## Session: September 10, 2026 - Ranking check: impressions up, non-brand clicks still near zero
+
+Read-only check against `gsc-data.json` refreshed today (10:37), data through 2026-09-07. **No new sweep was run** - `rankings.json` is still the 2026-09-06 Sunday sweep, and nothing here was written back into it.
+
+### The 28-day numbers (page dimension, 2026-08-11 -> 09-07 vs 07-14 -> 08-10)
+
+| Brand | Clicks | Impressions |
+|---|---|---|
+| COS | 188 -> 173 (-8.0%) | 22,230 -> 20,620 (-7.2%) |
+| AE | 70 -> 46 (-34.3%) | 12,245 -> 14,335 (+17.1%) |
+
+### The split that actually matters
+
+Brand vs non-brand, from the query dimension (used for the *ratio* only - summing query rows undercounts totals ~54%):
+
+- **COS: 82% brand / 18% non-brand.** 14 non-brand clicks off 7,381 non-brand impressions - about 0.19% CTR.
+- **AE: 90% brand / 10% non-brand.** 2 non-brand clicks off 6,656 impressions - 0.03%.
+
+Every COS non-brand click was a *single* click on a different query. There is no non-brand keyword earning repeat traffic on either site. This is the `non_brand_search_barely_exists` pattern holding steady, not a new decline.
+
+### Where the impressions are landing
+
+Non-brand queries with 100+ impressions sit at **position 10-48**. Tampa is the closest thing to a foothold (`tampa wedding dj` 10.0, improved from 11.3). AE's `affordable wedding dj` holds **12.0** - the protected term is doing its job.
+
+### AE `wedding dj` 13.6 -> 44.2 is a pool change, not a fall
+
+Flagged as a big drop by the raw average. Weekly detail says otherwise: positions 11-14 came on **2-6 impressions a week**, and from wk35 impressions jumped to 95/283/32 at position 41-51. Google widened what it shows AE for; the new pool is bigger and we rank badly in it. **Zero clicks in either regime**, so nothing that was earning was lost. Do not open a recovery task on this.
+
+### Deltas worth watching
+
+- COS `/services/wedding-saxophonist/` 8 -> 13 clicks, and four separate saxophone queries earned clicks. Smallest page pulling the clearest non-brand signal.
+- COS homepage 100 -> 90 and AE homepage 46 -> 33 drove most of both declines - both are brand traffic, so this is demand, not ranking.
+- AE `/orlando-wedding-dj/` 9 -> 0 clicks. Also on the 09-06 rank-watch list as a position drop. Worth a look.
 
 ---
 
