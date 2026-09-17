@@ -3313,3 +3313,7 @@ false positives (Montserrat "overused", caps attribution, eyebrow-over-heading) 
 them as such. `.impeccable/` is gitignored. Its hooks run on every edit; `/impeccable hooks off`
 if they get in the way of SEO work. Azaleana still needs real photos + an interview - the page
 has no venue imagery at all.
+- **Follow-up sweep, same session:** listing every `<cite>` / `.testimonial-author` sitewide
+  turned up 2 more anonymous "- COS Celebrations Couple" quotes (Paradise Cove, Bella Collina),
+  neither in `reviews.json`. Removed. Total: 8 filler quotes gone. Every remaining testimonial
+  on the site now carries a name. Azaleana added to the interview queue (Tier 3).
