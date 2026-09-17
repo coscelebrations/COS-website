@@ -3279,3 +3279,37 @@ booth and Pulse edits into its own commit (404dfc2, "Add city links to sitewide
 footer"). Nothing was lost, but the history does not describe them. With 8 concurrent
 sessions, stage and commit your own files promptly rather than leaving them in the
 working tree.
+
+### Session Notes (Sep 17, 2026) - Impeccable design plugin test found a 56-page nav bug; 6 unsourced testimonials removed
+
+**Bottom line:** installed the Impeccable design plugin (`/impeccable`), ran its critique on
+the Azaleana Manor page as a test, and it paid for itself in one run. Commit `c3f9234`,
+verified live within 20s of push.
+
+**Bugs fixed (don't repeat):**
+- **Mobile Services dropdown hid "Wedding Saxophonist" on 56 pages.** The shared venue-page
+  CSS capped `.dropdown.open .dropdown-menu` at `max-height:200px`; five items need ~285px.
+  Now 480px, and `.dropdown-toggle` is centered at full tap height on mobile (same rule the
+  homepage already used). Desktop untouched (change is inside the 768px media query). AE does
+  not have this bug (checked).
+- **Azaleana final CTA:** heading was 24px vs 32px everywhere else and the gold underline drew
+  through the paragraph. Sized up, spaced, underline centered. **71 pages share that final-CTA
+  rule; only Azaleana was checked** - if the underline overlaps on another page, this is why.
+
+**Testimonial cleanup (second family of the Aug 24 problem):**
+- `"Every single guest commented on the energy..."` credited to "- Recent COS Celebrations
+  couple" was on 5 pages (9 Aviles, Azaleana, Clay Theatre, Embassy Suites, Flagler) and a
+  different quote with the same credit on Tringali Barn. **None exist in `reviews.json`**; the
+  Azaleana one entered in `dc5146e` (Jul 8) as filler. All 6 removed. Clay's real named couple
+  stays.
+- **Ponte Vedra** was subtler: a real Katherine & Mike review about the **Lightner Museum** had
+  "at the Lightner Museum in St. Augustine" deleted and was credited to "Destination Wedding
+  Couple from Boston," in both the visible block and the Review schema. Replaced with Ashley's
+  real Sawgrass Country Club Google review (Ponte Vedra Beach), verbatim, named. Rule: a review
+  never moves to a page about a venue it doesn't mention.
+
+**Impeccable notes:** `critique` first, `polish` only one page at a time. 3 of its flags were
+false positives (Montserrat "overused", caps attribution, eyebrow-over-heading) and it labelled
+them as such. `.impeccable/` is gitignored. Its hooks run on every edit; `/impeccable hooks off`
+if they get in the way of SEO work. Azaleana still needs real photos + an interview - the page
+has no venue imagery at all.
