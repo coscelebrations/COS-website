@@ -20,3 +20,6 @@ node_modules/
 .env
 .env.*
 !.env.example
+
+# Impeccable design-plugin working files (critiques, live-browser state) - never deploy
+.impeccable/
