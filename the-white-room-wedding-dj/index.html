@@ -236,7 +236,7 @@ footer{padding:3rem 2rem;background:var(--charcoal);color:white;text-align:cente
 @media (max-width:768px){
   nav{padding:1rem 1.5rem}
   .hamburger{display:flex}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:white;flex-direction:column;padding:1rem 0;box-shadow:0 10px 30px rgba(0,0,0,0.1);border-top:1px solid var(--blush)}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:white;flex-direction:column;padding:1rem 0;box-shadow:0 10px 30px rgba(0,0,0,0.1);border-top:1px solid var(--blush);max-height:calc(100vh - 110px);overflow-y:auto}
   .nav-links.active{display:flex}
   .nav-links li{width:100%;text-align:center}
   .nav-links a{display:block;padding:1rem}

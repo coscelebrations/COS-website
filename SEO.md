@@ -3317,3 +3317,25 @@ has no venue imagery at all.
   turned up 2 more anonymous "- COS Celebrations Couple" quotes (Paradise Cove, Bella Collina),
   neither in `reviews.json`. Removed. Total: 8 filler quotes gone. Every remaining testimonial
   on the site now carries a name. Azaleana added to the interview queue (Tier 3).
+
+### Session Notes (Sep 17, 2026, later) - Homepage critique: mobile menu could hide Contact (98 pages), raw arrows
+
+**Bottom line:** Impeccable's homepage critique found that the open mobile menu had no height
+cap, so with Services expanded the Contact link sat below the bottom of a 390x844 phone and
+could not be scrolled to (the nav is fixed). Pre-existing; the morning's 200->480px dropdown fix
+made it 85px worse. Fixed on all 98 pages that have a mobile nav, in the same commit as the
+Rule #15 arrow fix. Verified in headless Chrome at 390x844 before push.
+
+- **Fix:** `.nav-links` mobile rule gets `max-height:calc(100vh - 110px);overflow-y:auto`
+  (57 pages with the homepage-style `position:absolute;top:100%` nav), `calc(100vh - 80px)`
+  (33 venue pages with the `position:fixed;top:80px` nav), and `overflow-y:auto` only on the 8
+  slide-in / full-screen navs (they already fill the viewport). Measured after: homepage menu
+  bottom 840px, Contact reachable at 816px; venue family fits without scrolling.
+- **Three nav CSS families exist** (plus 25 pages with a nav and no mobile rule at all, mostly
+  internal tools). Any future nav fix must be applied to all three, not just the venue template.
+- **Rule #15:** homepage, pricing, and services/private-parties had raw U+25BC / U+25B2 in CSS
+  `content:`; replaced with `\25BC` / `\25B2`.
+- **Not touched on purpose:** the hero (under watch since the July rewrite), the six contact
+  labels, the floating pill, the 24-screen length, the award pills, keyboard access for the
+  dropdowns and video buttons. Those are Corey's calls or a real accessibility pass, not a
+  one-line fix. Critique saved by the plugin in `.impeccable/critique/` (gitignored).
