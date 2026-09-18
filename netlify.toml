@@ -94,3 +94,56 @@
   [headers.values]
     Cache-Control = "no-store"
     X-Robots-Tag = "noindex, nofollow, noarchive"
+
+# INTERNAL FILES MUST NOT BE SERVED. publish = "." makes every repo file a public URL;
+# on 2026-09-17 these returned 200 on the live domain. Netlify has no /*.md splat, so
+# root files are listed by name; folders use a trailing splat. "to" is the homepage
+# served with a 404 status (no 404.html exists in this repo). Add new root .md files here.
+[[redirects]]
+  from = "/SEO.md"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/SEO-ARCHIVE.md"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/NEXT_SESSION.md"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/TECHNICAL-AUDIT-REPORT.md"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/INSTAGRAM.md"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/README.md"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/tools/*"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/index.html.bak-footer-areas-20260912 index.html.bak-futrell-20260819 sitemap.xml.bak-stubs-20260819 sitemap.xml.bak-team-bios-20260830 "
+  to = "/"
+  status = 404
+  force = true
+
