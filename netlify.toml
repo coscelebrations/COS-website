@@ -99,6 +99,7 @@
 # on 2026-09-17 these returned 200 on the live domain. Netlify has no /*.md splat, so
 # root files are listed by name; folders use a trailing splat. "to" is the homepage
 # served with a 404 status (no 404.html exists in this repo). Add new root .md files here.
+# (.bak files need no rule: they are gitignored and never reach Netlify - checked 2026-09-17.)
 [[redirects]]
   from = "/SEO.md"
   to = "/"
@@ -137,12 +138,6 @@
 
 [[redirects]]
   from = "/tools/*"
-  to = "/"
-  status = 404
-  force = true
-
-[[redirects]]
-  from = "/index.html.bak-footer-areas-20260912 index.html.bak-futrell-20260819 sitemap.xml.bak-stubs-20260819 sitemap.xml.bak-team-bios-20260830 "
   to = "/"
   status = 404
   force = true
