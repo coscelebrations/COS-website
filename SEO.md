@@ -971,7 +971,7 @@ Corey noticed the directory wasn't reachable from the front page nav and asked w
 **Decision (Corey's):** footer link, not a nav tab, and point it at `/vendors/` rather than `/vendors/venues/` so the hub can grow to cover planners, photographers and the rest.
 
 - **Vendors added to the footer on 86 more pages (95 total).** Every page Google fetches now has a path into the directory; before this only the homepage did.
-- Deliberately skipped: `/go/` (landing page), `/pricing-guide/` (noindex), `/script-builder/`, `/tracker/`, `/tracker-legacy/` (internal tools).
+- Deliberately skipped: `/go/` (landing page), `/pricing-guide/` (noindex), `/script-builder/`, `/green-room/` (301s from `/tracker/`, `/tracker-legacy/`) (internal tools).
 - **The Venues card on `/vendors/` still read "Coming Soon"** after the directory went live. Fixed to "60+ venues."
 
 **Open, needs Corey's input:** six of the seven vendor category pages are genuine placeholders — `planners`, `photographers`, `catering`, `bar-service`, `videographers`, `guest-experiences`, all ~97 words of "Coming Soon." Thin pages on crawled URLs are what earns "Crawled - currently not indexed," so they are probably already in that bucket of 13. Filling them needs the actual vendor names Corey recommends. Worth doing for a second reason: named vendors tend to link back, and per `guidelines-2026-05-26.md` unlinked brand mentions beat backlinks 3x for AI citation.
