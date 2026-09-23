@@ -1,5 +1,141 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: September 12, 2026
+## Last Updated: September 23, 2026
+
+---
+
+## Session: September 23, 2026 - The August impression spike deflated, and it cost us nothing
+
+Rebuilt `~/seo-data/WEEKLY.md` against GSC data through 2026-09-20 (the file on disk was
+built Sunday off data through 09-17). Nothing was measured by hand; every number below is
+from the page dimension, per the standing rule about summing query rows.
+
+### The headline number looks bad and isn't
+
+COS impressions fell **-31.2%** (24,894 -> 17,121) over the last 28 days vs the prior 28.
+Clicks over the same span: **173 -> 170**. Average position went **25.6 -> 20.6** and CTR
+**0.69% -> 0.99%**. AE moved the same direction: position **30.2 -> 26.9**, clicks 51 -> 55.
+
+Weekly COS impressions since June: 3.2k (Jun 1) -> peak **7,174** (week of Aug 10) -> 3,671
+(week of Sep 14). Clicks across that entire run never left the 39-48/week band. The spike
+inflated and deflated without ever producing a click.
+
+Page-level, the drop is concentrated in pages whose *position improved*:
+
+| Page | Impr (wk Aug 10 -> wk Sep 14) | Avg position |
+|---|---|---|
+| COS /jacksonville-wedding-venues/ | 281 -> 3 | 26.4 -> 8.0 |
+| COS /tampa-wedding-dj/ | 1,011 -> 512 | 26.0 -> 19.8 |
+| COS /jacksonville-wedding-dj/ | 832 -> 340 | 15.9 -> 14.1 |
+| AE / | 706 -> 332 | 24.0 -> **9.5** |
+| AE /jacksonville-wedding-dj/ | 675 -> 96 | 41.8 -> 27.0 |
+
+Google stopped showing these pages for a pile of deep, off-target queries and kept showing
+them for fewer, closer ones. The queries that lost the most impressions - "the ribault
+club" (86 -> 0), "discosapien weddings" (51 -> 0), "wedding dj" (79 -> 10 on COS) - had
+**zero clicks in both windows**. We lost impressions we were never going to convert.
+
+**Do not read the -31% as a penalty or a de-index.** Both pages spot-checked
+(`/jacksonville-wedding-venues/`, AE `/atlanta-wedding-dj/`) return 200 live.
+
+### The thing that actually hasn't moved
+
+Non-brand clicks. Query dimension (mix only - it undercounts totals ~54%):
+
+| | Brand clicks | Non-brand clicks | Non-brand share |
+|---|---:|---:|---:|
+| COS | 62 -> 65 | 13 -> **8** | 11% |
+| AE | 17 -> 13 | 7 -> **9** | 41% |
+
+COS's top queries are still "cos celebrations" (52), "cos entertainment" (8), "cos dj" (4).
+This is the same finding as memory `non_brand_search_barely_exists` and the Sep 10 session -
+four months of flat clicks, and the flat part is the non-brand part. Nothing in this report
+changes that; the position improvement has not yet crossed into page 1 on commercial terms.
+COS Tampa and Jacksonville both sit at 14-20, which is page 2.
+
+### One genuine gainer
+
+COS `/services/wedding-saxophonist/` - impressions 1,351 -> 1,607, clicks **8 -> 18**. The
+largest click gain on either site, and it is non-brand demand. `/services/live-musicians/`
+added +1. The live-music angle is the only part of the portfolio currently converting
+impressions into clicks at a rising rate.
+
+### AE's homepage is the page to watch
+
+AE `/` went from position 24.0 to **9.5** in six weeks while impressions halved - it is now
+on page 1 on whatever it is being shown for. Clicks over the 28-day window are 40 -> 26,
+but the most recent week alone is 9, up from 3. Consistent with the Sep 12 finding that
+AE's *homepage*, not its city page, is what ranks in Jacksonville.
+
+### Where the clicks actually come from, by page type
+
+Asked "what should we work on to get to page 1," so I sorted the whole portfolio by page
+type. **Page dimension, 2026-07-23 to 09-20 (60 days).** This is the number that should
+drive the queue:
+
+| Page type | Clicks | Impressions | CTR |
+|---|---:|---:|---:|
+| COS venue pages (~45 of them) | **14** | 8,333 | **0.17%** |
+| COS city pages | 60 | 18,750 | 0.32% |
+| COS service pages | **51** | 6,317 | **0.81%** |
+| COS everything else (home, pricing, vip-login) | 233 | 11,370 | 2.05% |
+| AE venue pages | **3** | 3,839 | **0.08%** |
+| AE city pages | 24 | 17,650 | 0.14% |
+
+**Service pages convert impressions into clicks at ~5x the rate of venue pages.** Venue
+pages are not failing on rank - they are failing on click. `/treasury-on-the-plaza-wedding-dj/`
+holds **position 2.0** on 166 impressions for its exact venue name and earned 1 click in 60
+days. `/epping-forest-yacht-club-wedding-dj/` is at **position 3.8** on 155 impressions, 0
+clicks. `/timuquana-country-club-wedding-dj/` is at **1.9**, 0 clicks.
+
+A person typing "treasury on the plaza wedding dj" is not looking for a DJ's marketing page;
+they get the venue, the map pack, and photos. Rewriting our page cannot change that. This
+confirms and sharpens memory `venue_pages_low_ceiling`.
+
+**Consequence for the action queue:** all five items in `seo-actions.json` top5 today are
+venue-page refreshes triggered by `zero_ctr` / `impression_decay`. The detector is correctly
+spotting 0% CTR and incorrectly concluding the page needs rewriting. **Do not work the top 5
+as written.** The zero_ctr signal should be suppressed, or at least de-weighted, for venue
+pages that already hold positions 1-5 - there is no CTR to recover there.
+
+### The one cluster with no map-pack problem
+
+COS `/services/wedding-saxophonist/` is the only page group earning non-brand clicks at a
+rising rate (8 -> 18 in 28 days). Its query set is **not geographic**, so it does not compete
+against the local pack or the proximity wall that caps every city page:
+
+| Query | Impr (60d) | Position |
+|---|---:|---:|
+| saxophone player for wedding | 81 | 21.9 |
+| wedding sax player | 78 | 20.8 |
+| sax player wedding | 72 | 21.4 |
+| how much does a saxophonist cost for a wedding | 58 | **6.3** |
+| wedding saxophonist | 48 | 12.3 |
+| how much is a saxophonist for a wedding | 34 | **6.9** |
+| wedding saxophonist near me | 28 | **7.0** |
+| saxophonist for wedding | 35 | 11.6 |
+
+The cost questions are already page 1. The three highest-impression phrasings
+("saxophone player for wedding", "wedding sax player", "sax player wedding" - 231 combined
+impressions) sit at 21-22, which is the top of page 3. That trio is the clearest page-1
+target in the portfolio.
+
+### Striking distance elsewhere
+
+COS `/tampa-wedding-dj/` carries the biggest single pool of near-page-1 demand - roughly 15
+commercial Tampa queries at positions 9-20, ~1,900 impressions, 4 clicks. **Open question for
+Corey: is Tampa a market we want?** It is 3.5 hours out and the leads data has no geographic
+field, so this cannot be answered from the numbers.
+
+AE `/` is at position 7-9 on exactly the terms AE is built for: "affordable wedding dj
+jacksonville" (7.1), "cheap wedding dj jacksonville" (8.3), "budget wedding dj jacksonville"
+(8.9), "st augustine wedding dj" (8.9). Combined with the homepage's 24 -> 9.5 move, this is
+the best intent-to-position match on either site.
+
+### Not measured
+
+Unchanged from `WEEKLY.md` section 4: the Google Business Profile channel is invisible to
+Search Console (last hand-read 2026-08-17), AE's Business Profile is still unverified, and
+AI Overview impressions are UI-only with no API.
 
 ---
 
