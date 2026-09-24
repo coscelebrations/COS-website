@@ -2144,26 +2144,85 @@ function viewActivity(){
 }
 
 /* ---- SETUP ---- */
+/* REWRITTEN 2026-09-23. The previous value of this constant was drafted
+   2026-08-11 and was a LANDMINE by the time anyone read it.
+
+   The Setup screen tells you to "replace everything" with this text. The old
+   version contained no leads/holds/tasks/lead_config/lead_intake/lead_activity
+   rules -- because The Front Desk did not exist yet; it went live 2026-09-21 --
+   and it ended with `match /{document=**} { allow read, write: if false; }`.
+   Pasting it would have denied every Front Desk collection and locked Kyle out
+   of all 792 leads on cosaehq.com, silently, with the app showing only its calm
+   "saving to this computer" note.
+
+   So: this is now the COMPLETE ruleset. The /users and Front Desk blocks are
+   copied byte-for-byte from ~/firestore-rules.txt, which was itself read out of
+   the console on 2026-09-21. Never trim this down to "just the gear part".
+   ~/firestore-rules.txt is the source of truth - change it there too.
+
+   /trackers/ is deliberately left as it is. Sealing it is a SEPARATE change
+   (see ~/firestore-rules.txt) so that if something breaks you know which paste
+   did it. The catch-all is gone: Firestore denies unmatched paths by default,
+   and an explicit one here is what made the old version so destructive. */
 const RULES = `rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Lead tracker - unchanged
-    match /users/{uid} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
+
+    // New tracker: each teammate can only read/write their own user doc
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
     }
+
+
+    // Old tracker: keep readable during migration window so new tracker
+    // can pull each teammate's existing leads on first sign-in
     match /trackers/{syncCode} {
-      allow read, write: if false;
+      allow read, write: if request.auth != null;
     }
 
-    // Gear Room - shared across the team, added 2026-08-11
-    match /gear_items/{id}    { allow read, write: if request.auth != null; }
-    match /gear_events/{id}   { allow read, write: if request.auth != null; }
-    match /gear_runs/{id}     { allow read, write: if request.auth != null; }
-    match /gear_activity/{id} { allow read, write: if request.auth != null; }
-    match /gear_config/{id}   { allow read, write: if request.auth != null; }
+    // ---- The Front Desk (office) - added 2026-09-21 --------------------
+    // Scoped to the office by email address. This function is referenced ONLY
+    // by the front-desk matches below. It must NEVER be applied to
+    // /users/{userId}: the DJs are not on this list and every one of them
+    // would lose The Green Room instantly and silently.
+    function isDesk() {
+      return request.auth != null
+        && request.auth.token.email != null
+        && request.auth.token.email.lower() in [
+             'kyle@coscelebrations.com',
+             'corey@coscelebrations.com'
+           ];
+    }
 
-    match /{document=**} { allow read, write: if false; }
+    match /leads/{id}       { allow read, write: if isDesk(); }
+    match /holds/{id}       { allow read, write: if isDesk(); }
+    match /tasks/{id}       { allow read, write: if isDesk(); }
+    match /lead_config/{id} { allow read, write: if isDesk(); }
+    match /lead_intake/{id} { allow read, write: if isDesk(); }
+
+    // An audit trail you can edit is not an audit trail.
+    match /lead_activity/{id} {
+      allow read, create: if isDesk();
+      allow update, delete: if false;
+    }
+
+    // ---- Gear Room (the whole team) - added 2026-09-23 ------------------
+    // Everyone signed in shares one gear list, one calendar and one history.
+    // Each DJ already has an account from The Green Room, so nobody needs a
+    // new login; add a new hire under Authentication > Add user.
+    match /gear_items/{id}  { allow read, write: if request.auth != null; }
+    match /gear_events/{id} { allow read, write: if request.auth != null; }
+    match /gear_runs/{id}   { allow read, write: if request.auth != null; }
+    match /gear_config/{id} { allow read, write: if request.auth != null; }
+
+    // An audit trail you can edit is not an audit trail. This is the record of
+    // who took what, and nobody can quietly rewrite it - not even an admin.
+    match /gear_activity/{id} {
+      allow read:   if request.auth != null;
+      allow create: if request.auth != null;
+      allow update, delete: if false;
+    }
   }
 }`;
 function viewSetup(){
@@ -2173,6 +2232,11 @@ function viewSetup(){
     + '<p class="muted">Until this is done, everyone sees only their own copy. Go to the Firebase console, '
     + 'pick the <b>cos-tracker-35556</b> project, open Firestore Database, then the Rules tab. '
     + 'Replace everything with the text below and hit Publish. It takes about ten seconds and does not need a site deploy.</p>'
+    + '<p class="muted"><b>This is the whole ruleset for all three apps</b> - The Green Room, The Front Desk '
+    + 'and this one. Paste all of it. Pasting a gear-only version takes Kyle\'s 792 leads offline, '
+    + 'and the Front Desk shows no error when that happens - it just quietly saves to her computer instead.</p>'
+    + '<p class="muted">Afterwards, check it worked: open the Green Room as a DJ and make sure its dot goes green, '
+    + 'and open the Front Desk as Kyle and make sure More still says 792 leads.</p>'
     + '<textarea readonly id="rulesBox" style="min-height:250px">' + esc(RULES) + '</textarea>'
     + '<button class="btn sm" style="width:100%;margin-top:.5rem" data-copyrules="1">Copy the rules</button></div>';
   h += '<div class="card"><b style="font-size:.95rem">2. The team signs in</b>'
