@@ -326,7 +326,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-08-25-b';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-23-a';   // shown at the bottom of More. Bump on any visible change.
 const ROSTER = ['Corey','Kyle','CJ','Noah','Greg','Mikey','Justin','Cole','Matt'];
 const ADMINS = ['corey','kyle'];
 const LS = 'gearroom.v1';
@@ -383,7 +383,12 @@ function loadLocal(){
   } catch(e){ return blank(); }
 }
 function saveLocal(){
-  if (S.mode !== 'local') return;
+  /* FIXED 2026-09-23: this used to bail unless S.mode === 'local', so cloud
+     mode NEVER wrote the cache. A cloud user who cold-booted with no signal
+     got loadLocal()'s 53-item starter template rendered as though it were
+     their real inventory -- worse than showing nothing, because it looks true.
+     Always mirror. putItem/putItems already batch, so the cost is one
+     stringify per operation, not per unit. */
   try {
     localStorage.setItem(LS, JSON.stringify({
       seeded: true,
@@ -2180,7 +2185,58 @@ function viewSetup(){
   h += '<div class="card"><b style="font-size:.95rem">Add it to a phone</b>'
     + '<p class="muted">iPhone: open this page in Safari, hit Share, then Add to Home Screen. '
     + 'It opens full screen like a real app. Android: Chrome menu, Add to Home screen.</p></div>';
+  /* Added 2026-09-23. Hand-entering a season of gear and weddings with no way
+     to get a copy off the device is an act of faith. This is the cheapest
+     insurance in the app: one file, no dependencies, readable by a human. */
+  h += '<div class="card"><b style="font-size:.95rem">Keep a copy</b>'
+    + '<p class="muted">Downloads everything on this device as one file - gear, weddings, kits, '
+    + 'checklists and history. Do it after any big session of typing.</p>'
+    + '<button class="btn sm" style="width:100%" data-backup="1">Download a backup</button>'
+    + '<button class="btn ghost sm" style="width:100%;margin-top:.5rem" data-restore="1">Put a copy back</button>'
+    + (S.mode === 'cloud'
+        ? '<button class="btn ghost sm" style="width:100%;margin-top:.5rem" data-reupload="1">Re-upload everything to the team</button>'
+        : '')
+    + '</div>';
   return h;
+}
+
+/* Backup is a plain JSON file so it can be read, mailed and diffed without the
+   app. Restore REPLACES rather than merges: merging two inventories by hand-
+   typed name is guesswork, and a wrong guess silently duplicates gear. 2026-09-23. */
+function backupBlob(){
+  return JSON.stringify({
+    _app: 'gear-room', _at: new Date().toISOString(), _build: BUILD,
+    items:S.items, events:S.events, kits:S.kits, checklists:S.checklists,
+    runs:S.runs, activity:S.activity, staff:S.staff,
+    addonMap:S.addonMap, addonCatalog:S.addonCatalog
+  }, null, 1);
+}
+function downloadBackup(){
+  try {
+    const blob = new Blob([backupBlob()], { type:'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'gear-room-' + today() + '.json';
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    toast('Saved ' + a.download);
+  } catch(e){ toast('Could not build the file'); }
+}
+async function restoreBackup(text){
+  let d;
+  try { d = JSON.parse(text); } catch(e){ toast('That file is not a Gear Room backup'); return; }
+  if (!d || d._app !== 'gear-room') { toast('That file is not a Gear Room backup'); return; }
+  const nI = (d.items||[]).length, nE = (d.events||[]).length;
+  if (!confirm('This file has ' + nI + ' pieces of gear and ' + nE + ' weddings, saved '
+      + (d._at ? d._at.slice(0,10) : 'at an unknown date') + '.\n\nReplace what is on this device?'
+      + (S.mode === 'cloud' ? '\n\nYou are signed in, so this replaces it for the whole team.' : ''))) return;
+  S.items = d.items || []; S.events = d.events || []; S.kits = d.kits || [];
+  S.checklists = (d.checklists && d.checklists.length) ? d.checklists : S.checklists;
+  S.runs = d.runs || {}; S.activity = d.activity || []; S.staff = d.staff || {};
+  S.addonMap = d.addonMap || {}; S.addonCatalog = d.addonCatalog || {};
+  saveLocal(); render();
+  if (S.mode === 'cloud') { await seedAll(); await putConfig(); }
+  toast('Restored ' + nI + ' gear and ' + nE + ' weddings');
 }
 
 /* ---- ADDON MAPPING ----
@@ -2646,6 +2702,23 @@ function bind(){
     try { await navigator.clipboard.writeText(RULES); toast('Rules copied'); }
     catch(e){ const b = $('rulesBox'); b.select(); toast('Select all and copy'); }
   });
+  v.querySelectorAll('[data-backup]').forEach(el => el.onclick = () => downloadBackup());
+  v.querySelectorAll('[data-reupload]').forEach(el => el.onclick = () => seedAll());
+  /* The input is built on demand rather than living in the markup, because
+     render() rebuilds #view and would drop a half-picked file anyway. */
+  v.querySelectorAll('[data-restore]').forEach(el => el.onclick = () => {
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'application/json,.json';
+    inp.onchange = () => {
+      const f = inp.files && inp.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = () => restoreBackup(String(r.result || ''));
+      r.onerror = () => toast('Could not read that file');
+      r.readAsText(f);
+    };
+    inp.click();
+  });
   v.querySelectorAll('[data-addon]').forEach(el => el.onchange = async () => {
     const k = el.dataset.addon.toLowerCase();
     if (el.value === '__auto') delete S.addonMap[k];
@@ -3013,21 +3086,49 @@ function startSync(){
     if (String(e.code||'').includes('permission')) { S.rulesError = true; setDot('error'); render(); }
     else setDot('offline');
   };
+  /* FIXED 2026-09-23. Events, runs and activity used to assign UNCONDITIONALLY,
+     including on an empty snapshot -- so the first cloud sign-in on a phone
+     holding hand-entered data wiped every event, checklist run and activity
+     line, and seedCloud only ever uploaded items, so they were not in the cloud
+     either. That is the bug that would have eaten a hand-entered season.
+
+     A plain `if (!snap.empty)` guard is NOT the fix. It makes deleting your
+     LAST row un-propagatable, because every other client reads the resulting
+     empty snapshot as "nobody has seeded yet" and pushes its copy back up.
+     gear_items has had exactly that latent bug since 2026-08-11.
+
+     So: distinguish the FIRST empty snapshot (nothing up there yet -> push
+     ours) from a later one (someone really did delete the last row -> follow
+     it). `seeding` stops an empty snapshot that arrives mid-upload from
+     deleting the very rows we are in the middle of writing. */
+  let firstItems = true, firstEvents = true, firstRuns = true, seeding = false;
+  const seedOnce = fn => { seeding = true; Promise.resolve(fn()).catch(()=>{}).then(() => { seeding = false; }); };
+
   unsubs.push(onSnapshot(collection(db, C.items), snap => {
-    if (!snap.empty) S.items = snap.docs.map(d => d.data());
     /* Only push up a list somebody has actually touched. Before this guard, the
        first teammate to sign in on a fresh phone -- still holding the untouched
        53-item starter template -- published that template as the TEAM's shared
        inventory, and it then overwrote everyone. If everyone is still on pure
        template the cloud just stays empty until the first real edit seeds it. */
-    else if (S.items.some(i => !i.template)) seedCloud();
+    if (!snap.empty) S.items = snap.docs.map(d => d.data());
+    else if (firstItems && S.items.some(i => !i.template)) seedOnce(seedCloud);
+    else if (!firstItems && !seeding) S.items = [];
+    firstItems = false;
     S.rulesError = false; setDot('synced'); render();
   }, onErr));
   unsubs.push(onSnapshot(collection(db, C.events), snap => {
-    S.events = snap.docs.map(d => d.data()); render();
+    if (!snap.empty) S.events = snap.docs.map(d => d.data());
+    else if (firstEvents && S.events.length) seedOnce(seedEvents);
+    else if (!firstEvents && !seeding) S.events = d.events || [];
+    firstEvents = false;
+    render();
   }, onErr));
   unsubs.push(onSnapshot(collection(db, C.runs), snap => {
-    const r = {}; snap.docs.forEach(d => { r[d.id] = d.data(); }); S.runs = r; render();
+    if (!snap.empty) { const r = {}; snap.docs.forEach(d => { r[d.id] = d.data(); }); S.runs = r; }
+    else if (firstRuns && Object.keys(S.runs).length) seedOnce(seedRuns);
+    else if (!firstRuns && !seeding) S.runs = d.runs || {};
+    firstRuns = false;
+    render();
   }, onErr));
   unsubs.push(onSnapshot(doc(db, C.config, 'main'), d => {
     const v = d.data();
@@ -3038,14 +3139,53 @@ function startSync(){
     if (v && v.addonCatalog) S.addonCatalog = v.addonCatalog;
     render();
   }, onErr));
+  /* Activity is append-only history. Keep what this device already has if the
+     cloud has none yet, but never upload it -- it is not worth the writes and
+     it would double up once teammates sync. 2026-09-23. */
   unsubs.push(onSnapshot(query(collection(db, C.activity), orderBy('at','desc'), limit(80)), snap => {
-    S.activity = snap.docs.map(d => d.data()); render();
+    if (!snap.empty) S.activity = snap.docs.map(d => d.data());
+    render();
   }, () => {}));
+}
+/* Push a list up one document at a time and report honestly.
+   FIXED 2026-09-23: seedCloud used to `return` on the FIRST failed write, with
+   no toast, no retry and no log line -- so a flaky signal half-way through 300
+   items left a half-populated collection that then became the team's truth,
+   and looked identical to success. Count what actually landed and say so. */
+async function seedMany(col, rows, label){
+  let ok = 0;
+  for (const r of rows) { try { await setDoc(doc(db, col, r.id), r); ok++; } catch(e){} }
+  if (rows.length && ok < rows.length)
+    toast('Only ' + ok + ' of ' + rows.length + ' ' + label + ' uploaded - check your signal, then More > Setup > Re-upload');
+  return ok;
 }
 async function seedCloud(){
   /* first person to sign in populates the shared inventory */
-  for (const i of S.items) { try { await setDoc(doc(db, C.items, i.id), i); } catch(e){ return; } }
-  try { await setDoc(doc(db, C.config, 'main'), { kits:S.kits, checklists:S.checklists, staff:S.staff, addonMap:S.addonMap, addonCatalog:S.addonCatalog }); } catch(e){}
+  if (!db) return;
+  await seedMany(C.items, S.items, 'gear');
+  try { await setDoc(doc(db, C.config, 'main'), { kits:S.kits, checklists:S.checklists, staff:S.staff, addonMap:S.addonMap, addonCatalog:S.addonCatalog }); }
+  catch(e){ toast('Gear went up but the kits and checklists did not - try Re-upload in Setup'); }
+}
+async function seedEvents(){
+  if (!db) return;
+  await seedMany(C.events, S.events, 'events');
+}
+async function seedRuns(){
+  if (!db) return;
+  const keys = Object.keys(S.runs);
+  let ok = 0;
+  for (const k of keys) { try { await setDoc(doc(db, C.runs, k), S.runs[k]); ok++; } catch(e){} }
+  if (keys.length && ok < keys.length)
+    toast('Only ' + ok + ' of ' + keys.length + ' checklists uploaded - try Re-upload in Setup');
+}
+/* Everything this device holds, on demand. The listeners only seed on a FIRST
+   empty snapshot, so without this a half-finished upload has no second chance. */
+async function seedAll(){
+  if (!db) { toast('Not signed in - nothing to upload to'); return; }
+  setDot('syncing');
+  await seedCloud(); await seedEvents(); await seedRuns();
+  setDot('synced');
+  toast('Re-uploaded ' + S.items.length + ' gear and ' + S.events.length + ' events');
 }
 
 /* ================= boot ================= */
