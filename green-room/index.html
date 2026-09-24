@@ -588,6 +588,13 @@
     <div class="who">
       <span id="whoLabel"></span>
       <span class="sync-dot" id="syncDot" data-state="connecting" title="Sync status"></span>
+      <!-- Added 2026-09-24. The Gear Room went live the same day and nothing
+           anywhere pointed at it, so the only way in was knowing the URL. The
+           DJs open this app daily, so this is where they will find it. A plain
+           link on purpose: no handler, no JS, nothing to break in an app that
+           six people use every day and that has no test suite. Their Green Room
+           login already works there - same Firebase project. -->
+      <a href="/gear/" id="gearRoomLink">gear room</a>
       <a href="#" id="signOutLink">sign out</a>
       <a href="#" id="editNameLink">edit name</a>
       <a href="#" id="reimportLink">re-import</a>
