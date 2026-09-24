@@ -95,6 +95,32 @@
     Cache-Control = "no-store"
     X-Robots-Tag = "noindex, nofollow, noarchive"
 
+# The Gear Room at /gear/ is an internal team app, same shape as /group-reply/
+# above: never cache it, never index it. Added 2026-09-23.
+#
+# The caching half is the one that actually bites. The "/*.js" rule near the top
+# sets a ONE YEAR cache, which would apply to /gear/seed.js, and the "/*.html"
+# rule does not reliably match the pretty URL "/gear/" - that is exactly why
+# /group-reply/ needed its own block. A DJ's phone holding a year-old copy of a
+# gear app that Corey is actively changing is a real support problem, not a
+# theoretical one.
+#
+# The robots half is belt and braces: the page already carries
+# <meta name="robots" content="noindex,nofollow"> at index.html:6 and robots.txt
+# already has "Disallow: /gear/". A Disallow stops the crawl but does not stop
+# the URL being indexed if something ever links to it; the header does.
+[[headers]]
+  for = "/gear/*"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
+[[headers]]
+  for = "/gear"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
 # INTERNAL FILES MUST NOT BE SERVED. publish = "." makes every repo file a public URL;
 # on 2026-09-17 these returned 200 on the live domain. Netlify has no /*.md splat, so
 # root files are listed by name; folders use a trailing splat. "to" is the homepage
