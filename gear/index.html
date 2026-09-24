@@ -1,0 +1,3142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Gear Room</title>
+<meta name="theme-color" content="#722F37">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Gear Room">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+:root{
+  --merlot:#722F37; --merlot-dark:#5C262D; --rose:#E8C4C8; --soft-pink:#F8F0F0;
+  --cream:#FFFBFA; --charcoal:#2D2A2B; --text-soft:#4A4547; --neutral:#6B6669;
+  --ae-blue:#1B5E7E;
+  --red:#B0303D; --red-bg:#FBEAEC;
+  --green:#2E7D5A; --green-bg:#E6F2EC;
+  --amber:#8B6914; --amber-bg:#FBF3DF;
+  --line:#EADFE0;
+  --shadow:0 1px 2px rgba(0,0,0,.04);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--cream);color:var(--charcoal);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  -webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{padding-bottom:env(safe-area-inset-bottom)}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--merlot)}
+
+/* ---------- shell ---------- */
+.wrap{max-width:600px;margin:0 auto;padding:0 1rem 6.5rem}
+header.bar{position:sticky;top:0;z-index:40;background:var(--cream);
+  padding:calc(env(safe-area-inset-top) + .75rem) 0 .6rem;
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:.6rem}
+header.bar h1{font-size:1.15rem;margin:0;color:var(--merlot);font-weight:650;letter-spacing:-.01em;flex:1}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--neutral);flex:none}
+.dot[data-s=synced]{background:var(--green)}
+.dot[data-s=syncing]{background:#C9A54D;animation:blink 1s ease-in-out infinite}
+.dot[data-s=offline]{background:var(--neutral)}
+.dot[data-s=error]{background:var(--red)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.whobtn{background:none;border:1px solid var(--line);border-radius:999px;
+  padding:.3rem .7rem;font-size:.78rem;color:var(--text-soft);cursor:pointer}
+
+/* ---------- tab bar ---------- */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,251,250,.96);
+  backdrop-filter:saturate(180%) blur(12px);border-top:1px solid var(--line);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs button{background:none;border:0;padding:.55rem 0 .5rem;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:.18rem;
+  font-size:.68rem;letter-spacing:.02em;color:var(--neutral);font-weight:550}
+nav.tabs button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+nav.tabs button[aria-current=page]{color:var(--merlot)}
+nav.tabs .pip{position:absolute;transform:translate(14px,-4px);min-width:16px;height:16px;
+  border-radius:9px;background:var(--red);color:#fff;font-size:.6rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;padding:0 4px}
+
+/* ---------- generic ---------- */
+h2.sec{font-size:.72rem;color:var(--neutral);text-transform:uppercase;letter-spacing:.1em;
+  font-weight:700;margin:1.6rem 0 .6rem}
+h2.sec:first-child{margin-top:1.1rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1rem;
+  margin-bottom:.7rem;box-shadow:var(--shadow)}
+.muted{color:var(--text-soft);font-size:.87rem;line-height:1.5}
+.tiny{font-size:.75rem;color:var(--neutral)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+  min-height:46px;padding:.7rem 1.05rem;border-radius:11px;border:1px solid var(--line);
+  background:#fff;font-weight:600;font-size:.92rem;cursor:pointer;width:100%}
+.btn.primary{background:var(--merlot);border-color:var(--merlot);color:#fff}
+.btn.primary:active{background:var(--merlot-dark)}
+.btn.ghost{background:transparent}
+.btn.danger{color:var(--red);border-color:var(--rose)}
+.btn.sm{min-height:38px;padding:.4rem .8rem;font-size:.82rem;width:auto}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+.pill{display:inline-block;padding:.18rem .55rem;border-radius:999px;font-size:.7rem;
+  font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+.pill.cos{background:var(--soft-pink);color:var(--merlot)}
+.pill.ae{background:#E8F1F6;color:var(--ae-blue)}
+.pill.in{background:var(--green-bg);color:var(--green)}
+.pill.out{background:var(--amber-bg);color:var(--amber)}
+.pill.repair{background:var(--red-bg);color:var(--red)}
+.pill.retired{background:#EFEDED;color:var(--neutral)}
+.banner{border-radius:12px;padding:.8rem .9rem;font-size:.85rem;line-height:1.45;margin:.9rem 0}
+.banner.warn{background:var(--red-bg);color:#7A1E29;border:1px solid #F0C9CE}
+.banner.info{background:var(--soft-pink);color:var(--merlot);border:1px solid var(--rose)}
+.banner.ok{background:var(--green-bg);color:#1F5B41;border:1px solid #C4E2D3}
+/* only the leading title goes on its own line - a <b> mid-sentence must stay inline */
+.banner > b:first-child{display:block;margin-bottom:.2rem}
+.empty{text-align:center;padding:3rem 1rem;color:var(--neutral)}
+.empty svg{width:44px;height:44px;stroke:var(--rose);fill:none;stroke-width:1.4;margin-bottom:.8rem}
+label.fl{display:block;font-size:.78rem;font-weight:650;color:var(--text-soft);
+  margin:.9rem 0 .3rem;letter-spacing:.01em}
+input[type=text],input[type=date],input[type=time],input[type=email],
+input[type=password],select,textarea{width:100%;padding:.7rem .8rem;border:1px solid var(--line);
+  border-radius:10px;background:#fff;font-size:16px}
+textarea{min-height:130px;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--rose);outline-offset:1px;border-color:var(--merlot)}
+
+/* ---------- event card ---------- */
+.ev{background:#fff;border:1px solid var(--line);border-left:4px solid var(--merlot);
+  border-radius:14px;padding:.95rem 1rem;margin-bottom:.7rem;box-shadow:var(--shadow);
+  cursor:pointer;position:relative}
+.ev.ae{border-left-color:var(--ae-blue)}
+.ev.conflict{border-color:var(--red);box-shadow:0 2px 10px rgba(176,48,61,.14)}
+.ev .when{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--neutral)}
+.ev .who{font-size:1.12rem;font-weight:650;margin:.15rem 0 .1rem;letter-spacing:-.01em}
+.ev .venue{font-size:.87rem;color:var(--text-soft)}
+.ev .meta{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.6rem}
+.ev .arrow{position:absolute;right:.9rem;top:50%;transform:translateY(-50%);
+  width:8px;height:8px;border-right:2px solid var(--rose);border-top:2px solid var(--rose);
+  rotate:45deg}
+.svcs{font-size:.78rem;color:var(--neutral);margin-top:.35rem}
+
+/* ---------- checklist ---------- */
+.progress{height:6px;border-radius:4px;background:var(--soft-pink);overflow:hidden;margin:.7rem 0 .2rem}
+.progress i{display:block;height:100%;background:var(--merlot);border-radius:4px;
+  transition:width .35s cubic-bezier(.4,1.3,.5,1)}
+.check{display:flex;gap:.8rem;align-items:flex-start;width:100%;text-align:left;
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:.85rem .9rem;
+  margin-bottom:.5rem;cursor:pointer;transition:background .15s,border-color .15s}
+.check:active{background:var(--soft-pink)}
+.check .box{flex:none;width:26px;height:26px;border-radius:8px;border:2px solid var(--rose);
+  display:flex;align-items:center;justify-content:center;margin-top:-1px;
+  transition:background .2s,border-color .2s,transform .2s}
+.check .box svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:3;
+  stroke-linecap:round;stroke-linejoin:round;opacity:0;transform:scale(.5);
+  transition:opacity .18s,transform .22s cubic-bezier(.4,1.6,.5,1)}
+.check .txt{font-size:.93rem;line-height:1.4;padding-top:.15rem}
+.check[data-on="1"]{border-color:var(--green-bg);background:#FAFDFB}
+.check[data-on="1"] .box{background:var(--green);border-color:var(--green);transform:scale(1.04)}
+.check[data-on="1"] .box svg{opacity:1;transform:scale(1)}
+.check[data-on="1"] .txt{color:var(--neutral);text-decoration:line-through;text-decoration-color:var(--rose)}
+.alldone{text-align:center;padding:2rem 1rem;background:var(--green-bg);border-radius:14px;
+  color:#1F5B41;margin-bottom:.9rem}
+.alldone .big{font-size:1.35rem;font-weight:650;margin-bottom:.25rem}
+
+/* ---------- item rows ---------- */
+.item{display:flex;align-items:center;gap:.7rem;width:100%;text-align:left;background:#fff;
+  border:1px solid var(--line);border-radius:11px;padding:.7rem .85rem;margin-bottom:.4rem;cursor:pointer}
+.item .nm{flex:1;min-width:0}
+.item .nm b{display:block;font-size:.92rem;font-weight:600;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.item .nm span{font-size:.74rem;color:var(--neutral)}
+.item.out{background:#FEFCF6}
+.item.repair{background:#FDF7F8;border-color:#F0C9CE}
+.chips{display:flex;gap:.4rem;overflow-x:auto;padding:.15rem 0 .6rem;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:.4rem .8rem;border-radius:999px;border:1px solid var(--line);
+  background:#fff;font-size:.8rem;cursor:pointer;white-space:nowrap;font-weight:550}
+.chip[aria-pressed=true]{background:var(--merlot);border-color:var(--merlot);color:#fff}
+.search{position:relative;margin:.2rem 0 .6rem}
+.search input{padding-left:2.2rem}
+.search svg{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);width:17px;height:17px;
+  stroke:var(--neutral);fill:none;stroke-width:2}
+
+/* ---------- sheet ---------- */
+.scrim{position:fixed;inset:0;background:rgba(45,42,43,.45);z-index:60;opacity:0;
+  pointer-events:none;transition:opacity .22s}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--cream);
+  border-radius:20px 20px 0 0;max-height:88vh;overflow-y:auto;
+  transform:translateY(102%);transition:transform .28s cubic-bezier(.3,.9,.35,1);
+  padding:0 1rem calc(1.4rem + env(safe-area-inset-bottom));
+  box-shadow:0 -6px 30px rgba(0,0,0,.16)}
+.sheet.on{transform:translateY(0)}
+.sheet .grab{width:38px;height:4px;border-radius:3px;background:var(--rose);margin:.6rem auto 1rem}
+.sheet h3{margin:0 0 .2rem;font-size:1.2rem;letter-spacing:-.01em}
+.kv{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;border-bottom:1px solid var(--line);font-size:.87rem}
+.kv:last-of-type{border-bottom:0}
+.kv span{color:var(--neutral)}
+.kv b{font-weight:600;text-align:right}
+
+/* ---------- pull list ---------- */
+.kitblk{margin-bottom:1rem}
+.kitblk h4{margin:0 0 .1rem;font-size:.95rem;font-weight:650}
+.kitblk .kn{font-size:.76rem;color:var(--neutral);margin-bottom:.5rem}
+.conflictrow{background:var(--red-bg);border-color:#F0C9CE}
+.conflictrow .nm span{color:var(--red);font-weight:600}
+.sticky-act{position:sticky;bottom:calc(58px + env(safe-area-inset-bottom));
+  background:linear-gradient(180deg,rgba(255,251,250,0),var(--cream) 32%);
+  padding:1rem 0 .5rem;margin-top:.5rem}
+
+/* ---------- misc rows ---------- */
+.navrow{display:flex;align-items:center;gap:.8rem;width:100%;background:#fff;
+  border:1px solid var(--line);border-radius:12px;padding:.85rem .9rem;margin-bottom:.5rem;
+  cursor:pointer;text-align:left;font-size:.93rem;font-weight:550}
+.navrow svg{width:19px;height:19px;stroke:var(--merlot);fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round;flex:none}
+.navrow .grow{flex:1}
+.navrow .go{width:7px;height:7px;border-right:2px solid var(--rose);border-top:2px solid var(--rose);rotate:45deg}
+.log{font-size:.82rem;padding:.55rem 0;border-bottom:1px solid var(--line);line-height:1.45}
+.log:last-child{border-bottom:0}
+.log b{font-weight:650}
+.log em{font-style:normal;color:var(--neutral);font-size:.74rem;display:block;margin-top:.1rem}
+.back{background:none;border:0;color:var(--merlot);font-size:.85rem;font-weight:600;
+  padding:.7rem 0 .2rem;cursor:pointer;display:flex;align-items:center;gap:.35rem}
+.back::before{content:'';width:7px;height:7px;border-left:2px solid var(--merlot);
+  border-bottom:2px solid var(--merlot);rotate:45deg}
+table.prev{width:100%;border-collapse:collapse;font-size:.76rem;margin-top:.6rem}
+table.prev th{text-align:left;padding:.35rem .4rem;background:var(--soft-pink);color:var(--merlot);
+  font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+table.prev td{padding:.35rem .4rem;border-bottom:1px solid var(--line);vertical-align:top}
+.scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.toast{position:fixed;left:50%;bottom:calc(74px + env(safe-area-inset-bottom));
+  transform:translate(-50%,14px);z-index:90;background:var(--charcoal);color:#fff;
+  padding:.65rem 1.05rem;border-radius:999px;font-size:.85rem;font-weight:550;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- sign in ---------- */
+.gate{max-width:380px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 3rem) 1.2rem 3rem}
+.gate h1{color:var(--merlot);font-size:1.6rem;margin:0 0 .3rem;letter-spacing:-.02em}
+.gate .sub{color:var(--text-soft);font-size:.92rem;line-height:1.5;margin-bottom:1.6rem}
+.err{color:var(--red);font-size:.83rem;margin-top:.7rem;min-height:1.1em}
+.hr{display:flex;align-items:center;gap:.8rem;margin:1.5rem 0;color:var(--neutral);font-size:.75rem}
+.hr::before,.hr::after{content:'';flex:1;height:1px;background:var(--line)}
+.hide{display:none !important}
+@media (min-width:620px){.wrap{padding-bottom:2rem}nav.tabs{max-width:600px;margin:0 auto;border-radius:16px 16px 0 0;border-left:1px solid var(--line);border-right:1px solid var(--line)}}
+</style>
+</head>
+<body>
+
+<!-- ============ SIGN IN ============ -->
+<div class="gate hide" id="gate">
+  <h1>Gear Room</h1>
+  <p class="sub">Who has what, what goes out this weekend, and the checklist before you leave the house.</p>
+
+  <label class="fl" for="gEmail">Email</label>
+  <input type="email" id="gEmail" autocomplete="username" placeholder="you@coscelebrations.com">
+  <label class="fl" for="gPass">Password</label>
+  <input type="password" id="gPass" autocomplete="current-password">
+  <div class="err" id="gErr"></div>
+  <button class="btn primary" id="gSignIn" style="margin-top:.9rem">Sign in</button>
+  <button class="btn ghost sm" id="gReset" style="width:100%;margin-top:.5rem;border:0;color:var(--neutral)">Forgot password</button>
+
+  <div class="hr">or</div>
+  <button class="btn" id="gLocal">Use on this device only</button>
+  <p class="tiny" style="margin-top:.6rem;line-height:1.5">Device-only mode keeps everything in this browser. Nothing syncs to the team. Good for trying it out.</p>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app" class="hide">
+  <div class="wrap">
+    <header class="bar">
+      <h1 id="ttl">Gear Room</h1>
+      <span class="dot" id="dot" data-s="offline" title="sync"></span>
+      <button class="whobtn" id="whoBtn">-</button>
+    </header>
+    <main id="view"></main>
+  </div>
+
+  <nav class="tabs" id="tabs">
+    <button data-tab="today" aria-current="page">
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+      <span>Today</span>
+    </button>
+    <button data-tab="gear">
+      <svg viewBox="0 0 24 24"><path d="M21 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2"/><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 12h6"/></svg>
+      <span>Gear</span>
+    </button>
+    <button data-tab="week">
+      <svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 4 4-6 5 5"/><path d="M3 21h18"/></svg>
+      <span>Week</span>
+    </button>
+    <button data-tab="more">
+      <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg>
+      <span>More</span>
+    </button>
+  </nav>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet"><div class="grab"></div><div id="sheetBody"></div></div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { CATEGORIES, HOMES, ITEMS, KITS, SERVICE_MAP, CHECKLISTS, derivePool } from './seed.js';
+
+/* Firebase is loaded LAZILY and never blocks the app.
+   It used to be a plain static import from the gstatic CDN, which meant that if
+   that request was slow, blocked, or offline, the whole module failed to
+   execute and the DJ got a blank white screen. That is the exact situation this
+   app exists for - standing next to a van, one bar of signal, needing the pull
+   list. So: boot from the local cache immediately, then upgrade to team sync in
+   the background if and when the network cooperates. 2026-08-11. */
+const FB_BASE = "https://www.gstatic.com/firebasejs/12.13.0/";
+const firebaseConfig = {
+  apiKey: "AIzaSyAaUvaWjrlkwp5q7qqlWPAJiiL7lVTvVgU",
+  authDomain: "cos-tracker-35556.firebaseapp.com",
+  projectId: "cos-tracker-35556",
+  storageBucket: "cos-tracker-35556.firebasestorage.app",
+  messagingSenderId: "821506336514",
+  appId: "1:821506336514:web:81f22281f7bcb40a93041b"
+};
+
+let auth = null, db = null, fbReady = false, fbFailed = false;
+let signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged;
+let collection, doc, setDoc, deleteDoc, onSnapshot, serverTimestamp, addDoc, query, orderBy, limit;
+
+let fbPromise = null;
+function ensureFb(){
+  if (fbPromise) return fbPromise;
+  fbPromise = (async () => {
+    const [a, au, fs] = await Promise.all([
+      import(FB_BASE + "firebase-app.js"),
+      import(FB_BASE + "firebase-auth.js"),
+      import(FB_BASE + "firebase-firestore.js")
+    ]);
+    const app = a.initializeApp(firebaseConfig);
+    auth = au.getAuth(app);
+    db = fs.getFirestore(app);
+    ({ signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } = au);
+    ({ collection, doc, setDoc, deleteDoc, onSnapshot, serverTimestamp, addDoc, query, orderBy, limit } = fs);
+    fs.enableIndexedDbPersistence(db).catch(()=>{});
+    fbReady = true;
+    return true;
+  })().catch(e => { fbFailed = true; fbPromise = null; throw e; });
+  return fbPromise;
+}
+
+const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
+            activity:'gear_activity', config:'gear_config' };
+
+/* ================= state ================= */
+const BUILD = '2026-08-25-b';   // shown at the bottom of More. Bump on any visible change.
+const ROSTER = ['Corey','Kyle','CJ','Noah','Greg','Mikey','Justin','Cole','Matt'];
+const ADMINS = ['corey','kyle'];
+const LS = 'gearroom.v1';
+
+const S = {
+  mode: null,              // 'cloud' | 'local'
+  uid: '', email: '',
+  me: '',                  // display name from ROSTER
+  items: [], events: [], kits: [], checklists: [], runs: {}, activity: [], staff: {},
+  route: { tab:'today', view:'', id:'' },
+  gearFilter: 'all', gearQ: '', importMode: 'events', rawImport: null, rawName: '', addonMap: {}, addonCatalog: {},
+  rulesError: false
+};
+
+function blank(){
+  return {
+    items: JSON.parse(JSON.stringify(ITEMS)),
+    events: [],
+    kits: JSON.parse(JSON.stringify(KITS)),
+    checklists: JSON.parse(JSON.stringify(CHECKLISTS)),
+    runs: {},
+    activity: [],
+    staff: {},
+    addonMap: {},
+    addonCatalog: {}
+  };
+}
+function loadLocal(){
+  try {
+    const raw = localStorage.getItem(LS);
+    if (!raw) return blank();
+    const d = JSON.parse(raw);
+    const b = blank();
+    /* seeded: this device has saved at least once, so an EMPTY list is a real
+       answer ("I deleted the starter gear") and not "first run, fill it in".
+       Without this, deleting your way down to zero items silently repopulated
+       all 53 template items on the next reload -- which reads as the app
+       undoing your work. Installs from before 2026-08-25 have no flag, so they
+       fall back to the old behaviour once and get stamped on the next save.
+       Checklists deliberately still re-seed: checklistEditSheet edits the list
+       in place and has no way to restore one you emptied. */
+    const seeded = !!d.seeded;
+    return {
+      items: (seeded || (d.items && d.items.length)) ? (d.items || []) : b.items,
+      events: d.events || [],
+      kits: (seeded || (d.kits && d.kits.length)) ? (d.kits || []) : b.kits,
+      checklists: d.checklists && d.checklists.length ? d.checklists : b.checklists,
+      runs: d.runs || {},
+      activity: d.activity || [],
+      staff: d.staff || {},
+      addonMap: d.addonMap || {},
+      addonCatalog: d.addonCatalog || {}
+    };
+  } catch(e){ return blank(); }
+}
+function saveLocal(){
+  if (S.mode !== 'local') return;
+  try {
+    localStorage.setItem(LS, JSON.stringify({
+      seeded: true,
+      items:S.items, events:S.events, kits:S.kits,
+      checklists:S.checklists, runs:S.runs, activity:S.activity.slice(0,200), staff:S.staff, addonMap:S.addonMap, addonCatalog:S.addonCatalog
+    }));
+  } catch(e){}
+}
+
+/* ================= helpers ================= */
+const $ = id => document.getElementById(id);
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = p => p + Math.random().toString(36).slice(2,9);
+
+function ymd(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function today(){ return ymd(new Date()); }
+function parseYMD(s){ const [y,m,d]=String(s).split('-').map(Number); return new Date(y,(m||1)-1,d||1); }
+function dayDiff(a,b){ return Math.round((parseYMD(b)-parseYMD(a))/86400000); }
+/* just the date, no "In 4 days -" prefix. Use this anywhere the date sits
+   inside a sentence, where the relative wording reads as a mistake. */
+function plainDay(s){
+  return parseYMD(s).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+}
+function prettyDay(s){
+  const n = dayDiff(today(), s);
+  const d = parseYMD(s);
+  const base = d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+  if (n === 0) return 'Today - ' + base;
+  if (n === 1) return 'Tomorrow - ' + base;
+  if (n < 0) return base + ' (' + Math.abs(n) + 'd ago)';
+  if (n <= 7) return 'In ' + n + ' days - ' + base;
+  return base;
+}
+function ago(iso){
+  if (!iso) return '';
+  const mins = Math.round((Date.now() - new Date(iso).getTime())/60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return mins + 'm ago';
+  const h = Math.round(mins/60);
+  if (h < 24) return h + 'h ago';
+  return Math.round(h/24) + 'd ago';
+}
+function toast(msg){
+  const t = $('toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove('on'), 2200);
+}
+const isAdmin = () => ADMINS.includes(String(S.me).toLowerCase());
+const itemById = id => S.items.find(i => i.id === id);
+const eventById = id => S.events.find(e => e.id === id);
+
+/* required item ids for an event = always-kits + kits matched from services */
+/* Three ways an event resolves to kits, best first. If the CRM System IDs are
+   present we never guess at all. */
+function kitsFor(ev){
+  const out = S.kits.filter(k => k.always && !k.disabled).map(k => k.id);
+  const add = id => { if (id && !out.includes(id)) out.push(id); };
+
+  // 1. exact: System 1..10 from the CRM Events report, matched on System ID
+  let exact = false;
+  (ev.systemIds || []).forEach(sid => {
+    const k = S.kits.find(x => String(x.sysId) === String(sid));
+    if (k && !k.disabled) { add(k.id); exact = true; }
+  });
+
+  const hay = ((ev.services||'') + ' ' + (ev.notes||'')).toLowerCase();
+  // 2. a kit named outright in the event text
+  S.kits.forEach(k => {
+    if (k.disabled || k.always) return;
+    const n = String(k.name||'').toLowerCase().trim();
+    if (n.length > 2 && hay.includes(n)) add(k.id);
+  });
+  // 3. keyword fallback, only when the CRM gave us nothing exact
+  if (!exact) {
+    SERVICE_MAP.forEach(m => {
+      if (m.match.some(w => hay.includes(w))) {
+        const k = S.kits.find(x => x.id === m.kit);
+        if (k && !k.disabled) add(m.kit);
+      }
+    });
+  }
+  (ev.extraKits||[]).forEach(add);
+  return out.map(id => S.kits.find(k => k.id === id)).filter(Boolean);
+}
+function requiredItemIds(ev){
+  const set = new Set();
+  kitsFor(ev).forEach(k => (k.items||[]).forEach(i => set.add(i)));
+  return [...set];
+}
+/* Clash detection works on POOLS, not individual units.
+   Two weddings on one Saturday both need a "Main Speaker" - that is fine if you
+   own two. The warning should only fire when demand on a date exceeds what
+   actually exists and is working. Counting per-unit instead produced 17 fake
+   clashes for a normal double-header, which is the fastest way to get an alert
+   ignored forever. 2026-08-11. */
+const poolOf = i => i.pool || i.name;
+/* What an event needs, as pool -> unit count.
+   Kits contribute one of each; addons contribute their real quantity, which is
+   the whole point - an event wants 16 uplights, not "some uplighting". */
+function poolNeeds(ev){
+  const need = {};
+  requiredItemIds(ev).forEach(id => {
+    const i = itemById(id); if (!i) return;
+    const p = poolOf(i);
+    need[p] = (need[p] || 0) + 1;
+  });
+  const fromAddons = addonNeeds(ev);
+  Object.keys(fromAddons).forEach(p => {
+    need[p] = Math.max(need[p] || 0, fromAddons[p]);   // addon count wins
+  });
+  return need;
+}
+/* The units a person should physically carry for an event: n free units of each
+   needed pool, preferring ones already checked out to them. */
+function unitsForNeed(pool, n, who){
+  const mine = S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === who);
+  const free = S.items.filter(i => poolOf(i) === pool && i.status === 'in');
+  return mine.concat(free).slice(0, n);
+}
+/* a unit flagged for repair is not supply - it cannot go out */
+function supplyOf(pool){
+  return S.items.filter(i => poolOf(i) === pool && i.status !== 'retired' && i.status !== 'repair').length;
+}
+function freeUnits(pool){
+  return S.items.filter(i => poolOf(i) === pool && i.status === 'in');
+}
+/* which unit should this person actually walk out with */
+function resolveUnit(i){
+  if (i.status === 'in') return i;
+  if (i.status === 'out' && i.holder === S.me) return i;
+  return freeUnits(poolOf(i)).find(x => x.id !== i.id) || i;
+}
+function conflicts(){
+  const byDate = {};
+  S.events.forEach(e => { (byDate[e.date] = byDate[e.date] || []).push(e); });
+  const out = [];
+  Object.keys(byDate).forEach(date => {
+    const evs = byDate[date];
+    const total = {};
+    evs.forEach(e => {
+      const n = poolNeeds(e);
+      Object.keys(n).forEach(p => { total[p] = (total[p] || 0) + n[p]; });
+    });
+    Object.keys(total).forEach(p => {
+      const have = supplyOf(p);
+      if (total[p] > have) out.push({ date, pool:p, need:total[p], have, short: total[p] - have, events: evs });
+    });
+  });
+  return out.sort((a,b) => a.date.localeCompare(b.date) || b.short - a.short);
+}
+function conflictsFor(ev){
+  return conflicts().filter(c => c.events.some(e => e.id === ev.id));
+}
+function shortPoolsOn(date){
+  const s = {};
+  conflicts().filter(c => c.date === date).forEach(c => { s[c.pool] = c; });
+  return s;
+}
+function myEvents(){
+  const t = today();
+  return S.events
+    .filter(e => dayDiff(t, e.date) >= -1)
+    .filter(e => !S.me || !e.dj || String(e.dj).toLowerCase().includes(S.me.toLowerCase())
+                 || String(e.dj2||'').toLowerCase().includes(S.me.toLowerCase()))
+    .sort((a,b) => a.date.localeCompare(b.date));
+}
+function upcoming(days){
+  const t = today();
+  return S.events.filter(e => { const d = dayDiff(t, e.date); return d >= -1 && d <= days; })
+    .sort((a,b) => a.date.localeCompare(b.date) || String(a.time||'').localeCompare(String(b.time||'')));
+}
+function myOut(){ return S.items.filter(i => i.status === 'out' && i.holder === S.me); }
+
+/* ---- returns are due the Monday after the weekend ----
+   Corey's rule, 2026-08-11: everything comes back the Monday following the
+   weekend it went out on. Due ON Monday, late from Tuesday. */
+function addDaysY(ymdStr, n){
+  const d = parseYMD(ymdStr); d.setDate(d.getDate() + n); return ymd(d);
+}
+function nextMonday(ymdStr){
+  const d = parseYMD(ymdStr);
+  const add = ((8 - d.getDay()) % 7) || 7;   // strictly after, never same day
+  return addDaysY(ymdStr, add);
+}
+function dueFor(item){
+  if (item.status !== 'out') return '';
+  const ev = item.eventId ? eventById(item.eventId) : null;
+  if (ev) return nextMonday(ev.date);
+  if (item.since) return nextMonday(ymd(new Date(item.since)));
+  return '';
+}
+function isOverdue(item){
+  const d = dueFor(item);
+  return !!d && dayDiff(d, today()) > 0;
+}
+function overdueItems(who){
+  return S.items.filter(i => i.status === 'out' && isOverdue(i)
+    && (!who || i.holder === who));
+}
+function overdueByPerson(){
+  const g = {};
+  overdueItems().forEach(i => { (g[i.holder || 'unknown'] = g[i.holder || 'unknown'] || []).push(i); });
+  return g;
+}
+
+/* ---- the weekend ----
+   "What am I picking up from the warehouse" is a weekend question, not an
+   event question - you make one trip, not three. */
+function comingSunday(){
+  const d = parseYMD(today());
+  return addDaysY(today(), (7 - d.getDay()) % 7);
+}
+function weekendEvents(who){
+  const end = comingSunday();
+  return S.events
+    .filter(e => dayDiff(today(), e.date) >= 0 && dayDiff(e.date, end) >= 0)
+    .filter(e => !who || [e.dj, e.dj2, e.dj3].some(n => n && String(n).toLowerCase().includes(who.toLowerCase())))
+    .sort((a,b) => a.date.localeCompare(b.date) || String(a.time||'').localeCompare(String(b.time||'')));
+}
+/* Everything one person needs across the weekend, as pool -> count.
+   Two events each wanting 16 uplights is 32 uplights in the van, so these add
+   up rather than dedupe. Shared one-off gear (a single booth) does not double. */
+function weekendPull(who){
+  const evs = weekendEvents(who);
+  const need = {}, why = {};
+  evs.forEach(e => {
+    const n = poolNeeds(e);
+    Object.keys(n).forEach(p => {
+      need[p] = (need[p] || 0) + n[p];
+      (why[p] = why[p] || []).push(e);
+    });
+  });
+  /* never ask someone to take more than exists */
+  Object.keys(need).forEach(p => {
+    const owned = S.items.filter(i => poolOf(i) === p && i.status !== 'retired').length;
+    if (owned) need[p] = Math.min(need[p], owned);
+  });
+  return { events: evs, need, why };
+}
+function heldCount(pool, who){
+  return S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === who).length;
+}
+function pullTotals(who){
+  const { need } = weekendPull(who);
+  let want = 0, got = 0;
+  Object.keys(need).forEach(p => { want += need[p]; got += Math.min(heldCount(p, who), need[p]); });
+  return { want, got, pools: Object.keys(need).length };
+}
+function peopleThisWeekend(){
+  const names = new Set();
+  weekendEvents().forEach(e => [e.dj, e.dj2, e.dj3].forEach(n => { if (n) names.add(n); }));
+  return [...names].sort();
+}
+
+/* ================= persistence ================= */
+async function putItem(i){
+  const idx = S.items.findIndex(x => x.id === i.id);
+  if (idx >= 0) S.items[idx] = i; else S.items.push(i);
+  saveLocal(); render();
+  if (S.mode === 'cloud') await cloudSet(C.items, i.id, i);
+}
+/* Save a batch in one go. putItem renders and awaits a cloud write per call,
+   so looping it for "I own 40 uplights" is 40 renders and 40 round-trips. */
+async function putItems(list){
+  list.forEach(i => {
+    const idx = S.items.findIndex(x => x.id === i.id);
+    if (idx >= 0) S.items[idx] = i; else S.items.push(i);
+  });
+  saveLocal(); render();
+  if (S.mode === 'cloud') for (const i of list) await cloudSet(C.items, i.id, i);
+}
+
+/* One hand-entered row -> N trackable units, the way the CRM importer does it
+   in equipmentToUnits: qty 1 keeps the name as typed, qty > 1 numbers them
+   "Uplight 1".."Uplight 40" and they ALL share the un-numbered pool. That
+   shared pool is the whole point -- it is what makes supplyOf('Uplight')
+   answer 40 instead of 1, which the shortage math and the check-out counter
+   both read.
+
+   Deliberately NOT a refactor of equipmentToUnits: that one also preserves
+   existing units across a re-import, carries eqId and the CRM extras, and puts
+   the serial and the kit-attach on unit 1. It is also the only import path
+   with real test coverage, on a screen nobody opens after the 2026-08-25 pivot.
+   Three duplicated lines beat regressing it.
+
+   Ids come from uid('i'), never the importer's 'dj-<eqid>-<n>' shape -- a
+   re-import decides what to keep with incoming.has(i.id), so a manual id that
+   collided with a future CRM id would be silently overwritten. */
+function manualUnits(base, qty, existing){
+  const n = Math.max(1, Math.min(60, Math.round(Number(qty) || 1)));
+  const pool = base.pool || derivePool(base.name) || base.name;
+  const start = nextUnitNumber(pool, existing || []);
+  const out = [];
+  for (let k = 0; k < n; k++) {
+    out.push(Object.assign({}, base, {
+      id: uid('i'),
+      name: n > 1 || start > 1 ? pool + ' ' + (start + k) : base.name,
+      pool: pool,
+      serial: k === 0 ? (base.serial || '') : '',
+      status: 'in', holder: '', holderUid: '', eventId: '', since: '',
+      template: false
+    }));
+  }
+  return out;
+}
+
+/* Keep numbering where the pool left off. Naive 1..N gives you a second
+   "Uplight 1" and nobody can tell the two apart on a shelf. */
+function nextUnitNumber(pool, items){
+  let max = 0;
+  (items || []).forEach(i => {
+    if (poolOf(i) !== pool) return;
+    const m = /\s(\d+)$/.exec(i.name || '');
+    max = Math.max(max, m ? Number(m[1]) : 1);
+  });
+  return max + 1;
+}
+
+async function putEvent(e){
+  const idx = S.events.findIndex(x => x.id === e.id);
+  if (idx >= 0) S.events[idx] = e; else S.events.push(e);
+  saveLocal(); render();
+  if (S.mode === 'cloud') await cloudSet(C.events, e.id, e);
+}
+async function delEvent(id){
+  S.events = S.events.filter(e => e.id !== id);
+  S.items.filter(i => i.eventId === id).forEach(i => { i.eventId = ''; });
+  saveLocal(); render();
+  if (S.mode === 'cloud' && db) { try { await deleteDoc(doc(db, C.events, id)); } catch(e){} }
+}
+async function putRun(key, run){
+  S.runs[key] = run; saveLocal(); render();
+  if (S.mode === 'cloud') await cloudSet(C.runs, key, run);
+}
+async function putConfig(){
+  saveLocal(); render();
+  if (S.mode === 'cloud') await cloudSet(C.config, 'main', { kits:S.kits, checklists:S.checklists, staff:S.staff, addonMap:S.addonMap, addonCatalog:S.addonCatalog });
+}
+async function logIt(text, meta){
+  const entry = { id: uid('l'), text, who: S.me, at: new Date().toISOString(), ...(meta||{}) };
+  S.activity.unshift(entry);
+  S.activity = S.activity.slice(0, 200);
+  saveLocal();
+  if (S.mode === 'cloud' && db) { try { await addDoc(collection(db, C.activity), entry); } catch(e){} }
+}
+async function cloudSet(col, id, data){
+  if (!db) return;               // queued in localStorage; picked up when sync comes back
+  setDot('syncing');
+  try {
+    await setDoc(doc(db, col, id), { ...data, _at: serverTimestamp() }, { merge: false });
+    setDot('synced');
+  } catch (e) {
+    if (String(e.code||'').includes('permission')) { S.rulesError = true; render(); }
+    setDot('error');
+  }
+}
+function setDot(s){ const d = $('dot'); if (d) d.setAttribute('data-s', s); }
+
+/* ================= actions ================= */
+async function checkOut(item, ev){
+  if (item.status === 'out' && item.holder && item.holder !== S.me) {
+    if (!confirm(item.name + ' is already out with ' + item.holder + '. Take it anyway?')) return;
+  }
+  if (item.status === 'repair') {
+    if (!confirm(item.name + ' is flagged as needing repair. Take it anyway?')) return;
+  }
+  const next = { ...item, status:'out', holder:S.me, holderUid:S.uid,
+                 eventId: ev ? ev.id : '', since: new Date().toISOString() };
+  await putItem(next);
+  logIt(S.me + ' took ' + item.name + (ev ? ' for ' + (ev.client || ev.venue) : ''), { itemId:item.id });
+}
+async function checkIn(item){
+  const next = { ...item, status:'in', holder:'', holderUid:'', eventId:'', since:'' };
+  await putItem(next);
+  logIt(S.me + ' returned ' + item.name, { itemId:item.id });
+}
+
+/* Take N of a pool in one go. Looping checkOut() would pop a confirm per unit
+   and write N separate activity lines -- "Corey took Uplight 1", 12 times.
+   One write, one log line. Returns how many actually moved, which can be fewer
+   than asked for if a teammate grabbed some between the sheet opening and the
+   button being tapped. */
+async function checkOutMany(pool, n){
+  const take = freeUnits(pool).slice(0, Math.max(0, n));
+  if (!take.length) return 0;
+  const stamp = new Date().toISOString();
+  await putItems(take.map(i => ({ ...i, status:'out', holder:S.me, holderUid:S.uid,
+                                  eventId:'', since:stamp })));
+  /* "12 x Uplight" rather than "12 Uplights" on purpose -- naive pluralising
+     turns "Gaff Tape + Tools" into "Toolss". Letter x, not a symbol (Rule #15). */
+  logIt(S.me + ' took ' + (take.length > 1 ? take.length + ' x ' + pool : take[0].name),
+        { pool: pool, n: take.length });
+  return take.length;
+}
+async function checkInMany(pool, n){
+  const back = S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === S.me)
+                      .slice(0, Math.max(0, n));
+  if (!back.length) return 0;
+  await putItems(back.map(i => ({ ...i, status:'in', holder:'', holderUid:'', eventId:'', since:'' })));
+  logIt(S.me + ' returned ' + (back.length > 1 ? back.length + ' x ' + pool : back[0].name),
+        { pool: pool, n: back.length });
+  return back.length;
+}
+async function flagRepair(item, note){
+  const next = { ...item, status:'repair', notes: note || item.notes };
+  await putItem(next);
+  logIt(S.me + ' flagged ' + item.name + ' as a problem' + (note ? ': ' + note : ''), { itemId:item.id });
+}
+
+/* ================= render ================= */
+function render(){
+  if (!S.mode) return;
+  const v = $('view'); if (!v) return;
+  document.querySelectorAll('nav.tabs button').forEach(b =>
+    b.setAttribute('aria-current', b.dataset.tab === S.route.tab ? 'page' : 'false'));
+  $('whoBtn').textContent = S.me || 'Who are you?';
+
+  /* the only badge worth interrupting someone for is gear that has not come
+     back. Shortage counts used to live here and were pure noise. */
+  const badge = document.querySelector('nav.tabs .pip');
+  if (badge) badge.remove();
+  const nLate = isAdmin() ? overdueItems().length : overdueItems(S.me).length;
+  if (nLate) {
+    const btn = document.querySelector('nav.tabs button[data-tab=' + (isAdmin() ? 'week' : 'today') + ']');
+    if (btn) {
+      const p = document.createElement('span');
+      p.className = 'pip'; p.textContent = nLate > 9 ? '9+' : nLate;
+      btn.appendChild(p);
+    }
+  }
+
+  let html = '';
+  if (S.rulesError) html += ruleBanner();
+
+  const r = S.route;
+  if (r.view === 'event') html += viewEvent(r.id);
+  else if (r.view === 'pull') html += viewPull(r.id);
+  else if (r.view === 'checklist') html += viewChecklist(r.id, r.id2);
+  else if (r.view === 'import') html += viewImport();
+  else if (r.view === 'kits') html += viewKits();
+  else if (r.view === 'inventory') html += viewInventory();
+  else if (r.view === 'activity') html += viewActivity();
+  else if (r.view === 'setup') html += viewSetup();
+  else if (r.view === 'datacheck') html += viewDatacheck();
+  else if (r.view === 'addons') html += viewAddons();
+  else if (r.tab === 'today') html += viewToday();
+  else if (r.tab === 'gear') html += viewGear();
+  else if (r.tab === 'week') html += viewWeek();
+  else html += viewMore();
+
+  v.innerHTML = html;
+  bind();
+}
+function go(tab, view, id, id2){
+  S.route = { tab: tab || S.route.tab, view: view || '', id: id || '', id2: id2 || '' };
+  window.scrollTo(0,0);
+  render();
+}
+function backBtn(label, tab){
+  return '<button class="back" data-go="' + tab + '">' + esc(label) + '</button>';
+}
+function ruleBanner(){
+  return '<div class="banner warn"><b>Team sync is blocked</b>Firestore is refusing writes, which means the security rules have not been added yet. Your changes are saved on this device but the team will not see them. Open <b>More &gt; Setup</b> for the exact text to paste into Firebase.</div>';
+}
+
+/* ---- TODAY ---- */
+function viewToday(){
+  const out = myOut();
+  const late = overdueItems(S.me);
+  let h = '';
+
+  if (!S.me) {
+    h += '<div class="banner info"><b>Pick your name first</b>Tap the button at the top right so the app knows whose gear is whose.</div>';
+  }
+
+  /* the nudge. Calm on purpose - a count and a list, no red screen. */
+  if (late.length) {
+    h += '<div class="banner warn"><b>' + late.length + ' item' + (late.length>1?'s':'')
+      + ' should be back at the warehouse</b>'
+      + 'Due back ' + esc(plainDay(dueFor(late[0]))) + '. Drop them at the warehouse and check them in here.'
+      + '</div>';
+    late.forEach(i => { h += itemRow(i); });
+    h += '<button class="btn" style="margin:.2rem 0 .4rem" data-inlate="1">Check these ' + late.length + ' back in</button>';
+  }
+
+  const wknd = weekendEvents(S.me);
+  if (wknd.length) {
+    const t = pullTotals(S.me);
+    const label = wknd.length === 1 ? '1 event' : wknd.length + ' events';
+    h += '<h2 class="sec">What you need this weekend</h2>';
+    h += '<div class="card">'
+      + '<div style="display:flex;justify-content:space-between;align-items:baseline">'
+      + '<b style="font-size:1.05rem">' + t.want + ' items, ' + label + '</b>'
+      + '<span class="tiny">' + t.got + ' of ' + t.want + ' picked up</span></div>'
+      + '<div class="progress"><i style="width:' + (t.want ? Math.round(t.got/t.want*100) : 0) + '%"></i></div>'
+      + '<p class="tiny" style="margin:.5rem 0 0">One trip to the warehouse covers all of it. '
+      + 'Back by ' + esc(plainDay(nextMonday(wknd[wknd.length-1].date))) + '.</p>'
+      + '<button class="btn primary" style="margin-top:.8rem" data-pull="weekend">Pick up weekend gear</button>'
+      + '</div>';
+    wknd.forEach(e => { h += evCard(e, 0); });
+  }
+
+  const later = myEvents().filter(e => !wknd.some(w => w.id === e.id)).slice(0,3);
+  if (later.length) {
+    h += '<h2 class="sec">After this weekend</h2>';
+    later.forEach(e => { h += evCard(e, 0); });
+  }
+
+  if (!wknd.length && !later.length) {
+    h += '<div class="empty">'
+      + '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>'
+      + '<p style="margin:0 0 1rem">Nothing booked' + (S.me ? ' for ' + esc(S.me) : '') + ' right now.</p>'
+      + '<button class="btn sm" data-view="import">Load this week from the CRM</button></div>';
+  }
+
+  const notLate = out.filter(i => !isOverdue(i));
+  if (notLate.length) {
+    h += '<h2 class="sec">You have out right now (' + notLate.length + ')</h2>';
+    notLate.forEach(i => { h += itemRow(i); });
+    h += '<button class="btn" style="margin-top:.4rem" data-inall="1">Check all ' + out.length + ' back in</button>';
+  }
+  return h;
+}
+function evCard(e, nConf){
+  const brand = String(e.brand||'COS').toUpperCase() === 'AE' ? 'ae' : 'cos';
+  let h = '<div class="ev ' + brand + (nConf ? ' conflict' : '') + '" data-ev="' + e.id + '">';
+  h += '<div class="when">' + esc(prettyDay(e.date)) + (e.time ? ' &middot; ' + esc(e.time) : '') + '</div>';
+  h += '<div class="who">' + esc(e.client || 'Event') + '</div>';
+  h += '<div class="venue">' + esc(e.venue || '') + (e.city ? ', ' + esc(e.city) : '') + '</div>';
+  if (e.services) h += '<div class="svcs">' + esc(e.services) + '</div>';
+  h += '<div class="meta"><span class="pill ' + brand + '">' + (brand === 'ae' ? 'AE' : 'COS') + '</span>';
+  if (e.dj) h += '<span class="pill retired">' + esc(e.dj) + (e.dj2 ? ' + ' + esc(e.dj2) : '') + '</span>';
+  if (nConf) h += '<span class="pill repair">short ' + nConf + '</span>';
+  h += '</div><i class="arrow"></i></div>';
+  return h;
+}
+/* Collapse a list of units into pools, keeping the order they came in. */
+function groupPools(units){
+  const seen = {}, out = [];
+  units.forEach(i => {
+    const p = poolOf(i);
+    if (!seen[p]) { seen[p] = { pool: p, units: [] }; out.push(seen[p]); }
+    seen[p].units.push(i);
+  });
+  return out;
+}
+
+/* The summary row for "we own 40 of these". Counts come from the WHOLE
+   inventory, not the filtered list, because "28 free" has to mean 28 free in
+   the warehouse -- not 28 free among the rows that happen to match a search. */
+function poolRow(pool, units){
+  const all = S.items.filter(x => poolOf(x) === pool && x.status !== 'retired');
+  const owned = all.length;
+  const free = all.filter(x => x.status === 'in').length;
+  const gone = all.filter(x => x.status === 'out').length;
+  const rep = all.filter(x => x.status === 'repair').length;
+  const bits = [owned + ' owned'];
+  if (gone) bits.push(gone + ' out');
+  if (rep) bits.push(rep + ' need attention');
+  const cls = free ? '' : 'out';
+  return '<button class="item ' + cls + '" data-pool="' + esc(pool) + '">'
+    + '<span class="nm"><b>' + esc(pool) + '</b><span>' + esc(units[0].category) + ' &middot; '
+    + bits.join(' &middot; ') + '</span></span>'
+    + '<span class="pill ' + (free ? 'in' : 'out') + '">' + free + ' free</span></button>';
+}
+
+function itemRow(i, extra){
+  const cls = i.status === 'out' ? 'out' : (i.status === 'repair' ? 'repair' : '');
+  let sub = i.category;
+  if (i.status === 'out') sub = 'With ' + (i.holder || 'someone') + ' &middot; ' + ago(i.since);
+  if (i.status === 'repair') sub = 'Needs attention';
+  if (i.status === 'in') sub = i.category + ' &middot; ' + (i.home || '');
+  return '<button class="item ' + cls + ' ' + (extra||'') + '" data-item="' + i.id + '">'
+    + '<span class="nm"><b>' + esc(i.name) + '</b><span>' + sub + '</span></span>'
+    + '<span class="pill ' + i.status + '">' + ({in:'In',out:'Out',repair:'Problem',retired:'Retired'}[i.status]) + '</span>'
+    + '</button>';
+}
+
+/* ---- GEAR ---- */
+function viewGear(){
+  const q = S.gearQ.toLowerCase();
+  let list = S.items.filter(i => i.status !== 'retired' || S.gearFilter === 'retired');
+  if (S.gearFilter === 'in') list = list.filter(i => i.status === 'in');
+  if (S.gearFilter === 'out') list = list.filter(i => i.status === 'out');
+  if (S.gearFilter === 'repair') list = list.filter(i => i.status === 'repair');
+  if (S.gearFilter === 'mine') list = list.filter(i => i.status === 'out' && i.holder === S.me);
+  if (S.gearFilter === 'retired') list = list.filter(i => i.status === 'retired');
+  if (q) list = list.filter(i => (i.name + ' ' + i.category + ' ' + i.brand + ' ' + i.model + ' ' + i.holder + ' ' + i.serial).toLowerCase().includes(q));
+
+  const nOut = S.items.filter(i => i.status === 'out').length;
+  const nRep = S.items.filter(i => i.status === 'repair').length;
+
+  let h = '<div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>'
+    + '<input type="text" id="q" placeholder="Search gear, person, serial" value="' + esc(S.gearQ) + '"></div>';
+  h += '<div class="chips">';
+  [['all','All ' + S.items.filter(i=>i.status!=='retired').length],['mine','Mine'],['out','Out ' + nOut],
+   ['in','In stock'],['repair','Problems' + (nRep ? ' ' + nRep : '')],['retired','Retired']]
+    .forEach(([k,l]) => { h += '<button class="chip" data-f="' + k + '" aria-pressed="' + (S.gearFilter===k) + '">' + l + '</button>'; });
+  h += '</div>';
+
+  if (!list.length) return h + '<div class="empty"><p>Nothing matches.</p></div>';
+
+  const groups = {};
+  list.forEach(i => { (groups[i.category] = groups[i.category] || []).push(i); });
+  CATEGORIES.concat(Object.keys(groups).filter(c => !CATEGORIES.includes(c)).sort()).forEach(cat => {
+    if (!groups[cat]) return;
+    h += '<h2 class="sec">' + esc(cat) + '</h2>';
+    /* One row per POOL, not per unit. Owning 40 uplights used to mean 40
+       near-identical rows filling the whole screen, which is unreadable and
+       hides everything else you own. Anything you own exactly one of still
+       renders as its own plain row, so the common case is unchanged.
+       2026-08-25, the first thing Corey hit after entering real gear. */
+    groupPools(groups[cat]).forEach(g => {
+      h += g.units.length > 1 ? poolRow(g.pool, g.units) : itemRow(g.units[0]);
+    });
+  });
+  if (isAdmin()) h += '<button class="btn ghost sm" style="width:100%;margin-top:1rem" data-view="inventory">Add or edit gear</button>';
+  return h;
+}
+
+/* ---- WEEK ---- */
+/* The Week tab answers one question: who has what, and is it back yet.
+   Shortage arithmetic used to live here with a red badge. It moved to
+   More > Check gear data, because until the CRM Systems are dialled in it is a
+   data-quality tool, not a wedding-day warning. 2026-08-11. */
+function viewWeek(){
+  const evs = upcoming(14);
+  const wknd = weekendEvents();
+  const late = overdueByPerson();
+  const lateNames = Object.keys(late);
+  let h = '';
+
+  if (lateNames.length) {
+    const n = overdueItems().length;
+    h += '<h2 class="sec">Not back yet (' + n + ')</h2>';
+    lateNames.sort().forEach(who => {
+      const list = late[who];
+      h += '<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline">'
+        + '<b style="font-size:.95rem">' + esc(who) + '</b>'
+        + '<span class="pill repair">' + list.length + ' out</span></div>'
+        + '<p class="tiny" style="margin:.2rem 0 .5rem">Due back ' + esc(prettyDay(dueFor(list[0]))) + '</p>';
+      list.slice(0,6).forEach(i => {
+        h += '<div class="kv"><span>' + esc(i.name) + '</span><b>' + esc(ago(i.since)) + '</b></div>';
+      });
+      if (list.length > 6) h += '<p class="tiny" style="margin:.5rem 0 0">and ' + (list.length-6) + ' more.</p>';
+      h += '</div>';
+    });
+  }
+
+  if (wknd.length) {
+    const people = peopleThisWeekend();
+    h += '<h2 class="sec">This weekend</h2>';
+    if (!people.length) {
+      h += '<p class="muted">' + wknd.length + ' event' + (wknd.length>1?'s':'')
+        + ', nobody assigned yet.</p>';
+    }
+    people.forEach(who => {
+      const events = weekendEvents(who);
+      const t = pullTotals(who);
+      const pct = t.want ? Math.round(t.got/t.want*100) : 0;
+      h += '<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline">'
+        + '<b style="font-size:1rem">' + esc(who) + '</b>'
+        + '<span class="tiny">' + t.got + ' of ' + t.want + ' picked up</span></div>'
+        + '<div class="progress"><i style="width:' + pct + '%"></i></div>'
+        + '<p class="tiny" style="margin:.5rem 0 0">'
+        + events.map(e => esc(plainDay(e.date)) + ' &middot; ' + esc(e.client || e.venue)).join('<br>')
+        + '</p></div>';
+    });
+  }
+
+  if (!evs.length) {
+    return h + '<div class="empty"><p style="margin:0 0 1rem">Nothing on the books for the next two weeks.</p>'
+      + '<button class="btn sm" data-view="import">Load this week from the CRM</button></div>';
+  }
+
+  const byDate = {};
+  evs.forEach(e => { (byDate[e.date] = byDate[e.date] || []).push(e); });
+  h += '<h2 class="sec">Next two weeks</h2>';
+  Object.keys(byDate).sort().forEach(d => {
+    h += '<p class="tiny" style="margin:.9rem 0 .35rem;font-weight:700">' + esc(prettyDay(d)) + '</p>';
+    byDate[d].forEach(e => { h += evCard(e, 0); });
+  });
+  h += '<button class="btn ghost sm" style="width:100%;margin-top:1rem" data-view="import">Import or add events</button>';
+  return h;
+}
+
+/* ---- gear data check (was: the shortage tab) ----
+   Corey's DJEP setup has holes he wants to close. This app imports Systems,
+   Equipment quantities and Events, so it can do the arithmetic and show where
+   the CRM data disagrees with reality. That is the useful job for this, not
+   crying wolf on a Saturday. */
+function dataHoles(){
+  const out = [];
+  const noSystem = S.items.filter(i => i.status !== 'retired'
+    && !S.kits.some(k => (k.items||[]).includes(i.id)));
+  if (noSystem.length) {
+    const pools = [...new Set(noSystem.map(poolOf))];
+    out.push({ t: pools.length + ' pieces of gear are not in any kit',
+      d: 'Nothing pulls these automatically for an event. Add them to a kit under More > Kits, '
+       + 'or accept they are grab-as-needed.',
+      list: pools.slice(0,12) });
+  }
+  const emptyKits = S.kits.filter(k => !(k.items||[]).length && !k.disabled);
+  if (emptyKits.length) {
+    out.push({ t: emptyKits.length + ' kits have no gear in them',
+      d: 'An event that asks for one of these pulls nothing. Open More > Kits and tick '
+       + 'the gear that belongs in it.',
+      list: emptyKits.map(k => k.name).slice(0,12) });
+  }
+  const unknown = [...new Set(S.events.flatMap(e => e.systemIds || [])
+    .filter(s => !S.kits.some(k => String(k.sysId) === String(s))))];
+  if (unknown.length) {
+    out.push({ t: unknown.length + ' System IDs on events have no matching System',
+      d: 'Events reference these but the Systems import does not know them. Re-import the Systems report.',
+      list: unknown.map(u => 'System ID ' + u) });
+  }
+  const noQty = S.items.filter(i => i.status !== 'retired' && supplyOf(poolOf(i)) === 1);
+  const singles = [...new Set(noQty.map(poolOf))];
+  if (singles.length) {
+    out.push({ t: singles.length + ' things you only own one of',
+      d: 'Worth a look. If you actually own more than one, open it and add the rest, '
+       + 'so the app stops warning you about days you can cover.',
+      list: singles.slice(0,15) });
+  }
+  return out;
+}
+function viewDatacheck(){
+  let h = backBtn('Back', 'more');
+  h += '<h2 class="sec" style="margin-top:.4rem">Check gear data</h2>';
+  h += '<div class="banner info"><b>A once-a-month look at your gear list, not a wedding-day warning</b>'
+    + 'This compares what you own against the events on the books. Where it disagrees with '
+    + 'what is really in the van, the gear list is what needs fixing.</div>';
+
+  const conf = conflicts();
+  if (conf.length) {
+    const dates = [...new Set(conf.map(c => c.date))];
+    h += '<h2 class="sec">Days the numbers do not add up (' + dates.length + ')</h2>';
+    const byDate = {};
+    conf.forEach(c => { (byDate[c.date] = byDate[c.date] || []).push(c); });
+    Object.keys(byDate).sort().slice(0,6).forEach(d => {
+      h += '<div class="card"><b style="font-size:.9rem">' + esc(prettyDay(d)) + '</b>'
+        + '<p class="tiny" style="margin:.15rem 0 .5rem">'
+        + byDate[d][0].events.map(e => esc(e.client || e.venue || 'Event')).join(' &middot; ') + '</p>';
+      byDate[d].forEach(c => {
+        h += '<div class="kv"><span>' + esc(c.pool) + '</span><b>need ' + c.need + ', own ' + c.have + '</b></div>';
+      });
+      h += '<p class="tiny" style="margin:.7rem 0 0">Either you own more of these than the gear list says, '
+        + 'or you genuinely need to rent one.</p></div>';
+    });
+  } else {
+    h += '<div class="banner ok"><b>Every booked date is covered</b>'
+      + 'Based on what you own right now.</div>';
+  }
+
+  const holes = dataHoles();
+  if (holes.length) {
+    h += '<h2 class="sec">Worth a look in your gear list</h2>';
+    holes.forEach(x => {
+      h += '<div class="card"><b style="font-size:.92rem">' + esc(x.t) + '</b>'
+        + '<p class="tiny" style="margin:.3rem 0 .5rem">' + x.d + '</p>'
+        + '<p class="tiny" style="color:var(--text-soft)">' + x.list.map(esc).join(' &middot; ') + '</p></div>';
+    });
+  } else {
+    h += '<div class="banner ok"><b>No gaps found</b>Every item belongs to a System and every System has gear.</div>';
+  }
+  return h;
+}
+
+/* ---- EVENT ---- */
+function viewEvent(id){
+  const e = eventById(id);
+  if (!e) return backBtn('Back','week') + '<div class="empty"><p>That event is gone.</p></div>';
+  const brand = String(e.brand||'COS').toUpperCase() === 'AE' ? 'ae' : 'cos';
+  const req = requiredItemIds(e);
+  const loaded = req.filter(x => { const i = itemById(x); return i && i.status === 'out'; }).length;
+  const conf = conflictsFor(e);
+
+  let h = backBtn('Back', 'week');
+  h += '<h2 class="sec" style="margin-top:.4rem">' + esc(prettyDay(e.date)) + (e.time ? ' &middot; ' + esc(e.time) : '') + '</h2>';
+  h += '<div class="card"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem">'
+    + '<span class="pill ' + brand + '">' + (brand==='ae'?'AE':'COS') + '</span>'
+    + (e.dj ? '<span class="pill retired">' + esc(e.dj) + (e.dj2 ? ' + ' + esc(e.dj2) : '') + '</span>' : '') + '</div>';
+  h += '<div style="font-size:1.2rem;font-weight:650;letter-spacing:-.01em">' + esc(e.client || 'Event') + '</div>';
+  h += '<div class="muted">' + esc(e.venue || '') + (e.city ? ', ' + esc(e.city) : '') + '</div>';
+  if (e.services) h += '<div class="kv" style="margin-top:.6rem"><span>Services</span><b>' + esc(e.services) + '</b></div>';
+  if (e.notes) h += '<div class="kv"><span>Notes</span><b>' + esc(e.notes) + '</b></div>';
+  h += '</div>';
+
+  if (conf.length) {
+    h += '<div class="banner warn"><b>Short on gear this date</b>'
+      + conf.map(c => esc(c.pool) + ': need ' + c.need + ', own ' + c.have).join('<br>')
+      + '<br><span class="tiny">Counting every event booked on ' + esc(e.date) + '.</span></div>';
+  }
+
+  h += '<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline">'
+    + '<b style="font-size:.9rem">Pull list</b><span class="tiny">' + loaded + ' of ' + req.length + ' checked out</span></div>'
+    + '<div class="progress"><i style="width:' + (req.length?Math.round(loaded/req.length*100):0) + '%"></i></div>'
+    + '<div class="row2" style="margin-top:.8rem">'
+    + '<button class="btn primary" data-pull="' + e.id + '">Open pull list</button>'
+    + '<button class="btn" data-cl="' + e.id + '">Checklists</button></div></div>';
+
+  h += '<h2 class="sec">Kits on this event</h2>';
+  kitsFor(e).forEach(k => {
+    h += '<div class="navrow" data-kitinfo="' + k.id + '"><span class="grow">' + esc(k.name)
+      + '<br><span class="tiny">' + (k.items||[]).length + ' items</span></span><span class="go"></span></div>';
+  });
+  h += '<button class="btn ghost sm" style="width:100%;margin-top:.8rem" data-editev="' + e.id + '">Edit this event</button>';
+  return h;
+}
+
+/* ---- PULL LIST ---- */
+/* id is either an event id, or the literal 'weekend' for one warehouse trip.
+   Rows are per POOL with a count, not per unit. Corey owns 40 uplights and a
+   single event wants 16 of them - forty checkboxes would be unusable, so this
+   is a stepper. Rewritten 2026-08-11 once the real inventory arrived. */
+function viewPull(id){
+  const isWk = id === 'weekend';
+  const e = isWk ? null : eventById(id);
+  if (!isWk && !e) return backBtn('Back','week') + '<div class="empty"><p>Event not found.</p></div>';
+
+  let need, head, sub, evs;
+  if (isWk) {
+    const wk = weekendPull(S.me);
+    if (!wk.events.length) return backBtn('Back','today') + '<div class="empty"><p>Nothing booked this weekend.</p></div>';
+    need = wk.need; evs = wk.events;
+    head = 'Warehouse pickup';
+    sub = evs.length + ' event' + (evs.length>1?'s':'') + ' &middot; '
+        + evs.map(x => esc(x.client || x.venue)).join(', ')
+        + '<br>Back by ' + esc(plainDay(nextMonday(evs[evs.length-1].date))) + '.';
+  } else {
+    need = poolNeeds(e); evs = [e];
+    head = 'Pull list';
+    sub = esc(e.client || 'Event') + ' &middot; ' + esc(prettyDay(e.date));
+  }
+
+  const pools = Object.keys(need).sort();
+  let h = backBtn(isWk ? 'Back' : 'Back to event', isWk ? 'today' : ('event:' + e.id));
+  h += '<h2 class="sec" style="margin-top:.4rem">' + head + '</h2>';
+  h += '<p class="muted" style="margin-top:-.2rem">' + sub + '</p>';
+
+  if (!pools.length) {
+    return h + '<div class="empty"><p>No gear matched this event.</p>'
+      + '<p class="tiny">If it should have some, check More &gt; Addon mapping.</p></div>';
+  }
+
+  const target = isWk ? 'weekend' : e.id;
+  const byCat = {};
+  pools.forEach(p => {
+    const any = S.items.find(i => poolOf(i) === p);
+    (byCat[any ? any.category : 'Other'] = byCat[any ? any.category : 'Other'] || []).push(p);
+  });
+
+  Object.keys(byCat).sort().forEach(cat => {
+    h += '<div class="kitblk"><h4>' + esc(cat) + '</h4>';
+    byCat[cat].forEach(p => {
+      const want = need[p];
+      const have = Math.min(heldCount(p, S.me), want);
+      const free = S.items.filter(i => poolOf(i) === p && i.status === 'in').length;
+      const owned = S.items.filter(i => poolOf(i) === p && i.status !== 'retired').length;
+      const done = have >= want;
+      const where = (S.items.find(i => poolOf(i) === p) || {}).home || '';
+      let note = where && where.toLowerCase() !== 'none' ? where : '';
+      if (!done && free === 0) note = 'None free - all ' + owned + ' are out';
+      h += '<div class="check" data-on="' + (done?1:0) + '" style="cursor:default">'
+        + '<span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 7"/></svg></span>'
+        + '<span class="txt" style="flex:1">' + esc(p)
+        + '<br><span class="tiny">' + have + ' of ' + want + ' taken'
+        + (owned > want ? ' &middot; ' + owned + ' owned' : '')
+        + (note ? ' &middot; ' + esc(note) : '') + '</span></span>'
+        + '<span style="display:flex;align-items:center;gap:.35rem;flex:none">'
+        + '<button class="btn sm" data-give="' + esc(p) + '" ' + (have?'':'disabled style="opacity:.35"') + '>&minus;</button>'
+        + '<b style="min-width:2.2em;text-align:center;font-size:1rem">' + have + '</b>'
+        + '<button class="btn sm" data-take="' + esc(p) + '" data-ev="' + target + '" '
+        + ((done||!free)?'disabled style="opacity:.35"':'') + '>+</button>'
+        + '</span></div>';
+    });
+    h += '</div>';
+  });
+
+  const tot = pools.reduce((a,p) => a + need[p], 0);
+  const mine = pools.reduce((a,p) => a + Math.min(heldCount(p, S.me), need[p]), 0);
+  h += '<div class="sticky-act">';
+  if (mine < tot) h += '<button class="btn primary" data-pullall="' + target + '">Take everything (' + (tot - mine) + ' left)</button>';
+  if (mine) h += '<button class="btn" style="margin-top:.5rem" data-inev="' + target + '">Return all ' + mine + '</button>';
+  h += '</div>';
+  return h;
+}
+
+/* ---- CHECKLISTS ---- */
+function viewChecklist(evId, clId){
+  const e = eventById(evId);
+  if (!e) return backBtn('Back','today') + '<div class="empty"><p>Event not found.</p></div>';
+
+  if (!clId) {
+    let h = backBtn('Back to event', 'event:' + e.id);
+    h += '<h2 class="sec" style="margin-top:.4rem">Checklists</h2>';
+    h += '<p class="muted" style="margin-top:-.2rem">' + esc(e.client || 'Event') + ' &middot; ' + esc(prettyDay(e.date)) + '</p>';
+    S.checklists.forEach(cl => {
+      const run = S.runs[runKey(e.id, cl.id)] || { checked: [] };
+      const n = (run.checked||[]).length, tot = cl.items.length;
+      const done = n >= tot;
+      h += '<button class="navrow" data-clopen="' + cl.id + '" data-ev="' + e.id + '">'
+        + '<span class="grow"><b>' + esc(cl.name) + '</b><br><span class="tiny">' + esc(cl.when) + '</span>'
+        + '<div class="progress" style="margin:.5rem 0 0"><i style="width:' + Math.round(n/tot*100) + '%"></i></div></span>'
+        + '<span class="pill ' + (done?'in':'retired') + '">' + n + '/' + tot + '</span></button>';
+    });
+    if (isAdmin()) h += '<button class="btn ghost sm" style="width:100%;margin-top:1rem" data-editcl="1">Edit checklist wording</button>';
+    return h;
+  }
+
+  const cl = S.checklists.find(c => c.id === clId);
+  if (!cl) return backBtn('Back','today');
+  const key = runKey(e.id, cl.id);
+  const run = S.runs[key] || { checked: [] };
+  const checked = run.checked || [];
+  const tot = cl.items.length;
+
+  let h = backBtn('All checklists', 'checklist:' + e.id);
+  h += '<h2 class="sec" style="margin-top:.4rem">' + esc(cl.name) + '</h2>';
+  h += '<p class="muted" style="margin-top:-.2rem">' + esc(e.client || 'Event') + ' &middot; ' + esc(prettyDay(e.date)) + '</p>';
+
+  if (checked.length >= tot) {
+    h += '<div class="alldone"><div class="big">You are good.</div><div class="tiny" style="color:#2E7D5A">'
+      + esc(cl.id === 'cl_leaving' ? 'Go. Drive safe.' : 'Nothing left on this list.') + '</div></div>';
+  } else {
+    h += '<div class="progress"><i style="width:' + Math.round(checked.length/tot*100) + '%"></i></div>'
+      + '<p class="tiny" style="margin:.3rem 0 1rem">' + checked.length + ' of ' + tot + ' done</p>';
+  }
+
+  cl.items.forEach((txt, idx) => {
+    const on = checked.includes(idx);
+    h += '<button class="check" data-clcheck="' + idx + '" data-cl="' + cl.id + '" data-ev="' + e.id + '" data-on="' + (on?1:0) + '">'
+      + '<span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 7"/></svg></span>'
+      + '<span class="txt">' + esc(txt) + '</span></button>';
+  });
+  if (checked.length) h += '<button class="btn ghost sm" style="width:100%;margin-top:1rem" data-clreset="' + cl.id + '" data-ev="' + e.id + '">Reset this list</button>';
+  return h;
+}
+function runKey(evId, clId){ return evId + '__' + clId + '__' + (S.me || 'anon').toLowerCase(); }
+
+/* ---- IMPORT ----
+   Three things come out of the CRM, on two different clocks:
+     Equipment List + Systems  = the inventory. Once, then when gear changes.
+     Events                    = the weekly dump.
+   The Equipment List report carries Quantity Available (how many we own) and
+   System Name (which package it belongs to), which is why this app does not
+   have to guess at either one. 2026-08-11. */
+const IMPORT_MODES = [
+  ['systems',   'Systems', 'Step 1. Your CRM Systems report. Do this first.'],
+  ['equipment', 'Gear',    'Step 2. Your CRM Equipment List report.'],
+  ['events',    'Events',  'Step 3, then every week. Your CRM Events report.'],
+  ['addons',    'Add Ons', 'Optional but worth it. Tells gear from services.']
+];
+function viewImport(){
+  const mode = S.importMode || 'events';
+  let h = backBtn('Back', 'week');
+  h += '<h2 class="sec" style="margin-top:.4rem">Import from the CRM</h2>';
+  h += '<div class="chips">';
+  IMPORT_MODES.forEach(([k,l]) => {
+    h += '<button class="chip" data-imode="' + k + '" aria-pressed="' + (mode===k) + '">' + l + '</button>';
+  });
+  h += '</div>';
+  h += '<p class="tiny" style="margin:-.2rem 0 .8rem">'
+    + esc((IMPORT_MODES.find(m => m[0] === mode) || [])[2] || '') + '</p>';
+
+  if (mode === 'events') {
+    h += '<div class="banner info"><b>Run this every week</b>'
+      + 'In the CRM open the <b>Events</b> report, filter to the next few weeks, select the rows and copy.'
+      + '<br><br>Fields to include:<br><br>'
+      + '<b>Event Date</b>, <b>Client Name</b>, <b>Venue Name</b>, Venue City, '
+      + '<b>Assigned Employee</b>, Assigned Employee 2, Start Time, Setup Time, '
+      + '<b>System 1</b> ... <b>System 10</b>, Package Name, Status, Event ID'
+      + '<br><br>The System columns are the important ones - they are what make the pull list exact '
+      + 'instead of a guess. Cancelled events are dropped automatically.</div>';
+    h += fileBlock('Event Date,Client Name,Venue Name,...');
+    h += '<div class="row2" style="margin-top:.7rem"><button class="btn" data-parse="1">Preview</button>'
+      + '<button class="btn ghost" data-addmanual="1">Add one by hand</button></div>';
+    h += '<div id="prev"></div>';
+    h += '<h2 class="sec">Events on file (' + S.events.length + ')</h2>';
+    if (!S.events.length) h += '<p class="muted">None yet.</p>';
+    S.events.slice().sort((a,b)=>a.date.localeCompare(b.date)).slice(-30).forEach(e => {
+      h += '<div class="log"><b>' + esc(e.date) + '</b> ' + esc(e.client || '') + ' &middot; ' + esc(e.venue || '')
+        + '<em>' + esc(e.dj || 'unassigned') + (e.services ? ' &middot; ' + esc(e.services) : '') + '</em></div>';
+    });
+    if (S.events.length) h += '<button class="btn danger sm" style="width:100%;margin-top:1rem" data-clearpast="1">Remove events older than 30 days</button>';
+    return h;
+  }
+
+  if (mode === 'equipment') {
+    h += '<div class="banner info"><b>This replaces the starter gear list</b>'
+      + 'In the CRM open the <b>Equipment List</b> report. Add these fields, run it, select all, copy, paste here:'
+      + '<br><br><b>Name</b>, Category, Manufacturer, Model Number, Serial Number, Location, '
+      + '<b>Quantity Available</b>, <b>System Name</b>, Is Active, Equipment ID, Notes'
+      + '<br><br>Quantity Available is the important one - it is how the app knows you own two of something '
+      + 'and stops warning you about a Saturday you can actually cover.</div>';
+    h += fileBlock('Name,Category,Location,Quantity Available,...');
+    h += '<button class="btn" style="margin-top:.7rem" data-parseeq="1">Preview</button>';
+    h += '<div id="prev"></div>';
+    const real = S.items.filter(i => !i.template).length;
+    h += '<h2 class="sec">Gear on file</h2>';
+    h += '<p class="muted">' + S.items.length + ' units'
+      + (real ? ', ' + real + ' imported or edited by hand' : ', all still the starter template') + '.</p>';
+    return h;
+  }
+
+  if (mode === 'addons') {
+    const n = Object.keys(S.addonCatalog || {}).length;
+    h += '<div class="banner info"><b>Teaches the app which add-ons are gear</b>'
+      + 'Your CRM has two separate lists that are easy to mix up: '
+      + '<b>Setup &gt; Equipment</b> is the 12 physical things you own. '
+      + '<b>Setup &gt; Add Ons</b> is the 200-odd things a client can buy - most of which are '
+      + 'services, not gear.'
+      + '<br><br>Importing the Add Ons list means the app stops asking you whether '
+      + '"2 Nights Hotel Stay" needs pulling from the warehouse.'
+      + '<br><br>In the CRM: <b>Reports</b>, find <b>Addons</b>, click the CSV icon.</div>';
+    if (n) h += '<div class="banner ok"><b>' + n + ' add-ons on file</b>'
+      + 'Re-import any time you add new ones in the CRM.</div>';
+    h += fileBlock('Addon ID,Name,Price,Category,Inactive');
+    h += '<button class="btn" style="margin-top:.7rem" data-parseaddons="1">Preview</button>';
+    h += '<div id="prev"></div>';
+    return h;
+  }
+
+  h += '<div class="banner info"><b>Only if you set Systems up later</b>'
+    + 'You currently have no Systems in the CRM, so this import has nothing to read. '
+    + 'Skip it - the Add Ons tab is the one that matters.'
+    + '<br><br>If Systems ever do get built: '
+    + 'the Events report refers to gear as <b>System 1</b> through <b>System 10</b>, and those are '
+    + 'ID numbers, not names. This import is what turns those numbers into kits. Without it the weekly '
+    + 'event import has to fall back to guessing from the package text.'
+    + '<br><br>In the CRM open the <b>Systems</b> report. Fields to include:'
+    + '<br><br><b>System ID</b>, <b>Name</b>, Category, Description, Location, Notes, Disabled</div>';
+  h += fileBlock('System ID,Name,Category,...');
+  h += '<button class="btn" style="margin-top:.7rem" data-parsesys="1">Preview</button>';
+  h += '<div id="prev"></div>';
+  h += '<h2 class="sec">Kits on file (' + S.kits.length + ')</h2>';
+  S.kits.forEach(k => {
+    h += '<div class="log"><b>' + esc(k.name) + '</b> &middot; ' + (k.items||[]).length + ' items'
+      + '<em>' + (k.always ? 'goes to every event' : 'attaches when the service is ordered') + '</em></div>';
+  });
+  return h;
+}
+
+
+/* The real Events export is 4.5 MB across 1,951 events. Copy-paste is not a
+   workable input for that, so every tab takes the downloaded file directly. */
+function fileBlock(placeholder){
+  let h = '<input type="file" id="csvFile" accept=".csv,.txt,.tsv,text/csv,text/plain" style="display:none">';
+  if (S.rawImport) {
+    h += '<div class="banner ok"><b>' + esc(S.rawName || 'File loaded') + '</b>'
+      + Math.round(S.rawImport.length/1024).toLocaleString() + ' KB loaded and ready. '
+      + 'Hit Preview below to see what it found.'
+      + '<br><br><button class="btn sm" data-clearfile="1">Use a different file</button></div>';
+  } else {
+    h += '<button class="btn" data-pickfile="1" style="margin-bottom:.5rem">Choose the downloaded file</button>'
+      + '<p class="tiny" style="margin:0 0 .7rem">In the CRM: <b>Reports</b>, find the row, click the '
+      + '<b>CSV</b> icon. It lands in your Downloads folder. Pick it here.</p>'
+      + '<details><summary class="tiny" style="cursor:pointer;color:var(--merlot)">or paste it instead</summary>'
+      + '<textarea id="csv" style="margin-top:.5rem" placeholder="' + placeholder + '"></textarea></details>';
+  }
+  return h;
+}
+function importText(){
+  if (S.rawImport) return S.rawImport;
+  const el = $('csv');
+  return el ? el.value : '';
+}
+
+/* ---- equipment + systems parsing ---- */
+const EQUIP_HINTS = {
+  name:    ['name'],
+  category:['category','type'],
+  brand:   ['manufacturer','brand','make'],
+  model:   ['model number','model','model #','model no'],
+  serial:  ['serial number','serial','serial #','serial no'],
+  home:    ['location','stored','storage'],
+  qty:     ['quantity available','quantity','qty','available','count'],
+  system:  ['system name','system','systems','package'],
+  active:  ['is active','active','enabled'],
+  eqid:    ['equipment id','equipmentid','id'],
+  notes:   ['notes','note'],
+  descr:   ['description','desc'],
+  value:   ['current value','value'],
+  price:   ['purchase price','price','cost'],
+  bought:  ['date of purchase','purchase date','purchased'],
+  vendor:  ['purchased from','vendor','supplier'],
+  insured: ['insured'],
+  warranty:['warranty length','warranty'],
+  rental:  ['rental fee'],
+  addon:   ['addon fee','add-on fee']
+};
+/* The CRM has TWO separate lists and they are easy to confuse:
+     Setup > Equipment  = 12 physical things you own (what the warehouse holds)
+     Setup > Add Ons    = 207 sellable line items (what a client can buy)
+   Only 13 add-ons are categorised FX / Lighting / Photo Booths, and those
+   categories mirror the equipment categories exactly. That category is the
+   cleanest signal for "is this addon actually gear, or is it a saxophone
+   player". Everything uncategorised is almost always a service. 2026-08-12. */
+const GEAR_CATEGORIES = ['fx', 'lighting', 'photo booths', 'photo booth'];
+const ADDON_HINTS = {
+  name:     ['name','addon name'],
+  category: ['category'],
+  inactive: ['inactive'],
+  price:    ['price'],
+  addonId:  ['addon id','addonid']
+};
+/* THE GOOD ONE. Buried in the addon's Quote Generator Settings blob is
+     <ASSIGNED_EQUIPMENT_STAND_ALONE>1=16,6=2,9=4</ASSIGNED_EQUIPMENT_STAND_ALONE>
+   which is equipmentId=quantity. DJEP already knows that "Lighting Experience"
+   means 16 Uplights + 2 Moving Heads + 4 Tube Lights. That is authoritative and
+   beats any name matching we could invent. Found 2026-08-12 in the live export.
+   Only the categorised add-ons have it filled in; the rest fall back to the
+   name matcher. */
+function parseAssignedEquipment(blob){
+  const m = String(blob || '').match(/<ASSIGNED_EQUIPMENT_STAND_ALONE>([^<]*)<\/ASSIGNED_EQUIPMENT_STAND_ALONE>/i);
+  if (!m || !m[1].trim()) return [];
+  return m[1].split(',').map(pair => {
+    const [id, qty] = pair.split('=');
+    const n = parseInt(qty, 10);
+    if (!id || !isFinite(n) || n < 1) return null;
+    return { eqId: String(id).trim(), qty: n };
+  }).filter(Boolean);
+}
+function rowsToAddonCatalog(parsed){
+  const map = mapHeaders(parsed.head, ADDON_HINTS);
+  const qgIdx = parsed.head.indexOf('quote generator settings');
+  const rows = parsed.rows.map(r => {
+    const g = f => (map[f] !== undefined ? String(r[map[f]] || '').trim() : '');
+    const name = g('name');
+    if (!name) return null;
+    return { name, category: g('category'), inactive: truthy(g('inactive')),
+             gear: qgIdx >= 0 ? parseAssignedEquipment(r[qgIdx]) : [] };
+  }).filter(Boolean);
+  return { map, rows };
+}
+/* equipment id -> pool name, from whatever the gear import produced */
+function poolByEqId(eqId){
+  const hit = S.items.find(i => String(i.eqId) === String(eqId));
+  return hit ? poolOf(hit) : null;
+}
+function addonInfo(name){
+  return (S.addonCatalog || {})[String(name || '').toLowerCase()] || null;
+}
+/* true = definitely gear, false = definitely not, null = no catalog opinion */
+function addonIsGear(name){
+  const info = addonInfo(name);
+  if (!info) return null;
+  if (!info.category) return null;                      // uncategorised: undecided
+  return GEAR_CATEGORIES.includes(info.category.toLowerCase());
+}
+const SYS_HINTS = {
+  name:    ['name','system name'],
+  category:['category','type'],
+  descr:   ['description','desc'],
+  home:    ['location'],
+  notes:   ['notes','note'],
+  sysid:   ['system id','systemid','id'],
+  disabled:['disabled','is disabled']
+};
+function mapHeaders(head, hints){
+  const map = {};
+  Object.keys(hints).forEach(f => {
+    const i = head.findIndex(h => hints[f].includes(h));
+    if (i >= 0) map[f] = i;
+  });
+  return map;
+}
+function truthy(v){
+  const s = String(v == null ? '' : v).trim().toLowerCase();
+  return s === 'true' || s === 'yes' || s === 'y' || s === '1' || s === 'x' || s === 'active';
+}
+function falsy(v){
+  const s = String(v == null ? '' : v).trim().toLowerCase();
+  return s === 'false' || s === 'no' || s === 'n' || s === '0';
+}
+function rowsToEquipment(parsed){
+  const map = mapHeaders(parsed.head, EQUIP_HINTS);
+  const rows = parsed.rows.map(r => {
+    const g = f => (map[f] !== undefined ? String(r[map[f]] || '').trim() : '');
+    const name = g('name');
+    if (!name) return null;
+    let qty = parseInt(g('qty'), 10);
+    if (!isFinite(qty) || qty < 1) qty = 1;
+    if (qty > 60) qty = 60;                       // a typo like 500 should not create 500 rows
+    const activeRaw = g('active');
+    return {
+      eqid: g('eqid') || ('n' + name.toLowerCase().replace(/[^a-z0-9]+/g,'-')),
+      name, qty,
+      category: g('category') || 'Uncategorised',
+      brand: g('brand'), model: g('model'), serial: g('serial'),
+      home: g('home') || 'Not set',
+      system: g('system'),
+      /* blank Is Active means active - do not retire a whole inventory because
+         the column was left out of the report */
+      active: activeRaw === '' ? true : !falsy(activeRaw),
+      notes: [g('notes'), g('descr')].filter(Boolean).join(' - '),
+      extra: { value:g('value'), price:g('price'), bought:g('bought'), vendor:g('vendor'),
+               insured:truthy(g('insured')), warranty:g('warranty'),
+               rental:g('rental'), addon:g('addon') }
+    };
+  }).filter(Boolean);
+  return { map, rows };
+}
+/* Expand one CRM row of qty N into N trackable units, because the useful
+   question is "who has which one", not "how many are gone". Re-importing
+   must never clobber a unit that is currently checked out. */
+function equipmentToUnits(rows){
+  const units = [], kits = {};
+  rows.forEach(r => {
+    for (let n = 1; n <= r.qty; n++) {
+      const id = 'dj-' + r.eqid + '-' + n;
+      const existing = S.items.find(i => i.id === id);
+      units.push({
+        id,
+        eqId: r.eqid,
+        name: r.qty > 1 ? r.name + ' ' + n : r.name,
+        pool: r.name,                      // supply = the CRM Quantity Available
+        category: r.category,
+        brand: r.brand, model: r.model,
+        serial: n === 1 ? r.serial : '',   // a serial belongs to one physical unit
+        home: r.home,
+        notes: r.notes,
+        crm: r.extra,
+        template: false,
+        /* preserve anything a person has already done to this unit */
+        status: existing ? existing.status : (r.active ? 'in' : 'retired'),
+        holder: existing ? existing.holder : '',
+        holderUid: existing ? existing.holderUid : '',
+        eventId: existing ? existing.eventId : '',
+        since: existing ? existing.since : ''
+      });
+      if (!r.active && !existing) units[units.length-1].status = 'retired';
+      /* one unit per equipment row per kit: a System is one deployable package,
+         and Quantity Available is how many packages you can field at once */
+      if (r.system && n === 1) {
+        const kid = 'sys_' + r.system.toLowerCase().replace(/[^a-z0-9]+/g,'_');
+        (kits[kid] = kits[kid] || { id: kid, name: r.system, items: [], fromCrm: true }).items.push(id);
+      }
+    }
+  });
+  return { units, kits: Object.values(kits) };
+}
+function rowsToSystems(parsed){
+  const map = mapHeaders(parsed.head, SYS_HINTS);
+  const rows = parsed.rows.map(r => {
+    const g = f => (map[f] !== undefined ? String(r[map[f]] || '').trim() : '');
+    const name = g('name');
+    if (!name) return null;
+    return { name, sysid: g('sysid'), category:g('category'), descr:g('descr'), home:g('home'),
+             notes:g('notes'), disabled: truthy(g('disabled')) };
+  }).filter(Boolean);
+  return { map, rows };
+}
+
+const HEADER_HINTS = {
+  date:   ['date','event date','eventdate','day','when'],
+  client: ['client name','client','couple','clients','bride','contact','name'],
+  venue:  ['venue name','venue','location','site','place'],
+  city:   ['venue city','city','town','area'],
+  dj:     ['assigned employee','dj','staff','talent','assigned','entertainer','tech','employee'],
+  dj2:    ['assigned employee 2','dj2','second dj','assistant','helper','2nd'],
+  dj3:    ['assigned employee 3'],
+  services:['services','service','add-ons','addons','items','products','notes/services'],
+  pkg:    ['package name','package'],
+  descr:  ['service description'],
+  time:   ['start time','time','start','call','call time','arrival'],
+  setup:  ['setup time','load in','load-in'],
+  endt:   ['end time'],
+  brand:  ['brand','company','business'],
+  notes:  ['notes','note','comments','details','booking comments'],
+  eventId:['event id','eventid'],
+  status: ['status'],
+  etype:  ['event type'],
+  guests: ['guest count','guests'],
+  room:   ['room 1','room'],
+  eventName:['event name']
+};
+/* The CRM Events report exposes gear as System 1..System 10, and they are
+   integer System IDs, not names. That is why the Systems report has to be
+   imported first - it is the ID to name lookup. Same story for Assigned
+   Employee, which is an employee ID. 2026-08-11. */
+function systemCols(head){
+  const out = [];
+  head.forEach((h,i) => { if (/^system\s*\d+$/.test(h)) out.push(i); });
+  return out;
+}
+function addonCols(head){
+  const out = [];
+  head.forEach((h,i) => { if (/^addon\s*\d+$/.test(h)) out.push(i); });
+  return out;
+}
+/* Addon N pairs with Addon N Quantity. This is the real gear-to-event link in
+   Corey's CRM - Systems are unused, but events say things like
+   "Uplight x16, Selfie Photo Booth x1". Verified against the live export
+   2026-08-11. */
+function addonPairs(head){
+  const out = [];
+  head.forEach((h,i) => {
+    const m = h.match(/^addon\s*(\d+)$/);
+    if (!m) return;
+    out.push({ nameIdx: i, qtyIdx: head.indexOf('addon ' + m[1] + ' quantity') });
+  });
+  return out;
+}
+/* "Uplighting (12)" and "Uplights" have to resolve to the same gear, so compare
+   stemmed word sets rather than raw strings. */
+function stemTokens(s){
+  return String(s || '').toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/).filter(Boolean)
+    .map(w => w.replace(/ing$/, '').replace(/s$/, ''))
+    .filter(w => w.length > 1);
+}
+/* A count baked into the addon name ("Uplighting (12)") is per-unit, and
+   multiplies by the ordered quantity. */
+const WORD_NUM = { one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8,
+                   nine:9, ten:10, eleven:11, twelve:12, sixteen:16, twenty:20 };
+function countInName(name){
+  const s = String(name || '').toLowerCase();
+  const paren = s.match(/\((\d+)\)/);
+  if (paren) return parseInt(paren[1], 10);
+  for (const w in WORD_NUM) if (new RegExp('\\b' + w + '\\b').test(s)) return WORD_NUM[w];
+  const trail = s.match(/\b(\d+)\s*$/);
+  if (trail) return parseInt(trail[1], 10);
+  return 1;
+}
+/* Best equipment pool for an addon name: every word of the equipment name must
+   appear in the addon name, and the most specific winner takes it, so
+   "Battery Cold Sparks" does not get grabbed by "Cold Sparks". */
+function matchPool(addonName, pools){
+  const a = new Set(stemTokens(addonName));
+  let best = null, bestLen = 0;
+  pools.forEach(p => {
+    const t = stemTokens(p);
+    if (!t.length || !t.every(w => a.has(w))) return;
+    if (t.length > bestLen) { best = p; bestLen = t.length; }
+  });
+  return best;
+}
+function allPools(){
+  return [...new Set(S.items.filter(i => i.status !== 'retired').map(poolOf))];
+}
+/* addon list on an event -> { poolName: unitsNeeded } */
+function addonNeeds(ev){
+  const pools = allPools(), need = {};
+  (ev.addons || []).forEach(a => {
+    const manual = (S.addonMap || {})[a.name.toLowerCase()];
+    if (manual === '') return;                       // told to ignore
+    const ordered = a.qty || 1;
+
+    /* 1. the CRM's own equipment assignment. Exact, no guessing. */
+    if (!manual) {
+      const info = addonInfo(a.name);
+      if (info && (info.gear || []).length) {
+        info.gear.forEach(g => {
+          const pool = poolByEqId(g.eqId);
+          if (pool) need[pool] = (need[pool] || 0) + g.qty * ordered;
+        });
+        return;
+      }
+      if (addonIsGear(a.name) === false) return;     // catalog says it is a service
+    }
+    /* 2. fall back to matching on the name */
+    const pool = manual || matchPool(a.name, pools);
+    if (!pool) return;
+    need[pool] = (need[pool] || 0) + countInName(a.name) * ordered;
+  });
+  return need;
+}
+function unmatchedAddons(){
+  const pools = allPools(), out = {};
+  S.events.forEach(e => (e.addons || []).forEach(a => {
+    const k = a.name.toLowerCase();
+    if ((S.addonMap || {})[k] !== undefined) return;
+    const info = addonInfo(a.name);
+    if (info && (info.gear || []).length) return;  // CRM already assigns equipment
+    if (addonIsGear(a.name) === false) return;     // catalog says service
+    if (matchPool(a.name, pools)) return;
+    out[a.name] = (out[a.name] || 0) + 1;
+  }));
+  return out;
+}
+/* Real statuses in Corey's DJEP, read off the live export 2026-08-11:
+     Booked | PIF - Booked | AE - Booked | AE - PIF - Booked
+     Quote Sent | Contract Sent | Contract Rcvd - Nd Dep
+     Never Booked | AE - Never Booked | Never Did First Call | Cancelled
+   Only the four "Booked" variants are real work. Everything else is a lead, and
+   pulling gear for a lead would be nonsense. Note "Never Booked" contains the
+   word booked, hence the never check first. */
+function eventIsLive(status){
+  const s = String(status || '').toLowerCase().trim();
+  if (!s) return true;                 // no status column: assume it is real
+  if (s.includes('never')) return false;
+  return s.includes('booked');
+}
+/* The "AE - " status prefix is how DJEP distinguishes the two businesses. */
+function brandFromStatus(status){
+  return /^\s*ae\b/i.test(String(status || '')) ? 'AE' : '';
+}
+/* 1,951 events live in that export. Only bring forward what is still relevant. */
+const IMPORT_PAST_DAYS = 14;
+/* Full CSV scanner. Splitting on newlines first was wrong: the real DJEP
+   Equipment export has line breaks INSIDE quoted Notes fields ("16 Rockville
+   Best Par 50\n8 Both Lighting S4"), which turned one piece of gear into three
+   broken rows. Found 2026-08-11 against the live export. */
+function splitTable(text, delim){
+  const rows = []; let f = '', row = [], q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"' && text[i+1] === '"') { f += '"'; i++; }
+      else if (c === '"') q = false;
+      else f += c;
+    }
+    else if (c === '"') q = true;
+    else if (c === delim) { row.push(f); f = ''; }
+    else if (c === '\n') { row.push(f); rows.push(row); row = []; f = ''; }
+    else if (c !== '\r') f += c;
+  }
+  if (f !== '' || row.length) { row.push(f); rows.push(row); }
+  return rows;
+}
+function parsePaste(text){
+  text = String(text || '').replace(/^﻿/, '').trim();
+  if (!text) return null;
+  const firstLine = text.split('\n')[0];
+  const delim = (firstLine.match(/\t/g) || []).length >= (firstLine.match(/,/g) || []).length ? '\t' : ',';
+  const all = splitTable(text, delim).filter(r => r.length && r.some(c => String(c).trim()));
+  if (all.length < 2) return null;
+  const head = all[0].map(s => String(s).trim().toLowerCase());
+  const rows = all.slice(1).map(r => r.map(c => String(c).trim()));
+  const map = mapHeaders(head, HEADER_HINTS);
+  if (map.date === undefined) {
+    const idx = head.findIndex(h => h.includes('date'));
+    if (idx >= 0) map.date = idx;
+  }
+  return { head, map, rows };
+}
+function normDate(s){
+  s = String(s||'').trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+  let m = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+  if (m) {
+    let [,a,b,y] = m;
+    if (y.length === 2) y = '20' + y;
+    return y + '-' + String(a).padStart(2,'0') + '-' + String(b).padStart(2,'0');
+  }
+  const d = new Date(s);
+  if (!isNaN(d)) return ymd(d);
+  return '';
+}
+function guessBrand(row, map){
+  const raw = (map.brand !== undefined ? row[map.brand] : '') + ' ' +
+              (map.services !== undefined ? row[map.services] : '') + ' ' +
+              (map.notes !== undefined ? row[map.notes] : '');
+  return /\bae\b|entertainment/i.test(raw) ? 'AE' : 'COS';
+}
+const isNum = s => /^\d+$/.test(String(s||'').trim());
+/* an employee id becomes a name once Corey has mapped it; until then show the
+   id rather than pretending we know who it is */
+function staffName(v){
+  const s = String(v == null ? '' : v).trim();
+  if (!s) return '';
+  if (!isNum(s)) return s;
+  return (S.staff && S.staff[s]) ? S.staff[s] : 'Employee ' + s;
+}
+function rowsToEvents(parsed){
+  const { map, rows, head } = parsed;
+  const sysIdx = systemCols(head || []);
+  const addIdx = addonCols(head || []);
+  return rows.map(r => {
+    const get = f => (map[f] !== undefined ? String(r[map[f]] || '').trim() : '');
+    const date = normDate(get('date'));
+    if (!date) return null;
+    const status = get('status');
+    if (!eventIsLive(status)) return null;
+    if (dayDiff(date, today()) > IMPORT_PAST_DAYS) return null;
+
+    const systemIds = sysIdx.map(i => String(r[i] || '').trim()).filter(v => v && v !== '0');
+    /* Addons carry the gear. Names with quantities, e.g. Uplight x16. Bare
+       numeric values are ids with no catalog to resolve them, so skip those. */
+    const addons = addonPairs(head || []).map(({nameIdx, qtyIdx}) => {
+      const nm = String(r[nameIdx] || '').trim();
+      if (!nm || nm === '0' || isNum(nm)) return null;
+      const q = parseInt(qtyIdx >= 0 ? r[qtyIdx] : '1', 10);
+      return { name: nm, qty: (isFinite(q) && q > 0) ? q : 1 };
+    }).filter(Boolean);
+    const addonWords = addons.map(a => a.name);
+    const services = [get('pkg'), get('services'), ...addonWords, get('descr')]
+      .filter(Boolean).join(', ');
+
+    return {
+      id: get('eventId') ? 'crm-' + get('eventId') : uid('e'),
+      date,
+      client: get('client') || get('eventName'),
+      venue: get('venue'), city: get('city'),
+      dj: staffName(get('dj')), dj2: staffName(get('dj2')),
+      dj3: staffName(get('dj3')),
+      djRaw: get('dj'), dj2Raw: get('dj2'), dj3Raw: get('dj3'),
+      services,
+      systemIds, addons,
+      time: get('time'), setup: get('setup'), endt: get('endt'),
+      notes: [get('notes'), get('room') ? 'Room: ' + get('room') : '',
+              get('guests') ? get('guests') + ' guests' : ''].filter(Boolean).join(' - '),
+      status, etype: get('etype'),
+      brand: brandFromStatus(status) || guessBrand(r, map),
+      extraKits: [], source: 'crm',
+      imported: new Date().toISOString()
+    };
+  }).filter(Boolean);
+}
+function dupeOf(e){
+  return S.events.some(x => x.id === e.id
+    || (x.date === e.date && x.client === e.client && x.venue === e.venue));
+}
+function renderPreview(evs, parsed){
+  const p = $('prev'); if (!p) return;
+  if (!evs.length) {
+    p.innerHTML = '<div class="banner warn"><b>Could not read that</b>No usable dates found. '
+      + 'Make sure the first row is column headings and one of them says Event Date.</div>';
+    return;
+  }
+  const dupes = evs.filter(dupeOf).length;
+  const sysCount = systemCols(parsed.head).length;
+  const withSys = evs.filter(e => (e.systemIds||[]).length).length;
+  const resolved = evs.filter(e => (e.systemIds||[]).some(s => S.kits.some(k => String(k.sysId) === String(s)))).length;
+  const unknownSys = [...new Set(evs.flatMap(e => e.systemIds||[])
+    .filter(s => !S.kits.some(k => String(k.sysId) === String(s))))];
+
+  let h = '<div class="banner ok"><b>' + evs.length + ' event' + (evs.length>1?'s':'') + ' found</b>'
+    + 'Columns matched: ' + Object.keys(parsed.map).join(', ')
+    + (dupes ? '<br>' + dupes + ' already on file, they will be skipped.' : '') + '</div>';
+
+  /* be straight about how the gear got matched - guessing dressed up as
+     certainty is how you end up trusting a pull list that is wrong */
+  if (!sysCount) {
+    h += '<div class="banner warn"><b>No System columns in this report</b>'
+      + 'Gear will be matched by reading keywords out of the package and service text, which is a guess. '
+      + 'Add <b>System 1</b> through <b>System 10</b> to the Events report and paste again to make it exact.</div>';
+  } else if (!withSys) {
+    h += '<div class="banner warn"><b>System columns are there but empty</b>'
+      + 'No event has a system attached in the CRM. Falling back to keyword matching. '
+      + 'Attaching systems to events in the CRM is what makes this exact.</div>';
+  } else {
+    h += '<div class="banner ok"><b>' + resolved + ' of ' + evs.length + ' events matched gear exactly</b>'
+      + 'Read straight from the System columns. No guessing.'
+      + (unknownSys.length ? '<br><br><b>System IDs I do not recognise: ' + unknownSys.join(', ') + '.</b> '
+          + 'Import the Systems report first so these have names.' : '') + '</div>';
+  }
+
+  // employee IDs need names, once
+  const rawIds = [...new Set(evs.flatMap(e => [e.djRaw, e.dj2Raw, e.dj3Raw])
+    .filter(v => v && isNum(v) && !(S.staff||{})[v]))];
+  if (rawIds.length) {
+    h += '<div class="card"><b style="font-size:.9rem">Who are these people?</b>'
+      + '<p class="tiny" style="margin:.2rem 0 .6rem">The CRM gives Assigned Employee as an ID number. '
+      + 'Set them once here and every future import knows the names.</p>';
+    rawIds.forEach(id => {
+      h += '<div class="kv"><span>Employee ' + esc(id) + '</span><b>'
+        + '<select data-staffid="' + esc(id) + '" style="width:auto;padding:.3rem .5rem">'
+        + '<option value="">not set</option>'
+        + ROSTER.map(n => '<option>' + esc(n) + '</option>').join('')
+        + '</select></b></div>';
+    });
+    h += '<button class="btn sm" style="width:100%;margin-top:.7rem" data-savestaff="1">Save names</button></div>';
+  }
+
+  h += '<div class="scrollx"><table class="prev"><tr><th>Date</th><th>Client</th><th>Venue</th><th>Who</th><th>Kits it will pull</th></tr>';
+  evs.slice(0,12).forEach(e => {
+    const kits = kitsFor(e);
+    h += '<tr><td>' + esc(e.date) + (e.setup ? '<br><span class="tiny">setup ' + esc(e.setup) + '</span>' : '')
+      + '</td><td>' + esc(e.client) + '</td><td>' + esc(e.venue) + '</td><td>'
+      + esc([e.dj, e.dj2, e.dj3].filter(Boolean).join(', ')) + '</td><td>'
+      + (kits.length ? kits.map(k => esc(k.name)).join(', ')
+                     : '<span style="color:var(--red)">nothing matched</span>') + '</td></tr>';
+  });
+  h += '</table></div>';
+  if (evs.length > 12) h += '<p class="tiny">Showing the first 12 of ' + evs.length + '.</p>';
+  const nothing = evs.filter(e => !kitsFor(e).length).length;
+  if (nothing) h += '<p class="tiny" style="color:var(--red)">' + nothing
+    + ' event(s) matched no gear at all. They will import, but their pull list will be empty.</p>';
+  h += '<button class="btn primary" style="margin-top:.8rem" data-doimport="1">Import ' + (evs.length - dupes) + ' events</button>';
+  p.innerHTML = h;
+  p._evs = evs;
+}
+
+function previewEquipment(parsed){
+  const p = $('prev'); if (!p) return;
+  const { map, rows } = rowsToEquipment(parsed);
+  if (!rows.length) {
+    p.innerHTML = '<div class="banner warn"><b>Could not read that</b>No rows with a Name column. '
+      + 'Make sure the first row is the column headings and one of them is Name.</div>';
+    return;
+  }
+  const { units, kits } = equipmentToUnits(rows);
+  const totalUnits = units.length;
+  const multi = rows.filter(r => r.qty > 1);
+  const inactive = rows.filter(r => !r.active).length;
+  const keeping = units.filter(u => { const e = S.items.find(i => i.id === u.id); return e && e.status === 'out'; }).length;
+
+  let h = '<div class="banner ok"><b>' + rows.length + ' equipment rows, ' + totalUnits + ' trackable units</b>'
+    + 'Columns matched: ' + Object.keys(map).join(', ');
+  if (!map.qty) h += '<br><br><b>No Quantity Available column.</b> Everything will be treated as one unit each, '
+    + 'which will over-report shortages. Add that field to the report and paste again.';
+  if (!map.system) h += '<br><br>No System Name column, so no kits will be built from this. '
+    + 'Add that field if you want your CRM packages to come across.';
+  h += '</div>';
+
+  if (multi.length) {
+    h += '<div class="card"><b style="font-size:.9rem">Things you own more than one of</b>'
+      + '<p class="tiny" style="margin:.2rem 0 .5rem">This is what makes the shortage warnings honest.</p>';
+    multi.slice(0,10).forEach(r => {
+      h += '<div class="kv"><span>' + esc(r.name) + '</span><b>' + r.qty + ' units</b></div>';
+    });
+    if (multi.length > 10) h += '<p class="tiny" style="margin:.5rem 0 0">and ' + (multi.length-10) + ' more.</p>';
+    h += '</div>';
+  }
+  if (kits.length) {
+    h += '<div class="card"><b style="font-size:.9rem">' + kits.length + ' kits from your Systems</b>'
+      + '<p class="tiny" style="margin:.2rem 0 .5rem">One unit of each piece of equipment per kit. '
+      + 'If a rig really needs two of something, add the second in More &gt; Kits.</p>';
+    kits.slice(0,8).forEach(k => {
+      h += '<div class="kv"><span>' + esc(k.name) + '</span><b>' + k.items.length + ' items</b></div>';
+    });
+    if (kits.length > 8) h += '<p class="tiny" style="margin:.5rem 0 0">and ' + (kits.length-8) + ' more.</p>';
+    h += '</div>';
+  }
+
+  h += '<div class="scrollx"><table class="prev"><tr><th>Name</th><th>Qty</th><th>Category</th><th>Where</th><th>System</th></tr>';
+  rows.slice(0,12).forEach(r => {
+    h += '<tr><td>' + esc(r.name) + (r.active ? '' : ' <span class="tiny">(inactive)</span>') + '</td><td>' + r.qty
+      + '</td><td>' + esc(r.category) + '</td><td>' + esc(r.home) + '</td><td>' + esc(r.system) + '</td></tr>';
+  });
+  h += '</table></div>';
+  if (rows.length > 12) h += '<p class="tiny">Showing the first 12 of ' + rows.length + '.</p>';
+  if (inactive) h += '<p class="tiny">' + inactive + ' row(s) marked not active will come in as Retired.</p>';
+  if (keeping) h += '<p class="tiny">' + keeping + ' unit(s) are checked out right now. Their status stays as it is.</p>';
+
+  h += '<div class="banner warn" style="margin-top:1rem"><b>This replaces the gear list</b>'
+    + 'Units not in this paste are removed, except anything currently checked out or flagged - '
+    + 'those are kept and marked Retired so you do not lose track of them.</div>';
+  h += '<button class="btn primary" data-doeq="1">Replace gear list with these ' + totalUnits + ' units</button>';
+  p.innerHTML = h;
+  p._eq = { units, kits, rows };
+}
+
+function previewAddonCatalog(parsed){
+  const p = $('prev'); if (!p) return;
+  const { map, rows } = rowsToAddonCatalog(parsed);
+  if (!rows.length) {
+    p.innerHTML = '<div class="banner warn"><b>Could not read that</b>No rows with a Name column.</div>';
+    return;
+  }
+  const gear = rows.filter(r => GEAR_CATEGORIES.includes(String(r.category||'').toLowerCase()));
+  const uncat = rows.filter(r => !r.category);
+  const inactive = rows.filter(r => r.inactive).length;
+  const byCat = {};
+  gear.forEach(r => { (byCat[r.category] = byCat[r.category] || []).push(r.name); });
+
+  let h = '<div class="banner ok"><b>' + rows.length + ' add-ons</b>'
+    + gear.length + ' are categorised as gear, ' + uncat.length + ' have no category, '
+    + inactive + ' are inactive.</div>';
+  Object.keys(byCat).sort().forEach(c => {
+    h += '<div class="card"><b style="font-size:.9rem">' + esc(c) + ' (' + byCat[c].length + ')</b>'
+      + '<p class="tiny" style="margin:.3rem 0 0">' + byCat[c].map(esc).join(' &middot; ') + '</p></div>';
+  });
+  h += '<div class="banner info"><b>The uncategorised ones</b>'
+    + 'Anything without a category is treated as undecided, not ignored - so older gear names like '
+    + '"Uplighting (12)" still match. Categorising them in the CRM would make this exact.</div>';
+  h += '<button class="btn primary" data-doaddons="1">Use these ' + rows.length + ' add-ons</button>';
+  p.innerHTML = h;
+  p._addons = rows;
+}
+function previewSystems(parsed){
+  const p = $('prev'); if (!p) return;
+  const { map, rows } = rowsToSystems(parsed);
+  if (!rows.length) {
+    p.innerHTML = '<div class="banner warn"><b>Could not read that</b>No rows with a Name column.</div>';
+    return;
+  }
+  const known = rows.filter(r => S.kits.some(k => k.name.toLowerCase() === r.name.toLowerCase())).length;
+  let h = '<div class="banner ok"><b>' + rows.length + ' systems</b>Columns matched: ' + Object.keys(map).join(', ')
+    + '<br>' + known + ' already exist as kits and will be updated. '
+    + (rows.length - known) + ' will be created empty - add gear to them in More &gt; Kits, '
+    + 'or import the Equipment List with a System Name column and they fill themselves.</div>';
+  h += '<div class="scrollx"><table class="prev"><tr><th>Name</th><th>Category</th><th>Where</th><th>Status</th></tr>';
+  rows.slice(0,15).forEach(r => {
+    h += '<tr><td>' + esc(r.name) + '</td><td>' + esc(r.category) + '</td><td>' + esc(r.home)
+      + '</td><td>' + (r.disabled ? 'Disabled' : 'Active') + '</td></tr>';
+  });
+  h += '</table></div>';
+  h += '<button class="btn primary" style="margin-top:.8rem" data-dosys="1">Apply ' + rows.length + ' systems</button>';
+  p.innerHTML = h;
+  p._sys = rows;
+}
+
+/* ---- KITS ---- */
+function viewKits(){
+  let h = backBtn('Back', 'more');
+  h += '<h2 class="sec" style="margin-top:.4rem">Kits</h2>';
+  h += '<p class="muted" style="margin-top:-.2rem">A kit is what someone actually grabs. Kits marked <b>Always</b> go to every event. '
+    + 'The rest get added when those words show up in an event\'s Services.</p>';
+  S.kits.forEach(k => {
+    h += '<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:.6rem">'
+      + '<b style="font-size:.95rem">' + esc(k.name) + '</b>'
+      + (k.always ? '<span class="pill in">Always</span>' : '<span class="pill retired">On request</span>') + '</div>';
+    h += '<p class="tiny" style="margin:.4rem 0 .5rem">' + (k.items||[]).map(i => { const it = itemById(i); return esc(it?it.name:i); }).join(' &middot; ') + '</p>';
+    h += '<button class="btn ghost sm" data-editkit="' + k.id + '">Edit contents</button></div>';
+  });
+  return h;
+}
+
+/* ---- INVENTORY ADMIN ---- */
+function viewInventory(){
+  let h = backBtn('Back', 'gear');
+  h += '<h2 class="sec" style="margin-top:.4rem">Add or edit gear</h2>';
+  const tpl = S.items.filter(i => i.template).length;
+  if (tpl) h += '<div class="banner info"><b>' + tpl + ' items are still the starter template</b>'
+    + 'These are placeholder names to get you going, not a record of what COS and AE actually own. '
+    + 'Rename them to match your real gear, delete what you do not have, and add what is missing.'
+    + (isAdmin() ? '<button class="btn sm danger" style="width:100%;margin-top:.6rem" data-clearseed="1">'
+      + 'Clear all ' + tpl + ' and start from empty</button>' : '') + '</div>';
+  h += '<button class="btn primary" data-newitem="1">Add a piece of gear</button>';
+  h += '<h2 class="sec">Everything (' + S.items.length + ')</h2>';
+  /* Grouped by pool for the same reason the Gear tab is: 40 uplights should be
+     one line, not forty. Editing is still per unit -- tap the pool to open it. */
+  groupPools(S.items).forEach(g => {
+    if (g.units.length === 1) {
+      const i = g.units[0];
+      h += '<button class="item" data-edititem="' + i.id + '"><span class="nm"><b>' + esc(i.name) + '</b>'
+        + '<span>' + esc(i.category) + (i.template ? ' &middot; template' : '') + '</span></span>'
+        + '<span class="pill ' + i.status + '">' + i.status + '</span></button>';
+      return;
+    }
+    const tpl = g.units.filter(i => i.template).length;
+    h += '<button class="item" data-pool="' + esc(g.pool) + '"><span class="nm"><b>' + esc(g.pool) + '</b>'
+      + '<span>' + esc(g.units[0].category) + ' &middot; ' + g.units.length + ' units'
+      + (tpl ? ' &middot; template' : '') + '</span></span>'
+      + '<span class="pill in">' + g.units.length + '</span></button>';
+  });
+  return h;
+}
+
+/* ---- ACTIVITY ---- */
+function viewActivity(){
+  let h = backBtn('Back', 'more');
+  h += '<h2 class="sec" style="margin-top:.4rem">Recent activity</h2>';
+  if (!S.activity.length) return h + '<p class="muted">Nothing logged yet.</p>';
+  S.activity.slice(0,80).forEach(a => {
+    h += '<div class="log">' + esc(a.text) + '<em>' + ago(a.at) + '</em></div>';
+  });
+  return h;
+}
+
+/* ---- SETUP ---- */
+const RULES = `rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Lead tracker - unchanged
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+    match /trackers/{syncCode} {
+      allow read, write: if false;
+    }
+
+    // Gear Room - shared across the team, added 2026-08-11
+    match /gear_items/{id}    { allow read, write: if request.auth != null; }
+    match /gear_events/{id}   { allow read, write: if request.auth != null; }
+    match /gear_runs/{id}     { allow read, write: if request.auth != null; }
+    match /gear_activity/{id} { allow read, write: if request.auth != null; }
+    match /gear_config/{id}   { allow read, write: if request.auth != null; }
+
+    match /{document=**} { allow read, write: if false; }
+  }
+}`;
+function viewSetup(){
+  let h = backBtn('Back', 'more');
+  h += '<h2 class="sec" style="margin-top:.4rem">Setup</h2>';
+  h += '<div class="card"><b style="font-size:.95rem">1. Turn on team sync</b>'
+    + '<p class="muted">Until this is done, everyone sees only their own copy. Go to the Firebase console, '
+    + 'pick the <b>cos-tracker-35556</b> project, open Firestore Database, then the Rules tab. '
+    + 'Replace everything with the text below and hit Publish. It takes about ten seconds and does not need a site deploy.</p>'
+    + '<textarea readonly id="rulesBox" style="min-height:250px">' + esc(RULES) + '</textarea>'
+    + '<button class="btn sm" style="width:100%;margin-top:.5rem" data-copyrules="1">Copy the rules</button></div>';
+  h += '<div class="card"><b style="font-size:.95rem">2. The team signs in</b>'
+    + '<p class="muted">Same email and password they already use for The Green Room. Nobody needs a new account. '
+    + 'Anyone who does not have one yet gets added in Firebase under Authentication.</p></div>';
+  h += '<div class="card"><b style="font-size:.95rem">3. Fix the inventory</b>'
+    + '<p class="muted">The gear list that ships with this is a placeholder so the app is not empty. '
+    + 'Walk the van and the garage once with your phone and make the list true. That hour is the whole project.</p>'
+    + '<button class="btn sm" data-view="inventory">Open the gear list</button></div>';
+  h += '<div class="card"><b style="font-size:.95rem">Add it to a phone</b>'
+    + '<p class="muted">iPhone: open this page in Safari, hit Share, then Add to Home Screen. '
+    + 'It opens full screen like a real app. Android: Chrome menu, Add to Home screen.</p></div>';
+  return h;
+}
+
+/* ---- ADDON MAPPING ----
+   Auto-matching gets most of it ("Uplighting (12)" -> 12 Uplights) but names
+   like "Gigbar Lighting" vs "Gig Bar Wash" need a human once. Anything set
+   here overrides the guess forever. */
+function allAddonNames(){
+  const seen = {};
+  S.events.forEach(e => (e.addons || []).forEach(a => {
+    const k = a.name;
+    seen[k] = seen[k] || { name: k, events: 0, qty: a.qty || 1 };
+    seen[k].events++;
+  }));
+  return Object.values(seen).sort((a,b) => b.events - a.events);
+}
+function viewAddons(){
+  const pools = allPools().sort();
+  const list = allAddonNames();
+  let h = backBtn('Back', 'more');
+  h += '<h2 class="sec" style="margin-top:.4rem">Addon mapping</h2>';
+  if (!list.length) {
+    return h + '<div class="empty"><p style="margin:0 0 1rem">No addons yet.</p>'
+      + '<p class="tiny">Import the Events report first - addons are how the CRM says what gear an event needs.</p>'
+      + '<button class="btn sm" data-view="import">Go to import</button></div>';
+  }
+  const auto = list.filter(a => S.addonMap[a.name.toLowerCase()] === undefined && matchPool(a.name, pools));
+  const manual = list.filter(a => S.addonMap[a.name.toLowerCase()] !== undefined);
+  const none = list.filter(a => S.addonMap[a.name.toLowerCase()] === undefined && !matchPool(a.name, pools));
+
+  h += '<div class="banner info"><b>' + auto.length + ' matched automatically, ' + none.length + ' unmatched</b>'
+    + 'Unmatched addons are usually services, not gear - a saxophone or a travel fee has nothing to pull. '
+    + 'Only set the ones that are real equipment.</div>';
+
+  const sel = (a, cur) => '<select data-addon="' + esc(a.name) + '" style="width:100%;margin-top:.35rem">'
+    + '<option value="__auto"' + (cur === undefined ? ' selected' : '') + '>Work it out automatically</option>'
+    + '<option value=""' + (cur === '' ? ' selected' : '') + '>Not gear - ignore it</option>'
+    + pools.map(p => '<option' + (cur === p ? ' selected' : '') + '>' + esc(p) + '</option>').join('')
+    + '</select>';
+
+  const block = (title, arr, note) => {
+    if (!arr.length) return '';
+    let x = '<h2 class="sec">' + title + '</h2>';
+    if (note) x += '<p class="tiny" style="margin:-.3rem 0 .6rem">' + note + '</p>';
+    arr.forEach(a => {
+      const cur = S.addonMap[a.name.toLowerCase()];
+      const guess = matchPool(a.name, pools);
+      const per = countInName(a.name);
+      x += '<div class="card" style="padding:.75rem .9rem"><b style="font-size:.9rem">' + esc(a.name) + '</b>'
+        + '<div class="tiny">on ' + a.events + ' event' + (a.events>1?'s':'')
+        + (cur === undefined && guess ? ' &middot; reads as ' + esc(guess) + (per>1 ? ' x' + per : '') : '')
+        + '</div>' + sel(a, cur) + '</div>';
+    });
+    return x;
+  };
+  h += block('Needs a decision (' + none.length + ')', none,
+    'Nothing pulls for these. Set any that are actually equipment.');
+  h += block('Set by you (' + manual.length + ')', manual, '');
+  h += block('Matched automatically (' + auto.length + ')', auto,
+    'Change one only if the guess is wrong.');
+  return h;
+}
+
+/* ---- MORE ---- */
+function viewMore(){
+  const out = S.items.filter(i => i.status === 'out').length;
+  const rep = S.items.filter(i => i.status === 'repair').length;
+  let h = '<div class="card"><div class="kv"><span>Signed in as</span><b>' + esc(S.me || 'nobody') + (S.email ? '<br><span class="tiny">' + esc(S.email) + '</span>' : '') + '</b></div>'
+    + '<div class="kv"><span>Mode</span><b>' + (S.mode === 'cloud' ? 'Synced with the team' : 'This device only') + '</b></div>'
+    + '<div class="kv"><span>Gear tracked</span><b>' + S.items.length + '</b></div>'
+    + '<div class="kv"><span>Out right now</span><b>' + out + '</b></div>'
+    + '<div class="kv"><span>Flagged problems</span><b>' + rep + '</b></div>'
+    + '<div class="kv"><span>Past due back</span><b>' + overdueItems().length + '</b></div></div>';
+
+  h += '<h2 class="sec">Manage</h2>';
+  const row = (v, label, sub) => '<button class="navrow" data-view="' + v + '"><span class="grow"><b>' + label
+    + '</b><br><span class="tiny">' + sub + '</span></span><span class="go"></span></button>';
+  h += row('import', 'Import from the CRM', 'Gear, systems, and the events coming up');
+  h += row('addons', 'Addon mapping', 'Which addons mean which gear');
+  h += row('kits', 'Kits', 'What gets pulled for each service');
+  h += row('inventory', 'Gear list', 'Add, rename, retire');
+  h += row('datacheck', 'Check gear data', 'Things worth a look in your gear list');
+  h += row('activity', 'Activity log', 'Who took what, when');
+  h += row('setup', 'Setup', 'Team sync, phones, first-run');
+
+  h += '<h2 class="sec">Account</h2>';
+  h += '<button class="btn ghost" data-changeme="1">Change who I am</button>';
+  if (S.mode === 'cloud') h += '<button class="btn ghost" style="margin-top:.5rem" data-signout="1">Sign out</button>';
+  else h += '<button class="btn ghost" style="margin-top:.5rem" data-tocloud="1">Sign in to sync with the team</button>';
+  /* bump BUILD whenever something visible changes, so "did my refresh work"
+     is answerable in one glance instead of a guessing game */
+  h += '<p class="tiny" style="margin-top:1.2rem;line-height:1.6">Gear Room &middot; build <b>'
+    + BUILD + '</b><br>Internal tool, not indexed by search engines.</p>';
+  return h;
+}
+
+/* ================= sheets ================= */
+function openSheet(html){
+  $('sheetBody').innerHTML = html;
+  $('sheet').classList.add('on'); $('scrim').classList.add('on');
+  bindSheet();
+}
+function closeSheet(){ $('sheet').classList.remove('on'); $('scrim').classList.remove('on'); }
+
+/* The sheet for a pool you own several of. Grab 12 uplights with one counter
+   instead of tapping 12 rows, and drill down to the individual units when you
+   actually need one -- a serial number, or flagging the one with the bad clamp.
+   Split into a pure -Html function so the tests can read it without a DOM. */
+function poolSheetHtml(pool){
+  const all = S.items.filter(x => poolOf(x) === pool && x.status !== 'retired');
+  const free = all.filter(x => x.status === 'in');
+  const mine = all.filter(x => x.status === 'out' && x.holder === S.me);
+  const others = all.filter(x => x.status === 'out' && x.holder !== S.me);
+  const rep = all.filter(x => x.status === 'repair');
+  let h = '<h3>' + esc(pool) + '</h3><p class="tiny" style="margin:.1rem 0 1rem">'
+    + esc(all[0] ? all[0].category : '') + ' &middot; you own ' + all.length + '</p>';
+  h += '<div class="kv"><span>Free right now</span><b>' + free.length + '</b></div>';
+  if (mine.length) h += '<div class="kv"><span>With you</span><b>' + mine.length + '</b></div>';
+  if (others.length) {
+    const who = [...new Set(others.map(x => x.holder || 'someone'))];
+    h += '<div class="kv"><span>Out with others</span><b>' + others.length
+      + '<br><span class="tiny">' + esc(who.join(', ')) + '</span></b></div>';
+  }
+  if (rep.length) h += '<div class="kv"><span>Need attention</span><b>' + rep.length + '</b></div>';
+
+  if (free.length) {
+    h += '<label class="fl" style="margin-top:1.1rem">How many are you taking</label>';
+    h += '<div class="row2" style="align-items:center;gap:.5rem">'
+      + '<button class="btn sm" data-pstep="-1" aria-label="One fewer">&minus;</button>'
+      + '<input type="number" id="pQty" value="1" min="1" max="' + free.length + '" inputmode="numeric" style="text-align:center">'
+      + '<button class="btn sm" data-pstep="1" aria-label="One more">+</button></div>';
+    h += '<button class="btn primary" style="margin-top:.7rem" data-takepool="' + esc(pool) + '">'
+      + '<span id="pTakeLbl">Take 1</span></button>';
+  } else {
+    h += '<div class="banner info" style="margin-top:1.1rem"><b>None free right now</b>'
+      + 'Every one of these is out or flagged.</div>';
+  }
+  if (mine.length) {
+    h += '<label class="fl" style="margin-top:1rem">Bringing back</label>';
+    h += '<div class="row2" style="align-items:center;gap:.5rem">'
+      + '<button class="btn sm" data-rstep="-1" aria-label="One fewer">&minus;</button>'
+      + '<input type="number" id="rQty" value="' + mine.length + '" min="1" max="' + mine.length + '" inputmode="numeric" style="text-align:center">'
+      + '<button class="btn sm" data-rstep="1" aria-label="One more">+</button></div>';
+    h += '<button class="btn" style="margin-top:.7rem" data-returnpool="' + esc(pool) + '">'
+      + '<span id="pBackLbl">Check ' + mine.length + ' back in</span></button>';
+  }
+
+  h += '<h2 class="sec" style="margin-top:1.3rem">Each one (' + all.length + ')</h2>';
+  h += '<p class="tiny" style="margin:0 0 .5rem">Tap one to see its serial, flag a problem, or check out that exact unit.</p>';
+  all.forEach(i => { h += itemRow(i); });
+  return h;
+}
+function poolSheet(pool){ openSheet(poolSheetHtml(pool)); }
+
+function itemSheet(i){
+  let h = '<h3>' + esc(i.name) + '</h3><p class="tiny" style="margin:.1rem 0 1rem">' + esc(i.category)
+    + (i.brand || i.model ? ' &middot; ' + esc(i.brand + ' ' + i.model).trim() : '') + '</p>';
+  h += '<div class="kv"><span>Status</span><b>' + ({in:'In stock',out:'Checked out',repair:'Needs attention',retired:'Retired'}[i.status]) + '</b></div>';
+  const owned = S.items.filter(x => poolOf(x) === poolOf(i) && x.status !== 'retired').length;
+  if (owned > 1) h += '<div class="kv"><span>' + esc(poolOf(i)) + '</span><b>' + owned + ' owned, '
+    + freeUnits(poolOf(i)).length + ' free right now</b></div>';
+  if (i.status === 'out') {
+    h += '<div class="kv"><span>With</span><b>' + esc(i.holder || 'unknown') + '</b></div>';
+    h += '<div class="kv"><span>Since</span><b>' + esc(ago(i.since)) + '</b></div>';
+    const ev = i.eventId ? eventById(i.eventId) : null;
+    if (ev) h += '<div class="kv"><span>For</span><b>' + esc(ev.client || ev.venue) + '<br><span class="tiny">' + esc(prettyDay(ev.date)) + '</span></b></div>';
+  } else {
+    h += '<div class="kv"><span>Lives in</span><b>' + esc(i.home || 'not set') + '</b></div>';
+  }
+  if (i.serial) h += '<div class="kv"><span>Serial</span><b>' + esc(i.serial) + '</b></div>';
+  if (i.notes) h += '<div class="kv"><span>Notes</span><b>' + esc(i.notes) + '</b></div>';
+  h += '<div style="margin-top:1.1rem">';
+  if (i.status === 'in' || i.status === 'repair') h += '<button class="btn primary" data-sout="' + i.id + '">Check out to ' + esc(S.me || 'me') + '</button>';
+  if (i.status === 'out') h += '<button class="btn primary" data-sin="' + i.id + '">Check back in</button>';
+  h += '<button class="btn" style="margin-top:.5rem" data-sflag="' + i.id + '">Report a problem</button>';
+  if (isAdmin()) h += '<button class="btn ghost" style="margin-top:.5rem" data-edititem="' + i.id + '">Edit details</button>';
+  h += '</div>';
+  openSheet(h);
+}
+function itemEditSheet(i){
+  const isNew = !i;
+  const v = i || { id: uid('i'), name:'', category:CATEGORIES[0], brand:'', model:'', serial:'', pool:'',
+                   home:HOMES[0], status:'in', holder:'', holderUid:'', eventId:'', since:'', notes:'' };
+  let h = '<h3>' + (isNew ? 'Add gear' : 'Edit gear') + '</h3>';
+  h += '<label class="fl">Name</label><input type="text" id="fName" value="' + esc(v.name) + '" placeholder="Uplight">';
+  /* Quantity is NEW-ONLY on purpose. On an existing row "40 becomes 20" has no
+     honest answer -- it cannot say WHICH twenty, and some of them are out with
+     a DJ right now. Adding more later is the same form again: same name, and
+     nextUnitNumber carries on from where the pool left off. */
+  if (isNew) {
+    h += '<label class="fl">How many do you own</label>';
+    h += '<div class="row2" style="align-items:center;gap:.5rem">'
+      + '<button class="btn sm" data-qstep="-1" aria-label="One fewer">&minus;</button>'
+      + '<input type="number" id="fQty" value="1" min="1" max="60" inputmode="numeric" style="text-align:center">'
+      + '<button class="btn sm" data-qstep="1" aria-label="One more">+</button></div>';
+    h += '<p class="tiny" id="fQtyHint" style="margin-top:.3rem">Enter 40 once instead of typing 40 uplights. '
+      + 'They get numbered for you and counted as one pool.</p>';
+  }
+  /* include whatever came in from the CRM, or editing an imported item would
+     silently move it into a seed category */
+  const cats = [...new Set(CATEGORIES.concat(S.items.map(i => i.category), [v.category]).filter(Boolean))].sort();
+  h += '<label class="fl">Category</label><select id="fCat">'
+    + cats.map(c => '<option' + (c===v.category?' selected':'') + '>' + esc(c) + '</option>').join('')
+    + '<option value="__new">Add a new one...</option></select>';
+  h += '<input type="text" id="fCatNew" placeholder="New category" style="display:none;margin-top:.4rem">';
+  h += '<div class="row2"><div><label class="fl">Brand</label><input type="text" id="fBrand" value="' + esc(v.brand) + '"></div>'
+    + '<div><label class="fl">Model</label><input type="text" id="fModel" value="' + esc(v.model) + '"></div></div>';
+  h += '<label class="fl">Serial number</label><input type="text" id="fSerial" value="' + esc(v.serial) + '">';
+  const homes = [...new Set(HOMES.concat(S.items.map(i => i.home), [v.home]).filter(Boolean))].sort();
+  h += '<label class="fl">Lives in</label><select id="fHome">'
+    + homes.map(c => '<option' + (c===v.home?' selected':'') + '>' + esc(c) + '</option>').join('')
+    + '<option value="__new">Add a new one...</option></select>';
+  h += '<input type="text" id="fHomeNew" placeholder="New spot, like Trailer" style="display:none;margin-top:.4rem">';
+  h += '<label class="fl">Notes</label><input type="text" id="fNotes" value="' + esc(v.notes) + '">';
+  /* Status is hidden on a new item: anything you are adding is, by definition,
+     in stock. It also used to be a trap -- picking "Checked out" here left
+     holder and since empty, and dueFor() returns nothing without a since, so
+     the item was out forever and invisible to the overdue list. */
+  if (!isNew) {
+    h += '<label class="fl">Status</label><select id="fStatus">'
+      + ['in','out','repair','retired'].map(c => '<option value="' + c + '"' + (c===v.status?' selected':'') + '>'
+        + ({in:'In stock',out:'Checked out',repair:'Needs attention',retired:'Retired'}[c]) + '</option>').join('') + '</select>';
+  }
+  /* "Counts as" sits down here now, below the everyday fields. It fills itself
+     in from the name as you type, so Corey never has to learn what a pool is --
+     but it stays editable, because it is the only way to say that a Mackie and
+     a QSC both count as one Main Speaker. */
+  h += '<label class="fl">Counts as (advanced)</label><input type="text" id="fPool" value="' + esc(v.pool || '') + '" placeholder="Main Speaker">';
+  h += '<p class="tiny" style="margin-top:.3rem">Gear that is interchangeable shares this. '
+    + 'Main Speaker 1 and Main Speaker 2 both count as <b>Main Speaker</b>, so the app knows you own two '
+    + 'and stops warning you about a Saturday you can actually cover.</p>';
+  h += '<button class="btn primary" style="margin-top:1.1rem" data-saveitem="' + v.id + '">Save</button>';
+  if (!isNew) h += '<button class="btn danger" style="margin-top:.5rem" data-delitem="' + v.id + '">Delete this item</button>';
+  openSheet(h);
+  $('sheet')._draft = v;
+}
+function whoSheet(){
+  let h = '<h3>Who are you?</h3><p class="tiny" style="margin:.2rem 0 1rem">'
+    + 'This is how the team sees who has what. It is not a login.</p>';
+  ROSTER.forEach(n => {
+    h += '<button class="navrow" data-setme="' + esc(n) + '"><span class="grow">' + esc(n)
+      + (n === S.me ? ' <span class="pill in">you</span>' : '') + '</span><span class="go"></span></button>';
+  });
+  h += '<label class="fl">Someone else</label><input type="text" id="fWho" placeholder="Type a name">'
+    + '<button class="btn" style="margin-top:.6rem" data-setmefree="1">Use that name</button>';
+  openSheet(h);
+}
+function flagSheet(i){
+  let h = '<h3>Report a problem</h3><p class="tiny" style="margin:.2rem 0 1rem">' + esc(i.name) + '</p>';
+  h += '<label class="fl">What is wrong?</label><input type="text" id="fIssue" placeholder="Left channel cuts out when the cable moves">';
+  h += '<p class="tiny" style="margin-top:.6rem">This flags the item so nobody grabs it by accident, and it shows up in the activity log.</p>';
+  h += '<button class="btn primary" style="margin-top:1rem" data-doflag="' + i.id + '">Flag it</button>';
+  openSheet(h);
+}
+function eventEditSheet(e){
+  const isNew = !e;
+  const v = e || { id: uid('e'), date: today(), client:'', venue:'', city:'', dj:S.me, dj2:'',
+                   services:'', time:'', notes:'', brand:'COS', extraKits:[], source:'manual' };
+  let h = '<h3>' + (isNew ? 'Add an event' : 'Edit event') + '</h3>';
+  h += '<label class="fl">Date</label><input type="date" id="eDate" value="' + esc(v.date) + '">';
+  h += '<div class="row2"><div><label class="fl">Start time</label><input type="text" id="eTime" value="' + esc(v.time) + '" placeholder="5:00 PM"></div>'
+    + '<div><label class="fl">Brand</label><select id="eBrand"><option' + (v.brand!=='AE'?' selected':'') + '>COS</option><option' + (v.brand==='AE'?' selected':'') + '>AE</option></select></div></div>';
+  h += '<label class="fl">Client</label><input type="text" id="eClient" value="' + esc(v.client) + '" placeholder="Sarah &amp; Mike">';
+  h += '<div class="row2"><div><label class="fl">Venue</label><input type="text" id="eVenue" value="' + esc(v.venue) + '"></div>'
+    + '<div><label class="fl">City</label><input type="text" id="eCity" value="' + esc(v.city) + '"></div></div>';
+  h += '<div class="row2"><div><label class="fl">DJ</label><input type="text" id="eDj" value="' + esc(v.dj) + '"></div>'
+    + '<div><label class="fl">Second</label><input type="text" id="eDj2" value="' + esc(v.dj2) + '"></div></div>';
+  h += '<label class="fl">Services</label><input type="text" id="eSvc" value="' + esc(v.services) + '" placeholder="DJ, Ceremony Sound, Uplighting">';
+  h += '<p class="tiny" style="margin-top:.3rem">Words here decide which kits get pulled. Try: ceremony, cocktail, uplighting, photo booth, sax, pulse, outdoor.</p>';
+  h += '<label class="fl">Notes</label><input type="text" id="eNotes" value="' + esc(v.notes) + '">';
+  h += '<button class="btn primary" style="margin-top:1.1rem" data-saveev="' + v.id + '">Save event</button>';
+  if (!isNew) h += '<button class="btn danger" style="margin-top:.5rem" data-delev="' + v.id + '">Delete this event</button>';
+  openSheet(h);
+  $('sheet')._draft = v;
+}
+function kitEditSheet(k){
+  let h = '<h3>' + esc(k.name) + '</h3>';
+  /* without this there is no way to say "the main rig goes to everything",
+     which matters a lot when the CRM has no Systems to match against */
+  h += '<button class="check" data-kitalways="' + k.id + '" data-on="' + (k.always?1:0) + '" style="margin-top:.6rem">'
+    + '<span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 7"/></svg></span>'
+    + '<span class="txt">Goes to every event<br><span class="tiny">'
+    + 'Turn this on for your standard rig, so it gets pulled without the event having to name it.'
+    + '</span></span></button>';
+  h += '<p class="tiny" style="margin:.6rem 0 1rem">Tap an item to add or remove it from this kit.</p>';
+  const groups = {};
+  S.items.filter(i => i.status !== 'retired').forEach(i => { (groups[i.category] = groups[i.category] || []).push(i); });
+  Object.keys(groups).forEach(cat => {
+    h += '<h2 class="sec">' + esc(cat) + '</h2>';
+    groups[cat].forEach(i => {
+      const on = (k.items||[]).includes(i.id);
+      h += '<button class="check" data-kititem="' + i.id + '" data-kit="' + k.id + '" data-on="' + (on?1:0) + '">'
+        + '<span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 7"/></svg></span>'
+        + '<span class="txt">' + esc(i.name) + '</span></button>';
+    });
+  });
+  openSheet(h);
+}
+function checklistEditSheet(){
+  let h = '<h3>Checklist wording</h3><p class="tiny" style="margin:.2rem 0 1rem">One line per item. These apply to every event.</p>';
+  S.checklists.forEach(cl => {
+    h += '<label class="fl">' + esc(cl.name) + '</label>'
+      + '<textarea data-cltext="' + cl.id + '" style="min-height:150px">' + esc(cl.items.join('\n')) + '</textarea>';
+  });
+  h += '<button class="btn primary" style="margin-top:1rem" data-saveclt="1">Save</button>';
+  openSheet(h);
+}
+
+/* ================= events / binding ================= */
+function bind(){
+  const v = $('view');
+
+  v.querySelectorAll('[data-go]').forEach(el => el.onclick = () => {
+    const t = el.dataset.go;
+    if (t.includes(':')) { const [vw,id] = t.split(':'); go(S.route.tab, vw, id); }
+    else go(t);
+  });
+  v.querySelectorAll('[data-view]').forEach(el => el.onclick = () => go(S.route.tab, el.dataset.view));
+  v.querySelectorAll('[data-ev]:not([data-toggle]):not([data-clcheck]):not([data-clopen])')
+    .forEach(el => el.onclick = () => go('week', 'event', el.dataset.ev));
+  v.querySelectorAll('[data-pull]').forEach(el => el.onclick = e => { e.stopPropagation(); go(S.route.tab, 'pull', el.dataset.pull); });
+  v.querySelectorAll('[data-cl]:not([data-clcheck]):not([data-clreset])').forEach(el => el.onclick = e => {
+    e.stopPropagation(); go(S.route.tab, 'checklist', el.dataset.cl);
+  });
+  v.querySelectorAll('[data-clopen]').forEach(el => el.onclick = () => {
+    S.route = { tab:S.route.tab, view:'checklist', id:el.dataset.ev, id2:el.dataset.clopen };
+    window.scrollTo(0,0); render();
+  });
+  v.querySelectorAll('[data-item]').forEach(el => el.onclick = () => {
+    const i = itemById(el.dataset.item); if (i) itemSheet(i);
+  });
+  v.querySelectorAll('[data-pool]').forEach(el => el.onclick = () => poolSheet(el.dataset.pool));
+  v.querySelectorAll('[data-f]').forEach(el => el.onclick = () => { S.gearFilter = el.dataset.f; render(); });
+
+  const q = $('q');
+  if (q) {
+    q.oninput = () => { S.gearQ = q.value; const p = q.selectionStart; render();
+      const q2 = $('q'); if (q2) { q2.focus(); try { q2.setSelectionRange(p,p); } catch(e){} } };
+  }
+
+  v.querySelectorAll('[data-take]').forEach(el => el.onclick = async () => {
+    const pool = el.dataset.take;
+    const unit = S.items.find(i => poolOf(i) === pool && i.status === 'in');
+    if (!unit) { toast('None free'); return; }
+    let ev = null;
+    if (el.dataset.ev === 'weekend') ev = (weekendPull(S.me).why[pool] || [])[0];
+    else ev = eventById(el.dataset.ev);
+    await checkOut(unit, ev);
+  });
+  v.querySelectorAll('[data-give]').forEach(el => el.onclick = async () => {
+    const pool = el.dataset.give;
+    const unit = S.items.find(i => poolOf(i) === pool && i.status === 'out' && i.holder === S.me);
+    if (unit) await checkIn(unit);
+  });
+  v.querySelectorAll('[data-pullall]').forEach(el => el.onclick = async () => {
+    const isWk = el.dataset.pullall === 'weekend';
+    const ev = isWk ? null : eventById(el.dataset.pullall);
+    if (!isWk && !ev) return;
+    const wk = isWk ? weekendPull(S.me) : null;
+    const need = isWk ? wk.need : poolNeeds(ev);
+    let n = 0; const short = [];
+    for (const pool of Object.keys(need)) {
+      const want = need[pool] - heldCount(pool, S.me);
+      for (let k = 0; k < want; k++) {
+        const unit = S.items.find(i => poolOf(i) === pool && i.status === 'in');
+        if (!unit) { short.push(pool); break; }
+        const forEv = isWk ? (wk.why[pool] || [])[0] : ev;
+        await putItem({ ...unit, status:'out', holder:S.me, holderUid:S.uid,
+                        eventId: forEv ? forEv.id : '', since:new Date().toISOString() });
+        n++;
+      }
+    }
+    logIt(S.me + ' picked up ' + n + ' items' + (isWk ? ' for the weekend' : ' for ' + (ev.client || ev.venue)));
+    toast(n + ' taken' + (short.length ? ', short on ' + short.length : ''));
+    if (short.length) setTimeout(() => alert('Not enough free units of:\n\n'
+      + [...new Set(short)].join('\n') + '\n\nSort this before you drive off.'), 300);
+  });
+  v.querySelectorAll('[data-inev]').forEach(el => el.onclick = async () => {
+    const isWk = el.dataset.inev === 'weekend';
+    const ev = isWk ? null : eventById(el.dataset.inev);
+    if (!isWk && !ev) return;
+    const list = isWk
+      ? S.items.filter(i => i.status === 'out' && i.holder === S.me)
+      : S.items.filter(i => i.eventId === ev.id && i.status === 'out' && i.holder === S.me);
+    for (const i of list) await putItem({ ...i, status:'in', holder:'', holderUid:'', eventId:'', since:'' });
+    logIt(S.me + ' returned ' + list.length + ' items'
+      + (isWk ? '' : ' from ' + (ev.client || ev.venue)));
+    toast(list.length + ' back at the warehouse');
+  });
+  v.querySelectorAll('[data-inlate]').forEach(el => el.onclick = async () => {
+    const list = overdueItems(S.me);
+    for (const i of list) await putItem({ ...i, status:'in', holder:'', holderUid:'', eventId:'', since:'' });
+    logIt(S.me + ' returned ' + list.length + ' overdue items');
+    toast('Checked in. Thanks.');
+  });
+  v.querySelectorAll('[data-inall]').forEach(el => el.onclick = async () => {
+    const list = myOut();
+    for (const i of list) await putItem({ ...i, status:'in', holder:'', holderUid:'', eventId:'', since:'' });
+    logIt(S.me + ' returned ' + list.length + ' items');
+    toast('All back in. Nice.');
+  });
+
+  v.querySelectorAll('[data-clcheck]').forEach(el => el.onclick = async () => {
+    const idx = Number(el.dataset.clcheck);
+    const key = runKey(el.dataset.ev, el.dataset.cl);
+    const run = S.runs[key] || { checked: [], event: el.dataset.ev, list: el.dataset.cl, who: S.me };
+    const set = new Set(run.checked || []);
+    if (set.has(idx)) set.delete(idx); else set.add(idx);
+    await putRun(key, { ...run, checked:[...set], who:S.me, at:new Date().toISOString() });
+  });
+  v.querySelectorAll('[data-clreset]').forEach(el => el.onclick = async () => {
+    const key = runKey(el.dataset.ev, el.dataset.clreset);
+    await putRun(key, { checked: [], event: el.dataset.ev, list: el.dataset.clreset, who: S.me });
+  });
+  v.querySelectorAll('[data-editcl]').forEach(el => el.onclick = () => checklistEditSheet());
+  v.querySelectorAll('[data-editkit]').forEach(el => el.onclick = () => {
+    const k = S.kits.find(x => x.id === el.dataset.editkit); if (k) kitEditSheet(k);
+  });
+  v.querySelectorAll('[data-kitinfo]').forEach(el => el.onclick = () => {
+    const k = S.kits.find(x => x.id === el.dataset.kitinfo); if (!k) return;
+    let h = '<h3>' + esc(k.name) + '</h3>';
+    (k.items||[]).forEach(id => { const i = itemById(id); if (i) h += itemRow(i); });
+    openSheet(h);
+  });
+  v.querySelectorAll('[data-edititem]').forEach(el => el.onclick = () => itemEditSheet(itemById(el.dataset.edititem)));
+  v.querySelectorAll('[data-newitem]').forEach(el => el.onclick = () => itemEditSheet(null));
+  /* Wipe the starter gear so you can build the real list from nothing, instead
+     of tapping Delete 53 times on a phone.
+     Three things this deliberately does NOT do:
+       - it never touches an item you have edited. Saving stamps template:false,
+         so anything you renamed is yours and survives.
+       - it never touches anything checked out or flagged. Deleting gear that is
+         physically in someone's van loses who has it.
+       - it does not just filter the local array. In cloud mode the next
+         onSnapshot would put all 53 straight back and the button would look
+         broken, so the Firestore docs get deleted for real. */
+  v.querySelectorAll('[data-clearseed]').forEach(el => el.onclick = async () => {
+    const doomed = S.items.filter(i => i.template && i.status === 'in');
+    const kept = S.items.filter(i => i.template && i.status !== 'in').length;
+    if (!doomed.length) { toast('Nothing left to clear'); return; }
+    if (!confirm('Delete ' + doomed.length + ' starter items and start from an empty gear list?'
+      + (kept ? '\n\n' + kept + ' are checked out or flagged and will be kept.' : '')
+      + '\n\nAnything you have already renamed is kept.')) return;
+    const gone = new Set(doomed.map(i => i.id));
+    S.items = S.items.filter(i => !gone.has(i.id));
+    /* the seed kits point at these ids; leaving them makes viewKits render raw
+       ids like "i012" as if they were gear names */
+    S.kits.forEach(k => { k.items = (k.items||[]).filter(x => !gone.has(x)); });
+    saveLocal(); render();
+    if (S.mode === 'cloud' && db) {
+      for (const id of gone) { try { await deleteDoc(doc(db, C.items, id)); } catch(e){} }
+      await putConfig();
+    }
+    toast('Cleared. Add your real gear.');
+  });
+  v.querySelectorAll('[data-editev]').forEach(el => el.onclick = () => eventEditSheet(eventById(el.dataset.editev)));
+  v.querySelectorAll('[data-addmanual]').forEach(el => el.onclick = () => eventEditSheet(null));
+  v.querySelectorAll('[data-changeme]').forEach(el => el.onclick = () => whoSheet());
+  v.querySelectorAll('[data-signout]').forEach(el => el.onclick = () => signOut(auth));
+  v.querySelectorAll('[data-tocloud]').forEach(el => el.onclick = () => {
+    localStorage.removeItem('gearroom.mode'); location.reload();
+  });
+  v.querySelectorAll('[data-copyrules]').forEach(el => el.onclick = async () => {
+    try { await navigator.clipboard.writeText(RULES); toast('Rules copied'); }
+    catch(e){ const b = $('rulesBox'); b.select(); toast('Select all and copy'); }
+  });
+  v.querySelectorAll('[data-addon]').forEach(el => el.onchange = async () => {
+    const k = el.dataset.addon.toLowerCase();
+    if (el.value === '__auto') delete S.addonMap[k];
+    else S.addonMap[k] = el.value;
+    await putConfig();
+    toast(el.value === '__auto' ? 'Back to automatic' : (el.value ? 'Set to ' + el.value : 'Ignored'));
+  });
+  v.querySelectorAll('[data-imode]').forEach(el => el.onclick = () => {
+    S.importMode = el.dataset.imode; S.rawImport = null; S.rawName = ''; render();
+  });
+  v.querySelectorAll('[data-pickfile]').forEach(el => el.onclick = () => {
+    const f = $('csvFile'); if (f) f.click();
+  });
+  v.querySelectorAll('[data-clearfile]').forEach(el => el.onclick = () => {
+    S.rawImport = null; S.rawName = ''; render();
+  });
+  const fileEl = $('csvFile');
+  if (fileEl) fileEl.onchange = () => {
+    const f = fileEl.files && fileEl.files[0];
+    if (!f) return;
+    const rd = new FileReader();
+    rd.onload = () => { S.rawImport = String(rd.result || ''); S.rawName = f.name; render(); };
+    rd.onerror = () => toast('Could not read that file');
+    rd.readAsText(f);
+  };
+  const noRead = () => { $('prev').innerHTML = '<div class="banner warn"><b>Nothing to read</b>'
+    + 'Paste at least a heading row and one data row.</div>'; };
+  v.querySelectorAll('[data-parse]').forEach(el => el.onclick = () => {
+    const parsed = parsePaste(importText());
+    if (!parsed) return noRead();
+    renderPreview(rowsToEvents(parsed), parsed);
+  });
+  v.querySelectorAll('[data-parseeq]').forEach(el => el.onclick = () => {
+    const parsed = parsePaste(importText());
+    if (!parsed) return noRead();
+    previewEquipment(parsed);
+  });
+  v.querySelectorAll('[data-parseaddons]').forEach(el => el.onclick = () => {
+    const parsed = parsePaste(importText());
+    if (!parsed) return noRead();
+    previewAddonCatalog(parsed);
+  });
+  v.querySelectorAll('[data-parsesys]').forEach(el => el.onclick = () => {
+    const parsed = parsePaste(importText());
+    if (!parsed) return noRead();
+    previewSystems(parsed);
+  });
+  v.querySelectorAll('[data-clearpast]').forEach(el => el.onclick = async () => {
+    const cutoff = dayDiff.bind(null);
+    const old = S.events.filter(e => dayDiff(e.date, today()) > 30);
+    if (!old.length) { toast('Nothing older than 30 days'); return; }
+    if (!confirm('Remove ' + old.length + ' past events?')) return;
+    for (const e of old) await delEvent(e.id);
+    toast(old.length + ' removed');
+  });
+  const prev = $('prev');
+  if (prev) {
+    const staffBtn = prev.querySelector('[data-savestaff]');
+    if (staffBtn) staffBtn.onclick = async () => {
+      S.staff = S.staff || {};
+      let n = 0;
+      prev.querySelectorAll('[data-staffid]').forEach(sel => {
+        if (sel.value) { S.staff[sel.dataset.staffid] = sel.value; n++; }
+      });
+      await putConfig();
+      /* re-run the preview so the names show up before importing */
+      const parsed = parsePaste(importText());
+      if (parsed) renderPreview(rowsToEvents(parsed), parsed);
+      toast(n + ' name' + (n===1?'':'s') + ' saved');
+    };
+
+    const eqBtn = prev.querySelector('[data-doeq]');
+    if (eqBtn) eqBtn.onclick = async () => {
+      const { units, kits } = prev._eq || {};
+      if (!units) return;
+      const incoming = new Set(units.map(u => u.id));
+      /* keep anything checked out or flagged even if it fell off the report -
+         losing track of a speaker that is in someone's van is the one
+         unrecoverable mistake this app can make */
+      const orphans = S.items
+        .filter(i => !incoming.has(i.id) && (i.status === 'out' || i.status === 'repair'))
+        .map(i => ({ ...i, notes: (i.notes ? i.notes + ' - ' : '') + 'not on the latest CRM equipment report' }));
+      S.items = units.concat(orphans);
+
+      const byId = {};
+      S.kits.filter(k => !k.fromCrm).forEach(k => { byId[k.id] = k; });
+      kits.forEach(k => {
+        const old = S.kits.find(x => x.id === k.id);
+        byId[k.id] = { ...k, always: old ? old.always : false, note: old ? old.note : '' };
+      });
+      S.kits = Object.values(byId).filter(k => (k.items||[]).length || !k.fromCrm);
+
+      saveLocal(); render();
+      if (S.mode === 'cloud' && db) {
+        for (const i of S.items) await cloudSet(C.items, i.id, i);
+        await putConfig();
+      }
+      logIt(S.me + ' imported ' + units.length + ' units and ' + kits.length + ' kits from the CRM');
+      toast(units.length + ' units in' + (orphans.length ? ', ' + orphans.length + ' kept' : ''));
+      go('gear');
+    };
+
+    const adBtn = prev.querySelector('[data-doaddons]');
+    if (adBtn) adBtn.onclick = async () => {
+      const rows = prev._addons || [];
+      const cat = {};
+      rows.forEach(r => { cat[r.name.toLowerCase()] = { category: r.category, inactive: r.inactive }; });
+      S.addonCatalog = cat;
+      await putConfig();
+      logIt(S.me + ' imported ' + rows.length + ' add-ons from the CRM');
+      toast(rows.length + ' add-ons loaded');
+      go('more', 'addons');
+    };
+
+    const sysBtn = prev.querySelector('[data-dosys]');
+    if (sysBtn) sysBtn.onclick = async () => {
+      const rows = prev._sys || [];
+      rows.forEach(r => {
+        const kid = 'sys_' + r.name.toLowerCase().replace(/[^a-z0-9]+/g,'_');
+        const old = S.kits.find(k => k.id === kid || k.name.toLowerCase() === r.name.toLowerCase());
+        const next = { id: old ? old.id : kid, name: r.name, items: old ? (old.items||[]) : [],
+                       note: r.descr || (old ? old.note : ''), always: old ? old.always : false,
+                       /* the whole reason Systems must be imported: this is what
+                          System 1..10 on the Events report point at */
+                       sysId: r.sysid || (old ? old.sysId : ''),
+                       fromCrm: true, disabled: r.disabled };
+        if (old) S.kits[S.kits.indexOf(old)] = next; else S.kits.push(next);
+      });
+      await putConfig();
+      logIt(S.me + ' applied ' + rows.length + ' systems from the CRM');
+      toast(rows.length + ' systems applied');
+      go('more', 'kits');
+    };
+
+    const btn = prev.querySelector('[data-doimport]');
+    if (btn) btn.onclick = async () => {
+      const evs = prev._evs || [];
+      let n = 0;
+      for (const e of evs) {
+        if (S.events.some(x => x.date === e.date && x.client === e.client && x.venue === e.venue)) continue;
+        await putEvent(e); n++;
+      }
+      logIt(S.me + ' imported ' + n + ' events from the CRM');
+      toast(n + ' events imported');
+      go('week');
+    };
+  }
+}
+
+/* A select whose last option is "Add a new one..." plus a hidden text input.
+   Returns the typed value when that option is picked, otherwise the select.
+   Never lets the literal '__new' reach an item -- fall back rather than store
+   a sentinel that would then show up as a category called "__new". */
+function pickOrNew(selId, inputId, fallback){
+  const sel = $(selId), txt = $(inputId);
+  if (!sel) return fallback;
+  if (sel.value !== '__new') return sel.value;
+  const typed = txt ? (txt.value || '').trim() : '';
+  return typed || fallback;
+}
+
+function bindSheet(){
+  const s = $('sheetBody');
+  const draft = () => $('sheet')._draft;
+
+  /* quantity stepper -- clamped the same 1..60 as the CRM importer, so a
+     fat-fingered 500 cannot mint 500 documents */
+  s.querySelectorAll('[data-qstep]').forEach(el => el.onclick = () => {
+    const box = $('fQty'); if (!box) return;
+    const n = Math.max(1, Math.min(60, (Math.round(Number(box.value) || 1)) + Number(el.dataset.qstep)));
+    box.value = n;
+    if (box.oninput) box.oninput();
+  });
+
+  /* the per-unit rows inside the pool sheet. bind() only reaches the main view,
+     so without this, tapping a single uplight from inside the pool does nothing */
+  s.querySelectorAll('[data-item]').forEach(el => el.onclick = () => {
+    const i = itemById(el.dataset.item); if (i) itemSheet(i);
+  });
+
+  /* the take / bring-back counters on a pool. Label updates in place rather
+     than re-rendering the sheet -- openSheet() re-runs bindSheet, which would
+     throw the count away on every tap. */
+  const stepper = (btnAttr, boxId, lblId, word) => {
+    const box = $(boxId), lbl = $(lblId);
+    if (!box) return;
+    const sync = () => {
+      const max = Number(box.max) || 1;
+      const n = Math.max(1, Math.min(max, Math.round(Number(box.value) || 1)));
+      box.value = n;
+      if (lbl) lbl.textContent = word === 'take' ? 'Take ' + n : 'Check ' + n + ' back in';
+    };
+    s.querySelectorAll('[' + btnAttr + ']').forEach(el => el.onclick = () => {
+      box.value = (Math.round(Number(box.value) || 1)) + Number(el.getAttribute(btnAttr));
+      sync();
+    });
+    box.oninput = sync;
+    sync();
+  };
+  stepper('data-pstep', 'pQty', 'pTakeLbl', 'take');
+  stepper('data-rstep', 'rQty', 'pBackLbl', 'back');
+
+  s.querySelectorAll('[data-takepool]').forEach(el => el.onclick = async () => {
+    const pool = el.dataset.takepool;
+    const want = $('pQty') ? Math.max(1, Math.round(Number($('pQty').value) || 1)) : 1;
+    /* re-check at the moment of the tap: a teammate's checkout can land through
+       onSnapshot while this sheet is sitting open, and promising 12 then taking
+       8 silently is worse than saying so */
+    const got = await checkOutMany(pool, want);
+    closeSheet();
+    if (!got) toast('None were free');
+    else if (got < want) toast('Took ' + got + ' - that was all that was free');
+    else toast(got > 1 ? 'Took ' + got + ' x ' + pool : 'Checked out to you');
+  });
+  s.querySelectorAll('[data-returnpool]').forEach(el => el.onclick = async () => {
+    const pool = el.dataset.returnpool;
+    const want = $('rQty') ? Math.max(1, Math.round(Number($('rQty').value) || 1)) : 1;
+    const got = await checkInMany(pool, want);
+    closeSheet();
+    toast(got > 1 ? got + ' x ' + pool + ' back in stock' : 'Back in stock');
+  });
+
+  /* reveal the "new category" / "new spot" box only when asked for */
+  [['fCat','fCatNew'],['fHome','fHomeNew']].forEach(pair => {
+    const sel = $(pair[0]), txt = $(pair[1]);
+    if (!sel || !txt) return;
+    sel.onchange = () => {
+      txt.style.display = sel.value === '__new' ? 'block' : 'none';
+      if (sel.value === '__new') txt.focus();
+    };
+  });
+
+  /* Fill "Counts as" from the name as it is typed, so the pool is right
+     without Corey ever opening the advanced box. Once he edits it himself,
+     stop touching it. */
+  const nameBox = $('fName'), poolBox = $('fPool'), qtyHint = $('fQtyHint');
+  if (nameBox && poolBox) {
+    poolBox.oninput = () => { $('sheet')._pooltouched = true; };
+    const sync = () => {
+      const nm = (nameBox.value || '').trim();
+      if (!$('sheet')._pooltouched) poolBox.value = nm ? (derivePool(nm) || nm) : '';
+      if (qtyHint) {
+        const pool = (poolBox.value || '').trim();
+        const have = pool ? supplyOf(pool) : 0;
+        const qty = $('fQty') ? Math.max(1, Math.min(60, Math.round(Number($('fQty').value) || 1))) : 1;
+        qtyHint.innerHTML = have
+          ? 'You already own ' + have + ' ' + esc(pool) + '. ' + (qty > 1 ? 'These get numbered ' : 'This one gets numbered ')
+            + (have + 1) + (qty > 1 ? ' and up.' : '.')
+          : 'Enter 40 once instead of typing 40 uplights. They get numbered for you and counted as one pool.';
+      }
+    };
+    nameBox.oninput = sync;
+    if ($('fQty')) $('fQty').oninput = sync;
+  }
+
+  s.querySelectorAll('[data-sout]').forEach(el => el.onclick = async () => {
+    await checkOut(itemById(el.dataset.sout), null); closeSheet(); toast('Checked out to you');
+  });
+  s.querySelectorAll('[data-sin]').forEach(el => el.onclick = async () => {
+    await checkIn(itemById(el.dataset.sin)); closeSheet(); toast('Back in stock');
+  });
+  s.querySelectorAll('[data-sflag]').forEach(el => el.onclick = () => flagSheet(itemById(el.dataset.sflag)));
+  s.querySelectorAll('[data-doflag]').forEach(el => el.onclick = async () => {
+    await flagRepair(itemById(el.dataset.doflag), ($('fIssue').value || '').trim());
+    closeSheet(); toast('Flagged. Nobody will grab it by mistake.');
+  });
+  s.querySelectorAll('[data-saveitem]').forEach(el => el.onclick = async () => {
+    const v = draft();
+    const name = ($('fName').value || '').trim();
+    /* used to fall back to 'Untitled', which with a quantity box means forty
+       rows called Untitled 1..40 and no way to tell what you meant */
+    if (!name) { toast('Give it a name first'); $('fName').focus(); return; }
+    const isNew = !S.items.some(x => x.id === v.id);
+    const next = { ...v, name: name,
+      category: pickOrNew('fCat', 'fCatNew', v.category || CATEGORIES[0]),
+      brand: $('fBrand').value.trim(), model: $('fModel').value.trim(),
+      serial: $('fSerial').value.trim(),
+      home: pickOrNew('fHome', 'fHomeNew', v.home || HOMES[0]),
+      notes: $('fNotes').value.trim(),
+      status: $('fStatus') ? $('fStatus').value : (v.status || 'in'), template: false };
+    next.pool = ($('fPool').value || '').trim() || derivePool(next.name) || next.name;
+    if (next.status !== 'out') { next.holder=''; next.holderUid=''; next.eventId=''; next.since=''; }
+    /* flipping an existing item to "Checked out" by hand used to leave since
+       empty, and dueFor() needs a since -- the thing was then out forever and
+       never showed up as overdue. Stamp it to whoever is doing the flipping. */
+    else if (!next.since) { next.holder = next.holder || S.me; next.holderUid = next.holderUid || S.uid; next.since = new Date().toISOString(); }
+
+    if (isNew) {
+      const qty = $('fQty') ? Math.max(1, Math.min(60, Math.round(Number($('fQty').value) || 1))) : 1;
+      if (qty > 24 && !confirm('Add ' + qty + ' separate ' + next.pool + ' units?')) return;
+      const units = manualUnits(next, qty, S.items);
+      await putItems(units);
+      closeSheet();
+      toast(units.length > 1 ? 'Added ' + units.length + ' x ' + next.pool : 'Saved');
+      return;
+    }
+    await putItem(next); closeSheet(); toast('Saved');
+  });
+  s.querySelectorAll('[data-delitem]').forEach(el => el.onclick = async () => {
+    if (!confirm('Delete this item for good? Retiring it keeps the history.')) return;
+    const id = el.dataset.delitem;
+    S.items = S.items.filter(i => i.id !== id);
+    S.kits.forEach(k => { k.items = (k.items||[]).filter(x => x !== id); });
+    saveLocal(); render();
+    if (S.mode === 'cloud' && db) { try { await deleteDoc(doc(db, C.items, id)); } catch(e){} await putConfig(); }
+    closeSheet(); toast('Deleted');
+  });
+  s.querySelectorAll('[data-saveev]').forEach(el => el.onclick = async () => {
+    const v = draft();
+    await putEvent({ ...v,
+      date: $('eDate').value || today(), time: $('eTime').value.trim(), brand: $('eBrand').value,
+      client: $('eClient').value.trim(), venue: $('eVenue').value.trim(), city: $('eCity').value.trim(),
+      dj: $('eDj').value.trim(), dj2: $('eDj2').value.trim(),
+      services: $('eSvc').value.trim(), notes: $('eNotes').value.trim() });
+    closeSheet(); toast('Saved');
+  });
+  s.querySelectorAll('[data-delev]').forEach(el => el.onclick = async () => {
+    if (!confirm('Delete this event?')) return;
+    await delEvent(el.dataset.delev); closeSheet(); go('week');
+  });
+  s.querySelectorAll('[data-setme]').forEach(el => el.onclick = () => { setMe(el.dataset.setme); closeSheet(); });
+  s.querySelectorAll('[data-setmefree]').forEach(el => el.onclick = () => {
+    const n = ($('fWho').value || '').trim(); if (n) { setMe(n); closeSheet(); }
+  });
+  s.querySelectorAll('[data-kitalways]').forEach(el => el.onclick = async () => {
+    const k = S.kits.find(x => x.id === el.dataset.kitalways); if (!k) return;
+    k.always = !k.always;
+    el.setAttribute('data-on', k.always ? '1' : '0');
+    await putConfig();
+    toast(k.name + (k.always ? ' goes to every event' : ' only when named'));
+  });
+  s.querySelectorAll('[data-kititem]').forEach(el => el.onclick = async () => {
+    const k = S.kits.find(x => x.id === el.dataset.kit); if (!k) return;
+    const id = el.dataset.kititem;
+    k.items = k.items || [];
+    if (k.items.includes(id)) k.items = k.items.filter(x => x !== id);
+    else k.items.push(id);
+    el.setAttribute('data-on', k.items.includes(id) ? '1' : '0');
+    await putConfig();
+  });
+  s.querySelectorAll('[data-saveclt]').forEach(el => el.onclick = async () => {
+    s.querySelectorAll('[data-cltext]').forEach(ta => {
+      const cl = S.checklists.find(c => c.id === ta.dataset.cltext);
+      if (cl) cl.items = ta.value.split('\n').map(x => x.trim()).filter(Boolean);
+    });
+    await putConfig(); closeSheet(); toast('Checklists updated');
+  });
+}
+
+function setMe(name){
+  S.me = name;
+  localStorage.setItem('gearroom.me', name);
+  render();
+  toast('Hey ' + name);
+}
+
+/* ================= cloud sync ================= */
+let unsubs = [];
+function stopSync(){ unsubs.forEach(u => { try { u(); } catch(e){} }); unsubs = []; }
+function startSync(){
+  if (!db) return;               // firebase has not finished loading yet
+  stopSync();
+  setDot('syncing');
+  const onErr = e => {
+    if (String(e.code||'').includes('permission')) { S.rulesError = true; setDot('error'); render(); }
+    else setDot('offline');
+  };
+  unsubs.push(onSnapshot(collection(db, C.items), snap => {
+    if (!snap.empty) S.items = snap.docs.map(d => d.data());
+    /* Only push up a list somebody has actually touched. Before this guard, the
+       first teammate to sign in on a fresh phone -- still holding the untouched
+       53-item starter template -- published that template as the TEAM's shared
+       inventory, and it then overwrote everyone. If everyone is still on pure
+       template the cloud just stays empty until the first real edit seeds it. */
+    else if (S.items.some(i => !i.template)) seedCloud();
+    S.rulesError = false; setDot('synced'); render();
+  }, onErr));
+  unsubs.push(onSnapshot(collection(db, C.events), snap => {
+    S.events = snap.docs.map(d => d.data()); render();
+  }, onErr));
+  unsubs.push(onSnapshot(collection(db, C.runs), snap => {
+    const r = {}; snap.docs.forEach(d => { r[d.id] = d.data(); }); S.runs = r; render();
+  }, onErr));
+  unsubs.push(onSnapshot(doc(db, C.config, 'main'), d => {
+    const v = d.data();
+    if (v && v.kits) S.kits = v.kits;
+    if (v && v.checklists) S.checklists = v.checklists;
+    if (v && v.staff) S.staff = v.staff;
+    if (v && v.addonMap) S.addonMap = v.addonMap;
+    if (v && v.addonCatalog) S.addonCatalog = v.addonCatalog;
+    render();
+  }, onErr));
+  unsubs.push(onSnapshot(query(collection(db, C.activity), orderBy('at','desc'), limit(80)), snap => {
+    S.activity = snap.docs.map(d => d.data()); render();
+  }, () => {}));
+}
+async function seedCloud(){
+  /* first person to sign in populates the shared inventory */
+  for (const i of S.items) { try { await setDoc(doc(db, C.items, i.id), i); } catch(e){ return; } }
+  try { await setDoc(doc(db, C.config, 'main'), { kits:S.kits, checklists:S.checklists, staff:S.staff, addonMap:S.addonMap, addonCatalog:S.addonCatalog }); } catch(e){}
+}
+
+/* ================= boot ================= */
+function startApp(mode){
+  S.mode = mode;
+  const d = loadLocal();
+  S.items = d.items; S.events = d.events; S.kits = d.kits;
+  S.checklists = d.checklists; S.runs = d.runs; S.activity = d.activity; S.staff = d.staff || {}; S.addonMap = d.addonMap || {}; S.addonCatalog = d.addonCatalog || {};
+  S.me = localStorage.getItem('gearroom.me') || '';
+  /* ?tab=week / ?view=import open straight to a screen - handy for a
+     "go do this" text to the team */
+  const qs = new URLSearchParams(location.search);
+  const qTab = qs.get('tab'), qView = qs.get('view'), qMode = qs.get('mode');
+  if (['today','gear','week','more'].includes(qTab)) S.route.tab = qTab;
+  if (['import','kits','inventory','activity','setup','datacheck','addons'].includes(qView)) S.route.view = qView;
+  if (['events','equipment','systems'].includes(qMode)) S.importMode = qMode;
+  $('gate').classList.add('hide');
+  $('app').classList.remove('hide');
+  setDot(mode === 'cloud' ? 'syncing' : 'offline');
+  if (mode === 'cloud') startSync();
+  render();
+  if (!S.me) setTimeout(whoSheet, 400);
+}
+
+document.querySelectorAll('nav.tabs button').forEach(b =>
+  b.onclick = () => go(b.dataset.tab));
+$('whoBtn').onclick = whoSheet;
+$('scrim').onclick = closeSheet;
+
+$('gSignIn').onclick = async () => {
+  const em = $('gEmail').value.trim(), pw = $('gPass').value;
+  if (!em || !pw) { $('gErr').textContent = 'Email and password, please.'; return; }
+  $('gErr').textContent = ''; $('gSignIn').textContent = 'Signing in...';
+  try {
+    await ensureFb();
+    await signInWithEmailAndPassword(auth, em, pw);
+  } catch (e) {
+    $('gSignIn').textContent = 'Sign in';
+    const code = e.code || '';
+    if (!code) $('gErr').textContent = 'No connection. You can still tap "Use on this device only".';
+    else $('gErr').textContent = /invalid|wrong|not-found/i.test(code)
+      ? 'That email and password did not match.' : 'Could not sign in. ' + code;
+  }
+};
+$('gPass').addEventListener('keydown', e => { if (e.key === 'Enter') $('gSignIn').click(); });
+$('gReset').onclick = async () => {
+  const em = $('gEmail').value.trim();
+  if (!em) { $('gErr').textContent = 'Put your email in first.'; return; }
+  try { await ensureFb(); await sendPasswordResetEmail(auth, em);
+        $('gErr').style.color = 'var(--green)';
+        $('gErr').textContent = 'Reset link sent. Check your email.'; }
+  catch (e) { $('gErr').textContent = 'Could not send that. ' + (e.code || 'no connection'); }
+};
+$('gLocal').onclick = () => { localStorage.setItem('gearroom.mode','local'); startApp('local'); };
+
+/* ---- boot: paint first, network second ----
+   Whatever mode we were in last time, render it straight from localStorage so
+   the app is usable in well under a second even with no signal. Firebase then
+   loads in the background and takes over if it can. */
+const savedMode = localStorage.getItem('gearroom.mode');
+if (savedMode === 'local' || savedMode === 'cloud') startApp(savedMode);
+else { $('gate').classList.remove('hide'); }
+
+ensureFb().then(() => {
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      S.uid = user.uid; S.email = user.email || '';
+      localStorage.setItem('gearroom.mode','cloud');
+      if (!localStorage.getItem('gearroom.me')) {
+        const guess = ROSTER.find(n => (user.email||'').toLowerCase().startsWith(n.toLowerCase()));
+        if (guess) localStorage.setItem('gearroom.me', guess);
+      }
+      if (S.mode !== 'cloud') startApp('cloud'); else { startSync(); render(); }
+    } else {
+      stopSync();
+      if (localStorage.getItem('gearroom.mode') === 'local') { if (!S.mode) startApp('local'); }
+      else {
+        localStorage.removeItem('gearroom.mode');
+        $('app').classList.add('hide'); $('gate').classList.remove('hide'); S.mode = null;
+      }
+    }
+  });
+}).catch(() => {
+  /* offline or the CDN is unreachable. Keep working locally, say so plainly. */
+  setDot('offline');
+  if (!S.mode) {
+    $('gErr').textContent = 'No connection right now. Tap "Use on this device only" to keep working.';
+  } else if (S.mode === 'cloud') {
+    toast('Working offline - changes will sync later');
+  }
+});
+</script>
+</body>
+</html>
