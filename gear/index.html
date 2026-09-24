@@ -332,7 +332,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-23-c';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-23-d';   // shown at the bottom of More. Bump on any visible change.
 const ROSTER = ['Corey','Kyle','CJ','Noah','Greg','Mikey','Justin','Cole','Matt'];
 const ADMINS = ['corey','kyle'];
 const LS = 'gearroom.v1';
@@ -809,6 +809,43 @@ async function checkOutMany(pool, n, who){
   logIt(mine ? S.me + ' took ' + what : S.me + ' gave ' + what + ' to ' + holder,
         { pool: pool, n: take.length });
   return take.length;
+}
+/* Remove units that should never have existed. Added 2026-09-23: Corey typed
+   the wrong quantity, ended up with 40 uplights too many, and found there was
+   no delete anywhere in the app - only Edit details > Retired, one unit at a
+   time. He had also checked them out to himself while trying to get rid of
+   them, so a free-units-only delete would not have helped.
+
+   DELETE, not retire. Retiring is for a real thing that broke or was sold, and
+   it lingers in the Retired list forever; a typo should leave no trace.
+
+   HIGHEST NUMBERS FIRST, because "I added too many" means the extras are the
+   ones on the end - removing Uplight 1 and keeping Uplight 41 would be absurd.
+
+   Takes what is free, flagged, or out WITH YOU. Never touches a unit that is
+   out with someone else - that is a real fact about where gear is, and it is
+   not this function's business to erase it. Returns how many actually went so
+   the caller can be honest about a partial. */
+async function removeUnits(pool, n){
+  const num = i => { const m = /\s(\d+)$/.exec(i.name || ''); return m ? Number(m[1]) : 0; };
+  const takeable = S.items
+    .filter(i => poolOf(i) === pool
+      && (i.status !== 'out' || i.holder === S.me))
+    .sort((a, b) => num(b) - num(a));
+  const doomed = takeable.slice(0, Math.max(0, n));
+  if (!doomed.length) return 0;
+  const gone = new Set(doomed.map(i => i.id));
+  S.items = S.items.filter(i => !gone.has(i.id));
+  /* kits point at unit ids; leaving them makes viewKits render raw ids like
+     "i012" as though they were gear names -- same trap the seed clear hit */
+  S.kits.forEach(k => { k.items = (k.items || []).filter(x => !gone.has(x)); });
+  saveLocal(); render();
+  if (S.mode === 'cloud' && db) {
+    for (const id of gone) { try { await deleteDoc(doc(db, C.items, id)); } catch(e){} }
+  }
+  logIt(S.me + ' removed ' + (doomed.length > 1 ? doomed.length + ' x ' + pool : doomed[0].name),
+        { pool: pool, n: doomed.length });
+  return doomed.length;
 }
 async function checkInMany(pool, n){
   const back = S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === S.me)
@@ -2444,6 +2481,23 @@ function poolSheetHtml(pool){
       + '<span id="pBackLbl">Check ' + mine.length + ' back in</span></button>';
   }
 
+  /* No delete existed anywhere in the app until 2026-09-23. Admin-only, and it
+     counts what it can actually take so the number on screen is never a lie. */
+  if (isAdmin()) {
+    const canGo = all.filter(x => x.status !== 'out' || x.holder === S.me).length;
+    if (canGo) {
+      h += '<label class="fl" style="margin-top:1.2rem">Added too many? Remove some</label>';
+      h += '<div class="row2" style="align-items:center;gap:.5rem">'
+        + '<button class="btn sm" data-xstep="-1" aria-label="One fewer">&minus;</button>'
+        + '<input type="number" id="xQty" value="1" min="1" max="' + canGo + '" inputmode="numeric" style="text-align:center">'
+        + '<button class="btn sm" data-xstep="1" aria-label="One more">+</button></div>';
+      h += '<button class="btn danger" style="margin-top:.7rem" data-removepool="' + esc(pool) + '">'
+        + '<span id="pGoneLbl">Remove 1</span></button>';
+      h += '<p class="tiny" style="margin-top:.4rem">Deletes for good, highest numbers first. '
+        + 'Takes the free ones and any you are holding. Never touches gear that is out with someone else.</p>';
+    }
+  }
+
   h += '<h2 class="sec" style="margin-top:1.3rem">Each one (' + all.length + ')</h2>';
   h += '<p class="tiny" style="margin:0 0 .5rem">Tap one to see its serial, flag a problem, or check out that exact unit.</p>';
   all.forEach(i => { h += itemRow(i); });
@@ -2979,7 +3033,12 @@ function bindSheet(){
       const max = Number(box.max) || 1;
       const n = Math.max(1, Math.min(max, Math.round(Number(box.value) || 1)));
       box.value = n;
-      if (lbl) lbl.textContent = word === 'take' ? 'Take ' + n : 'Check ' + n + ' back in';
+      /* three labels now, not two -- 'gone' was added with the remove control
+         2026-09-23 and would otherwise have read "Check 40 back in" on a
+         delete button, which is the worst possible wrong label. */
+      if (lbl) lbl.textContent = word === 'take' ? 'Take ' + n
+                              : word === 'gone' ? 'Remove ' + n
+                              : 'Check ' + n + ' back in';
     };
     s.querySelectorAll('[' + btnAttr + ']').forEach(el => el.onclick = () => {
       box.value = (Math.round(Number(box.value) || 1)) + Number(el.getAttribute(btnAttr));
@@ -2990,6 +3049,22 @@ function bindSheet(){
   };
   stepper('data-pstep', 'pQty', 'pTakeLbl', 'take');
   stepper('data-rstep', 'rQty', 'pBackLbl', 'back');
+  stepper('data-xstep', 'xQty', 'pGoneLbl', 'gone');
+
+  s.querySelectorAll('[data-removepool]').forEach(el => el.onclick = async () => {
+    const pool = el.dataset.removepool;
+    const want = $('xQty') ? Math.max(1, Math.round(Number($('xQty').value) || 1)) : 1;
+    const held = S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder !== S.me).length;
+    if (!confirm('Delete ' + want + ' x ' + pool + ' for good?'
+        + '\n\nThe highest-numbered ones go first.'
+        + (held ? '\n\n' + held + ' are out with someone else and will be kept.' : '')
+        + '\n\nThis cannot be undone.')) return;
+    const got = await removeUnits(pool, want);
+    closeSheet();
+    if (!got) toast('Nothing could be removed');
+    else if (got < want) toast('Removed ' + got + ' - that was all that could go');
+    else toast(got > 1 ? 'Removed ' + got + ' x ' + pool : 'Removed');
+  });
 
   s.querySelectorAll('[data-takepool]').forEach(el => el.onclick = async () => {
     const pool = el.dataset.takepool;
