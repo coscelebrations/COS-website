@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
+<!-- Added 2026-09-23. A tab left open from before an edit hands out stale code.
+     That is not theoretical: on 2026-09-23 the Setup screen's Copy button gave
+     out the pre-fix ruleset from a tab opened earlier the same session, and it
+     was one click from taking 792 leads offline. Belt to the no-store header
+     in netlify.toml, which does not apply to python -m http.server. -->
+<meta http-equiv="Cache-Control" content="no-store">
 <title>Gear Room</title>
 <meta name="theme-color" content="#722F37">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -326,7 +332,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-23-a';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-23-b';   // shown at the bottom of More. Bump on any visible change.
 const ROSTER = ['Corey','Kyle','CJ','Noah','Greg','Mikey','Justin','Cole','Matt'];
 const ADMINS = ['corey','kyle'];
 const LS = 'gearroom.v1';
@@ -2144,101 +2150,64 @@ function viewActivity(){
 }
 
 /* ---- SETUP ---- */
-/* REWRITTEN 2026-09-23. The previous value of this constant was drafted
-   2026-08-11 and was a LANDMINE by the time anyone read it.
+/* REWRITTEN AGAIN 2026-09-23, and this is the shape to keep.
 
-   The Setup screen tells you to "replace everything" with this text. The old
-   version contained no leads/holds/tasks/lead_config/lead_intake/lead_activity
-   rules -- because The Front Desk did not exist yet; it went live 2026-09-21 --
-   and it ended with `match /{document=**} { allow read, write: if false; }`.
-   Pasting it would have denied every Front Desk collection and locked Kyle out
-   of all 792 leads on cosaehq.com, silently, with the app showing only its calm
-   "saving to this computer" note.
+   This screen must NEVER print a full ruleset. One Firebase project has ONE
+   ruleset and three apps share it, so a screen that says "replace everything"
+   is a loaded gun pointed at the other two. That is not hypothetical: the
+   2026-08-11 version of this constant predated The Front Desk, contained no
+   leads/holds/tasks rules and ended with a deny-everything catch-all, and it
+   got one click from taking 792 live leads offline on 2026-09-23.
 
-   So: this is now the COMPLETE ruleset. The /users and Front Desk blocks are
-   copied byte-for-byte from ~/firestore-rules.txt, which was itself read out of
-   the console on 2026-09-21. Never trim this down to "just the gear part".
-   ~/firestore-rules.txt is the source of truth - change it there too.
+   The first fix was to print ALL THREE apps' rules here. That worked but was
+   wrong in its own way - it put Kyle's email allowlist inside the gear app,
+   which has no business knowing leads exist. Corey called it: the apps should
+   not be able to touch each other at all.
 
-   /trackers/ is deliberately left as it is. Sealing it is a SEPARATE change
-   (see ~/firestore-rules.txt) so that if something breaks you know which paste
-   did it. The catch-all is gone: Firestore denies unmatched paths by default,
-   and an explicit one here is what made the old version so destructive. */
-const RULES = `rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
+   So this is now the gear BLOCK ONLY, to be ADDED rather than pasted over.
+   The safety comes from the shape, not from a warning:
+     - it cannot contain a Front Desk rule, so it cannot delete one
+     - pasted in the wrong place it is a SYNTAX ERROR, and Firebase refuses to
+       publish invalid rules - so it fails loudly and harmlessly, where
+       "replace everything" failed silently and completely
 
-
-    // New tracker: each teammate can only read/write their own user doc
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-
-
-    // Old tracker: keep readable during migration window so new tracker
-    // can pull each teammate's existing leads on first sign-in
-    match /trackers/{syncCode} {
-      allow read, write: if request.auth != null;
-    }
-
-    // ---- The Front Desk (office) - added 2026-09-21 --------------------
-    // Scoped to the office by email address. This function is referenced ONLY
-    // by the front-desk matches below. It must NEVER be applied to
-    // /users/{userId}: the DJs are not on this list and every one of them
-    // would lose The Green Room instantly and silently.
-    function isDesk() {
-      return request.auth != null
-        && request.auth.token.email != null
-        && request.auth.token.email.lower() in [
-             'kyle@coscelebrations.com',
-             'corey@coscelebrations.com'
-           ];
-    }
-
-    match /leads/{id}       { allow read, write: if isDesk(); }
-    match /holds/{id}       { allow read, write: if isDesk(); }
-    match /tasks/{id}       { allow read, write: if isDesk(); }
-    match /lead_config/{id} { allow read, write: if isDesk(); }
-    match /lead_intake/{id} { allow read, write: if isDesk(); }
-
-    // An audit trail you can edit is not an audit trail.
-    match /lead_activity/{id} {
-      allow read, create: if isDesk();
-      allow update, delete: if false;
-    }
-
-    // ---- Gear Room (the whole team) - added 2026-09-23 ------------------
-    // Everyone signed in shares one gear list, one calendar and one history.
-    // Each DJ already has an account from The Green Room, so nobody needs a
-    // new login; add a new hire under Authentication > Add user.
+   The assembled full ruleset lives in ONE place, ~/firestore-rules.txt, and
+   that is the only thing that should ever be pasted wholesale.
+   render.mjs asserts this screen stays incapable of being a replacement. */
+const RULES = `    // ---- Gear Room (the whole team) - added 2026-09-23 ------------------
     match /gear_items/{id}  { allow read, write: if request.auth != null; }
     match /gear_events/{id} { allow read, write: if request.auth != null; }
     match /gear_runs/{id}   { allow read, write: if request.auth != null; }
     match /gear_config/{id} { allow read, write: if request.auth != null; }
 
     // An audit trail you can edit is not an audit trail. This is the record of
-    // who took what, and nobody can quietly rewrite it - not even an admin.
+    // who took what, and nobody - not even an admin - can quietly rewrite it.
     match /gear_activity/{id} {
       allow read:   if request.auth != null;
       allow create: if request.auth != null;
       allow update, delete: if false;
-    }
-  }
-}`;
+    }`;
 function viewSetup(){
   let h = backBtn('Back', 'more');
   h += '<h2 class="sec" style="margin-top:.4rem">Setup</h2>';
   h += '<div class="card"><b style="font-size:.95rem">1. Turn on team sync</b>'
-    + '<p class="muted">Until this is done, everyone sees only their own copy. Go to the Firebase console, '
-    + 'pick the <b>cos-tracker-35556</b> project, open Firestore Database, then the Rules tab. '
-    + 'Replace everything with the text below and hit Publish. It takes about ten seconds and does not need a site deploy.</p>'
-    + '<p class="muted"><b>This is the whole ruleset for all three apps</b> - The Green Room, The Front Desk '
-    + 'and this one. Paste all of it. Pasting a gear-only version takes Kyle\'s 792 leads offline, '
-    + 'and the Front Desk shows no error when that happens - it just quietly saves to her computer instead.</p>'
-    + '<p class="muted">Afterwards, check it worked: open the Green Room as a DJ and make sure its dot goes green, '
-    + 'and open the Front Desk as Kyle and make sure More still says 792 leads.</p>'
-    + '<textarea readonly id="rulesBox" style="min-height:250px">' + esc(RULES) + '</textarea>'
-    + '<button class="btn sm" style="width:100%;margin-top:.5rem" data-copyrules="1">Copy the rules</button></div>';
+    + '<p class="muted">Until this is done, everyone sees only their own copy.</p>'
+    + '<p class="muted"><b>These lines get ADDED. Never replace what is already there.</b> '
+    + 'This one Firebase project also runs The Green Room and The Front Desk, and all three '
+    + 'share a single set of rules. Pasting over the lot takes Kyle\'s leads offline, and '
+    + 'her app shows no error when that happens - it just quietly saves to her computer.</p>'
+    + '<p class="muted">Firebase console &rarr; project <b>cos-tracker-35556</b> &rarr; Firestore Database &rarr; '
+    + '<b>Rules</b>. Scroll to the bottom, click just before the last two <code>}</code> lines, '
+    + 'and paste. Then Publish.</p>'
+    + '<textarea readonly id="rulesBox" style="min-height:190px">' + esc(RULES) + '</textarea>'
+    + '<button class="btn sm" style="width:100%;margin-top:.5rem" data-copyrules="1">Copy the gear lines</button>'
+    + '<p class="tiny" style="margin-top:.6rem">If you put it in the wrong spot you get a syntax error and '
+    + 'Firebase simply refuses to publish - nothing breaks, just try again. The only dangerous '
+    + 'move is replacing rules you did not write.</p>'
+    + '<p class="tiny">Afterwards: open the Green Room as a DJ and check the dot goes green, and open '
+    + 'the Front Desk as Kyle and check More still says 792 leads. The full assembled ruleset for all '
+    + 'three apps lives in one place - <code>~/firestore-rules.txt</code> - and that is the only thing '
+    + 'that should ever be pasted wholesale.</p></div>';
   h += '<div class="card"><b style="font-size:.95rem">2. The team signs in</b>'
     + '<p class="muted">Same email and password they already use for The Green Room. Nobody needs a new account. '
     + 'Anyone who does not have one yet gets added in Firebase under Authentication.</p></div>';
