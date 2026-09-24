@@ -332,7 +332,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-23-f';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-23-g';   // shown at the bottom of More. Bump on any visible change.
 const ROSTER = ['Corey','Kyle','CJ','Noah','Greg','Mikey','Justin','Cole','Matt'];
 const ADMINS = ['corey','kyle'];
 /* Two different powers, deliberately not the same list. Added 2026-09-23 at
@@ -1309,7 +1309,16 @@ function viewEvent(id){
     h += '<div class="navrow" data-kitinfo="' + k.id + '"><span class="grow">' + esc(k.name)
       + '<br><span class="tiny">' + (k.items||[]).length + ' items</span></span><span class="go"></span></div>';
   });
-  h += '<button class="btn ghost sm" style="width:100%;margin-top:.8rem" data-editev="' + e.id + '">Edit this event</button>';
+  /* An assignment ("Noah needs these Friday") is not a wedding, so it must not
+     open the wedding form - that form asks for venue, client and times, which
+     is exactly what Corey did not want to type. Send it back to the three-field
+     sheet it came from. Without this you could CREATE one and never change or
+     delete it: data-editassign was bound but nothing rendered it. 2026-09-24. */
+  if (isAdmin()) {
+    h += e.gearMode === 'exact'
+      ? '<button class="btn ghost sm" style="width:100%;margin-top:.8rem" data-editassign="' + e.id + '">Change what they need</button>'
+      : '<button class="btn ghost sm" style="width:100%;margin-top:.8rem" data-editev="' + e.id + '">Edit this event</button>';
+  }
   return h;
 }
 
