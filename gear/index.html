@@ -332,9 +332,27 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-23-d';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-23-e';   // shown at the bottom of More. Bump on any visible change.
 const ROSTER = ['Corey','Kyle','CJ','Noah','Greg','Mikey','Justin','Cole','Matt'];
 const ADMINS = ['corey','kyle'];
+/* Two different powers, deliberately not the same list. Added 2026-09-23 at
+   Corey's request: "only Corey can delete and add gear. For now. Maybe later
+   down the road with management."
+
+   ADMINS is the OFFICE role - seeing everyone's overdue gear, landing on the
+   Week tab, editing checklist wording, and assigning gear to a person. Kyle
+   runs the office, so she keeps all of it.
+
+   GEAR_EDITORS is the INVENTORY role - adding, editing and deleting the gear
+   list itself. Corey owns the gear and is the only one who should be able to
+   change what exists. Deleting is irreversible and a wrong quantity is what
+   started this.
+
+   Adding a manager later is one name in this array. When that happens it should
+   move into the synced config (see S.settings in the plan) so it is a tap in
+   Setup rather than a deploy - but a const is honest today, and the app is not
+   deployed yet, so there is nothing to redeploy. */
+const GEAR_EDITORS = ['corey'];
 const LS = 'gearroom.v1';
 
 const S = {
@@ -443,6 +461,7 @@ function toast(msg){
   clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove('on'), 2200);
 }
 const isAdmin = () => ADMINS.includes(String(S.me).toLowerCase());
+const canEditGear = () => GEAR_EDITORS.includes(String(S.me).toLowerCase());
 const itemById = id => S.items.find(i => i.id === id);
 const eventById = id => S.events.find(e => e.id === id);
 
@@ -1069,7 +1088,7 @@ function viewGear(){
       h += g.units.length > 1 ? poolRow(g.pool, g.units) : itemRow(g.units[0]);
     });
   });
-  if (isAdmin()) h += '<button class="btn ghost sm" style="width:100%;margin-top:1rem" data-view="inventory">Add or edit gear</button>';
+  if (canEditGear()) h += '<button class="btn ghost sm" style="width:100%;margin-top:1rem" data-view="inventory">Add or edit gear</button>';
   return h;
 }
 
@@ -2168,12 +2187,22 @@ function viewKits(){
 /* ---- INVENTORY ADMIN ---- */
 function viewInventory(){
   let h = backBtn('Back', 'gear');
+  /* Hiding the button that leads here is not a guard - `?view=inventory` is
+     parsed straight off the URL at startApp and lands on this screen whatever
+     the nav says. Everything below adds, edits or deletes the gear list, so the
+     screen itself has to check. 2026-09-23. */
+  if (!canEditGear()) {
+    return h + '<div class="empty"><p style="margin:0 0 1rem">The gear list is Corey\'s to change.</p>'
+      + '<p class="tiny">You can see everything in the Gear tab, check it out and bring it back. '
+      + 'Ask Corey to add, rename or remove a piece of gear.</p>'
+      + '<button class="btn sm" data-go="gear">Back to the gear</button></div>';
+  }
   h += '<h2 class="sec" style="margin-top:.4rem">Add or edit gear</h2>';
   const tpl = S.items.filter(i => i.template).length;
   if (tpl) h += '<div class="banner info"><b>' + tpl + ' items are still the starter template</b>'
     + 'These are placeholder names to get you going, not a record of what COS and AE actually own. '
     + 'Rename them to match your real gear, delete what you do not have, and add what is missing.'
-    + (isAdmin() ? '<button class="btn sm danger" style="width:100%;margin-top:.6rem" data-clearseed="1">'
+    + (canEditGear() ? '<button class="btn sm danger" style="width:100%;margin-top:.6rem" data-clearseed="1">'
       + 'Clear all ' + tpl + ' and start from empty</button>' : '') + '</div>';
   h += '<button class="btn primary" data-newitem="1">Add a piece of gear</button>';
   h += '<h2 class="sec">Everything (' + S.items.length + ')</h2>';
@@ -2483,7 +2512,7 @@ function poolSheetHtml(pool){
 
   /* No delete existed anywhere in the app until 2026-09-23. Admin-only, and it
      counts what it can actually take so the number on screen is never a lie. */
-  if (isAdmin()) {
+  if (canEditGear()) {
     const canGo = all.filter(x => x.status !== 'out' || x.holder === S.me).length;
     if (canGo) {
       h += '<label class="fl" style="margin-top:1.2rem">Added too many? Remove some</label>';
@@ -2535,7 +2564,7 @@ function itemSheet(i){
       + (i.status === 'out' ? 'Hand it over' : 'Give it to them') + '</button>';
   }
   h += '<button class="btn" style="margin-top:.5rem" data-sflag="' + i.id + '">Report a problem</button>';
-  if (isAdmin()) h += '<button class="btn ghost" style="margin-top:.5rem" data-edititem="' + i.id + '">Edit details</button>';
+  if (canEditGear()) h += '<button class="btn ghost" style="margin-top:.5rem" data-edititem="' + i.id + '">Edit details</button>';
   h += '</div>';
   openSheet(h);
 }
