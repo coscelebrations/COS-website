@@ -68,6 +68,12 @@ nav.tabs .pip{position:absolute;transform:translate(14px,-4px);min-width:16px;he
 h2.sec{font-size:.72rem;color:var(--neutral);text-transform:uppercase;letter-spacing:.1em;
   font-weight:700;margin:1.6rem 0 .6rem}
 h2.sec:first-child{margin-top:1.1rem}
+/* Category labels nested UNDER an h2.sec section title. h2.sec is already tiny
+   uppercase grey, so a second one at the same weight competes with the title it
+   sits beneath. 2026-09-25. */
+h3.sub{font-size:.72rem;color:var(--neutral);font-weight:600;margin:.9rem 0 .35rem;
+  letter-spacing:.01em}
+h3.sub:first-of-type{margin-top:.5rem}
 .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1rem;
   margin-bottom:.7rem;box-shadow:var(--shadow)}
 .muted{color:var(--text-soft);font-size:.87rem;line-height:1.5}
@@ -332,7 +338,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-24-a';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-25-a';   // shown at the bottom of More. Bump on any visible change.
 const ROSTER = ['Corey','Kyle','CJ','Noah','Greg','Mikey','Justin','Cole','Matt'];
 const ADMINS = ['corey','kyle'];
 /* Two different powers, deliberately not the same list. Added 2026-09-23 at
@@ -616,7 +622,32 @@ function upcoming(days){
   return S.events.filter(e => { const d = dayDiff(t, e.date); return d >= -1 && d <= days; })
     .sort((a,b) => a.date.localeCompare(b.date) || String(a.time||'').localeCompare(String(b.time||'')));
 }
-function myOut(){ return S.items.filter(i => i.status === 'out' && i.holder === S.me); }
+/* Natural order: category, then pool, then the number on the unit, so
+   "Uplight 2" comes before "Uplight 10" and speakers never land in the middle
+   of the uplights. Added 2026-09-25 - Corey: "my speakers are sporadic through
+   the middle."
+
+   There was no order to inherit. S.items is seed-file order locally, FIRESTORE
+   DOC-ID ORDER in the cloud (which is what he is actually on), and putItem
+   appends anything re-added to the tail. The bug is therefore close to
+   invisible on a fresh local seed and obvious in the cloud.
+
+   groupPools() does NOT sort either - it keeps first-appearance order - so THIS
+   is what makes the grouped categories come out in order. Optimise this away
+   and the grouping still works while the order silently scrambles.
+
+   The \s(\d+)$ pattern is lifted from nextUnitNumber so numbering and sorting
+   read a unit name the same way. .slice() so callers never mutate S.items. */
+function unitNum(name){ const m = /\s(\d+)$/.exec(name || ''); return m ? Number(m[1]) : 0; }
+function sortUnits(list){
+  return (list || []).slice().sort((a,b) =>
+       (CATEGORIES.indexOf(a.category) + 1 || 99) - (CATEGORIES.indexOf(b.category) + 1 || 99)
+    || String(a.category || '').localeCompare(String(b.category || ''))
+    || String(poolOf(a)).localeCompare(String(poolOf(b)))
+    || unitNum(a.name) - unitNum(b.name)
+    || String(a.name || '').localeCompare(String(b.name || '')));
+}
+function myOut(){ return sortUnits(S.items.filter(i => i.status === 'out' && i.holder === S.me)); }
 
 /* ---- returns are due the Monday after the weekend ----
    Corey's rule, 2026-08-11: everything comes back the Monday following the
@@ -641,8 +672,8 @@ function isOverdue(item){
   return !!d && dayDiff(d, today()) > 0;
 }
 function overdueItems(who){
-  return S.items.filter(i => i.status === 'out' && isOverdue(i)
-    && (!who || i.holder === who));
+  return sortUnits(S.items.filter(i => i.status === 'out' && isOverdue(i)
+    && (!who || i.holder === who)));
 }
 function overdueByPerson(){
   const g = {};
@@ -982,9 +1013,37 @@ function viewToday(){
   if (late.length) {
     h += '<div class="banner warn"><b>' + late.length + ' item' + (late.length>1?'s':'')
       + ' should be back at the warehouse</b>'
-      + 'Due back ' + esc(plainDay(dueFor(late[0]))) + '. Drop them at the warehouse and check them in here.'
+      /* FIXED 2026-09-25: this read dueFor(late[0]) - whichever late unit happened
+         to be first in an UNSORTED array, so the date shown was arbitrary and
+         could be later than something more overdue. Sorting overdueItems (same
+         pass) would have reshuffled it silently. The earliest due date across
+         the whole list is correct whatever the order, so this line can never
+         drift again. */
+      + 'Due back ' + esc(plainDay(late.map(dueFor).filter(Boolean).sort()[0] || dueFor(late[0])))
+      + '. Drop them at the warehouse and check them in here.'
       + '</div>';
-    late.forEach(i => { h += itemRow(i); });
+    /* Grouped the same way as the holdings list below, 2026-09-25 - twelve late
+       uplights used to be twelve rows of the most urgent block on the screen,
+       pushing everything else below the fold. WHICH uplight is late is not
+       actionable: they are interchangeable and checkInMany does not care. Tap a
+       row to see the individual units.
+
+       Two deliberate differences from the list below: no category headings,
+       because this is a short alarm rather than a catalogue; and sorted by DUE
+       DATE, most overdue first, because urgency beats category here. That is
+       why it sorts its own copy instead of using the category sort. */
+    const lateByDue = late.slice().sort((a,b) =>
+      String(dueFor(a) || '').localeCompare(String(dueFor(b) || '')));
+    groupPools(lateByDue).forEach(g => {
+      if (g.units.length === 1) { h += itemRow(g.units[0]); return; }
+      const due = g.units.map(dueFor).filter(Boolean).sort()[0];
+      const days = due ? dayDiff(due, today()) : 0;
+      h += '<button class="item out" data-mypool="' + esc(g.pool) + '">'
+        + '<span class="nm"><b>' + esc(g.pool) + '</b><span>'
+        + (days > 0 ? days + ' day' + (days > 1 ? 's' : '') + ' late' : 'Due back now')
+        + '</span></span>'
+        + '<span class="pill out">' + g.units.length + '</span></button>';
+    });
     h += '<button class="btn" style="margin:.2rem 0 .4rem" data-inlate="1">Check these ' + late.length + ' back in</button>';
   }
 
@@ -1021,8 +1080,28 @@ function viewToday(){
   const notLate = out.filter(i => !isOverdue(i));
   if (notLate.length) {
     h += '<h2 class="sec">You have out right now (' + notLate.length + ')</h2>';
-    notLate.forEach(i => { h += itemRow(i); });
-    h += '<button class="btn" style="margin-top:.4rem" data-inall="1">Check all ' + out.length + ' back in</button>';
+    /* Grouped by category, then collapsed per pool, the same way the Gear tab
+       has worked since 2026-08-25. Twelve uplights used to be twelve full-width
+       rows all reading "With Corey - 3d ago", with only the trailing number
+       different. Anything you hold exactly one of still renders as its own
+       named row. 2026-09-25. */
+    groupByCategory(notLate).forEach(({ cat, units }) => {
+      h += '<h3 class="sub">' + esc(cat) + '</h3>';
+      /* EVERY row goes through myPoolRow, including single units. itemRow's
+         sub-line reads "With Mikey - 2d ago", which on a screen headed "You
+         have out right now" states the obvious and makes the list ragged - some
+         rows with a sub-line, some without. Corey asked for the count and the
+         name; this is the count and the name, uniformly. Tapping still reaches
+         the individual unit, one level in. 2026-09-25. */
+      groupPools(units).forEach(g => { h += myPoolRow(g.pool, g.units); });
+    });
+    /* FIXED 2026-09-25: this said out.length, which INCLUDES the overdue units
+       listed separately above under their own button - so with 12 late and 5
+       not you read "You have out right now (5)" above "Check all 17 back in".
+       The button now does what the heading says; the overdue block covers the
+       rest. Costs a second tap when something is late, which is fair - the late
+       ones deserve their own deliberate acknowledgement. */
+    h += '<button class="btn" style="margin-top:.4rem" data-inall="1">Check all ' + notLate.length + ' back in</button>';
   }
   return h;
 }
@@ -1039,6 +1118,17 @@ function evCard(e, nConf){
   h += '</div><i class="arrow"></i></div>';
   return h;
 }
+/* CATEGORIES order first, then anything unknown alphabetically. Extracted from
+   viewGear 2026-09-25 so the Gear tab and Today read the SAME rule - the two
+   screens can never disagree about where Lighting sits. */
+function groupByCategory(units){
+  const g = {};
+  (units || []).forEach(i => { (g[i.category] = g[i.category] || []).push(i); });
+  return CATEGORIES.concat(Object.keys(g).filter(c => !CATEGORIES.includes(c)).sort())
+    .filter(c => g[c])
+    .map(c => ({ cat: c, units: g[c] }));
+}
+
 /* Collapse a list of units into pools, keeping the order they came in. */
 function groupPools(units){
   const seen = {}, out = [];
@@ -1048,6 +1138,23 @@ function groupPools(units){
     seen[p].units.push(i);
   });
   return out;
+}
+
+/* THREE rows share this shape and answer different questions - do not merge
+   them: poolRow (below) is what the COMPANY owns, viewInventory has its own for
+   the admin list, and myPoolRow is what YOU are carrying. The counts are not
+   the same counts. 2026-09-25. */
+
+/* The holdings row. poolRow below answers "what does the company own"; this
+   answers "what am I carrying", so the count is units.length - how many YOU
+   have - and never the warehouse totals. Corey asked for the count and the name
+   and nothing else: every row here is status 'out' and held by him, so
+   poolRow's sub-line would repeat "With you" down the whole screen, which is
+   the noise he was complaining about. 2026-09-25. */
+function myPoolRow(pool, units){
+  return '<button class="item out" data-mypool="' + esc(pool) + '">'
+    + '<span class="nm"><b>' + esc(pool) + '</b></span>'
+    + '<span class="pill out">' + units.length + '</span></button>';
 }
 
 /* The summary row for "we own 40 of these". Counts come from the WHOLE
@@ -1105,17 +1212,16 @@ function viewGear(){
 
   if (!list.length) return h + '<div class="empty"><p>Nothing matches.</p></div>';
 
-  const groups = {};
-  list.forEach(i => { (groups[i.category] = groups[i.category] || []).push(i); });
-  CATEGORIES.concat(Object.keys(groups).filter(c => !CATEGORIES.includes(c)).sort()).forEach(cat => {
-    if (!groups[cat]) return;
+  /* the ordering rule lives in groupByCategory since 2026-09-25, so Today and
+     this screen cannot drift apart about where a category sits */
+  groupByCategory(list).forEach(({ cat, units: catUnits }) => {
     h += '<h2 class="sec">' + esc(cat) + '</h2>';
     /* One row per POOL, not per unit. Owning 40 uplights used to mean 40
        near-identical rows filling the whole screen, which is unreadable and
        hides everything else you own. Anything you own exactly one of still
        renders as its own plain row, so the common case is unchanged.
        2026-08-25, the first thing Corey hit after entering real gear. */
-    groupPools(groups[cat]).forEach(g => {
+    groupPools(catUnits).forEach(g => {
       h += g.units.length > 1 ? poolRow(g.pool, g.units) : itemRow(g.units[0]);
     });
   });
@@ -2506,6 +2612,45 @@ function closeSheet(){ $('sheet').classList.remove('on'); $('scrim').classList.r
    instead of tapping 12 rows, and drill down to the individual units when you
    actually need one -- a serial number, or flagging the one with the bad clamp.
    Split into a pure -Html function so the tests can read it without a DOM. */
+/* Today's version of the pool sheet. poolSheetHtml below is the WAREHOUSE view:
+   it opens with "Free right now" and a "How many are you taking" counter, which
+   is backwards when you have just tapped in from "you have out right now" - you
+   came to give things back, not take more.
+
+   Reuses bindSheet's exact ids on purpose: data-rstep, id="rQty", id="pBackLbl"
+   and data-returnpool are string literals inside stepper(). RENAMING THEM FOR
+   TIDINESS SILENTLY BREAKS THE COUNTER - no error, the buttons just stop doing
+   anything. That reuse is also why this needs no new event wiring. 2026-09-25. */
+function myPoolSheetHtml(pool){
+  const mine = sortUnits(S.items.filter(x =>
+    poolOf(x) === pool && x.status === 'out' && x.holder === S.me));
+  const all = S.items.filter(x => poolOf(x) === pool && x.status !== 'retired');
+  let h = '<h3>' + esc(pool) + '</h3><p class="tiny" style="margin:.1rem 0 1rem">'
+    + esc(all[0] ? all[0].category : '') + '</p>';
+  h += '<div class="kv"><span>With you</span><b>' + mine.length + '</b></div>';
+  if (mine.length) {
+    const oldest = mine.reduce((a,b) => (a.since || '9') < (b.since || '9') ? a : b);
+    h += '<div class="kv"><span>Since</span><b>' + esc(ago(oldest.since)) + '</b></div>';
+    h += '<label class="fl" style="margin-top:1rem">Bringing back</label>';
+    h += '<div class="row2" style="align-items:center;gap:.5rem">'
+      + '<button class="btn sm" data-rstep="-1" aria-label="One fewer">&minus;</button>'
+      + '<input type="number" id="rQty" value="' + mine.length + '" min="1" max="' + mine.length
+      + '" inputmode="numeric" style="text-align:center">'
+      + '<button class="btn sm" data-rstep="1" aria-label="One more">+</button></div>';
+    h += '<button class="btn primary" style="margin-top:.7rem" data-returnpool="' + esc(pool) + '">'
+      + '<span id="pBackLbl">Check ' + mine.length + ' back in</span></button>';
+  } else {
+    h += '<div class="banner info" style="margin-top:1rem"><b>None of these are with you</b>'
+      + 'Nothing to bring back.</div>';
+  }
+  h += '<h2 class="sec" style="margin-top:1.3rem">Yours (' + mine.length + ')</h2>';
+  h += '<p class="tiny" style="margin:0 0 .5rem">Tap one for its serial, or to flag a problem.</p>';
+  mine.forEach(i => { h += itemRow(i); });
+  h += '<button class="btn ghost sm" style="width:100%;margin-top:.8rem" data-pool="' + esc(pool) + '">'
+    + 'See all ' + all.length + ' in the warehouse</button>';
+  return h;
+}
+
 function poolSheetHtml(pool){
   const all = S.items.filter(x => poolOf(x) === pool && x.status !== 'retired');
   const free = all.filter(x => x.status === 'in');
@@ -2854,6 +2999,9 @@ function bind(){
     const i = itemById(el.dataset.item); if (i) itemSheet(i);
   });
   v.querySelectorAll('[data-pool]').forEach(el => el.onclick = () => poolSheet(el.dataset.pool));
+  /* Today's grouped rows land on the bring-it-back sheet, not the warehouse
+     take screen. 2026-09-25. */
+  v.querySelectorAll('[data-mypool]').forEach(el => el.onclick = () => openSheet(myPoolSheetHtml(el.dataset.mypool)));
   v.querySelectorAll('[data-f]').forEach(el => el.onclick = () => { S.gearFilter = el.dataset.f; render(); });
 
   const q = $('q');
@@ -2918,9 +3066,14 @@ function bind(){
     toast('Checked in. Thanks.');
   });
   v.querySelectorAll('[data-inall]').forEach(el => el.onclick = async () => {
-    const list = myOut();
+    /* FIXED 2026-09-25: this returned ALL of myOut(), including the overdue
+       units that are listed separately above with their own "Check these N back
+       in" button - so the button under "You have out right now (5)" silently
+       checked in 17 things. Scoped to what its own section shows. */
+    const list = myOut().filter(i => !isOverdue(i));
+    if (!list.length) { toast('Nothing to check in'); return; }
     for (const i of list) await putItem({ ...i, status:'in', holder:'', holderUid:'', eventId:'', since:'' });
-    logIt(S.me + ' returned ' + list.length + ' items');
+    logIt(S.me + ' returned ' + list.length + ' item' + (list.length > 1 ? 's' : ''));
     toast('All back in. Nice.');
   });
 
@@ -3184,6 +3337,11 @@ function bindSheet(){
   s.querySelectorAll('[data-item]').forEach(el => el.onclick = () => {
     const i = itemById(el.dataset.item); if (i) itemSheet(i);
   });
+  /* data-pool is bound at view level too, but myPoolSheetHtml puts a "see all N
+     in the warehouse" link INSIDE a sheet, and without this it would look like
+     a button and do nothing. 2026-09-25. */
+  s.querySelectorAll('[data-pool]').forEach(el => el.onclick = () => poolSheet(el.dataset.pool));
+  s.querySelectorAll('[data-mypool]').forEach(el => el.onclick = () => openSheet(myPoolSheetHtml(el.dataset.mypool)));
 
   /* the take / bring-back counters on a pool. Label updates in place rather
      than re-rendering the sheet -- openSheet() re-runs bindSheet, which would
