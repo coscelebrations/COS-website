@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-25-c';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-25-e';   // shown at the bottom of More. Bump on any visible change.
 const ROSTER = ['Corey','Kyle','CJ','Noah','Greg','Mikey','Justin','Cole','Matt'];
 const ADMINS = ['corey','kyle'];
 /* Two different powers, deliberately not the same list. Added 2026-09-23 at
@@ -367,6 +367,38 @@ const ADMINS = ['corey','kyle'];
    Setup rather than a deploy - but a const is honest today, and the app is not
    deployed yet, so there is nothing to redeploy. */
 const GEAR_EDITORS = ['corey'];
+
+/* THE EMAIL IS THE IDENTITY; the name is only a label. Added 2026-09-25 after
+   Corey found he could tap a name at the top of the screen and become CJ, and
+   asked whether he was the only one who could. He was not - every signed-in
+   person could, and isAdmin()/canEditGear() read that picked name, so any DJ
+   could tap "Corey" and unlock deleting the entire gear list.
+
+   Corey: "I just dont want them to be able to log in as somebody else and move
+   gear around. that kind of takes away the knowing of it."
+
+   The email is the one thing a person cannot change from inside the app. */
+const ADMIN_EMAILS = ['corey@coscelebrations.com', 'kyle@coscelebrations.com'];
+const GEAR_EDITOR_EMAILS = ['corey@coscelebrations.com'];
+
+/* Michael@ signs in but is called Mikey, and Greg is on a personal gmail - a
+   prefix guess cannot do either, which is why it silently failed for two of the
+   nine and left them nameless. This map is the roster's other half; a new hire
+   goes in BOTH, on purpose, because the name is what all the gear gets labelled
+   with. ae.entertain.co@gmail.com is deliberately absent: it is a SHARED AE
+   inbox, so it does not identify a person and must fall through. Matt has no
+   address at all and so cannot sign in. */
+const LOGIN_NAMES = {
+  'corey@coscelebrations.com':'Corey',  'kyle@coscelebrations.com':'Kyle',
+  'cj@coscelebrations.com':'CJ',        'noah@coscelebrations.com':'Noah',
+  'michael@coscelebrations.com':'Mikey','justin@coscelebrations.com':'Justin',
+  'cole@coscelebrations.com':'Cole',    'djczone@gmail.com':'Greg'
+};
+function nameForLogin(email){
+  const e = String(email || '').toLowerCase().trim();
+  if (!e) return '';
+  return LOGIN_NAMES[e] || ROSTER.find(n => e.startsWith(n.toLowerCase() + '@')) || '';
+}
 const LS = 'gearroom.v1';
 
 const S = {
@@ -474,8 +506,18 @@ function toast(msg){
   const t = $('toast'); t.textContent = msg; t.classList.add('on');
   clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove('on'), 2200);
 }
-const isAdmin = () => ADMINS.includes(String(S.me).toLowerCase());
-const canEditGear = () => GEAR_EDITORS.includes(String(S.me).toLowerCase());
+/* Read the EMAIL, not the picked name. The ADMINS/GEAR_EDITORS name lists stay
+   as the fallback for device-only mode, which has no sign-in and therefore no
+   email - that mode writes nothing to Firestore, so its blast radius is one
+   phone and its own localStorage. Everywhere else, switching your display name
+   changes the label and nothing else. 2026-09-25. */
+const myEmail = () => String(S.email || '').toLowerCase().trim();
+const isAdmin = () => myEmail()
+  ? ADMIN_EMAILS.includes(myEmail())
+  : ADMINS.includes(String(S.me).toLowerCase());
+const canEditGear = () => myEmail()
+  ? GEAR_EDITOR_EMAILS.includes(myEmail())
+  : GEAR_EDITORS.includes(String(S.me).toLowerCase());
 const itemById = id => S.items.find(i => i.id === id);
 const eventById = id => S.events.find(e => e.id === id);
 
@@ -694,6 +736,15 @@ function isOverdue(item){
 function overdueItems(who){
   return sortUnits(S.items.filter(i => i.status === 'out' && isOverdue(i)
     && (!who || i.holder === who)));
+}
+/* Everything anyone is holding, grouped by person. The parameterised sibling of
+   overdueByPerson() right below - and of myOut(), which is hardcoded to S.me and
+   must STAY that way because the Today tab depends on it. 2026-09-25. */
+function heldByPerson(){
+  const g = {};
+  sortUnits(S.items.filter(i => i.status === 'out'))
+    .forEach(i => { (g[i.holder || 'unknown'] = g[i.holder || 'unknown'] || []).push(i); });
+  return g;
 }
 function overdueByPerson(){
   const g = {};
@@ -1260,6 +1311,65 @@ function viewWeek(){
   const late = overdueByPerson();
   const lateNames = Object.keys(late);
   let h = '';
+
+  /* WHO'S GOT WHAT. Corey asked for "an area I could click that shows all
+     members at the same time and what they currently have in possession, maybe
+     the option of what they need as well". 2026-09-25.
+
+     Built from ROSTER, NOT peopleThisWeekend() - that one is derived from
+     events, so anyone holding gear with nothing booked would have been invisible
+     on the very screen meant to find them. Everyone sees this; it is the same
+     information the Gear tab already gives one item at a time. */
+  const held = heldByPerson();
+  h += '<h2 class="sec">Who\'s got what</h2>';
+  const anyHeld = Object.keys(held).some(k => (held[k] || []).length);
+  if (!anyHeld) {
+    h += '<p class="muted">Everything is in the warehouse.</p>';
+  } else {
+    /* Roster order first, then anyone holding gear under a name that is not on
+       it - a rename, or a unit checked out before someone left. They still have
+       our gear, so they still have to show up. */
+    const extras = Object.keys(held).filter(n => !ROSTER.includes(n)).sort();
+    const everyone = ROSTER.concat(extras);
+    /* A card each for whoever is holding something; everyone else collapses to
+       one line at the bottom. Nine roster members meant six near-identical
+       "nothing out" cards between the three that mattered - the same repetition
+       Corey has had me collapse on every other screen. Still answers "all
+       members at the same time", just without the scrolling. */
+    const empty = everyone.filter(n => !(held[n] || []).length);
+    everyone.filter(n => (held[n] || []).length).forEach(who => {
+      const mine = held[who] || [];
+      const lateN = (late[who] || []).length;
+      h += '<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline">'
+        + '<b style="font-size:1rem">' + esc(who) + '</b>'
+        + '<span class="tiny">' + mine.length + ' out</span></div>';
+      groupByCategory(mine).forEach(({ cat, units }) => {
+        h += '<h3 class="sub">' + esc(cat) + '</h3>';
+        groupPools(units).forEach(g => { h += myPoolRow(g.pool, g.units); });
+      });
+      if (lateN) h += '<p class="tiny" style="margin:.5rem 0 0;color:var(--red)">'
+        + lateN + ' of these ' + (lateN > 1 ? 'are' : 'is') + ' past due.</p>';
+      /* What they still have to collect, from whatever has been assigned to
+         them. weekendPull is capped at comingSunday(), so this genuinely cannot
+         see past this weekend - say so rather than let the number quietly lie. */
+      const need = weekendPull(who).need || {};
+      const short = Object.keys(need)
+        .map(pl => ({ pl, n: need[pl] - heldCount(pl, who) }))
+        .filter(x => x.n > 0)
+        .sort((a,b) => b.n - a.n);
+      if (short.length) {
+        h += '<p class="tiny" style="margin:.5rem 0 0"><b>Still to collect:</b> '
+          + short.map(x => x.n + ' ' + esc(x.pl)).join(', ') + '</p>';
+      }
+      h += '</div>';
+    });
+    if (empty.length) {
+      h += '<p class="muted" style="margin:.2rem 0 .6rem"><b>Nothing out:</b> '
+        + empty.map(esc).join(', ') + '</p>';
+    }
+    h += '<p class="tiny" style="margin:-.2rem 0 0">"Still to collect" only looks '
+      + 'as far as Sunday. Anything set up for next week shows once that week starts.</p>';
+  }
 
   if (lateNames.length) {
     const n = overdueItems().length;
@@ -2631,7 +2741,8 @@ function viewMore(){
   h += row('setup', 'Setup', 'Team sync, phones, first-run');
 
   h += '<h2 class="sec">Account</h2>';
-  h += '<button class="btn ghost" data-changeme="1">Change who I am</button>';
+  h += '<button class="btn ghost" data-changeme="1">'
+    + (isAdmin() ? 'Change who I am' : 'Who am I signed in as?') + '</button>';
   if (S.mode === 'cloud') h += '<button class="btn ghost" style="margin-top:.5rem" data-signout="1">Sign out</button>';
   else h += '<button class="btn ghost" style="margin-top:.5rem" data-tocloud="1">Sign in to sync with the team</button>';
   /* bump BUILD whenever something visible changes, so "did my refresh work"
@@ -2954,8 +3065,24 @@ function itemEditSheet(i){
   $('sheet')._draft = v;
 }
 function whoSheet(){
+  /* ADMIN ONLY since 2026-09-25. Every name here used to be tappable by anyone,
+     and isAdmin()/canEditGear() read the result - so a DJ could tap "Corey" and
+     unlock deleting the gear list. Corey: "there is no reason for them to switch
+     names on their phones."
+
+     Powers now follow the signed-in email, so an admin switching the name is
+     harmless and still useful - a shared warehouse tablet, or checking what a DJ
+     actually sees. */
+  if (!isAdmin()) {
+    openSheet('<h3>Who you are</h3>'
+      + '<div class="kv"><span>Signed in as</span><b>' + esc(S.email || 'this device') + '</b></div>'
+      + '<div class="kv"><span>The team sees</span><b>' + esc(S.me || 'nobody yet') + '</b></div>'
+      + '<p class="tiny" style="margin:1rem 0 0">Your name comes from the account you signed in '
+      + 'with, so gear always shows who really has it. If this is the wrong name, ask Corey.</p>');
+    return;
+  }
   let h = '<h3>Who are you?</h3><p class="tiny" style="margin:.2rem 0 1rem">'
-    + 'This is how the team sees who has what. It is not a login.</p>';
+    + 'Powers follow the account you signed in with, so this only changes the name on screen.</p>';
   ROSTER.forEach(n => {
     h += '<button class="navrow" data-setme="' + esc(n) + '"><span class="grow">' + esc(n)
       + (n === S.me ? ' <span class="pill in">you</span>' : '') + '</span><span class="go"></span></button>';
@@ -3806,7 +3933,14 @@ ensureFb().then(() => {
     if (user) {
       S.uid = user.uid; S.email = user.email || '';
       localStorage.setItem('gearroom.mode','cloud');
-      if (!localStorage.getItem('gearroom.me')) {
+      /* Assert the name on EVERY sign-in, not once. This used to be wrapped in
+         `if (!localStorage.getItem('gearroom.me'))`, so it ran on first sign-in
+         and never corrected itself - a name picked later stuck for good. An
+         address we do not recognise still falls through to the picker, so a new
+         hire is never locked out. 2026-09-25. */
+      const known = nameForLogin(user.email);
+      if (known) { S.me = known; localStorage.setItem('gearroom.me', known); }
+      else if (!localStorage.getItem('gearroom.me')) {
         const guess = ROSTER.find(n => (user.email||'').toLowerCase().startsWith(n.toLowerCase()));
         if (guess) localStorage.setItem('gearroom.me', guess);
       }
