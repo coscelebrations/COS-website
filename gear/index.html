@@ -68,12 +68,20 @@ nav.tabs .pip{position:absolute;transform:translate(14px,-4px);min-width:16px;he
 h2.sec{font-size:.72rem;color:var(--neutral);text-transform:uppercase;letter-spacing:.1em;
   font-weight:700;margin:1.6rem 0 .6rem}
 h2.sec:first-child{margin-top:1.1rem}
-/* Category labels nested UNDER an h2.sec section title. h2.sec is already tiny
-   uppercase grey, so a second one at the same weight competes with the title it
-   sits beneath. 2026-09-25. */
-h3.sub{font-size:.72rem;color:var(--neutral);font-weight:600;margin:.9rem 0 .35rem;
-  letter-spacing:.01em}
-h3.sub:first-of-type{margin-top:.5rem}
+/* Category bands. Corey 2026-09-25: "for each category, dj gear, lighting etc
+   those can be highlighted or something to make them stand out just a bit. its
+   all very one color right now" - the headings were the same grey as everything
+   else, so the groups never separated.
+
+   Merlot on blush is about 9:1 contrast, comfortably past the 4.5:1 in Rule #14.
+   Scoped to a modifier rather than restyling h2.sec, which is used in 31 places
+   and mostly is not a category. */
+h2.sec.cat, h3.sub{
+  background:var(--soft-pink); color:var(--merlot);
+  font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em;
+  padding:.38rem .65rem; border-radius:8px; margin:1.3rem 0 .5rem;
+}
+h2.sec.cat:first-child, h3.sub:first-of-type{margin-top:.8rem}
 .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1rem;
   margin-bottom:.7rem;box-shadow:var(--shadow)}
 .muted{color:var(--text-soft);font-size:.87rem;line-height:1.5}
@@ -338,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-25-a';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-25-c';   // shown at the bottom of More. Bump on any visible change.
 const ROSTER = ['Corey','Kyle','CJ','Noah','Greg','Mikey','Justin','Cole','Matt'];
 const ADMINS = ['corey','kyle'];
 /* Two different powers, deliberately not the same list. Added 2026-09-23 at
@@ -545,6 +553,18 @@ function evLabel(e){
   if (!e) return 'Event';
   return e.client || e.venue || (e.dj ? 'Gear for ' + e.dj : 'Gear');
 }
+/* For anywhere SEVERAL events are listed together. A wedding has a couple's
+   name, which is unique; an assignment falls back to "Gear for Noah", which is
+   not - so five of them in a row read as one thing repeated five times. Adds
+   the day ONLY when there is no name of its own, so a real wedding is untouched.
+
+   viewWeek already did this by hand; it now shares this, so the three call
+   sites cannot drift apart. 2026-09-25. */
+function evLabelDay(e){
+  if (!e) return 'Event';
+  return (e.client || e.venue) ? evLabel(e) : plainDay(e.date) + ' - ' + evLabel(e);
+}
+
 function poolNeeds(ev){
   /* An exact list is the whole truth for that job - kits and CRM addons stop
      contributing, so what is on the screen is what gets pulled. Anything
@@ -1215,7 +1235,7 @@ function viewGear(){
   /* the ordering rule lives in groupByCategory since 2026-09-25, so Today and
      this screen cannot drift apart about where a category sits */
   groupByCategory(list).forEach(({ cat, units: catUnits }) => {
-    h += '<h2 class="sec">' + esc(cat) + '</h2>';
+    h += '<h2 class="sec cat">' + esc(cat) + '</h2>';
     /* One row per POOL, not per unit. Owning 40 uplights used to mean 40
        near-identical rows filling the whole screen, which is unreadable and
        hides everything else you own. Anything you own exactly one of still
@@ -1274,7 +1294,7 @@ function viewWeek(){
         + '<span class="tiny">' + t.got + ' of ' + t.want + ' picked up</span></div>'
         + '<div class="progress"><i style="width:' + pct + '%"></i></div>'
         + '<p class="tiny" style="margin:.5rem 0 0">'
-        + events.map(e => esc(plainDay(e.date)) + ' &middot; ' + esc(evLabel(e))).join('<br>')
+        + events.map(e => esc(evLabelDay(e))).join('<br>')
         + '</p></div>';
     });
   }
@@ -1351,7 +1371,7 @@ function viewDatacheck(){
     Object.keys(byDate).sort().slice(0,6).forEach(d => {
       h += '<div class="card"><b style="font-size:.9rem">' + esc(prettyDay(d)) + '</b>'
         + '<p class="tiny" style="margin:.15rem 0 .5rem">'
-        + byDate[d][0].events.map(e => esc(evLabel(e))).join(' &middot; ') + '</p>';
+        + byDate[d][0].events.map(e => esc(evLabelDay(e))).join(' &middot; ') + '</p>';
       byDate[d].forEach(c => {
         h += '<div class="kv"><span>' + esc(c.pool) + '</span><b>need ' + c.need + ', own ' + c.have + '</b></div>';
       });
@@ -1445,7 +1465,7 @@ function viewPull(id){
     need = wk.need; evs = wk.events;
     head = 'Warehouse pickup';
     sub = evs.length + ' event' + (evs.length>1?'s':'') + ' &middot; '
-        + evs.map(x => esc(evLabel(x))).join(', ')
+        + evs.map(x => esc(evLabelDay(x))).join(', ')
         + '<br>Back by ' + esc(plainDay(nextMonday(evs[evs.length-1].date))) + '.';
   } else {
     need = poolNeeds(e); evs = [e];
@@ -2129,9 +2149,23 @@ function rowsToEvents(parsed){
     };
   }).filter(Boolean);
 }
+/* FIXED 2026-09-25. Two guards, both load-bearing.
+
+   An assignment ("Noah needs these Friday") is stored as an ordinary event with
+   a BLANK client and venue. Without the gearMode guard, any CRM row that parses
+   with a blank couple and blank venue on a date that already has an assignment
+   matched it, and the import loop SILENTLY SKIPPED a real wedding. The more
+   assignments on the books, the more dates carried the trap.
+
+   The second guard fixes a weakness that predates assignments: blank matching
+   blank proves nothing, so two CRM rows that both parsed without a couple or a
+   venue on one date used to cancel each other out. A duplicate is only a
+   duplicate if there is a name to match on. */
 function dupeOf(e){
   return S.events.some(x => x.id === e.id
-    || (x.date === e.date && x.client === e.client && x.venue === e.venue));
+    || (x.gearMode !== 'exact'
+        && (e.client || e.venue)
+        && x.date === e.date && x.client === e.client && x.venue === e.venue));
 }
 function renderPreview(evs, parsed){
   const p = $('prev'); if (!p) return;
@@ -2577,13 +2611,20 @@ function viewMore(){
     + '<div class="kv"><span>Past due back</span><b>' + overdueItems().length + '</b></div></div>';
 
   h += '<h2 class="sec">Manage</h2>';
-  const row = (v, label, sub) => '<button class="navrow" data-view="' + v + '"><span class="grow"><b>' + label
+  /* One builder for every row on this screen. "Tell someone what to take" used
+     to be hand-written next to these and drifted three ways: no class="grow",
+     no <br>, no arrow - which is why Corey saw its subtitle sitting BESIDE the
+     title instead of under it while every neighbour looked right. Anything that
+     is not a plain data-view link goes through navrow() now, so it cannot drift
+     again. 2026-09-25. */
+  const navrow = (attr, label, sub) => '<button class="navrow" ' + attr + '><span class="grow"><b>' + label
     + '</b><br><span class="tiny">' + sub + '</span></span><span class="go"></span></button>';
+  const row = (v, label, sub) => navrow('data-view="' + v + '"', label, sub);
   h += row('import', 'Import from the CRM', 'Gear, systems, and the events coming up');
   h += row('addons', 'Addon mapping', 'Which addons mean which gear');
   h += row('kits', 'Kits', 'What gets pulled for each service');
-  if (isAdmin()) h += '<button class="navrow" data-assign="1"><span><b>Tell someone what to take</b>'
-    + '<span class="tiny">Who needs what, and the day they need it</span></span></button>';
+  if (isAdmin()) h += navrow('data-assign="1"', 'Tell someone what to take',
+    'Who needs what, and the day they need it');
   h += row('inventory', 'Gear list', 'Add, rename, retire');
   h += row('datacheck', 'Check gear data', 'Things worth a look in your gear list');
   h += row('activity', 'Activity log', 'Who took what, when');
@@ -2826,6 +2867,22 @@ async function assignSave(){
   const gear = d.rows.filter(r => r.pool);
   if (!gear.length) { toast('Pick at least one piece of gear'); return; }
   const existing = eventById(d.id);
+  /* Added 2026-09-25. Nothing stopped two lists for the same person on the same
+     day, and weekendPull SUMS them - correctly, because two real weddings do
+     need two rigs, but a mis-entry silently doubled someone's pickup list. Warn
+     and offer the existing one; never block, because occasionally two really is
+     what you want. New assignments only - an edit is already that event. */
+  if (!existing) {
+    const clash = S.events.find(x => x.gearMode === 'exact' && x.id !== d.id
+      && x.date === d.date && String(x.dj || '') === String(d.who));
+    if (clash) {
+      if (confirm(d.who + ' already has gear listed for ' + plainDay(d.date) + '.'
+          + '\n\nOpen that one and add to it?'
+          + '\n\nSaying no makes a second separate list, and the two add up.')) {
+        assignSheet(clash); return;
+      }
+    }
+  }
   const ev = Object.assign({}, existing || {}, {
     id: d.id, date: d.date, dj: d.who,
     client: existing ? existing.client : '', venue: existing ? existing.venue : '',
@@ -2952,7 +3009,7 @@ function kitEditSheet(k){
   const groups = {};
   S.items.filter(i => i.status !== 'retired').forEach(i => { (groups[i.category] = groups[i.category] || []).push(i); });
   Object.keys(groups).forEach(cat => {
-    h += '<h2 class="sec">' + esc(cat) + '</h2>';
+    h += '<h2 class="sec cat">' + esc(cat) + '</h2>';
     groups[cat].forEach(i => {
       const on = (k.items||[]).includes(i.id);
       h += '<button class="check" data-kititem="' + i.id + '" data-kit="' + k.id + '" data-on="' + (on?1:0) + '">'
