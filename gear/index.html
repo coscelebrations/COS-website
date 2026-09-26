@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-26-b';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-26-c';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -370,10 +370,17 @@ const PEOPLE = [
   { name:'Mikey',  email:'michael@coscelebrations.com' },
   { name:'Justin', email:'justin@coscelebrations.com' },
   { name:'Cole',   email:'cole@coscelebrations.com' },
-  { name:'Matt' },                        // staff, no address yet, so cannot sign in
+  /* TWO MATTS, on purpose. Matt Connelly is the DJ added 2026-07-03 to fill the
+     slot Marc vacated; Matt Chila is an assistant who joined 2026-09-26. They
+     are DIFFERENT PEOPLE, and because `holder` is matched letter-for-letter
+     with nothing validating it, a shared first name would have quietly attached
+     one man's gear to the other. DO NOT SHORTEN EITHER TO "Matt". */
+  { name:'Matt Connelly' },               // staff, no address yet, so cannot sign in
+  { name:'Gavin',  email:'gavin@coscelebrations.com' },   // joined the team 2026-09-26
   /* ---- ASSISTANTS: hold gear, no login. Add more here, one line each.
      Order here is the order they appear on screen. ---- */
-  { name:'Rory',   assistant:true }
+  { name:'Rory',       assistant:true },
+  { name:'Matt Chila', assistant:true }   // NOT the DJ - see the note above
 ];
 
 const ROSTER  = PEOPLE.filter(p => !p.assistant).map(p => p.name);  // can sign in
