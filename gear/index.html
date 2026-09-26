@@ -346,8 +346,40 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-26-a';   // shown at the bottom of More. Bump on any visible change.
-const ROSTER = ['Corey','Kyle','CJ','Noah','Greg','Mikey','Justin','Cole','Matt'];
+const BUILD = '2026-09-26-b';   // shown at the bottom of More. Bump on any visible change.
+/* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
+   assistants - Rory and others - who hold gear but have no company address and
+   no login. Dropping them into ROSTER would have quietly made them pickable
+   IDENTITIES, because ROSTER is what whoSheet() and nameForLogin() trust.
+
+   Giving an assistant a login later is adding an email to their row here: they
+   appear in LOGIN_NAMES automatically. Drop `assistant: true` as well and they
+   become ordinary staff. That is the whole migration.
+
+   NAMES ARE MATCHED LETTER FOR LETTER. Every holder comparison in this file is
+   an exact === with no trim and no case folding, and nothing validates `holder`
+   against anything - so a stray space or a wrong capital here silently hides
+   that person's gear from them and renders a duplicate card on the Week tab.
+   There is a test that every name is unique, trimmed and non-empty. */
+const PEOPLE = [
+  { name:'Corey',  email:'corey@coscelebrations.com' },
+  { name:'Kyle',   email:'kyle@coscelebrations.com' },
+  { name:'CJ',     email:'cj@coscelebrations.com' },
+  { name:'Noah',   email:'noah@coscelebrations.com' },
+  { name:'Greg',   email:'djczone@gmail.com' },
+  { name:'Mikey',  email:'michael@coscelebrations.com' },
+  { name:'Justin', email:'justin@coscelebrations.com' },
+  { name:'Cole',   email:'cole@coscelebrations.com' },
+  { name:'Matt' },                        // staff, no address yet, so cannot sign in
+  /* ---- ASSISTANTS: hold gear, no login. Add more here, one line each.
+     Order here is the order they appear on screen. ---- */
+  { name:'Rory',   assistant:true }
+];
+
+const ROSTER  = PEOPLE.filter(p => !p.assistant).map(p => p.name);  // can sign in
+const HOLDERS = PEOPLE.map(p => p.name);                            // anyone gear can go to
+const isAssistant = n => PEOPLE.some(p => p.name === n && p.assistant);
+const personLabel = n => n + (isAssistant(n) ? ' &middot; assistant' : '');
 const ADMINS = ['corey','kyle'];
 /* Two different powers, deliberately not the same list. Added 2026-09-23 at
    Corey's request: "only Corey can delete and add gear. For now. Maybe later
@@ -388,12 +420,12 @@ const GEAR_EDITOR_EMAILS = ['corey@coscelebrations.com'];
    with. ae.entertain.co@gmail.com is deliberately absent: it is a SHARED AE
    inbox, so it does not identify a person and must fall through. Matt has no
    address at all and so cannot sign in. */
-const LOGIN_NAMES = {
-  'corey@coscelebrations.com':'Corey',  'kyle@coscelebrations.com':'Kyle',
-  'cj@coscelebrations.com':'CJ',        'noah@coscelebrations.com':'Noah',
-  'michael@coscelebrations.com':'Mikey','justin@coscelebrations.com':'Justin',
-  'cole@coscelebrations.com':'Cole',    'djczone@gmail.com':'Greg'
-};
+/* Derived from PEOPLE since 2026-09-26 rather than hand-written a second time,
+   so a name and its address can never drift apart. */
+const LOGIN_NAMES = PEOPLE.reduce((m,p) => {
+  if (p.email) m[p.email.toLowerCase()] = p.name;
+  return m;
+}, {});
 function nameForLogin(email){
   const e = String(email || '').toLowerCase().trim();
   if (!e) return '';
@@ -1329,8 +1361,8 @@ function viewWeek(){
     /* Roster order first, then anyone holding gear under a name that is not on
        it - a rename, or a unit checked out before someone left. They still have
        our gear, so they still have to show up. */
-    const extras = Object.keys(held).filter(n => !ROSTER.includes(n)).sort();
-    const everyone = ROSTER.concat(extras);
+    const extras = Object.keys(held).filter(n => !HOLDERS.includes(n)).sort();
+    const everyone = HOLDERS.concat(extras);
     /* A card each for whoever is holding something; everyone else collapses to
        one line at the bottom. Nine roster members meant six near-identical
        "nothing out" cards between the three that mattered - the same repetition
@@ -1341,7 +1373,7 @@ function viewWeek(){
       const mine = held[who] || [];
       const lateN = (late[who] || []).length;
       h += '<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline">'
-        + '<b style="font-size:1rem">' + esc(who) + '</b>'
+        + '<b style="font-size:1rem">' + personLabel(esc(who)) + '</b>'
         + '<span class="tiny">' + mine.length + ' out</span></div>';
       groupByCategory(mine).forEach(({ cat, units }) => {
         h += '<h3 class="sub">' + esc(cat) + '</h3>';
@@ -1365,7 +1397,7 @@ function viewWeek(){
     });
     if (empty.length) {
       h += '<p class="muted" style="margin:.2rem 0 .6rem"><b>Nothing out:</b> '
-        + empty.map(esc).join(', ') + '</p>';
+        + empty.map(n => personLabel(esc(n))).join(', ') + '</p>';
     }
     h += '<p class="tiny" style="margin:-.2rem 0 0">"Still to collect" only looks '
       + 'as far as Sunday. Anything set up for next week shows once that week starts.</p>';
@@ -2830,9 +2862,14 @@ function poolSheetHtml(pool){
       + '<span id="pTakeLbl">Take 1</span></button>';
     /* Same count, different person. Admin-only. 2026-09-23. */
     if (isAdmin()) {
-      const others = ROSTER.filter(n => n.toLowerCase() !== String(S.me).toLowerCase());
+      /* HOLDERS, not ROSTER - assistants can be handed gear. And an explicit
+         value: these options had none, so the option TEXT was the stored holder
+         name, and adding " - assistant" to the label would have written that
+         whole string into the item. 2026-09-26. */
+      const others = HOLDERS.filter(n => n.toLowerCase() !== String(S.me).toLowerCase());
       h += '<label class="fl" style="margin-top:.9rem">Or give that many to someone</label>';
-      h += '<select id="pGive">' + others.map(n => '<option>' + esc(n) + '</option>').join('') + '</select>';
+      h += '<select id="pGive">' + others.map(n =>
+        '<option value="' + esc(n) + '">' + personLabel(esc(n)) + '</option>').join('') + '</select>';
       h += '<button class="btn" style="margin-top:.5rem" data-givepool="' + esc(pool) + '">Give them that many</button>';
     }
   } else {
@@ -2896,9 +2933,11 @@ function itemSheet(i){
   /* Recording where gear ACTUALLY is matters more than who tapped the button.
      Admin-only, matching "only Corey and Kyle assign gear". 2026-09-23. */
   if (isAdmin() && i.status !== 'retired') {
-    const others = ROSTER.filter(n => n.toLowerCase() !== String(S.me).toLowerCase());
+    /* HOLDERS, and an explicit value - see the note on pGive above. */
+    const others = HOLDERS.filter(n => n.toLowerCase() !== String(S.me).toLowerCase());
     h += '<label class="fl" style="margin-top:.9rem">' + (i.status === 'out' ? 'Hand it to someone else' : 'Or give it to someone') + '</label>';
-    h += '<select id="fGive">' + others.map(n => '<option>' + esc(n) + '</option>').join('') + '</select>';
+    h += '<select id="fGive">' + others.map(n =>
+      '<option value="' + esc(n) + '">' + personLabel(esc(n)) + '</option>').join('') + '</select>';
     h += '<button class="btn" style="margin-top:.5rem" data-giveitem="' + i.id + '">'
       + (i.status === 'out' ? 'Hand it over' : 'Give it to them') + '</button>';
   }
@@ -2932,7 +2971,8 @@ function assignSheetHtml(d){
       + '<p class="tiny">Add what you own first, then you can tell people what to take.</p></div>';
   }
   h += '<label class="fl">Who needs it</label><select id="aWho">'
-    + ROSTER.map(n => '<option' + (n === d.who ? ' selected' : '') + '>' + esc(n) + '</option>').join('')
+    + HOLDERS.map(n => '<option value="' + esc(n) + '"' + (n === d.who ? ' selected' : '') + '>'
+        + personLabel(esc(n)) + '</option>').join('')
     + '</select>';
   h += '<label class="fl">What day</label><input type="date" id="aDate" value="' + esc(d.date) + '">';
   h += '<label class="fl">What they need</label>';
