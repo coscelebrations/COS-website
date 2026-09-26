@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-26-c';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-26-d';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -825,6 +825,64 @@ function weekendPull(who){
   });
   return { events: evs, need, why };
 }
+/* ---- HAND-OFFS (added 2026-09-26) ----
+   Corey: "hand off the photo booth after their friday wedding to someone else",
+   and then "displaying on their end that they will need to get after that event".
+
+   A hand-off is NOT a new kind of thing. It is the assignment that already
+   exists - an event with gearMode 'exact' - plus ONE field, `from`. Empty means
+   the warehouse, which is what every assignment written before today meant, so
+   no stored event changes shape and no other screen has to learn anything.
+   Same call as assignDraft documents above.
+
+   Why it earns its keep beyond a label: weekendPull caps what it asks for at
+   what the warehouse OWNS, not at what is free. With the only booth out with
+   Noah, the receiver's list still read "1 Photo Booth" and there was nothing
+   there to check out. Naming the source is what closes that hole.
+
+   Not filtered to the weekend, unlike weekendEvents: owing someone gear is a
+   promise with a date, not a Saturday trip, and the failure mode is forgetting
+   one three weeks out. */
+function handoffsOwedBy(who){
+  if (!who) return [];
+  return S.events
+    .filter(e => e.gearMode === 'exact' && String(e.from || '') === String(who))
+    .filter(e => dayDiff(today(), e.date) >= 0)
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+}
+/* FIXED 2026-09-26. Per-event check-in matched `i.eventId === ev.id`, but
+   check-out stamps only the FIRST contributing event - `why[pool][0]` at both
+   pickup paths - because eventId holds ONE id and a speaker used Friday AND
+   Saturday has two. So Saturday's "check these back in" found nothing, and a DJ
+   holding the gear was told he had none of it.
+
+   Matching on NEED instead of on the stamp fixes it with no schema change, and
+   matches how the whole rest of the app thinks: pools and counts, never unit
+   identity. The stamp stays as a hint for "what is this out for" on the item
+   screen - it is simply no longer load-bearing.
+
+   The cap is the careful part. Friday finishing must NOT hand back speakers
+   that Saturday still wants, so anything still needed by another event that has
+   not happened yet is held back. Hold 4, Friday wants 2, Saturday wants 2 ->
+   2 go back. Hold 2 and both want 2 -> nothing goes back, which is right. */
+function returnableFor(ev){
+  if (!ev) return [];
+  const need = poolNeeds(ev);
+  const others = S.events.filter(e => e.id !== ev.id && dayDiff(today(), e.date) >= 0);
+  const out = [];
+  Object.keys(need).forEach(pool => {
+    const mine = S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === S.me);
+    let laterNeed = 0;
+    others.forEach(e => { laterNeed += (poolNeeds(e)[pool] || 0); });
+    const canGo = Math.max(0, Math.min(need[pool], mine.length - laterNeed));
+    /* units stamped with THIS event go back first, so the obvious ones move
+       before any interchangeable spare does */
+    const sorted = mine.slice().sort((a, b) =>
+      (b.eventId === ev.id ? 1 : 0) - (a.eventId === ev.id ? 1 : 0));
+    out.push(...sorted.slice(0, canGo));
+  });
+  return out;
+}
 function heldCount(pool, who){
   return S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === who).length;
 }
@@ -1157,6 +1215,27 @@ function viewToday(){
     h += '<button class="btn" style="margin:.2rem 0 .4rem" data-inlate="1">Check these ' + late.length + ' back in</button>';
   }
 
+  /* Above the weekend block on purpose. This is a commitment to another person
+     with a date on it, and the entire reason it exists is that it used to be
+     invisible - burying it under the pickup list would rebuild the same gap. */
+  const owed = handoffsOwedBy(S.me);
+  if (owed.length) {
+    h += '<h2 class="sec">Gear to hand over</h2>';
+    owed.forEach(e => {
+      const need = poolNeeds(e);
+      const bits = Object.keys(need).sort().map(p => need[p] + ' ' + p).join(', ');
+      const d = dayDiff(today(), e.date);
+      h += '<div class="card">'
+        + '<div style="display:flex;justify-content:space-between;align-items:baseline">'
+        + '<b style="font-size:1.05rem">' + esc(e.dj || 'Someone') + '</b>'
+        + '<span class="tiny">' + esc(plainDay(e.date))
+        + (d === 0 ? ' &middot; today' : '') + '</span></div>'
+        + '<p class="tiny" style="margin:.45rem 0 0">Hand over ' + esc(bits || 'gear')
+        + '. It stays checked out to you until they have it.</p>'
+        + '</div>';
+    });
+  }
+
   const wknd = weekendEvents(S.me);
   if (wknd.length) {
     const t = pullTotals(S.me);
@@ -1224,6 +1303,9 @@ function evCard(e, nConf){
   if (e.services) h += '<div class="svcs">' + esc(e.services) + '</div>';
   h += '<div class="meta"><span class="pill ' + brand + '">' + (brand === 'ae' ? 'AE' : 'COS') + '</span>';
   if (e.dj) h += '<span class="pill retired">' + esc(e.dj) + (e.dj2 ? ' + ' + esc(e.dj2) : '') + '</span>';
+  /* Where it is coming from, so nobody drives to the warehouse for a booth that
+     is in someone else's van. Only shown when it is NOT the warehouse. */
+  if (e.from) h += '<span class="pill out">from ' + esc(e.from) + '</span>';
   if (nConf) h += '<span class="pill repair">short ' + nConf + '</span>';
   h += '</div><i class="arrow"></i></div>';
   return h;
@@ -2966,6 +3048,7 @@ function assignDraft(ev){
     id: ev ? ev.id : uid('e'),
     who: ev ? (ev.dj || S.me) : S.me,
     date: ev ? ev.date : today(),
+    from: ev ? (ev.from || '') : '',
     rows: ev && ev.gear && ev.gear.length ? ev.gear.map(g => ({ pool:g.pool, qty:g.qty }))
                                           : [{ pool:'', qty:1 }]
   };
@@ -2982,6 +3065,16 @@ function assignSheetHtml(d){
         + personLabel(esc(n)) + '</option>').join('')
     + '</select>';
   h += '<label class="fl">What day</label><input type="date" id="aDate" value="' + esc(d.date) + '">';
+  /* HAND-OFF, added 2026-09-26. Empty means the warehouse, which is what every
+     assignment made before today meant, so nothing changes shape. */
+  h += '<label class="fl">Coming from</label><select id="aFrom">'
+    + '<option value=""' + (d.from ? '' : ' selected') + '>The warehouse</option>'
+    + HOLDERS.map(n => '<option value="' + esc(n) + '"' + (n === d.from ? ' selected' : '') + '>'
+        + personLabel(esc(n)) + '</option>').join('')
+    + '</select>';
+  h += '<p class="tiny" style="margin:.35rem 0 0">Pick a person when the gear is already '
+    + 'out with them - they get told to hand it over, instead of this person being sent '
+    + 'to a warehouse that has not got it.</p>';
   h += '<label class="fl">What they need</label>';
   d.rows.forEach((r, k) => {
     h += '<div class="row2" style="gap:.5rem;margin-bottom:.5rem">'
@@ -3011,6 +3104,7 @@ function assignRead(){
   const d = $('sheet')._adraft; if (!d) return null;
   if ($('aWho')) d.who = $('aWho').value;
   if ($('aDate')) d.date = $('aDate').value || d.date;
+  if ($('aFrom')) d.from = $('aFrom').value;
   const rows = [];
   document.querySelectorAll('.aPool').forEach(sel => {
     const k = sel.dataset.row;
@@ -3024,6 +3118,11 @@ async function assignSave(){
   const d = assignRead(); if (!d) return;
   const gear = d.rows.filter(r => r.pool);
   if (!gear.length) { toast('Pick at least one piece of gear'); return; }
+  /* Handing gear from someone to themselves is always a mis-tap, and it would
+     render as "Give Noah ..." on Noah's own screen. Blocked, not warned. */
+  if (d.from && String(d.from) === String(d.who)) {
+    toast('That is the same person on both sides'); return;
+  }
   const existing = eventById(d.id);
   /* Added 2026-09-25. Nothing stopped two lists for the same person on the same
      day, and weekendPull SUMS them - correctly, because two real weddings do
@@ -3042,7 +3141,7 @@ async function assignSave(){
     }
   }
   const ev = Object.assign({}, existing || {}, {
-    id: d.id, date: d.date, dj: d.who,
+    id: d.id, date: d.date, dj: d.who, from: d.from || '',
     client: existing ? existing.client : '', venue: existing ? existing.venue : '',
     gear: gear, gearMode: 'exact',
     source: existing && existing.source ? existing.source : 'assign',
@@ -3051,7 +3150,8 @@ async function assignSave(){
   await putEvent(ev);
   closeSheet();
   const n = gear.reduce((a, g) => a + g.qty, 0);
-  toast(d.who + ' needs ' + n + ' thing' + (n > 1 ? 's' : '') + ' on ' + plainDay(d.date));
+  toast(d.who + ' needs ' + n + ' thing' + (n > 1 ? 's' : '') + ' on ' + plainDay(d.date)
+    + (d.from ? ', from ' + d.from : ''));
 }
 
 function itemEditSheet(i){
@@ -3284,7 +3384,7 @@ function bind(){
     if (!isWk && !ev) return;
     const list = isWk
       ? S.items.filter(i => i.status === 'out' && i.holder === S.me)
-      : S.items.filter(i => i.eventId === ev.id && i.status === 'out' && i.holder === S.me);
+      : returnableFor(ev);
     for (const i of list) await putItem({ ...i, status:'in', holder:'', holderUid:'', eventId:'', since:'' });
     logIt(S.me + ' returned ' + list.length + ' items'
       + (isWk ? '' : ' from ' + evLabel(ev)));
