@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-25-e';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-26-a';   // shown at the bottom of More. Bump on any visible change.
 const ROSTER = ['Corey','Kyle','CJ','Noah','Greg','Mikey','Justin','Cole','Matt'];
 const ADMINS = ['corey','kyle'];
 /* Two different powers, deliberately not the same list. Added 2026-09-23 at
@@ -3521,6 +3521,30 @@ function bindSheet(){
   s.querySelectorAll('[data-item]').forEach(el => el.onclick = () => {
     const i = itemById(el.dataset.item); if (i) itemSheet(i);
   });
+  /* FIXED 2026-09-26. "Edit details" on an item sheet has NEVER worked - the
+     button is rendered by itemSheet (a sheet) but its only handler was in
+     bind(), which scopes to #view. So it drew correctly, looked enabled, and
+     did nothing. Corey: "the edit button is there but it doesnt click or go
+     anywhere." Broken since the app was first built.
+
+     Same shape as the data-pool one fixed 2026-09-25: a button that moves from
+     a view into a sheet needs binding in BOTH places, because the two binders
+     query different roots. A sweep of every data-attribute in the file found
+     this was the only remaining one. */
+  s.querySelectorAll('[data-edititem]').forEach(el => el.onclick = () => {
+    const i = itemById(el.dataset.edititem); if (i) itemEditSheet(i);
+  });
+  /* FIXED 2026-09-26. "Edit details" on an item sheet has NEVER worked - the
+     button is rendered by itemSheet (a sheet) but its only handler was in
+     bind(), which scopes to #view. So it drew correctly, looked enabled, and
+     did nothing. Corey: "the edit button is there but it doesnt click or go
+     anywhere." Broken since the app was first built.
+
+     Same shape as the data-pool one fixed 2026-09-25: a button that moves from
+     a view into a sheet needs binding in BOTH places, because the two binders
+     query different roots. A sweep of every data-attribute in the file found
+     this was the only remaining one. */
+
   /* data-pool is bound at view level too, but myPoolSheetHtml puts a "see all N
      in the warehouse" link INSIDE a sheet, and without this it would look like
      a button and do nothing. 2026-09-25. */
