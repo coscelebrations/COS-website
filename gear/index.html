@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-a';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-b';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -1583,6 +1583,43 @@ function dataHoles(){
       d: 'Worth a look. If you actually own more than one, open it and add the rest, '
        + 'so the app stops warning you about days you can cover.',
       list: singles.slice(0,15) });
+  }
+
+  /* Added 2026-09-27, straight from Corey: the Week screen showed Noah with
+     "11 uplights and then also 5 uplights" and there was no way to see why.
+     Both causes below produce exactly that - two rows for one real thing - and
+     neither was visible anywhere in the app.
+
+     ONE: the same pool sitting in two categories. This is the direct fallout of
+     the Add form defaulting to 'Speakers' (fixed the same day): gear added
+     before the fix landed in Speakers, gear added after landed in Lighting, and
+     groupByCategory correctly renders one row per heading. */
+  const catsOf = {};
+  S.items.filter(i => i.status !== 'retired').forEach(i => {
+    (catsOf[poolOf(i)] = catsOf[poolOf(i)] || new Set()).add(i.category || '(none)');
+  });
+  const splitCat = Object.keys(catsOf).filter(p => catsOf[p].size > 1);
+  if (splitCat.length) {
+    out.push({ t: splitCat.length + ' thing' + (splitCat.length > 1 ? 's are' : ' is')
+        + ' filed under more than one category',
+      d: 'This is why one thing can show up as two rows on the Week screen. Open any unit, '
+       + 'set the category you want, and say yes when it offers to move the whole pool.',
+      list: splitCat.slice(0,12).map(p => p + ' - ' + [...catsOf[p]].sort().join(' + ')) });
+  }
+
+  /* TWO: two pool names that are really the same thing, typed differently in
+     two sittings - "Uplight" and "Uplights". Advisory only: it never merges
+     anything, because occasionally two similar names are two real things. */
+  const norm = p => String(p).toLowerCase().replace(/[^a-z0-9]/g, '').replace(/s$/, '');
+  const byNorm = {};
+  Object.keys(catsOf).forEach(p => { (byNorm[norm(p)] = byNorm[norm(p)] || []).push(p); });
+  const nearDupes = Object.keys(byNorm).filter(k => byNorm[k].length > 1);
+  if (nearDupes.length) {
+    out.push({ t: nearDupes.length + ' pair' + (nearDupes.length > 1 ? 's' : '')
+        + ' of names look like the same thing typed twice',
+      d: 'Counted separately, so a clash warning can miss. If they ARE the same thing, open '
+       + 'the odd one out and correct its name - the units rejoin the other pool.',
+      list: nearDupes.slice(0,12).map(k => byNorm[k].sort().join('  vs  ')) });
   }
   return out;
 }
