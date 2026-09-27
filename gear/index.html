@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-b';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-c';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -736,6 +736,13 @@ function upcoming(days){
    groupPools() does NOT sort either - it keeps first-appearance order - so THIS
    is what makes the grouped categories come out in order. Optimise this away
    and the grouping still works while the order silently scrambles.
+
+   CORRECTED 2026-09-27: the paragraph above was a claim, not a fact. It was
+   written for the Gear tab and the Gear tab never called sortUnits - only
+   myOut() and heldByPerson() did, which is why the 2026-09-25 fix reached Today
+   and Week and left the biggest list in the app still reading raw S.items.
+   viewGear, viewInventory and poolSheetHtml all call it now. The warning itself
+   was right; it just described a screen it did not cover.
 
    The \s(\d+)$ pattern is lifted from nextUnitNumber so numbering and sorting
    read a unit name the same way. .slice() so callers never mutate S.items. */
@@ -1383,7 +1390,14 @@ function itemRow(i, extra){
 /* ---- GEAR ---- */
 function viewGear(){
   const q = S.gearQ.toLowerCase();
-  let list = S.items.filter(i => i.status !== 'retired' || S.gearFilter === 'retired');
+  /* FIXED 2026-09-27. This read S.items raw - which in the cloud is FIRESTORE
+     DOC-ID ORDER, and putItem appends anything re-added to the tail - so the
+     pool rows inside each category came out arbitrary and reshuffled as gear
+     was edited. This is Corey's 2026-09-25 "my speakers are sporadic through
+     the middle" complaint: that fix reached Today and Week through myOut() and
+     heldByPerson(), which both sort, but the Gear tab was never wired up. The
+     comment above sortUnits claimed THIS screen was what it existed to protect. */
+  let list = sortUnits(S.items.filter(i => i.status !== 'retired' || S.gearFilter === 'retired'));
   if (S.gearFilter === 'in') list = list.filter(i => i.status === 'in');
   if (S.gearFilter === 'out') list = list.filter(i => i.status === 'out');
   if (S.gearFilter === 'repair') list = list.filter(i => i.status === 'repair');
@@ -1758,7 +1772,15 @@ function viewPull(id){
     (byCat[any ? any.category : 'Other'] = byCat[any ? any.category : 'Other'] || []).push(p);
   });
 
-  Object.keys(byCat).sort().forEach(cat => {
+  /* CATEGORIES order, not A-Z, since 2026-09-27. This sorted alphabetically
+     while Gear, Today and Week all use CATEGORIES order, so Lighting sat in a
+     different place on the pull list than on every other screen - exactly the
+     drift groupByCategory was extracted to prevent, in the one function that
+     never adopted it. Unknown categories still fall to the bottom, A-Z. */
+  Object.keys(byCat)
+    .sort((a, b) => (CATEGORIES.indexOf(a) + 1 || 99) - (CATEGORIES.indexOf(b) + 1 || 99)
+                 || String(a).localeCompare(String(b)))
+    .forEach(cat => {
     h += '<div class="kitblk"><h4>' + esc(cat) + '</h4>';
     byCat[cat].forEach(p => {
       const want = need[p];
@@ -2655,8 +2677,12 @@ function viewInventory(){
   h += '<button class="btn primary" data-newitem="1">Add a piece of gear</button>';
   h += '<h2 class="sec">Everything (' + S.items.length + ')</h2>';
   /* Grouped by pool for the same reason the Gear tab is: 40 uplights should be
-     one line, not forty. Editing is still per unit -- tap the pool to open it. */
-  groupPools(S.items).forEach(g => {
+     one line, not forty. Editing is still per unit -- tap the pool to open it.
+
+     sortUnits added 2026-09-27. groupPools keeps first-appearance order, so raw
+     S.items put this admin list in Firestore doc-id order - and this is the
+     screen you scan to find a thing to rename or retire. */
+  groupPools(sortUnits(S.items)).forEach(g => {
     if (g.units.length === 1) {
       const i = g.units[0];
       h += '<button class="item" data-edititem="' + i.id + '"><span class="nm"><b>' + esc(i.name) + '</b>'
@@ -2962,7 +2988,12 @@ function myPoolSheetHtml(pool){
 }
 
 function poolSheetHtml(pool){
-  const all = S.items.filter(x => poolOf(x) === pool && x.status !== 'retired');
+  /* sortUnits added 2026-09-27. The "Each one" list below is where you come to
+     read a serial number, and unsorted it put "Uplight 10" above "Uplight 2" -
+     sortUnits compares the trailing number numerically, which a plain A-Z sort
+     gets wrong. myPoolSheetHtml already did this, so the same pool tapped from
+     Today came out sorted and from Gear did not. */
+  const all = sortUnits(S.items.filter(x => poolOf(x) === pool && x.status !== 'retired'));
   const free = all.filter(x => x.status === 'in');
   const mine = all.filter(x => x.status === 'out' && x.holder === S.me);
   const others = all.filter(x => x.status === 'out' && x.holder !== S.me);
