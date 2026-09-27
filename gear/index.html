@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-26-d';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-a';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -3156,7 +3156,7 @@ async function assignSave(){
 
 function itemEditSheet(i){
   const isNew = !i;
-  const v = i || { id: uid('i'), name:'', category:CATEGORIES[0], brand:'', model:'', serial:'', pool:'',
+  const v = i || { id: uid('i'), name:'', category:'', brand:'', model:'', serial:'', pool:'',
                    home:HOMES[0], status:'in', holder:'', holderUid:'', eventId:'', since:'', notes:'' };
   let h = '<h3>' + (isNew ? 'Add gear' : 'Edit gear') + '</h3>';
   h += '<label class="fl">Name</label><input type="text" id="fName" value="' + esc(v.name) + '" placeholder="Uplight">';
@@ -3176,7 +3176,13 @@ function itemEditSheet(i){
   /* include whatever came in from the CRM, or editing an imported item would
      silently move it into a seed category */
   const cats = [...new Set(CATEGORIES.concat(S.items.map(i => i.category), [v.category]).filter(Boolean))].sort();
+  /* FIXED 2026-09-27. This select used to open on CATEGORIES[0] - 'Speakers' -
+     for every new item, with nothing making you choose. Add gear quickly without
+     touching the dropdown and it silently became a speaker. Corey found it the
+     obvious way: his uplights were listed under Speakers on the Week screen.
+     A placeholder that save() refuses is the fix; the grouping code was fine. */
   h += '<label class="fl">Category</label><select id="fCat">'
+    + (v.category ? '' : '<option value="" selected>Pick one...</option>')
     + cats.map(c => '<option' + (c===v.category?' selected':'') + '>' + esc(c) + '</option>').join('')
     + '<option value="__new">Add a new one...</option></select>';
   h += '<input type="text" id="fCatNew" placeholder="New category" style="display:none;margin-top:.4rem">';
@@ -3841,8 +3847,12 @@ function bindSheet(){
        rows called Untitled 1..40 and no way to tell what you meant */
     if (!name) { toast('Give it a name first'); $('fName').focus(); return; }
     const isNew = !S.items.some(x => x.id === v.id);
+    /* Refuse rather than fall back. The old `|| CATEGORIES[0]` is exactly how
+       uplights ended up filed as Speakers. 2026-09-27. */
+    const cat = pickOrNew('fCat', 'fCatNew', v.category || '');
+    if (!cat) { toast('Pick a category first'); if ($('fCat')) $('fCat').focus(); return; }
     const next = { ...v, name: name,
-      category: pickOrNew('fCat', 'fCatNew', v.category || CATEGORIES[0]),
+      category: cat,
       brand: $('fBrand').value.trim(), model: $('fModel').value.trim(),
       serial: $('fSerial').value.trim(),
       home: pickOrNew('fHome', 'fHomeNew', v.home || HOMES[0]),
@@ -3863,6 +3873,20 @@ function bindSheet(){
       closeSheet();
       toast(units.length > 1 ? 'Added ' + units.length + ' x ' + next.pool : 'Saved');
       return;
+    }
+    /* Added 2026-09-27 alongside the category fix above. Corey had a whole pool
+       of uplights filed as Speakers, and the only repair was Edit > Category on
+       every single unit - forty taps for one mistake the form made for him.
+       Offered, never automatic: sometimes one unit really does differ. */
+    const catChanged = v.category && cat !== v.category;
+    if (catChanged) {
+      const sibs = S.items.filter(x => x.id !== next.id && poolOf(x) === poolOf(next)
+                                       && x.category === v.category);
+      if (sibs.length && confirm('Move all ' + (sibs.length + 1) + ' ' + poolOf(next)
+            + ' units to ' + cat + '?\n\nSaying no changes only this one.')) {
+        await putItems([next].concat(sibs.map(x => ({ ...x, category: cat }))));
+        closeSheet(); toast('Moved ' + (sibs.length + 1) + ' to ' + cat); return;
+      }
     }
     await putItem(next); closeSheet(); toast('Saved');
   });
