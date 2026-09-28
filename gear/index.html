@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-e';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-f';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -889,6 +889,23 @@ function returnableFor(ev){
     out.push(...sorted.slice(0, canGo));
   });
   return out;
+}
+/* Who still has something to pick up, across everyone. Extracted from inside
+   the "Who's got what" cards on 2026-09-27, because that is where Corey could
+   not find it: the ONE actionable fact on the Week screen was buried in its
+   longest section, behind every unit every person is holding.
+
+   weekendPull is capped at comingSunday(), so this genuinely cannot see past
+   this weekend - the screen says so rather than let the number quietly lie. */
+function stillToCollect(){
+  return HOLDERS.map(who => {
+    const need = weekendPull(who).need || {};
+    const short = Object.keys(need)
+      .map(pl => ({ pl, n: need[pl] - heldCount(pl, who) }))
+      .filter(x => x.n > 0)
+      .sort((a, b) => b.n - a.n || String(a.pl).localeCompare(String(b.pl)));
+    return { who, short };
+  }).filter(x => x.short.length);
 }
 function heldCount(pool, who){
   return S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === who).length;
@@ -1447,64 +1464,49 @@ function viewWeek(){
   const lateNames = Object.keys(late);
   let h = '';
 
-  /* WHO'S GOT WHAT. Corey asked for "an area I could click that shows all
-     members at the same time and what they currently have in possession, maybe
-     the option of what they need as well". 2026-09-25.
+  /* REORDERED 2026-09-27, Corey's own design: "having the list of what the guys
+     need at the top and then me having a section below that I can click that
+     opens up to see what everyone has."
 
-     Built from ROSTER, NOT peopleThisWeekend() - that one is derived from
-     events, so anyone holding gear with nothing booked would have been invisible
-     on the very screen meant to find them. Everyone sees this; it is the same
-     information the Gear tab already gives one item at a time. */
-  const held = heldByPerson();
-  h += '<h2 class="sec">Who\'s got what</h2>';
-  const anyHeld = Object.keys(held).some(k => (held[k] || []).length);
-  if (!anyHeld) {
-    h += '<p class="muted">Everything is in the warehouse.</p>';
+     What was wrong: "Who's got what" was FIRST and is the longest thing on the
+     screen, so every actionable line sat below a full inventory of every
+     person. Worse, "still to collect" was computed INSIDE those cards, so the
+     one thing he can act on was the hardest thing to reach.
+
+     The one-line answer at the top is the part he did not ask for and is the
+     point: on a good weekend the screen reads "Everyone has what they need" and
+     he stops. Same reason Focus works - things leaving the screen. */
+  const toCollect = stillToCollect();
+  const nLate = overdueItems().length;
+  if (!toCollect.length && !nLate) {
+    h += '<div class="banner ok"><b>Everyone has what they need</b>'
+      + 'Nothing left to collect, nothing overdue.</div>';
   } else {
-    /* Roster order first, then anyone holding gear under a name that is not on
-       it - a rename, or a unit checked out before someone left. They still have
-       our gear, so they still have to show up. */
-    const extras = Object.keys(held).filter(n => !HOLDERS.includes(n)).sort();
-    const everyone = HOLDERS.concat(extras);
-    /* A card each for whoever is holding something; everyone else collapses to
-       one line at the bottom. Nine roster members meant six near-identical
-       "nothing out" cards between the three that mattered - the same repetition
-       Corey has had me collapse on every other screen. Still answers "all
-       members at the same time", just without the scrolling. */
-    const empty = everyone.filter(n => !(held[n] || []).length);
-    everyone.filter(n => (held[n] || []).length).forEach(who => {
-      const mine = held[who] || [];
-      const lateN = (late[who] || []).length;
-      h += '<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline">'
-        + '<b style="font-size:1rem">' + personLabel(esc(who)) + '</b>'
-        + '<span class="tiny">' + mine.length + ' out</span></div>';
-      groupByCategory(mine).forEach(({ cat, units }) => {
-        h += '<h3 class="sub">' + esc(cat) + '</h3>';
-        groupPools(units).forEach(g => { h += myPoolRow(g.pool, g.units); });
-      });
-      if (lateN) h += '<p class="tiny" style="margin:.5rem 0 0;color:var(--red)">'
-        + lateN + ' of these ' + (lateN > 1 ? 'are' : 'is') + ' past due.</p>';
-      /* What they still have to collect, from whatever has been assigned to
-         them. weekendPull is capped at comingSunday(), so this genuinely cannot
-         see past this weekend - say so rather than let the number quietly lie. */
-      const need = weekendPull(who).need || {};
-      const short = Object.keys(need)
-        .map(pl => ({ pl, n: need[pl] - heldCount(pl, who) }))
-        .filter(x => x.n > 0)
-        .sort((a,b) => b.n - a.n);
-      if (short.length) {
-        h += '<p class="tiny" style="margin:.5rem 0 0"><b>Still to collect:</b> '
-          + short.map(x => x.n + ' ' + esc(x.pl)).join(', ') + '</p>';
-      }
-      h += '</div>';
-    });
-    if (empty.length) {
-      h += '<p class="muted" style="margin:.2rem 0 .6rem"><b>Nothing out:</b> '
-        + empty.map(n => personLabel(esc(n))).join(', ') + '</p>';
-    }
-    h += '<p class="tiny" style="margin:-.2rem 0 0">"Still to collect" only looks '
-      + 'as far as Sunday. Anything set up for next week shows once that week starts.</p>';
+    const bits = [];
+    if (toCollect.length) bits.push(toCollect.length
+      + (toCollect.length > 1 ? ' people have' : ' person has') + ' gear to collect');
+    if (nLate) bits.push(nLate + ' item' + (nLate > 1 ? 's' : '') + ' not back yet');
+    h += '<div class="banner warn"><b>' + bits.join(' &middot; ') + '</b>'
+      + 'The detail is below. Everything else is where it should be.</div>';
   }
+
+  if (toCollect.length) {
+    h += '<h2 class="sec">Still to collect</h2>';
+    toCollect.forEach(x => {
+      h += '<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline">'
+        + '<b style="font-size:1rem">' + personLabel(esc(x.who)) + '</b>'
+        + '<span class="tiny">' + x.short.reduce((a, s) => a + s.n, 0) + ' to pick up</span></div>'
+        + '<p class="tiny" style="margin:.4rem 0 0">'
+        + x.short.map(s => s.n + ' ' + esc(s.pl)).join(', ') + '</p></div>';
+    });
+  }
+  /* ONE place, always rendered, whichever of the three states the top is in.
+     Putting it inside a branch meant it vanished exactly when someone would
+     wonder "is that empty, or is it just not looking far enough?" - and it
+     then went missing on the overdue-only path too. 2026-09-27. */
+  h += '<p class="tiny" style="margin:-.2rem 0 .2rem">This only looks as far as Sunday. '
+    + 'Anything set up for next week shows once that week starts.</p>';
+
 
   if (lateNames.length) {
     const n = overdueItems().length;
@@ -1557,6 +1559,63 @@ function viewWeek(){
     byDate[d].forEach(e => { h += evCard(e, 0); });
   });
   h += '<button class="btn ghost sm" style="width:100%;margin-top:1rem" data-view="import">Import or add events</button>';
+
+  /* everyone's holdings, last and folded away */
+  /* Moved to the BOTTOM and collapsed, 2026-09-27. Native <details> on purpose:
+     no JS, no stored open/closed state. The two dashboards that died here were
+     mostly localStorage, and state is what made them lie. */
+  let w = '';
+  /* WHO'S GOT WHAT. Corey asked for "an area I could click that shows all
+     members at the same time and what they currently have in possession, maybe
+     the option of what they need as well". 2026-09-25.
+
+     Built from ROSTER, NOT peopleThisWeekend() - that one is derived from
+     events, so anyone holding gear with nothing booked would have been invisible
+     on the very screen meant to find them. Everyone sees this; it is the same
+     information the Gear tab already gives one item at a time. */
+  const held = heldByPerson();
+  const anyHeld = Object.keys(held).some(k => (held[k] || []).length);
+  if (!anyHeld) {
+    w += '<p class="muted">Everything is in the warehouse.</p>';
+  } else {
+    /* Roster order first, then anyone holding gear under a name that is not on
+       it - a rename, or a unit checked out before someone left. They still have
+       our gear, so they still have to show up. */
+    const extras = Object.keys(held).filter(n => !HOLDERS.includes(n)).sort();
+    const everyone = HOLDERS.concat(extras);
+    /* A card each for whoever is holding something; everyone else collapses to
+       one line at the bottom. Nine roster members meant six near-identical
+       "nothing out" cards between the three that mattered - the same repetition
+       Corey has had me collapse on every other screen. Still answers "all
+       members at the same time", just without the scrolling. */
+    const empty = everyone.filter(n => !(held[n] || []).length);
+    everyone.filter(n => (held[n] || []).length).forEach(who => {
+      const mine = held[who] || [];
+      const lateN = (late[who] || []).length;
+      w += '<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline">'
+        + '<b style="font-size:1rem">' + personLabel(esc(who)) + '</b>'
+        + '<span class="tiny">' + mine.length + ' out</span></div>';
+      groupByCategory(mine).forEach(({ cat, units }) => {
+        w += '<h3 class="sub">' + esc(cat) + '</h3>';
+        groupPools(units).forEach(g => { w += myPoolRow(g.pool, g.units); });
+      });
+      if (lateN) w += '<p class="tiny" style="margin:.5rem 0 0;color:var(--red)">'
+        + lateN + ' of these ' + (lateN > 1 ? 'are' : 'is') + ' past due.</p>';
+      w += '</div>';
+    });
+    if (empty.length) {
+      w += '<p class="muted" style="margin:.2rem 0 .6rem"><b>Nothing out:</b> '
+        + empty.map(n => personLabel(esc(n))).join(', ') + '</p>';
+    }
+  }
+  /* The count goes in the summary so the section says something useful while
+     it is still shut - "Who's got what (3 people)" beats a bare chevron. */
+  const nHolding = Object.keys(held).filter(k => (held[k] || []).length).length;
+  h += '<details style="margin-top:.6rem"><summary class="sec" style="cursor:pointer">'
+    + 'Who\'s got what'
+    + (nHolding ? ' (' + nHolding + (nHolding > 1 ? ' people' : ' person') + ')' : '')
+    + '</summary>' + w + '</details>';
+
   return h;
 }
 
