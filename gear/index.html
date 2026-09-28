@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-g';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-i';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -874,11 +874,14 @@ function handoffsOwedBy(who){
    2 go back. Hold 2 and both want 2 -> nothing goes back, which is right. */
 function returnableFor(ev){
   if (!ev) return [];
+  /* whose gear this is, not the viewer's - same fix as pullPerson elsewhere,
+     2026-09-27. Returning "all" on Justin's event must return JUSTIN's gear. */
+  const who = pullPerson(ev);
   const need = poolNeeds(ev);
   const others = S.events.filter(e => e.id !== ev.id && dayDiff(today(), e.date) >= 0);
   const out = [];
   Object.keys(need).forEach(pool => {
-    const mine = S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === S.me);
+    const mine = S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === who);
     let laterNeed = 0;
     others.forEach(e => { laterNeed += (poolNeeds(e)[pool] || 0); });
     const canGo = Math.max(0, Math.min(need[pool], mine.length - laterNeed));
@@ -906,6 +909,32 @@ function stillToCollect(){
       .sort((a, b) => b.n - a.n || String(a.pl).localeCompare(String(b.pl)));
     return { who, short };
   }).filter(x => x.short.length);
+}
+/* Whose list is this? FIXED 2026-09-27. Corey: "I assigned gear for Justin on
+   Saturday but when I open up his pull list - it already has his 16 uplights
+   ticked like he has already checked them out. But he hasn't."
+
+   viewPull and both pickup handlers counted heldCount(pool, S.me) - the person
+   LOOKING at the list, not the person the list is FOR. So Corey opening
+   Justin's list saw Corey's own gear rendered as Justin's progress, and worse,
+   tapping pick-up checked the gear out to COREY while the screen said Justin.
+
+   The weekend list is always your own trip. An event's pull list belongs to the
+   DJ it is assigned to. */
+function pullPerson(ev){ return ev ? (ev.dj || S.me) : S.me; }
+/* The DECISION behind "Take everything", pulled out of the click handler so it
+   can be tested. Handlers live in bindView and no suite here fires a click, so
+   anything left inside one is only ever covered by a source guard - which is
+   how two of these mutations survived the first pass. Returns who it is for and
+   how many of each pool are still missing FOR THAT PERSON. */
+function pickupPlan(ev, isWk){
+  const wk = isWk ? weekendPull(S.me) : null;
+  const need = isWk ? (wk.need || {}) : poolNeeds(ev);
+  const who = pullPerson(isWk ? null : ev);
+  const rows = Object.keys(need)
+    .map(pool => ({ pool, take: need[pool] - heldCount(pool, who) }))
+    .filter(r => r.take > 0);
+  return { who, rows, wk };
 }
 function heldCount(pool, who){
   return S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === who).length;
@@ -1687,6 +1716,29 @@ function dataHoles(){
       fixPools: splitCat.slice(0,12) });
   }
 
+  /* THREE: jobs asking for gear that no longer exists under that name. Added
+     2026-09-27 after a rename left events pointing at the old pool: the units
+     were there, the job asked for a name nothing answered to, and the holder
+     was told to go and collect what he was already carrying. renamePool now
+     carries its references, so this is a cleanup for anything renamed BEFORE
+     that fix - and a tripwire if a pool is ever renamed by hand. */
+  const known = new Set(S.items.filter(i => i.status !== 'retired').map(poolOf));
+  const orphan = {};
+  S.events.filter(e => dayDiff(today(), e.date) >= 0).forEach(e => {
+    (e.gear || []).forEach(g => {
+      if (g.pool && !known.has(g.pool)) orphan[g.pool] = (orphan[g.pool] || 0) + 1;
+    });
+  });
+  const orphanPools = Object.keys(orphan).sort();
+  if (orphanPools.length) {
+    out.push({ t: orphanPools.length + ' upcoming job'
+        + (orphanPools.length > 1 ? 's ask' : ' asks') + ' for gear you do not have under that name',
+      d: 'Nobody can ever tick these off, and whoever is assigned will be told to collect '
+       + 'something that does not exist. Usually a pool that got renamed. Open the job and '
+       + 're-pick the gear.',
+      list: orphanPools.map(p => p + ' - on ' + orphan[p] + ' job' + (orphan[p] > 1 ? 's' : '')) });
+  }
+
   /* TWO: two pool names that are really the same thing, typed differently in
      two sittings - "Uplight" and "Uplights". Advisory only: it never merges
      anything, because occasionally two similar names are two real things. */
@@ -1933,8 +1985,15 @@ function viewPull(id){
     sub = esc(evLabel(e)) + ' &middot; ' + esc(prettyDay(e.date));
   }
 
+  /* Whose progress this list is showing. NOT S.me - see pullPerson(). */
+  const pullWho = pullPerson(isWk ? null : e);
   const pools = Object.keys(need).sort();
   let h = backBtn(isWk ? 'Back' : 'Back to event', isWk ? 'today' : ('event:' + e.id));
+  if (pullWho !== S.me) {
+    h += '<div class="banner info"><b>This is ' + personLabel(esc(pullWho)) + '\'s list</b>'
+      + 'The ticks show what ' + esc(pullWho) + ' is holding, not what you are. '
+      + 'Anything you pick up here is recorded as going to ' + esc(pullWho) + '.</div>';
+  }
   h += '<h2 class="sec" style="margin-top:.4rem">' + head + '</h2>';
   h += '<p class="muted" style="margin-top:-.2rem">' + sub + '</p>';
 
@@ -1962,7 +2021,7 @@ function viewPull(id){
     h += '<div class="kitblk"><h4>' + esc(cat) + '</h4>';
     byCat[cat].forEach(p => {
       const want = need[p];
-      const have = Math.min(heldCount(p, S.me), want);
+      const have = Math.min(heldCount(p, pullWho), want);
       const free = S.items.filter(i => poolOf(i) === p && i.status === 'in').length;
       const owned = S.items.filter(i => poolOf(i) === p && i.status !== 'retired').length;
       const done = have >= want;
@@ -1986,7 +2045,7 @@ function viewPull(id){
   });
 
   const tot = pools.reduce((a,p) => a + need[p], 0);
-  const mine = pools.reduce((a,p) => a + Math.min(heldCount(p, S.me), need[p]), 0);
+  const mine = pools.reduce((a,p) => a + Math.min(heldCount(p, pullWho), need[p]), 0);
   h += '<div class="sticky-act">';
   if (mine < tot) h += '<button class="btn primary" data-pullall="' + target + '">Take everything (' + (tot - mine) + ' left)</button>';
   if (mine) h += '<button class="btn" style="margin-top:.5rem" data-inev="' + target + '">Return all ' + mine + '</button>';
@@ -3606,32 +3665,39 @@ function bind(){
     let ev = null;
     if (el.dataset.ev === 'weekend') ev = (weekendPull(S.me).why[pool] || [])[0];
     else ev = eventById(el.dataset.ev);
-    await checkOut(unit, ev);
+    /* to the DJ the list belongs to, not to whoever is tapping. checkOut keeps
+       holderUid empty when it is not you, which is what the audit trail needs. */
+    await checkOut(unit, ev, pullPerson(el.dataset.ev === 'weekend' ? null : ev));
   });
   v.querySelectorAll('[data-give]').forEach(el => el.onclick = async () => {
     const pool = el.dataset.give;
-    const unit = S.items.find(i => poolOf(i) === pool && i.status === 'out' && i.holder === S.me);
+    const who = pullPerson(el.dataset.ev === 'weekend' ? null : eventById(el.dataset.ev));
+    const unit = S.items.find(i => poolOf(i) === pool && i.status === 'out' && i.holder === who);
     if (unit) await checkIn(unit);
   });
   v.querySelectorAll('[data-pullall]').forEach(el => el.onclick = async () => {
     const isWk = el.dataset.pullall === 'weekend';
     const ev = isWk ? null : eventById(el.dataset.pullall);
     if (!isWk && !ev) return;
-    const wk = isWk ? weekendPull(S.me) : null;
-    const need = isWk ? wk.need : poolNeeds(ev);
+    /* the DJ this list belongs to. Taking gear on someone else's list records
+       it against THEM - anything else writes a false fact about where the gear
+       is, which is the one thing this app exists to get right. */
+    const plan = pickupPlan(ev, isWk);
+    const wk = plan.wk, who = plan.who, mine = who === S.me;
     let n = 0; const short = [];
-    for (const pool of Object.keys(need)) {
-      const want = need[pool] - heldCount(pool, S.me);
+    for (const row of plan.rows) {
+      const pool = row.pool, want = row.take;
       for (let k = 0; k < want; k++) {
         const unit = S.items.find(i => poolOf(i) === pool && i.status === 'in');
         if (!unit) { short.push(pool); break; }
         const forEv = isWk ? (wk.why[pool] || [])[0] : ev;
-        await putItem({ ...unit, status:'out', holder:S.me, holderUid:S.uid,
+        await putItem({ ...unit, status:'out', holder:who, holderUid: mine ? S.uid : '',
                         eventId: forEv ? forEv.id : '', since:new Date().toISOString() });
         n++;
       }
     }
-    logIt(S.me + ' picked up ' + n + ' items' + (isWk ? ' for the weekend' : ' for ' + evLabel(ev)));
+    logIt(S.me + (mine ? ' picked up ' : ' gave ' + who + ' ') + n + ' items'
+      + (isWk ? ' for the weekend' : ' for ' + evLabel(ev)));
     toast(n + ' taken' + (short.length ? ', short on ' + short.length : ''));
     if (short.length) setTimeout(() => alert('Not enough free units of:\n\n'
       + [...new Set(short)].join('\n') + '\n\nSort this before you drive off.'), 300);
