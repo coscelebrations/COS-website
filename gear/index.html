@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-j';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-k';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -2555,6 +2555,27 @@ function matchPool(addonName, pools){
 function allPools(){
   return [...new Set(S.items.filter(i => i.status !== 'retired').map(poolOf))];
 }
+/* Pools grouped for a <select>, 2026-09-27. Corey: "when I do the drop down for
+   the gear, that would also be cool if it was broken into the categories and
+   then the things listed in those categories be alphabetical."
+
+   Deliberately the SAME rule as Gear, Today, Week and the pull list: category
+   blocks in CATEGORIES order (biggest first - Speakers, Subs, DJ Gear, down to
+   Cables), pools A-Z inside each. A fifth ordering for the same list is exactly
+   the drift groupByCategory was extracted to stop. Unknown categories fall to
+   the bottom, A-Z. */
+function poolsByCategory(){
+  const catOf = {};
+  S.items.filter(i => i.status !== 'retired').forEach(i => {
+    const p = poolOf(i);
+    if (!catOf[p]) catOf[p] = i.category || 'Other';
+  });
+  const g = {};
+  Object.keys(catOf).forEach(p => { (g[catOf[p]] = g[catOf[p]] || []).push(p); });
+  return CATEGORIES.concat(Object.keys(g).filter(c => !CATEGORIES.includes(c)).sort())
+    .filter(c => g[c])
+    .map(c => ({ cat: c, pools: g[c].sort((a, b) => String(a).localeCompare(String(b))) }));
+}
 /* addon list on an event -> { poolName: unitsNeeded } */
 function addonNeeds(ev){
   const pools = allPools(), need = {};
@@ -3413,7 +3434,9 @@ function assignDraft(ev){
   };
 }
 function assignSheetHtml(d){
-  const pools = allPools().sort();
+  /* only its LENGTH is used now - the dropdown below groups through
+     poolsByCategory(). Left as a guard, not sorted for nothing. */
+  const pools = allPools();
   let h = '<h3>Gear someone needs</h3>';
   if (!pools.length) {
     return h + '<div class="empty"><p style="margin:0 0 1rem">There is no gear in the list yet.</p>'
@@ -3439,7 +3462,10 @@ function assignSheetHtml(d){
     h += '<div class="row2" style="gap:.5rem;margin-bottom:.5rem">'
       + '<select class="aPool" data-row="' + k + '" style="flex:2">'
       + '<option value="">Pick gear...</option>'
-      + pools.map(pl => '<option' + (pl === r.pool ? ' selected' : '') + '>' + esc(pl) + '</option>').join('')
+      + poolsByCategory().map(g => '<optgroup label="' + esc(g.cat) + '">'
+          + g.pools.map(pl => '<option' + (pl === r.pool ? ' selected' : '') + '>'
+              + esc(pl) + '</option>').join('')
+          + '</optgroup>').join('')
       + '</select>'
       + '<input type="number" class="aQty" data-row="' + k + '" value="' + (Number(r.qty) || 1)
       + '" min="1" inputmode="numeric" style="flex:1;text-align:center">'
