@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-k';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-l';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -898,14 +898,39 @@ function returnableFor(ev){
    not find it: the ONE actionable fact on the Week screen was buried in its
    longest section, behind every unit every person is holding.
 
-   weekendPull is capped at comingSunday(), so this genuinely cannot see past
-   this weekend - the screen says so rather than let the number quietly lie. */
-function stillToCollect(){
-  return HOLDERS.map(who => {
-    const need = weekendPull(who).need || {};
-    const short = Object.keys(need)
-      .map(pl => ({ pl, n: need[pl] - heldCount(pl, who) }))
-      .filter(x => x.n > 0)
+   HORIZON FIXED the same evening. Corey: "I just assigned gear for the week and
+   at the top it has in green that everyone has what they need, which isnt true
+   yet." It was built on weekendPull, which is capped at comingSunday() - and
+   comingSunday() on a SUNDAY is today, so the window was ZERO days wide. Every
+   job he had just entered for the coming week was invisible, and the screen
+   then declared an all-clear over the top of it.
+
+   The weekend cap belongs to the PICKUP TRIP - one journey to the warehouse,
+   which is a weekend question. It does not belong on a screen called Week that
+   already lists "Next two weeks" underneath. Default horizon is therefore 14
+   days, matching what the screen already shows. */
+function stillToCollect(days){
+  const horizon = Number(days) > 0 ? Number(days) : 14;
+  const end = addDaysY(today(), horizon);
+  const evs = S.events.filter(e => e.date
+    && dayDiff(today(), e.date) >= 0 && dayDiff(e.date, end) >= 0);
+  const byWho = {};
+  evs.forEach(e => {
+    const who = pullPerson(e);
+    const need = poolNeeds(e);
+    Object.keys(need).forEach(p => {
+      byWho[who] = byWho[who] || {};
+      byWho[who][p] = (byWho[who][p] || 0) + need[p];
+    });
+  });
+  return Object.keys(byWho).sort().map(who => {
+    const want = byWho[who];
+    const short = Object.keys(want).map(pl => {
+      /* never ask for more than exists, same cap weekendPull applies */
+      const owned = S.items.filter(i => poolOf(i) === pl && i.status !== 'retired').length;
+      const n = (owned ? Math.min(want[pl], owned) : want[pl]) - heldCount(pl, who);
+      return { pl, n };
+    }).filter(x => x.n > 0)
       .sort((a, b) => b.n - a.n || String(a.pl).localeCompare(String(b.pl)));
     return { who, short };
   }).filter(x => x.short.length);
@@ -1509,7 +1534,7 @@ function viewWeek(){
   const nLate = overdueItems().length;
   if (!toCollect.length && !nLate) {
     h += '<div class="banner ok"><b>Everyone has what they need</b>'
-      + 'Nothing left to collect, nothing overdue.</div>';
+      + 'Nothing to collect in the next two weeks, nothing overdue.</div>';
   } else {
     const bits = [];
     if (toCollect.length) bits.push(toCollect.length
@@ -1533,8 +1558,8 @@ function viewWeek(){
      Putting it inside a branch meant it vanished exactly when someone would
      wonder "is that empty, or is it just not looking far enough?" - and it
      then went missing on the overdue-only path too. 2026-09-27. */
-  h += '<p class="tiny" style="margin:-.2rem 0 .2rem">This only looks as far as Sunday. '
-    + 'Anything set up for next week shows once that week starts.</p>';
+  h += '<p class="tiny" style="margin:-.2rem 0 .2rem">This covers the next two weeks. '
+    + 'The weekend pickup list on Today is the one trip to the warehouse.</p>';
 
 
   if (lateNames.length) {
