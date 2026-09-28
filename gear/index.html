@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-n';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-o';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -3374,6 +3374,13 @@ function poolSheetHtml(pool){
       + '<br><span class="tiny">' + esc(who.join(', ')) + '</span></b></div>';
   }
   if (rep.length) h += '<div class="kv"><span>Need attention</span><b>' + rep.length + '</b></div>';
+  /* RETIRED was invisible here, which made a miscount impossible to explain -
+     the four lines above did not add up to what was on the shelf and nothing
+     said why. Corey 2026-09-27: "I have 12 uplight ir4 in the warehouse now but
+     it is only showing 8 free." Shown only when there are any. 2026-09-27. */
+  const ret = S.items.filter(x => poolOf(x) === pool && x.status === 'retired');
+  if (ret.length) h += '<div class="kv"><span>Retired (not counted above)</span><b>'
+    + ret.length + '</b></div>';
 
   if (free.length) {
     h += '<label class="fl" style="margin-top:1.1rem">How many are you taking</label>';
