@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-f';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-g';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -1757,13 +1757,39 @@ function renamePoolSheetHtml(pool){
    unique set, because a number may be on a sticker on the actual light. Only
    renumber 1..N when they are missing or duplicated, which is the one case
    where preserving them would mint two "Uplight 3". */
+/* FIXED 2026-09-27, same day it shipped. Corey: "Noah has 16 lights in his
+   possession but when I clicked on his name in the week tab, it turned red and
+   showed him needing them."
+
+   A pool is referenced by NAME in three places, and the first version of this
+   only renamed one of them - the items. Events carry `gear:[{pool,qty}]`
+   (gearNeeds reads g.pool) and S.addonMap maps a CRM add-on name to a pool
+   name. So after a rename the units were "Uplight - IR4 - White" while every
+   event still asked for "Uplight": heldCount found nobody holding it, and the
+   man standing next to 16 of them was told to go and collect 16.
+
+   A rename has to carry its references with it or it is a data corruption with
+   a friendly button on it. */
+async function renamePoolRefs(pool, base){
+  const evs = S.events.filter(e => (e.gear || []).some(g => g.pool === pool));
+  for (const e of evs) {
+    await putEvent({ ...e, gear: e.gear.map(g => g.pool === pool ? { ...g, pool: base } : g) });
+  }
+  let touched = 0;
+  Object.keys(S.addonMap || {}).forEach(k => {
+    if (S.addonMap[k] === pool) { S.addonMap[k] = base; touched++; }
+  });
+  if (touched) await putConfig();
+  return { events: evs.length, addons: touched };
+}
 async function renamePool(pool, base){
   base = String(base == null ? '' : base).trim();
-  if (!base) return 0;
+  if (!base || base === pool) return 0;
   const units = sortUnits(S.items.filter(i => poolOf(i) === pool));
   if (!units.length) return 0;
   if (units.length === 1) {
     await putItems([{ ...units[0], name: base, pool: base }]);
+    await renamePoolRefs(pool, base);
     logIt(S.me + ' renamed ' + pool + ' to ' + base, { pool: base, n: 1 });
     return 1;
   }
@@ -1772,7 +1798,10 @@ async function renamePool(pool, base){
   await putItems(units.map((i, k) => ({ ...i,
     name: base + ' ' + (clean ? unitNum(i.name) : k + 1),
     pool: base })));
-  logIt(S.me + ' renamed ' + units.length + ' ' + pool + ' to ' + base,
+  const ref = await renamePoolRefs(pool, base);
+  logIt(S.me + ' renamed ' + units.length + ' ' + pool + ' to ' + base
+        + (ref.events ? ' (and ' + ref.events + ' job' + (ref.events > 1 ? 's' : '')
+           + ' that asked for it)' : ''),
         { pool: base, n: units.length });
   return units.length;
 }
