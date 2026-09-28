@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-c';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-d';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -1616,9 +1616,16 @@ function dataHoles(){
   if (splitCat.length) {
     out.push({ t: splitCat.length + ' thing' + (splitCat.length > 1 ? 's are' : ' is')
         + ' filed under more than one category',
-      d: 'This is why one thing can show up as two rows on the Week screen. Open any unit, '
-       + 'set the category you want, and say yes when it offers to move the whole pool.',
-      list: splitCat.slice(0,12).map(p => p + ' - ' + [...catsOf[p]].sort().join(' + ')) });
+      d: 'This is why one thing can show up as two rows on the Week screen. '
+       + 'Tap Put these together and pick the category it should be in.',
+      list: splitCat.slice(0,12).map(p => p + ' - ' + [...catsOf[p]].sort().join(' + ')),
+      /* fixPools drives the "Put these together" button in viewDatacheck. Added
+         2026-09-27: the written instruction above used to say "open any unit and
+         set the category", and Corey found out why that was no good - tapping a
+         pool opens the CHECK-OUT sheet, so the repair was buried behind actions
+         about taking gear and giving it to people. The fix belongs on the line
+         that reports the problem. */
+      fixPools: splitCat.slice(0,12) });
   }
 
   /* TWO: two pool names that are really the same thing, typed differently in
@@ -1636,6 +1643,37 @@ function dataHoles(){
       list: nearDupes.slice(0,12).map(k => byNorm[k].sort().join('  vs  ')) });
   }
   return out;
+}
+/* The repair for a pool split across categories. Returns HTML so it is testable
+   the way assignSheetHtml and poolSheetHtml are - itemEditSheet's habit of
+   calling openSheet() directly is what left its own fix only source-testable. */
+function fixCatSheetHtml(pool){
+  const units = S.items.filter(i => poolOf(i) === pool && i.status !== 'retired');
+  const cats = [...new Set(units.map(i => i.category || '(none)'))].sort();
+  const count = c => units.filter(i => (i.category || '(none)') === c).length;
+  let h = '<h3>Put these ' + esc(pool) + ' together</h3>';
+  if (cats.length < 2) {
+    return h + '<div class="empty"><p style="margin:0">These are already all in one category.</p></div>';
+  }
+  h += '<p class="tiny" style="margin:.1rem 0 1rem">You own ' + units.length + ', split across '
+    + cats.length + ' categories. Which one is right?</p>';
+  cats.forEach(c => {
+    h += '<button class="btn" style="width:100%;margin-bottom:.5rem" data-domergecat="'
+      + esc(pool) + '" data-cat="' + esc(c) + '">'
+      + esc(c) + ' <span class="tiny">(' + count(c) + ' of ' + units.length + ' already here)</span></button>';
+  });
+  h += '<p class="tiny" style="margin:.6rem 0 0">All ' + units.length + ' move to whichever you pick. '
+    + 'Retired units are left alone.</p>';
+  return h;
+}
+/* One write for the whole pool. Retired units are deliberately untouched - they
+   are history, and moving them would rewrite what the list said at the time. */
+async function mergeCategory(pool, cat){
+  const move = S.items.filter(i => poolOf(i) === pool && i.status !== 'retired' && i.category !== cat);
+  if (!move.length) return 0;
+  await putItems(move.map(i => ({ ...i, category: cat })));
+  logIt(S.me + ' put ' + move.length + ' ' + pool + ' into ' + cat, { pool: pool, n: move.length });
+  return move.length;
 }
 function viewDatacheck(){
   let h = backBtn('Back', 'more');
@@ -1671,7 +1709,17 @@ function viewDatacheck(){
     holes.forEach(x => {
       h += '<div class="card"><b style="font-size:.92rem">' + esc(x.t) + '</b>'
         + '<p class="tiny" style="margin:.3rem 0 .5rem">' + x.d + '</p>'
-        + '<p class="tiny" style="color:var(--text-soft)">' + x.list.map(esc).join(' &middot; ') + '</p></div>';
+        + '<p class="tiny" style="color:var(--text-soft)">' + x.list.map(esc).join(' &middot; ') + '</p>';
+      /* One tap from "here is the problem" to "it is fixed". Gear editors only,
+         because this rewrites the gear list - same gate as everything else that
+         does. 2026-09-27. */
+      if (x.fixPools && canEditGear()) {
+        x.fixPools.forEach(p => {
+          h += '<button class="btn sm" style="width:100%;margin-top:.5rem" data-fixcat="' + esc(p) + '">'
+            + 'Put these ' + esc(p) + ' together</button>';
+        });
+      }
+      h += '</div>';
     });
   } else {
     h += '<div class="banner ok"><b>No gaps found</b>Every item belongs to a System and every System has gear.</div>';
@@ -3516,6 +3564,11 @@ function bind(){
        - it does not just filter the local array. In cloud mode the next
          onSnapshot would put all 53 straight back and the button would look
          broken, so the Firestore docs get deleted for real. */
+  /* "Put these together" on a Check gear data finding, 2026-09-27. */
+  v.querySelectorAll('[data-fixcat]').forEach(el => el.onclick = () => {
+    if (!canEditGear()) { toast('Only Corey can change the gear list'); return; }
+    openSheet(fixCatSheetHtml(el.dataset.fixcat));
+  });
   v.querySelectorAll('[data-clearseed]').forEach(el => el.onclick = async () => {
     const doomed = S.items.filter(i => i.template && i.status === 'in');
     const kept = S.items.filter(i => i.template && i.status !== 'in').length;
@@ -3727,6 +3780,17 @@ function pickOrNew(selId, inputId, fallback){
 function bindSheet(){
   const s = $('sheetBody');
   const draft = () => $('sheet')._draft;
+
+  /* The category merge, chosen from the sheet that "Put these together" opens.
+     Bound HERE, not in bindView, because these buttons render into the sheet -
+     the same split that bit the check-in wiring on 2026-09-26. */
+  s.querySelectorAll('[data-domergecat]').forEach(el => el.onclick = async () => {
+    if (!canEditGear()) { toast('Only Corey can change the gear list'); return; }
+    const pool = el.dataset.domergecat, cat = el.dataset.cat;
+    const n = await mergeCategory(pool, cat);
+    closeSheet();
+    toast(n ? 'Moved ' + n + ' ' + pool + ' to ' + cat : 'They were already all in ' + cat);
+  });
 
   /* quantity stepper -- clamped the same 1..60 as the CRM importer, so a
      fat-fingered 500 cannot mint 500 documents */
