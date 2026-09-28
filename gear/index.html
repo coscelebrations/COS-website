@@ -239,7 +239,14 @@ table.prev td{padding:.35rem .4rem;border-bottom:1px solid var(--line);vertical-
 .hr{display:flex;align-items:center;gap:.8rem;margin:1.5rem 0;color:var(--neutral);font-size:.75rem}
 .hr::before,.hr::after{content:'';flex:1;height:1px;background:var(--line)}
 .hide{display:none !important}
-@media (min-width:620px){.wrap{padding-bottom:2rem}nav.tabs{max-width:600px;margin:0 auto;border-radius:16px 16px 0 0;border-left:1px solid var(--line);border-right:1px solid var(--line)}}
+/* FIXED 2026-09-27. Corey: "when im on desktop, the tab below that has today,
+   gear, week, more is hovering over the usual last button on the screen."
+   This cut .wrap's bottom padding from 6.5rem to 2rem on wide screens while
+   nav.tabs stays position:fixed at the bottom - it only gets centred and
+   rounded here, it never stops floating. So the bar sat on top of the last
+   ~50px of every screen. The padding is what clears the bar; it has to stay
+   whatever the width. */
+@media (min-width:620px){nav.tabs{max-width:600px;margin:0 auto;border-radius:16px 16px 0 0;border-left:1px solid var(--line);border-right:1px solid var(--line)}}
 </style>
 </head>
 <body>
@@ -346,7 +353,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-o';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-p';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
