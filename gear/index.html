@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-i';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-j';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -1736,7 +1736,12 @@ function dataHoles(){
       d: 'Nobody can ever tick these off, and whoever is assigned will be told to collect '
        + 'something that does not exist. Usually a pool that got renamed. Open the job and '
        + 're-pick the gear.',
-      list: orphanPools.map(p => p + ' - on ' + orphan[p] + ' job' + (orphan[p] > 1 ? 's' : '')) });
+      list: orphanPools.map(p => p + ' - on ' + orphan[p] + ' job' + (orphan[p] > 1 ? 's' : '')),
+      /* repointPools drives the "Point these at" button. Corey, on the first
+         version: "it doesnt let me click on the 1 upcoming job ask for gear."
+         Reporting a problem with no way to act on it is half a feature - the
+         same mistake as telling him to "open any unit" for the category split. */
+      repointPools: orphanPools.slice(0, 12) });
   }
 
   /* TWO: two pool names that are really the same thing, typed differently in
@@ -1857,6 +1862,38 @@ async function renamePool(pool, base){
         { pool: base, n: units.length });
   return units.length;
 }
+/* Re-point upcoming jobs from a pool that no longer exists onto one that does.
+   Only touches EVENTS - it never renames or creates gear, because the gear is
+   not what is wrong here. 2026-09-27. */
+function repointSheetHtml(oldPool){
+  const pools = [...new Set(S.items.filter(i => i.status !== 'retired').map(poolOf))].sort();
+  const n = S.events.filter(e => dayDiff(today(), e.date) >= 0
+    && (e.gear || []).some(g => g.pool === oldPool)).length;
+  let h = '<h3>Jobs asking for "' + esc(oldPool) + '"</h3>';
+  if (!pools.length) return h + '<div class="empty"><p style="margin:0">There is no gear to point them at.</p></div>';
+  h += '<p class="tiny" style="margin:.1rem 0 1rem">' + n + ' upcoming job' + (n > 1 ? 's' : '')
+    + ' ask' + (n > 1 ? '' : 's') + ' for this and nothing answers to that name any more. '
+    + 'Which gear did you mean?</p>';
+  /* most likely first: a rename usually keeps the old name inside the new one */
+  const near = pools.filter(p => p.toLowerCase().includes(String(oldPool).toLowerCase())
+                              || String(oldPool).toLowerCase().includes(p.toLowerCase()));
+  near.concat(pools.filter(p => !near.includes(p))).forEach(p => {
+    h += '<button class="btn' + (near.includes(p) ? ' primary' : '') + '" style="width:100%;margin-bottom:.4rem"'
+      + ' data-dorepoint="' + esc(oldPool) + '" data-to="' + esc(p) + '">' + esc(p) + '</button>';
+  });
+  return h;
+}
+async function repointPool(oldPool, newPool){
+  if (!oldPool || !newPool || oldPool === newPool) return 0;
+  const evs = S.events.filter(e => dayDiff(today(), e.date) >= 0
+    && (e.gear || []).some(g => g.pool === oldPool));
+  for (const e of evs) {
+    await putEvent({ ...e, gear: e.gear.map(g => g.pool === oldPool ? { ...g, pool: newPool } : g) });
+  }
+  if (evs.length) logIt(S.me + ' pointed ' + evs.length + ' job' + (evs.length > 1 ? 's' : '')
+    + ' from ' + oldPool + ' to ' + newPool, { pool: newPool, n: evs.length });
+  return evs.length;
+}
 function viewDatacheck(){
   let h = backBtn('Back', 'more');
   h += '<h2 class="sec" style="margin-top:.4rem">Check gear data</h2>';
@@ -1899,6 +1936,12 @@ function viewDatacheck(){
         x.fixPools.forEach(p => {
           h += '<button class="btn sm" style="width:100%;margin-top:.5rem" data-fixcat="' + esc(p) + '">'
             + 'Put these ' + esc(p) + ' together</button>';
+        });
+      }
+      if (x.repointPools && canEditGear()) {
+        x.repointPools.forEach(p => {
+          h += '<button class="btn sm" style="width:100%;margin-top:.5rem" data-repoint="' + esc(p) + '">'
+            + 'Point these at the right gear</button>';
         });
       }
       h += '</div>';
@@ -2035,7 +2078,12 @@ function viewPull(id){
         + (owned > want ? ' &middot; ' + owned + ' owned' : '')
         + (note ? ' &middot; ' + esc(note) : '') + '</span></span>'
         + '<span style="display:flex;align-items:center;gap:.35rem;flex:none">'
-        + '<button class="btn sm" data-give="' + esc(p) + '" ' + (have?'':'disabled style="opacity:.35"') + '>&minus;</button>'
+        /* data-ev added 2026-09-27. The + carried the event and the - did not,
+           so once the handler started asking "whose list is this?" the minus
+           fell back to the VIEWER, looked for a unit they were not holding, and
+           silently did nothing on anyone else's list. */
+        + '<button class="btn sm" data-give="' + esc(p) + '" data-ev="' + target + '" '
+        + (have?'':'disabled style="opacity:.35"') + '>&minus;</button>'
         + '<b style="min-width:2.2em;text-align:center;font-size:1rem">' + have + '</b>'
         + '<button class="btn sm" data-take="' + esc(p) + '" data-ev="' + target + '" '
         + ((done||!free)?'disabled style="opacity:.35"':'') + '>+</button>'
@@ -3772,6 +3820,10 @@ function bind(){
     openSheet(renamePoolSheetHtml(el.dataset.renamepool));
   });
   /* "Put these together" on a Check gear data finding, 2026-09-27. */
+  v.querySelectorAll('[data-repoint]').forEach(el => el.onclick = () => {
+    if (!canEditGear()) { toast('Only Corey can change the gear list'); return; }
+    openSheet(repointSheetHtml(el.dataset.repoint));
+  });
   v.querySelectorAll('[data-fixcat]').forEach(el => el.onclick = () => {
     if (!canEditGear()) { toast('Only Corey can change the gear list'); return; }
     openSheet(fixCatSheetHtml(el.dataset.fixcat));
@@ -3993,6 +4045,14 @@ function bindSheet(){
      the same split that bit the check-in wiring on 2026-09-26. */
   /* The rename itself, from the sheet. In bindSheet for the same reason as the
      merge below - the button renders into the sheet, not the view. */
+  /* the re-point choice, from the sheet. bindSheet, not bindView. */
+  s.querySelectorAll('[data-dorepoint]').forEach(el => el.onclick = async () => {
+    if (!canEditGear()) { toast('Only Corey can change the gear list'); return; }
+    const n = await repointPool(el.dataset.dorepoint, el.dataset.to);
+    closeSheet();
+    toast(n ? 'Pointed ' + n + ' job' + (n > 1 ? 's' : '') + ' at ' + el.dataset.to
+            : 'Nothing to change');
+  });
   s.querySelectorAll('[data-dorenamepool]').forEach(el => el.onclick = async () => {
     if (!canEditGear()) { toast('Only Corey can change the gear list'); return; }
     const pool = el.dataset.dorenamepool;
