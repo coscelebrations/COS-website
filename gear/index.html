@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-l';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-m';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -718,6 +718,12 @@ function myEvents(){
                  || String(e.dj2||'').toLowerCase().includes(S.me.toLowerCase()))
     .sort((a,b) => a.date.localeCompare(b.date));
 }
+/* HORIZON. Corey 2026-09-27: "can we make the Two weeks thing go away? we do
+   one week at a time for gear." One number, used by the Week screen's event
+   list AND by stillToCollect, so the list and the count can never disagree
+   about how far they are looking - which is precisely how the screen came to
+   print a green all-clear over a week of freshly assigned work. */
+const HORIZON_DAYS = 7;
 function upcoming(days){
   const t = today();
   return S.events.filter(e => { const d = dayDiff(t, e.date); return d >= -1 && d <= days; })
@@ -907,10 +913,11 @@ function returnableFor(ev){
 
    The weekend cap belongs to the PICKUP TRIP - one journey to the warehouse,
    which is a weekend question. It does not belong on a screen called Week that
-   already lists "Next two weeks" underneath. Default horizon is therefore 14
-   days, matching what the screen already shows. */
+   already lists the week ahead underneath. The horizon is HORIZON_DAYS, the
+   same constant that list uses, so the two can never disagree. Was 14; Corey
+   cut it to 7 on 2026-09-27 - "we do one week at a time for gear". */
 function stillToCollect(days){
-  const horizon = Number(days) > 0 ? Number(days) : 14;
+  const horizon = Number(days) > 0 ? Number(days) : HORIZON_DAYS;
   const end = addDaysY(today(), horizon);
   const evs = S.events.filter(e => e.date
     && dayDiff(today(), e.date) >= 0 && dayDiff(e.date, end) >= 0);
@@ -1512,7 +1519,7 @@ function viewGear(){
    More > Check gear data, because until the CRM Systems are dialled in it is a
    data-quality tool, not a wedding-day warning. 2026-08-11. */
 function viewWeek(){
-  const evs = upcoming(14);
+  const evs = upcoming(HORIZON_DAYS);
   const wknd = weekendEvents();
   const late = overdueByPerson();
   const lateNames = Object.keys(late);
@@ -1534,7 +1541,7 @@ function viewWeek(){
   const nLate = overdueItems().length;
   if (!toCollect.length && !nLate) {
     h += '<div class="banner ok"><b>Everyone has what they need</b>'
-      + 'Nothing to collect in the next two weeks, nothing overdue.</div>';
+      + 'Nothing to collect this week, nothing overdue.</div>';
   } else {
     const bits = [];
     if (toCollect.length) bits.push(toCollect.length
@@ -1558,7 +1565,7 @@ function viewWeek(){
      Putting it inside a branch meant it vanished exactly when someone would
      wonder "is that empty, or is it just not looking far enough?" - and it
      then went missing on the overdue-only path too. 2026-09-27. */
-  h += '<p class="tiny" style="margin:-.2rem 0 .2rem">This covers the next two weeks. '
+  h += '<p class="tiny" style="margin:-.2rem 0 .2rem">This covers the next 7 days. '
     + 'The weekend pickup list on Today is the one trip to the warehouse.</p>';
 
 
@@ -1601,13 +1608,13 @@ function viewWeek(){
   }
 
   if (!evs.length) {
-    return h + '<div class="empty"><p style="margin:0 0 1rem">Nothing on the books for the next two weeks.</p>'
+    return h + '<div class="empty"><p style="margin:0 0 1rem">Nothing on the books this week.</p>'
       + '<button class="btn sm" data-view="import">Load this week from the CRM</button></div>';
   }
 
   const byDate = {};
   evs.forEach(e => { (byDate[e.date] = byDate[e.date] || []).push(e); });
-  h += '<h2 class="sec">Next two weeks</h2>';
+  h += '<h2 class="sec">The week ahead</h2>';
   Object.keys(byDate).sort().forEach(d => {
     h += '<p class="tiny" style="margin:.9rem 0 .35rem;font-weight:700">' + esc(prettyDay(d)) + '</p>';
     byDate[d].forEach(e => { h += evCard(e, 0); });
