@@ -346,7 +346,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-m';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-27-n';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -921,13 +921,34 @@ function stillToCollect(days){
   const end = addDaysY(today(), horizon);
   const evs = S.events.filter(e => e.date
     && dayDiff(today(), e.date) >= 0 && dayDiff(e.date, end) >= 0);
-  const byWho = {};
+  /* SUM WITHIN A DAY, MAX ACROSS DAYS. Corey 2026-09-27: "it shows 8 uplights
+     for cj needed. but he has his 16. how did that happen."
+
+     It was summing every job in the window, which is inherited from
+     weekendPull and is correct THERE - a weekend is one trip to the warehouse,
+     so Friday's 16 and Saturday's 16 both have to be in the van at once. Across
+     a whole WEEK it is nonsense: Monday's uplights come back before Saturday
+     needs them. Two jobs of 16 became 32, capped at what he owns, minus the 16
+     he was already holding - and the screen asked him to collect 8 more of
+     something he was standing next to.
+
+     Two jobs on the SAME DAY still add up, because they genuinely run at once.
+     The most you can ever need is the busiest single day. */
+  const byWhoDay = {};
   evs.forEach(e => {
     const who = pullPerson(e);
     const need = poolNeeds(e);
     Object.keys(need).forEach(p => {
-      byWho[who] = byWho[who] || {};
-      byWho[who][p] = (byWho[who][p] || 0) + need[p];
+      byWhoDay[who] = byWhoDay[who] || {};
+      byWhoDay[who][p] = byWhoDay[who][p] || {};
+      byWhoDay[who][p][e.date] = (byWhoDay[who][p][e.date] || 0) + need[p];
+    });
+  });
+  const byWho = {};
+  Object.keys(byWhoDay).forEach(who => {
+    byWho[who] = {};
+    Object.keys(byWhoDay[who]).forEach(p => {
+      byWho[who][p] = Math.max(...Object.values(byWhoDay[who][p]));
     });
   });
   return Object.keys(byWho).sort().map(who => {
@@ -1565,7 +1586,8 @@ function viewWeek(){
      Putting it inside a branch meant it vanished exactly when someone would
      wonder "is that empty, or is it just not looking far enough?" - and it
      then went missing on the overdue-only path too. 2026-09-27. */
-  h += '<p class="tiny" style="margin:-.2rem 0 .2rem">This covers the next 7 days. '
+  h += '<p class="tiny" style="margin:-.2rem 0 .2rem">This covers the next 7 days, '
+    + 'and shows the most anyone needs on any ONE day - gear comes back between jobs. '
     + 'The weekend pickup list on Today is the one trip to the warehouse.</p>';
 
 
