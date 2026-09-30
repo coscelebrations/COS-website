@@ -353,7 +353,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-27-p';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-09-30-b';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -1209,14 +1209,46 @@ async function removeUnits(pool, n){
         { pool: pool, n: doomed.length });
   return doomed.length;
 }
-async function checkInMany(pool, n){
-  const back = S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === S.me)
+/* `who` added 2026-09-30 so the office can check gear in FOR someone. Defaults
+   to you, so every existing caller means what it always meant. No permission
+   check here - the handler does that, the way removeUnits leaves it to
+   canEditGear(); this just records what happened. */
+async function checkInMany(pool, n, who){
+  const holder = who || S.me;
+  const back = S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === holder)
                       .slice(0, Math.max(0, n));
   if (!back.length) return 0;
   await putItems(back.map(i => ({ ...i, status:'in', holder:'', holderUid:'', eventId:'', since:'' })));
-  logIt(S.me + ' returned ' + (back.length > 1 ? back.length + ' x ' + pool : back[0].name),
+  const what = back.length > 1 ? back.length + ' x ' + pool : back[0].name;
+  logIt(S.me + ' returned ' + what + (holder === S.me ? '' : ' for ' + holder),
         { pool: pool, n: back.length });
   return back.length;
+}
+/* Move N of a pool from one person to another WITHOUT a trip through the
+   warehouse. Added 2026-09-30. Until now a hand-off was only a note: Corey
+   entered "Mikey hands Justin 4 uplights", nothing re-stamped the units, so
+   Justin's list still read 0 of 4, his + button found nothing free and did
+   nothing, and Mikey's four stayed scattered through the pool sheet. This is
+   the missing verb.
+
+   Same audit rule as checkOut: holderUid is only ever YOUR uid, because the
+   roster knows names but not everyone's Firebase uid, and a guessed uid would
+   poison the append-only activity trail. The unit is stamped with the pending
+   hand-off event when one names this exact from -> to for this pool, so the
+   item screen can say what it went out for; otherwise the stamp is cleared and
+   the Monday rule applies from `since`. One write, one log line. */
+async function handOverMany(pool, n, from, to){
+  if (!from || !to || from === to) return 0;
+  const move = S.items.filter(i => poolOf(i) === pool && i.status === 'out' && i.holder === from)
+                      .slice(0, Math.max(0, n));
+  if (!move.length) return 0;
+  const ho = handoffsOwedBy(from).find(e => e.dj === to && (poolNeeds(e)[pool] || 0) > 0);
+  const stamp = new Date().toISOString();
+  await putItems(move.map(i => ({ ...i, status:'out', holder:to, holderUid: to === S.me ? S.uid : '',
+                                  eventId: ho ? ho.id : '', since:stamp })));
+  const what = move.length > 1 ? move.length + ' x ' + pool : move[0].name;
+  logIt(S.me + ' moved ' + what + ' from ' + from + ' to ' + to, { pool: pool, n: move.length });
+  return move.length;
 }
 async function flagRepair(item, note){
   const next = { ...item, status:'repair', notes: note || item.notes };
@@ -1344,7 +1376,13 @@ function viewToday(){
         + '<span class="tiny">' + esc(plainDay(e.date))
         + (d === 0 ? ' &middot; today' : '') + '</span></div>'
         + '<p class="tiny" style="margin:.45rem 0 0">Hand over ' + esc(bits || 'gear')
-        + '. It stays checked out to you until they have it.</p>'
+        + '. It stays checked out to you until you tap the button.</p>'
+        /* The button, 2026-09-30. This card used to be a note with no verb, so
+           the gear never actually moved and the receiver's list stayed empty.
+           Opens your own holder sheet with the receiver already picked. */
+        + Object.keys(need).sort().map(p =>
+            '<button class="btn sm" style="margin:.5rem .4rem 0 0" data-mypool="' + esc(p) + '">'
+            + 'Hand over ' + esc(p) + '</button>').join('')
         + '</div>';
     });
   }
@@ -1456,8 +1494,14 @@ function groupPools(units){
    and nothing else: every row here is status 'out' and held by him, so
    poolRow's sub-line would repeat "With you" down the whole screen, which is
    the noise he was complaining about. 2026-09-25. */
-function myPoolRow(pool, units){
-  return '<button class="item out" data-mypool="' + esc(pool) + '">'
+/* `who` added 2026-09-30: the "Who's got what" cards render this row for OTHER
+   people, and without a holder on it every tap opened the signed-in person's
+   own gear - Corey tapped Mikey's uplights and was asked about returning his.
+   Today's own holdings pass nothing and keep meaning you. Attribute ORDER
+   matters to the tests: data-mypool stays first. */
+function myPoolRow(pool, units, who){
+  return '<button class="item out" data-mypool="' + esc(pool) + '"'
+    + (who ? ' data-who="' + esc(who) + '"' : '') + '>'
     + '<span class="nm"><b>' + esc(pool) + '</b></span>'
     + '<span class="pill out">' + units.length + '</span></button>';
 }
@@ -1549,8 +1593,7 @@ function viewGear(){
 function viewWeek(){
   const evs = upcoming(HORIZON_DAYS);
   const wknd = weekendEvents();
-  const late = overdueByPerson();
-  const lateNames = Object.keys(late);
+  const late = overdueByPerson();   // still read by the "Who's got what" cards below
   let h = '';
 
   /* REORDERED 2026-09-27, Corey's own design: "having the list of what the guys
@@ -1598,22 +1641,12 @@ function viewWeek(){
     + 'The weekend pickup list on Today is the one trip to the warehouse.</p>';
 
 
-  if (lateNames.length) {
-    const n = overdueItems().length;
-    h += '<h2 class="sec">Not back yet (' + n + ')</h2>';
-    lateNames.sort().forEach(who => {
-      const list = late[who];
-      h += '<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline">'
-        + '<b style="font-size:.95rem">' + esc(who) + '</b>'
-        + '<span class="pill repair">' + list.length + ' out</span></div>'
-        + '<p class="tiny" style="margin:.2rem 0 .5rem">Due back ' + esc(prettyDay(dueFor(list[0]))) + '</p>';
-      list.slice(0,6).forEach(i => {
-        h += '<div class="kv"><span>' + esc(i.name) + '</span><b>' + esc(ago(i.since)) + '</b></div>';
-      });
-      if (list.length > 6) h += '<p class="tiny" style="margin:.5rem 0 0">and ' + (list.length-6) + ' more.</p>';
-      h += '</div>';
-    });
-  }
+  /* "Not back yet" REMOVED 2026-09-30. It was a per-person card list of every
+     overdue unit, sitting between the actionable top and the week ahead. Corey:
+     "I dont think everyone or even me really needs to see the not back yet
+     section." The same fact survives in two places that are read: the banner
+     count above, and the "N of these are past due" line on each person's card
+     in "Who's got what", which is also where the gear can now be moved. */
 
   if (wknd.length) {
     const people = peopleThisWeekend();
@@ -1687,7 +1720,7 @@ function viewWeek(){
         + '<span class="tiny">' + mine.length + ' out</span></div>';
       groupByCategory(mine).forEach(({ cat, units }) => {
         w += '<h3 class="sub">' + esc(cat) + '</h3>';
-        groupPools(units).forEach(g => { w += myPoolRow(g.pool, g.units); });
+        groupPools(units).forEach(g => { w += myPoolRow(g.pool, g.units, who); });
       });
       if (lateN) w += '<p class="tiny" style="margin:.5rem 0 0;color:var(--red)">'
         + lateN + ' of these ' + (lateN > 1 ? 'are' : 'is') + ' past due.</p>';
@@ -2131,7 +2164,17 @@ function viewPull(id){
       const done = have >= want;
       const where = (S.items.find(i => poolOf(i) === p) || {}).home || '';
       let note = where && where.toLowerCase() !== 'none' ? where : '';
-      if (!done && free === 0) note = 'None free - all ' + owned + ' are out';
+      /* NAME THE HOLDERS, 2026-09-30. "None free - all 40 are out" told the DJ
+         to stop; it did not tell him who to text. Now that gear moves person to
+         person, the useful fact is who has them. Biggest holder first. */
+      if (!done && free === 0) {
+        const byWho = {};
+        S.items.filter(i => poolOf(i) === p && i.status === 'out' && i.holder && i.holder !== pullWho)
+          .forEach(i => { byWho[i.holder] = (byWho[i.holder] || 0) + 1; });
+        const names = Object.keys(byWho).sort((a, b) => byWho[b] - byWho[a] || a.localeCompare(b))
+          .map(n => n + ' has ' + byWho[n]);
+        note = names.length ? 'None free - ' + names.join(', ') : 'None free - all ' + owned + ' are out';
+      }
       h += '<div class="check" data-on="' + (done?1:0) + '" style="cursor:default">'
         + '<span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 7"/></svg></span>'
         + '<span class="txt" style="flex:1">' + esc(p)
@@ -3330,29 +3373,64 @@ function closeSheet(){ $('sheet').classList.remove('on'); $('scrim').classList.r
    and data-returnpool are string literals inside stepper(). RENAMING THEM FOR
    TIDINESS SILENTLY BREAKS THE COUNTER - no error, the buttons just stop doing
    anything. That reuse is also why this needs no new event wiring. 2026-09-25. */
-function myPoolSheetHtml(pool){
+/* Who a pending hand-off says this pool should go to next. Used to preselect
+   the "hand to" dropdown so executing the hand-off Corey already typed in is
+   one tap, not a second decision. 2026-09-30. */
+function handoffTargetFor(who, pool){
+  const e = handoffsOwedBy(who).find(x => (poolNeeds(x)[pool] || 0) > 0 && x.dj);
+  return e ? e.dj : '';
+}
+/* `who` added 2026-09-30. This sheet was hardcoded to S.me, and the "Who's got
+   what" cards opened it for OTHER people's rows - so tapping Mikey's uplights
+   asked Corey about returning his own. Now: your own gear gets bring-back AND
+   hand-over; someone else's gets the same two for the office (isAdmin), and a
+   read-only list for everyone else. Moving gear that is not yours is exactly
+   the "log in as somebody else and move gear around" Corey did not want DJs
+   doing, so the guard is the ADMINS role, not a confirm. */
+function myPoolSheetHtml(pool, who){
+  who = who || S.me;
+  const own = who === S.me;
+  const canAct = own || isAdmin();
   const mine = sortUnits(S.items.filter(x =>
-    poolOf(x) === pool && x.status === 'out' && x.holder === S.me));
+    poolOf(x) === pool && x.status === 'out' && x.holder === who));
   const all = S.items.filter(x => poolOf(x) === pool && x.status !== 'retired');
   let h = '<h3>' + esc(pool) + '</h3><p class="tiny" style="margin:.1rem 0 1rem">'
     + esc(all[0] ? all[0].category : '') + '</p>';
-  h += '<div class="kv"><span>With you</span><b>' + mine.length + '</b></div>';
+  h += '<div class="kv"><span>' + (own ? 'With you' : 'With ' + esc(who)) + '</span><b>' + mine.length + '</b></div>';
   if (mine.length) {
     const oldest = mine.reduce((a,b) => (a.since || '9') < (b.since || '9') ? a : b);
     h += '<div class="kv"><span>Since</span><b>' + esc(ago(oldest.since)) + '</b></div>';
-    h += '<label class="fl" style="margin-top:1rem">Bringing back</label>';
+  }
+  if (mine.length && canAct) {
+    const forWho = own ? '' : ' for ' + esc(who);
+    h += '<label class="fl" style="margin-top:1rem">' + (own ? 'Bringing back' : 'How many') + '</label>';
     h += '<div class="row2" style="align-items:center;gap:.5rem">'
       + '<button class="btn sm" data-rstep="-1" aria-label="One fewer">&minus;</button>'
       + '<input type="number" id="rQty" value="' + mine.length + '" min="1" max="' + mine.length
       + '" inputmode="numeric" style="text-align:center">'
       + '<button class="btn sm" data-rstep="1" aria-label="One more">+</button></div>';
-    h += '<button class="btn primary" style="margin-top:.7rem" data-returnpool="' + esc(pool) + '">'
-      + '<span id="pBackLbl">Check ' + mine.length + ' back in</span></button>';
+    h += '<button class="btn primary" style="margin-top:.7rem" data-returnpool="' + esc(pool) + '" data-who="' + esc(who) + '">'
+      + '<span id="pBackLbl">Check ' + mine.length + ' back in</span>' + forWho + '</button>';
+    /* HAND-OVER. HOLDERS not ROSTER (assistants can be handed gear), explicit
+       value= so the label text never becomes the stored holder name - both
+       lessons from the give-to control in poolSheetHtml. */
+    const target = handoffTargetFor(who, pool);
+    const others = HOLDERS.filter(n => n.toLowerCase() !== String(who).toLowerCase());
+    h += '<label class="fl" style="margin-top:.9rem">Or hand that many to</label>';
+    h += '<select id="hWho">' + others.map(n =>
+      '<option value="' + esc(n) + '"' + (n === target ? ' selected' : '') + '>' + personLabel(esc(n)) + '</option>').join('') + '</select>';
+    h += '<button class="btn" style="margin-top:.5rem" data-handpool="' + esc(pool) + '" data-who="' + esc(who) + '">'
+      + '<span id="pHandLbl">Hand ' + mine.length + ' over</span></button>';
+    if (target) h += '<p class="tiny" style="margin:.35rem 0 0">' + esc(target)
+      + ' is down to get these from ' + (own ? 'you' : esc(who)) + '.</p>';
+  } else if (mine.length) {
+    h += '<div class="banner info" style="margin-top:1rem"><b>Only Corey or Kyle can move someone else\'s gear</b>'
+      + esc(who) + ' can check these in or hand them over from their own Today tab.</div>';
   } else {
-    h += '<div class="banner info" style="margin-top:1rem"><b>None of these are with you</b>'
+    h += '<div class="banner info" style="margin-top:1rem"><b>None of these are with ' + (own ? 'you' : esc(who)) + '</b>'
       + 'Nothing to bring back.</div>';
   }
-  h += '<h2 class="sec" style="margin-top:1.3rem">Yours (' + mine.length + ')</h2>';
+  h += '<h2 class="sec" style="margin-top:1.3rem">' + (own ? 'Yours' : esc(who) + '\'s') + ' (' + mine.length + ')</h2>';
   h += '<p class="tiny" style="margin:0 0 .5rem">Tap one for its serial, or to flag a problem.</p>';
   mine.forEach(i => { h += itemRow(i); });
   h += '<button class="btn ghost sm" style="width:100%;margin-top:.8rem" data-pool="' + esc(pool) + '">'
@@ -3442,7 +3520,24 @@ function poolSheetHtml(pool){
 
   h += '<h2 class="sec" style="margin-top:1.3rem">Each one (' + all.length + ')</h2>';
   h += '<p class="tiny" style="margin:0 0 .5rem">Tap one to see its serial, flag a problem, or check out that exact unit.</p>';
-  all.forEach(i => { h += itemRow(i); });
+  /* GROUPED BY HOLDER, 2026-09-30. Sorted by unit number, Mikey's four uplights
+     sat scattered through forty rows and the only way to find them was to read
+     every sub-line. Corey: "as manager, it would be nice if they were grouped
+     by employee." Free first (that is what the sheet opens with), then each
+     person in roster order, then anyone off-roster still holding one, then the
+     flagged. sortUnits order survives inside each group. */
+  const groups = [];
+  if (free.length) groups.push({ t: 'Free', units: free });
+  const outAll = all.filter(x => x.status === 'out');
+  const names = [...new Set(outAll.map(x => x.holder || 'someone'))];
+  const holders = HOLDERS.filter(n => names.includes(n))
+    .concat(names.filter(n => !HOLDERS.includes(n)).sort());
+  holders.forEach(n => groups.push({ t: 'With ' + n, units: outAll.filter(x => (x.holder || 'someone') === n) }));
+  if (rep.length) groups.push({ t: 'Need attention', units: rep });
+  groups.forEach(g => {
+    h += '<h3 class="sub">' + esc(g.t) + ' (' + g.units.length + ')</h3>';
+    g.units.forEach(i => { h += itemRow(i); });
+  });
   return h;
 }
 function poolSheet(pool){ openSheet(poolSheetHtml(pool)); }
@@ -3791,7 +3886,7 @@ function bind(){
   v.querySelectorAll('[data-pool]').forEach(el => el.onclick = () => poolSheet(el.dataset.pool));
   /* Today's grouped rows land on the bring-it-back sheet, not the warehouse
      take screen. 2026-09-25. */
-  v.querySelectorAll('[data-mypool]').forEach(el => el.onclick = () => openSheet(myPoolSheetHtml(el.dataset.mypool)));
+  v.querySelectorAll('[data-mypool]').forEach(el => el.onclick = () => openSheet(myPoolSheetHtml(el.dataset.mypool, el.dataset.who || S.me)));
   v.querySelectorAll('[data-f]').forEach(el => el.onclick = () => { S.gearFilter = el.dataset.f; render(); });
 
   const q = $('q');
@@ -4206,13 +4301,15 @@ function bindSheet(){
      in the warehouse" link INSIDE a sheet, and without this it would look like
      a button and do nothing. 2026-09-25. */
   s.querySelectorAll('[data-pool]').forEach(el => el.onclick = () => poolSheet(el.dataset.pool));
-  s.querySelectorAll('[data-mypool]').forEach(el => el.onclick = () => openSheet(myPoolSheetHtml(el.dataset.mypool)));
+  s.querySelectorAll('[data-mypool]').forEach(el => el.onclick = () => openSheet(myPoolSheetHtml(el.dataset.mypool, el.dataset.who || S.me)));
 
   /* the take / bring-back counters on a pool. Label updates in place rather
      than re-rendering the sheet -- openSheet() re-runs bindSheet, which would
      throw the count away on every tap. */
-  const stepper = (btnAttr, boxId, lblId, word) => {
-    const box = $(boxId), lbl = $(lblId);
+  /* lbl2Id added 2026-09-30: the bring-back counter now also drives the
+     "Hand N over" button on the holder sheet, so one count, two labels. */
+  const stepper = (btnAttr, boxId, lblId, word, lbl2Id) => {
+    const box = $(boxId), lbl = $(lblId), lbl2 = lbl2Id ? $(lbl2Id) : null;
     if (!box) return;
     const sync = () => {
       const max = Number(box.max) || 1;
@@ -4224,6 +4321,7 @@ function bindSheet(){
       if (lbl) lbl.textContent = word === 'take' ? 'Take ' + n
                               : word === 'gone' ? 'Remove ' + n
                               : 'Check ' + n + ' back in';
+      if (lbl2) lbl2.textContent = 'Hand ' + n + ' over';
     };
     s.querySelectorAll('[' + btnAttr + ']').forEach(el => el.onclick = () => {
       box.value = (Math.round(Number(box.value) || 1)) + Number(el.getAttribute(btnAttr));
@@ -4233,7 +4331,7 @@ function bindSheet(){
     sync();
   };
   stepper('data-pstep', 'pQty', 'pTakeLbl', 'take');
-  stepper('data-rstep', 'rQty', 'pBackLbl', 'back');
+  stepper('data-rstep', 'rQty', 'pBackLbl', 'back', 'pHandLbl');
   stepper('data-xstep', 'xQty', 'pGoneLbl', 'gone');
 
   s.querySelectorAll('[data-removepool]').forEach(el => el.onclick = async () => {
@@ -4274,12 +4372,33 @@ function bindSheet(){
     else if (got < want) toast('Gave ' + who + ' ' + got + ' - that was all that was free');
     else toast(got > 1 ? who + ' now has ' + got + ' x ' + pool : 'Now with ' + who);
   });
+  /* data-who added 2026-09-30: the office can return or hand over gear FOR
+     someone from "Who's got what". Absent means you. Someone else's gear needs
+     isAdmin() - the sheet does not draw these buttons for a DJ, but the guard
+     lives here too so a stale sheet cannot be the hole. */
   s.querySelectorAll('[data-returnpool]').forEach(el => el.onclick = async () => {
     const pool = el.dataset.returnpool;
+    const who = el.dataset.who || S.me;
+    if (who !== S.me && !isAdmin()) { toast('Only Corey or Kyle can move someone else\'s gear'); return; }
     const want = $('rQty') ? Math.max(1, Math.round(Number($('rQty').value) || 1)) : 1;
-    const got = await checkInMany(pool, want);
+    const got = await checkInMany(pool, want, who);
     closeSheet();
-    toast(got > 1 ? got + ' x ' + pool + ' back in stock' : 'Back in stock');
+    if (!got) toast('Nothing to check in');
+    else toast((got > 1 ? got + ' x ' + pool + ' back in stock' : 'Back in stock')
+               + (who === S.me ? '' : ' for ' + who));
+  });
+  s.querySelectorAll('[data-handpool]').forEach(el => el.onclick = async () => {
+    const pool = el.dataset.handpool;
+    const from = el.dataset.who || S.me;
+    const to = $('hWho') ? $('hWho').value : '';
+    if (from !== S.me && !isAdmin()) { toast('Only Corey or Kyle can move someone else\'s gear'); return; }
+    if (!to) { toast('Pick a person first'); return; }
+    const want = $('rQty') ? Math.max(1, Math.round(Number($('rQty').value) || 1)) : 1;
+    const got = await handOverMany(pool, want, from, to);
+    closeSheet();
+    if (!got) toast('Nothing to hand over');
+    else if (got < want) toast(to + ' got ' + got + ' - that was all ' + from + ' had');
+    else toast(got > 1 ? to + ' now has ' + got + ' x ' + pool : 'Now with ' + to);
   });
 
   /* reveal the "new category" / "new spot" box only when asked for */
