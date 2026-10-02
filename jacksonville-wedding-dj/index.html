@@ -208,6 +208,43 @@
     ]
   }
   </script>
+  <style>
+    /* Brand strip - "Brands We've Entertained" (added 2026-10-02). Same block is pasted into the
+       city pages for their venue rows. Logos are pre-recolored by scripts/build-logos.py. */
+    .brand-strip{background:#fff;border-top:1px solid var(--blush);border-bottom:1px solid var(--blush);padding:2.25rem 2rem}
+    .brand-strip-inner{max-width:1100px;margin:0 auto;text-align:center}
+    .brand-strip-label{font-family:'Montserrat',sans-serif;font-size:0.7rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-soft);margin:0 0 1.5rem}
+    .brand-strip-row{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:1.5rem 2.5rem}
+    .brand-strip-row li{display:flex;align-items:center}
+    .brand-strip-row img{display:block;height:28px;width:auto}
+    .brand-strip-row img.logo-tall{height:36px}
+    .brand-strip-row img.logo-short{height:22px}
+    .brand-strip-row img.logo-xshort{height:18px}
+    .venue-strip .brand-strip-row{gap:1.5rem 2rem}
+    .venue-strip .brand-strip-row img{height:32px}
+    .venue-strip .brand-strip-row img.logo-tall{height:44px}
+    .venue-strip .brand-strip-row img.logo-short{height:24px}
+    .venue-strip .brand-strip-row img.logo-xshort{height:20px}
+    .brand-strip-text{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;letter-spacing:0.04em;line-height:1;color:#6B6668;white-space:nowrap}
+    .brand-strip-row a{display:flex;align-items:center;text-decoration:none;transition:transform 0.3s ease}
+    .brand-strip-row a:hover{transform:translateY(-2px)}
+    .brand-strip-row a:hover img{filter:brightness(0.45)}
+    .brand-strip-row a:hover .brand-strip-text{color:var(--merlot)}
+    .brand-strip-row a:focus-visible{outline:2px solid var(--merlot);outline-offset:6px}
+    @media (max-width:768px){
+      .brand-strip{padding:1.75rem 1.25rem}
+      .brand-strip-row{gap:1rem 1.5rem}
+      .brand-strip-row img{height:22px}
+      .brand-strip-row img.logo-tall{height:28px}
+      .brand-strip-row img.logo-short{height:18px}
+      .brand-strip-row img.logo-xshort{height:15px}
+      .venue-strip .brand-strip-row img{height:24px}
+      .venue-strip .brand-strip-row img.logo-tall{height:32px}
+      .venue-strip .brand-strip-row img.logo-short{height:19px}
+      .venue-strip .brand-strip-row img.logo-xshort{height:16px}
+      .brand-strip-text{font-size:1.1rem}
+    }
+  </style>
 </head>
 <body>
 
@@ -257,18 +294,28 @@
     </div>
   </section>
 
+  <!-- Venues we play (logo strip, added 2026-10-02) -->
+  <section class="brand-strip venue-strip" aria-labelledby="brand-strip-label">
+    <div class="brand-strip-inner">
+      <p class="brand-strip-label" id="brand-strip-label">Jacksonville Venues We Play</p>
+      <ul class="brand-strip-row">
+      <li><a href="/timuquana-country-club-wedding-dj/" title="Timuquana Country Club wedding DJ"><img src="/images/venue-logos/timuquana-country-club.webp" alt="Timuquana Country Club" width="34" height="44" class="logo-tall" loading="lazy" decoding="async"></a></li>
+      <li><a href="/epping-forest-yacht-club-wedding-dj/" title="Epping Forest Yacht Club wedding DJ"><img src="/images/venue-logos/epping-forest-yacht-club.webp" alt="Epping Forest Yacht Club" width="134" height="24" class="logo-short" loading="lazy" decoding="async"></a></li>
+      <li><a href="/tpc-sawgrass-wedding-dj/" title="TPC Sawgrass wedding DJ"><img src="/images/venue-logos/tpc-sawgrass.webp" alt="TPC Sawgrass" width="78" height="32" loading="lazy" decoding="async"></a></li>
+      <li><a href="/casa-marina-hotel-wedding-dj/" title="Casa Marina Hotel wedding DJ"><img src="/images/venue-logos/casa-marina-hotel.webp" alt="Casa Marina Hotel" width="66" height="44" class="logo-tall" loading="lazy" decoding="async"></a></li>
+      <li><a href="/bowing-oaks-wedding-dj/" title="Bowing Oaks wedding DJ"><img src="/images/venue-logos/bowing-oaks.webp" alt="Bowing Oaks" width="72" height="44" class="logo-tall" loading="lazy" decoding="async"></a></li>
+      <li><a href="/club-continental-wedding-dj/" title="The Club Continental wedding DJ"><img src="/images/venue-logos/club-continental.webp" alt="The Club Continental" width="149" height="32" loading="lazy" decoding="async"></a></li>
+      <li><a href="/clay-theatre-wedding-dj/" title="The Clay Theatre wedding DJ"><img src="/images/venue-logos/clay-theatre.webp" alt="The Clay Theatre" width="68" height="44" class="logo-tall" loading="lazy" decoding="async"></a></li>
+      <li><a href="/glass-factory-wedding-dj/" title="The Glass Factory wedding DJ"><img src="/images/venue-logos/the-glass-factory.webp" alt="The Glass Factory" width="55" height="32" loading="lazy" decoding="async"></a></li>
+      </ul>
+    </div>
+  </section>
+
   <div class="breadcrumb" role="navigation" aria-label="Breadcrumb">
     <a href="/">Home</a> /
     <a href="/areas-we-serve/">Areas We Serve</a> /
     <span>Jacksonville Wedding DJ</span>
   </div>
-
-
-
-
-
-
-
 
   <!-- Main Content -->
   <section class="content-section">

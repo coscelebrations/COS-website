@@ -1,0 +1,256 @@
+{
+  "_note": "Raw logos live OUTSIDE the repo (source_dir). 'from' is the provenance record. size: tall|short|'' maps to CSS classes in the brand-strip block. Run: python3 scripts/build-logos.py",
+  "color": "#6B6668",
+  "source_dir": "~/cos-operations/logo-sources",
+  "sets": {
+    "brands": {
+      "out": "images/brands",
+      "src_dir": "brands",
+      "height": 28,
+      "sizes": {
+        "tall": 36,
+        "short": 22,
+        "xshort": 18
+      },
+      "items": [
+        {
+          "slug": "amazon",
+          "name": "Amazon",
+          "src": "amazon.svg",
+          "from": "https://commons.wikimedia.org/wiki/File:Amazon_logo.svg"
+        },
+        {
+          "slug": "usa-today",
+          "name": "USA TODAY",
+          "src": "usa-today.svg",
+          "from": "https://commons.wikimedia.org/wiki/File:USA_Today_(2020-01-29).svg",
+          "size": "short"
+        },
+        {
+          "slug": "kendra-scott",
+          "name": "Kendra Scott",
+          "src": "kendra-scott.svg",
+          "size": "short",
+          "from": "https://res.cloudinary.com/kendra-scott/image/upload/UIImages/images/full-ks-logo.svg",
+          "force_raster": true
+        },
+        {
+          "slug": "tesla",
+          "name": "Tesla",
+          "src": "tesla.svg",
+          "size": "xshort",
+          "from": "https://commons.wikimedia.org/wiki/File:Tesla_Motors_Logo.svg"
+        },
+        {
+          "slug": "grammys",
+          "name": "The GRAMMY Awards",
+          "src": "grammys.svg",
+          "size": "tall",
+          "from": "https://en.wikipedia.org/wiki/File:Grammy_Awards_logo.svg"
+        },
+        {
+          "slug": "walt-disney",
+          "name": "Walt Disney",
+          "src": "walt-disney-wordmark.svg",
+          "size": "tall",
+          "from": "https://en.wikipedia.org/wiki/File:Walt_Disney_wordmark.svg",
+          "force_raster": true
+        },
+        {
+          "slug": "nike",
+          "name": "Nike",
+          "src": "nike.svg",
+          "size": "short",
+          "from": "https://commons.wikimedia.org/wiki/File:Logo_NIKE.svg"
+        },
+        {
+          "slug": "topgolf",
+          "name": "Topgolf",
+          "src": "topgolf.svg",
+          "from": "https://commons.wikimedia.org/wiki/File:Topgolf_logo_horizontal.svg",
+          "size": "short"
+        },
+        {
+          "slug": "gq",
+          "name": "GQ",
+          "src": "gq.svg",
+          "from": "https://commons.wikimedia.org/wiki/File:GQ_Logo.svg"
+        },
+        {
+          "slug": "uf-health",
+          "name": "UF Health",
+          "src": "uf-health.svg",
+          "size": "tall",
+          "from": "https://ufhealth.org/dist/images/ufhealth-full.svg"
+        },
+        {
+          "slug": "trailer-bridge",
+          "name": "Trailer Bridge",
+          "src": "trailer-bridge.svg",
+          "from": "https://en.wikipedia.org/wiki/File:Trailer_Bridge_logo.svg",
+          "size": "short",
+          "force_raster": true
+        },
+        {
+          "slug": "jacksonville-jaguars",
+          "name": "Jacksonville Jaguars",
+          "src": "jacksonville-jaguars-wordmark.svg",
+          "size": "tall",
+          "from": "https://commons.wikimedia.org/wiki/File:Jacksonville_Jaguars_wordmark.svg"
+        },
+        {
+          "slug": "brooks-rehab",
+          "name": "Brooks Rehabilitation",
+          "src": "brooks-rehab.png",
+          "size": "tall",
+          "from": "https://brooksrehab.org/wp-content/uploads/2021/01/Brooks-Rehabilitation-Logo-Standard-1.png"
+        },
+        {
+          "slug": "mtv",
+          "name": "MTV",
+          "src": "mtv.svg",
+          "from": "https://commons.wikimedia.org/wiki/File:MTV_2021_(brand_version).svg"
+        }
+      ]
+    },
+    "st-augustine": {
+      "out": "images/venue-logos",
+      "src_dir": "venues",
+      "height": 32,
+      "sizes": {
+        "tall": 44,
+        "short": 24,
+        "xshort": 20
+      },
+      "link": "/{slug}-wedding-dj/",
+      "items": [
+        {
+          "slug": "treasury-on-the-plaza",
+          "name": "Treasury on the Plaza",
+          "src": "treasury-on-the-plaza.png",
+          "size": "tall",
+          "from": "https://treasuryontheplaza.com/wp-content/themes/treasury/images/treasury-gold.png"
+        },
+        {
+          "slug": "lightner-museum",
+          "name": "Lightner Museum",
+          "src": "lightner-museum.png",
+          "from": "https://lightnermuseum.org/wp-content/uploads/2023/07/lightner.logo800.png"
+        },
+        {
+          "slug": "the-white-room",
+          "name": "The White Room",
+          "src": "the-white-room.png",
+          "size": "tall",
+          "from": "https://www.whiteroomweddings.com/wp-content/uploads/2021/12/whiteroom-logo.png",
+          "mode": "knockout"
+        },
+        {
+          "slug": "river-house",
+          "name": "River House",
+          "src": "river-house.png",
+          "size": "short",
+          "from": "https://www.riverhouseevents.com/wp-content/themes/riverhouse-events/images/logo-full.png",
+          "mode": "knockout"
+        },
+        {
+          "slug": "fountain-of-youth",
+          "name": "Fountain of Youth",
+          "src": "fountain-of-youth.png",
+          "from": "https://www.fountainofyouthflorida.com/wp-content/uploads/2021/12/cropped-cropped-WebsiteLogo.png"
+        },
+        {
+          "slug": "flagler-college",
+          "name": "Flagler College",
+          "src": "flagler-college.svg",
+          "from": "https://www.flagler.edu/ (inline footer svg)",
+          "mode": "knockout"
+        },
+        {
+          "slug": "casa-monica",
+          "name": "Casa Monica Resort",
+          "src": "casa-monica.svg",
+          "from": "https://marriott.cdn.tambourine.com/plus_kessler/media/casamonica-logo-red-69fcbb95d9e9e.svg"
+        },
+        {
+          "slug": "9-aviles",
+          "name": "9 Aviles",
+          "src": "9-aviles.jpg",
+          "size": "tall",
+          "from": "https://9avilesstreet.com/ (logo png that is really JPEG, cream background)",
+          "mode": "luma"
+        }
+      ]
+    },
+    "jacksonville": {
+      "out": "images/venue-logos",
+      "src_dir": "venues",
+      "height": 32,
+      "sizes": {
+        "tall": 44,
+        "short": 24,
+        "xshort": 20
+      },
+      "link": "/{slug}-wedding-dj/",
+      "items": [
+        {
+          "slug": "timuquana-country-club",
+          "name": "Timuquana Country Club",
+          "src": "timuquana-country-club.svg",
+          "size": "tall",
+          "from": "https://static.clubessential.com/CEFED/_Axis-Website/Sites/TimuquanaCC2022/images/Logos/TCC+logo_White.svg (white-only source; real site is timuquana.net)"
+        },
+        {
+          "slug": "epping-forest-yacht-club",
+          "name": "Epping Forest Yacht Club",
+          "src": "epping-forest-yacht-club.png",
+          "size": "short",
+          "from": "https://www.efyc.com/custom/design/images/epping/logo-text.png"
+        },
+        {
+          "slug": "tpc-sawgrass",
+          "name": "TPC Sawgrass",
+          "src": "tpc-sawgrass.png",
+          "mode": "knockout",
+          "from": "https://tpc.com/sawgrass/wp-content/uploads/sites/51/2016/08/sawgrass-website.png"
+        },
+        {
+          "slug": "casa-marina-hotel",
+          "name": "Casa Marina Hotel",
+          "src": "casa-marina-hotel.png",
+          "size": "tall",
+          "mode": "knockout",
+          "from": "https://static.wixstatic.com/media/0676ec_5a221e61f05b4a09a152f2f0c1beaf4a~mv2.avif/v1/fill/w_458,h_324,al_c/logo.png"
+        },
+        {
+          "slug": "bowing-oaks",
+          "name": "Bowing Oaks",
+          "src": "bowing-oaks.jpg",
+          "size": "tall",
+          "mode": "luma",
+          "from": "https://images.squarespace-cdn.com/content/v1/5da74317ddd75209c8ed0fca/1591229233342-TLPMDT6FE2UNLV7LLO67/BowingOaks.jpg?format=original"
+        },
+        {
+          "slug": "club-continental",
+          "name": "The Club Continental",
+          "src": "club-continental.png",
+          "from": "https://clubcontinental.com/wp-content/uploads/2019/06/greenlogo.png"
+        },
+        {
+          "slug": "clay-theatre",
+          "name": "The Clay Theatre",
+          "src": "clay-theatre.png",
+          "size": "tall",
+          "from": "https://claytheatre.com/wp-content/uploads/2025/06/ClayLogoVertical.png"
+        },
+        {
+          "slug": "the-glass-factory",
+          "name": "The Glass Factory",
+          "src": "the-glass-factory.png",
+          "from": "https://www.theglassfactory.com/files/5963/logo-white.png (white-only source; real site is theglassfactory.com)",
+          "page": "/glass-factory-wedding-dj/"
+        }
+      ]
+    }
+  }
+}

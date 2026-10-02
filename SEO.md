@@ -3475,3 +3475,32 @@ Rule #15 arrow fix. Verified in headless Chrome at 390x844 before push.
   labels, the floating pill, the 24-screen length, the award pills, keyboard access for the
   dropdowns and video buttons. Those are Corey's calls or a real accessibility pass, not a
   one-line fix. Critique saved by the plugin in `.impeccable/critique/` (gitignored).
+
+### Session Notes (Oct 2, 2026) - Logo strips: "Brands We've Entertained" on the homepage, "Venues We Play" on St. Augustine + Jacksonville
+
+**Bottom line:** Corey's spin on irockyourparty.com's "Brands we've rocked" row. A slim white
+strip under the hero with every logo recolored to one muted grey (#6B6668, 5.6:1 on white).
+Homepage: 14 brands COS/Corey provided entertainment for (his list, verbatim: Amazon, USA TODAY,
+Kendra Scott, Tesla, The GRAMMY Awards, Walt Disney, Nike, Topgolf, GQ, UF Health, Trailer
+Bridge, Jacksonville Jaguars, Brooks Rehabilitation, MTV). City pages: 8 venue logos each,
+every one linking to its venue page. Static wrap, no JS. Previewed on localhost, approved.
+
+- **Pipeline:** `scripts/build-logos.py` + `scripts/logo-sources/manifest.json`. Raw logos live
+  OUTSIDE the repo in `~/cos-operations/logo-sources/` (Netlify publishes the repo root). The
+  manifest's `from` field is the provenance record per logo. Rebuild: `PATH=/opt/homebrew/bin:$PATH
+  python3 scripts/build-logos.py`. Outputs `images/brands/` (79 KB, 14 files) and
+  `images/venue-logos/` (16 files). Tier per logo: 9 clean SVGs recolored in place (usa-today,
+  tesla, nike, topgolf, gq, uf-health, jaguars wordmark, mtv) and the rest rasterized to lossless
+  WebP at 3x with a mask mode per source (`alpha`, `luma` for white-background JPGs, `knockout`
+  for badges with white text inside: The White Room, River House, Flagler shield, TPC, Casa Marina).
+- **Rule #5 call:** venue logos ARE linked even though the body copy links the same pages. The
+  homepage proof section already double-links them and Rule #14 allows intentional redundant links.
+- **Caught before ship:** the Glass Factory page slug is `/glass-factory-wedding-dj/` (no "the-");
+  the manifest's `page` override exists for exactly that case.
+- **Found, not fixed:** COS pages link Timuquana to a parked domain (real site timuquana.net) and
+  the Glass Factory to a dead one (real site theglassfactory.com). Jax page links River House
+  (a St. Augustine venue) and leaves The River Club tile unlinked.
+- **Next pass:** same strip on the other 9 city pages (one manifest set + 8 logos each).
+- **Parked, not started:** Corey asked whether the heroes are too tall. They are CSS gradients, so
+  no speed cost; the cost is that every proof point sits a full swipe below a phone's first screen.
+  Idea parked in Focus: trim mobile hero content so the strip peeks above the fold.
