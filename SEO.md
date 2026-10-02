@@ -3497,9 +3497,10 @@ every one linking to its venue page. Static wrap, no JS. Previewed on localhost,
   homepage proof section already double-links them and Rule #14 allows intentional redundant links.
 - **Caught before ship:** the Glass Factory page slug is `/glass-factory-wedding-dj/` (no "the-");
   the manifest's `page` override exists for exactly that case.
-- **Found, not fixed:** COS pages link Timuquana to a parked domain (real site timuquana.net) and
-  the Glass Factory to a dead one (real site theglassfactory.com). Jax page links River House
-  (a St. Augustine venue) and leaves The River Club tile unlinked.
+- **Fixed same day (7699c82 COS, b70784e AE):** the Timuquana and Glass Factory venue pages linked
+  a parked domain (timuquanacc.com) and a dead one (theglassfactoryjax.com); now timuquana.net and
+  theglassfactory.com on both sites. Still open: Jax page links River House (a St. Augustine venue)
+  and leaves The River Club tile unlinked.
 - **Next pass:** same strip on the other 9 city pages (one manifest set + 8 logos each).
 - **Parked, not started:** Corey asked whether the heroes are too tall. They are CSS gradients, so
   no speed cost; the cost is that every proof point sits a full swipe below a phone's first screen.
