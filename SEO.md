@@ -3505,3 +3505,10 @@ every one linking to its venue page. Static wrap, no JS. Previewed on localhost,
 - **Parked, not started:** Corey asked whether the heroes are too tall. They are CSS gradients, so
   no speed cost; the cost is that every proof point sits a full swipe below a phone's first screen.
   Idea parked in Focus: trim mobile hero content so the strip peeks above the fold.
+- **Hero trim shipped (same day, homepage only):** `.hero` lost `min-height:100vh` (now content-high,
+  `padding:8.5rem 2rem 3rem`). On phones (768px rule) the first sentence of the subtitle
+  (`<span class="hero-sub-lead">`) and the `.hero-trust-strip` are hidden, margins tightened.
+  Measured: "Check My Date" was BELOW the fold on 390x844; now ~2/3 down with the brand strip
+  edge visible. 1440x900 laptops lose ~90px of empty pink. Text stays in the DOM. No speed change
+  (hero is CSS gradients). Judge by mobile contact clicks in GA4 in 30 days, never by rank.
+  City-page heroes (70vh) untouched; same trim is a candidate follow-up.
