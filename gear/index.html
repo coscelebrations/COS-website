@@ -353,7 +353,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-09-30-b';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-10-05-a';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -716,6 +716,52 @@ function shortPoolsOn(date){
   const s = {};
   conflicts().filter(c => c.date === date).forEach(c => { s[c.pool] = c; });
   return s;
+}
+/* WHO NEEDS IT NEXT, 2026-10-05. Corey: "Justin is taking the photo booth
+   Friday. Corey needs it Saturday. I dont think it shows anywhere that Corey
+   needs the next day."
+
+   It did not, because conflicts() above only adds up ONE date. Friday and
+   Saturday each want one booth, we own one, and neither day is short on its
+   own - so nothing fired. The only cross-day hint was the manual scheduled
+   hand-off note, which someone had to remember to type.
+
+   This derives it from the calendar instead. For an event and a pool, another
+   event on a DIFFERENT date in the week, owned by a DIFFERENT person, is a link
+   in the chain when we do not own enough to serve both from the warehouse:
+   supplyOf(pool) < this need + their need. Closest date wins, one per pool.
+
+   The tightness test is the whole point. Mikey 16 uplights Friday and CJ 16
+   Saturday out of 40 is two warehouse trips, not a hand-off, and a screen that
+   said "CJ needs the uplights Saturday" every week would be ignored by Sunday.
+   Window and owner come from the same helpers the pull list already trusts:
+   upcoming(HORIZON_DAYS) and pullPerson(). Advisory only - nothing moves. */
+function gearChain(ev, dir){
+  if (!ev || !ev.date) return [];
+  const dSelf = dayDiff(today(), ev.date);
+  if (dSelf < -1 || dSelf > HORIZON_DAYS) return [];
+  const need = poolNeeds(ev);
+  const me = pullPerson(ev);
+  const after = dir !== 'before';
+  const others = upcoming(HORIZON_DAYS)
+    .filter(e => e.id !== ev.id && e.dj && e.date !== ev.date && pullPerson(e) !== me)
+    .filter(e => after ? e.date > ev.date : e.date < ev.date)
+    .sort((a, b) => after ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date));
+  const out = [];
+  Object.keys(need).sort().forEach(p => {
+    const own = supplyOf(p);
+    const hit = others.find(e => { const n = poolNeeds(e)[p] || 0; return n > 0 && own < need[p] + n; });
+    if (hit) out.push({ pool: p, n: poolNeeds(hit)[p], who: pullPerson(hit), date: hit.date, ev: hit });
+  });
+  return out;
+}
+function gearAfter(ev){ return gearChain(ev, 'after'); }
+function gearBefore(ev){ return gearChain(ev, 'before'); }
+/* The one-line versions for an event card. Before first: "get it from Justin"
+   is the thing to act on; "Corey needs it next" is the thing to remember. */
+function chainLines(e){
+  return gearBefore(e).map(c => c.who + ' has ' + c.n + ' ' + c.pool + ' on ' + plainDay(c.date) + ' - get it from ' + c.who)
+    .concat(gearAfter(e).map(c => c.who + ' needs ' + c.n + ' ' + c.pool + ' on ' + plainDay(c.date)));
 }
 function myEvents(){
   const t = today();
@@ -1363,24 +1409,43 @@ function viewToday(){
   /* Above the weekend block on purpose. This is a commitment to another person
      with a date on it, and the entire reason it exists is that it used to be
      invisible - burying it under the pickup list would rebuild the same gap. */
-  const owed = handoffsOwedBy(S.me);
-  if (owed.length) {
+  /* TWO SOURCES since 2026-10-05: the manual note (handoffsOwedBy) and what the
+     calendar says on its own (gearAfter over my events this week). Same card
+     either way. Keyed on person + date so a manual note and the derived chain
+     for the same job make ONE card, with the manual wording winning. */
+  const cards = [];
+  handoffsOwedBy(S.me).forEach(e => {
+    cards.push({ who: e.dj || 'Someone', date: e.date, pools: poolNeeds(e), auto: false, from: '' });
+  });
+  upcoming(HORIZON_DAYS).filter(m => m.dj && pullPerson(m) === S.me).forEach(m => {
+    gearAfter(m).forEach(c => {
+      let card = cards.find(x => x.who === c.who && x.date === c.date);
+      if (!card) { card = { who: c.who, date: c.date, pools: {}, auto: true, from: m.date }; cards.push(card); }
+      if (!card.pools[c.pool]) card.pools[c.pool] = c.n;
+    });
+  });
+  if (cards.length) {
     h += '<h2 class="sec">Gear to hand over</h2>';
-    owed.forEach(e => {
-      const need = poolNeeds(e);
-      const bits = Object.keys(need).sort().map(p => need[p] + ' ' + p).join(', ');
-      const d = dayDiff(today(), e.date);
+    cards.sort((a, b) => a.date.localeCompare(b.date)).forEach(c => {
+      const pools = Object.keys(c.pools).sort();
+      const bits = pools.map(p => c.pools[p] + ' ' + p).join(', ');
+      const d = dayDiff(today(), c.date);
+      const own = pools.map(p => supplyOf(p));
+      const sentence = c.auto
+        ? esc(c.who) + ' needs ' + esc(bits) + ' on ' + esc(plainDay(c.date))
+          + (own.length === 1 ? ' and we only own ' + own[0] : ' and we do not own enough for both jobs')
+          + '. Hand it over after ' + esc(plainDay(c.from)) + '.'
+        : 'Hand over ' + esc(bits || 'gear') + '. It stays checked out to you until you tap the button.';
       h += '<div class="card">'
         + '<div style="display:flex;justify-content:space-between;align-items:baseline">'
-        + '<b style="font-size:1.05rem">' + esc(e.dj || 'Someone') + '</b>'
-        + '<span class="tiny">' + esc(plainDay(e.date))
+        + '<b style="font-size:1.05rem">' + esc(c.who) + '</b>'
+        + '<span class="tiny">' + esc(plainDay(c.date))
         + (d === 0 ? ' &middot; today' : '') + '</span></div>'
-        + '<p class="tiny" style="margin:.45rem 0 0">Hand over ' + esc(bits || 'gear')
-        + '. It stays checked out to you until you tap the button.</p>'
+        + '<p class="tiny" style="margin:.45rem 0 0">' + sentence + '</p>'
         /* The button, 2026-09-30. This card used to be a note with no verb, so
            the gear never actually moved and the receiver's list stayed empty.
            Opens your own holder sheet with the receiver already picked. */
-        + Object.keys(need).sort().map(p =>
+        + pools.map(p =>
             '<button class="btn sm" style="margin:.5rem .4rem 0 0" data-mypool="' + esc(p) + '">'
             + 'Hand over ' + esc(p) + '</button>').join('')
         + '</div>';
@@ -1401,13 +1466,13 @@ function viewToday(){
       + 'Back by ' + esc(plainDay(nextMonday(wknd[wknd.length-1].date))) + '.</p>'
       + '<button class="btn primary" style="margin-top:.8rem" data-pull="weekend">Pick up weekend gear</button>'
       + '</div>';
-    wknd.forEach(e => { h += evCard(e, 0); });
+    wknd.forEach(e => { h += evCard(e, 0, chainLines(e)); });
   }
 
   const later = myEvents().filter(e => !wknd.some(w => w.id === e.id)).slice(0,3);
   if (later.length) {
     h += '<h2 class="sec">After this weekend</h2>';
-    later.forEach(e => { h += evCard(e, 0); });
+    later.forEach(e => { h += evCard(e, 0, chainLines(e)); });
   }
 
   if (!wknd.length && !later.length) {
@@ -1445,13 +1510,17 @@ function viewToday(){
   }
   return h;
 }
-function evCard(e, nConf){
+/* `chain` added 2026-10-05: short lines from chainLines(e) - who has this gear
+   the day before you, who needs it the day after. Optional; the three callers
+   pass it, tests that call evCard(e, 0) still get the old card. */
+function evCard(e, nConf, chain){
   const brand = String(e.brand||'COS').toUpperCase() === 'AE' ? 'ae' : 'cos';
   let h = '<div class="ev ' + brand + (nConf ? ' conflict' : '') + '" data-ev="' + e.id + '">';
   h += '<div class="when">' + esc(prettyDay(e.date)) + (e.time ? ' &middot; ' + esc(e.time) : '') + '</div>';
   h += '<div class="who">' + esc(evLabel(e)) + '</div>';
   h += '<div class="venue">' + esc(e.venue || '') + (e.city ? ', ' + esc(e.city) : '') + '</div>';
   if (e.services) h += '<div class="svcs">' + esc(e.services) + '</div>';
+  (chain || []).forEach(t => { h += '<div class="svcs chain"><b>' + esc(t) + '</b></div>'; });
   h += '<div class="meta"><span class="pill ' + brand + '">' + (brand === 'ae' ? 'AE' : 'COS') + '</span>';
   if (e.dj) h += '<span class="pill retired">' + esc(e.dj) + (e.dj2 ? ' + ' + esc(e.dj2) : '') + '</span>';
   /* Where it is coming from, so nobody drives to the warehouse for a booth that
@@ -1679,7 +1748,7 @@ function viewWeek(){
   h += '<h2 class="sec">The week ahead</h2>';
   Object.keys(byDate).sort().forEach(d => {
     h += '<p class="tiny" style="margin:.9rem 0 .35rem;font-weight:700">' + esc(prettyDay(d)) + '</p>';
-    byDate[d].forEach(e => { h += evCard(e, 0); });
+    byDate[d].forEach(e => { h += evCard(e, 0, chainLines(e)); });
   });
   h += '<button class="btn ghost sm" style="width:100%;margin-top:1rem" data-view="import">Import or add events</button>';
 
@@ -2071,6 +2140,19 @@ function viewEvent(id){
       + conf.map(c => esc(c.pool) + ': need ' + c.need + ', own ' + c.have).join('<br>')
       + '<br><span class="tiny">Counting every event booked on ' + esc(e.date) + '.</span></div>';
   }
+  /* The cross-day version of the banner above, 2026-10-05. conflicts() only
+     sees one date; this is "Justin has the booth Friday, you need it Saturday". */
+  const before = gearBefore(e), after = gearAfter(e);
+  if (before.length) {
+    h += '<div class="banner info"><b>Before you</b>'
+      + before.map(c => esc(c.who) + ' is using ' + c.n + ' ' + esc(c.pool) + ' on ' + esc(plainDay(c.date))
+          + '. Get it from ' + esc(c.who) + ', not the warehouse.').join('<br>') + '</div>';
+  }
+  if (after.length) {
+    h += '<div class="banner info"><b>After you</b>'
+      + after.map(c => esc(c.who) + ' needs ' + c.n + ' ' + esc(c.pool) + ' on ' + esc(plainDay(c.date))
+          + '. Hand it over when you are done - it is on your Today tab.').join('<br>') + '</div>';
+  }
 
   h += '<div class="card"><div style="display:flex;justify-content:space-between;align-items:baseline">'
     + '<b style="font-size:.9rem">Pull list</b><span class="tiny">' + loaded + ' of ' + req.length + ' checked out</span></div>'
@@ -2140,6 +2222,9 @@ function viewPull(id){
   }
 
   const target = isWk ? 'weekend' : e.id;
+  /* who has this gear the day before, 2026-10-05 - only for an event's list;
+     the weekend list has no single event to chain from */
+  const before = isWk ? [] : gearBefore(e);
   const byCat = {};
   pools.forEach(p => {
     const any = S.items.find(i => poolOf(i) === p);
@@ -2174,6 +2259,11 @@ function viewPull(id){
         const names = Object.keys(byWho).sort((a, b) => byWho[b] - byWho[a] || a.localeCompare(b))
           .map(n => n + ' has ' + byWho[n]);
         note = names.length ? 'None free - ' + names.join(', ') : 'None free - all ' + owned + ' are out';
+      } else if (!done) {
+        /* still on the shelf, but someone has a job with it first - say so
+           before they drive to the warehouse for a booth that will be gone */
+        const c = before.find(x => x.pool === p);
+        if (c) note = c.who + ' is using it ' + plainDay(c.date) + ' - get it from ' + c.who;
       }
       h += '<div class="check" data-on="' + (done?1:0) + '" style="cursor:default">'
         + '<span class="box"><svg viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 7"/></svg></span>'
@@ -3378,7 +3468,15 @@ function closeSheet(){ $('sheet').classList.remove('on'); $('scrim').classList.r
    one tap, not a second decision. 2026-09-30. */
 function handoffTargetFor(who, pool){
   const e = handoffsOwedBy(who).find(x => (poolNeeds(x)[pool] || 0) > 0 && x.dj);
-  return e ? e.dj : '';
+  if (e) return e.dj;
+  /* No note typed? Ask the calendar (gearChain, 2026-10-05). A manual note
+     still wins above, so anything Corey typed by hand is never overridden. */
+  const mine = upcoming(HORIZON_DAYS).filter(x => x.dj && pullPerson(x) === who);
+  for (const m of mine) {
+    const c = gearAfter(m).find(x => x.pool === pool);
+    if (c) return c.who;
+  }
+  return '';
 }
 /* `who` added 2026-09-30. This sheet was hardcoded to S.me, and the "Who's got
    what" cards opened it for OTHER people's rows - so tapping Mikey's uplights
