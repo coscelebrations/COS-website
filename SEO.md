@@ -3512,3 +3512,39 @@ every one linking to its venue page. Static wrap, no JS. Previewed on localhost,
   edge visible. 1440x900 laptops lose ~90px of empty pink. Text stays in the DOM. No speed change
   (hero is CSS gradients). Judge by mobile contact clicks in GA4 in 30 days, never by rank.
   City-page heroes (70vh) untouched; same trim is a candidate follow-up.
+
+### Session Notes (Oct 2-6, 2026) - St. Augustine demand research, then two new pages: COS wedding music, AE DJ cost
+
+**Bottom line:** Pulled 19 St. Augustine-located SERPs, 20 new keyword volumes at three scopes, and a
+structure-only teardown of the 15 pages that own the bare "st augustine wedding" searches ($0.58
+total, script `~/seo-data/dataforseo/pull.py`). The bare terms (venues 2,900 US, courthouse 320,
+elopement 390, wedding 390) are owned by venues, The Knot, tourism, and photographers; no DJ site
+ranks and the top PAA on 12 of 19 SERPs is "how much does it cost to get married in St. Augustine",
+which a DJ cannot honestly answer. Those topics went to the Guide site in a hand-off list (firewall:
+no shared keywords, no cross-links, no shared prose). Where COS/AE already show up is the music /
+entertainment / DJ-cost SERPs (COS map pack #1 on three), with no matching page. Built two from an
+18-answer Corey interview and shipped 2026-10-06: COS `/st-augustine-wedding-music/` (724b5d7) and
+AE `/wedding-dj-cost-st-augustine/` (731aebe).
+
+- **Research:** `~/seo-data/research/st-augustine-wedding-demand-2026-10-02.md` (demand table,
+  SERP ownership, teardown, placement rubric), `handoff-to-guide-2026-10.md`, and the content plan
+  `st-augustine-content-plan-2026-10.md` (5 cards). New: "st augustine courthouse wedding" 320/260/20,
+  CPC $0.11, KD 0, nobody owns it (Guide's). "dj st augustine fl" family: COS 128 impressions pos
+  13-25, AE 119 pos 17-22 in GSC, neither on page 1, AMPLIFY #4 - Card 3 (`/st-augustine-dj/`, both
+  brands, all events) is next.
+- **COS music page:** ceremony mic setup (omni lav, handheld for readers, second lav for soft vows),
+  30-min prelude, no Spotify, battery-powered cocktail sets, the six openers, 4:00-10:00 timeline,
+  cutoffs by venue (outdoor downtown 10 PM; Lightner ~11:30; Treasury per package; River House
+  "check your package"), after-party spots. Service + FAQPage + BreadcrumbList. Inbound from the city
+  page, live-musicians, wedding-saxophonist, Pulse!, and the 5 venue pages named. ~1,200 body words.
+- **AE cost page:** $800 / $995 with what each buys, the 2-3 hour answer, what moves a quote.
+  Article + FAQPage + LocalBusiness + BreadcrumbList. Inbound from the city page, homepage pricing,
+  /cheap-wedding-dj/, the Jax cost guide, Areas We Serve. "Affordable" stays the city page's word.
+- **Kill signals:** indexing check at 3 weeks (~Oct 27); 6-week read (~Nov 17) on impressions for
+  the music/entertainment family (today 0) and cost/cheap family (today 0) without losing the 37
+  "affordable wedding dj st augustine" impressions on AE. Judged by inquiries + impressions, not rank.
+- **Interview capture:** `~/cos-operations/interviews/cities/st-augustine-music-and-dj.md` (18 answers,
+  2 rounds). Unused so far: the Protential Foundation gala at the White Room (for Card 3), shoulder
+  season / hurricane / "be uniquely yourselves" (used as a pull quote; rest for Card 4).
+- **Noticed, not changed:** AE `/cheap-wedding-dj/` says "sister company of COS Celebrations" and uses
+  emoji feature icons (Rule #15); both contradict standing rules and predate this session.
