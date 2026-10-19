@@ -353,7 +353,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-10-05-a';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-10-19-a';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -629,7 +629,11 @@ function gearNeeds(ev){
   const need = {};
   (ev.gear || []).forEach(g => {
     const q = Math.max(0, Math.round(Number(g.qty) || 0));
-    if (q > 0 && g.pool) need[g.pool] = q;
+    /* SUM, not overwrite, since 2026-10-19. A row can now name a specific unit
+       ("Selfie Photo Booth 1" and "Selfie Photo Booth 2" as two rows), and those
+       are two booths of the one pool, so the pool count has to add up. Before
+       this a second row for the same pool silently replaced the first. */
+    if (q > 0 && g.pool) need[g.pool] = (need[g.pool] || 0) + q;
   });
   return need;
 }
@@ -1127,11 +1131,40 @@ async function putEvent(e){
   saveLocal(); render();
   if (S.mode === 'cloud') await cloudSet(C.events, e.id, e);
 }
+/* Which Firestore documents hold the event with this id field. Filled by the
+   events listener in startSync. Normally one doc whose name IS the id - but a
+   doc duplicated or hand-made in the Firebase console keeps the old id field
+   under a new doc name, and deleting by the id field then removes nothing and
+   the entry comes straight back on the next snapshot. 2026-10-19. */
+let eventDocIds = {};
+function eventDocsFor(id){
+  const list = (eventDocIds[id] || []).slice();
+  if (!list.length) list.push(id);
+  return list;
+}
 async function delEvent(id){
   S.events = S.events.filter(e => e.id !== id);
   S.items.filter(i => i.eventId === id).forEach(i => { i.eventId = ''; });
   saveLocal(); render();
-  if (S.mode === 'cloud' && db) { try { await deleteDoc(doc(db, C.events, id)); } catch(e){} }
+  if (S.mode !== 'cloud' || !db) return true;
+  /* FIXED 2026-10-19. This was `try { await deleteDoc(...) } catch(e){}`: a
+     failed team delete vanished here, the entry came back on the next snapshot,
+     and the only visible fact was "Delete this does nothing". Now every doc
+     carrying this id is deleted, and a failure is said out loud. */
+  let failed = null;
+  setDot('syncing');
+  for (const did of eventDocsFor(id)) {
+    try { await deleteDoc(doc(db, C.events, did)); } catch(e){ failed = e; }
+  }
+  if (failed) {
+    if (String(failed.code || '').includes('permission')) { S.rulesError = true; render(); }
+    setDot('error');
+    toast('Removed on this device, but the team copy would not delete: '
+      + (failed.code || failed.message || 'unknown error'));
+    return false;
+  }
+  setDot('synced');
+  return true;
 }
 async function putRun(key, run){
   S.runs[key] = run; saveLocal(); render();
@@ -2249,6 +2282,10 @@ function viewPull(id){
       const done = have >= want;
       const where = (S.items.find(i => poolOf(i) === p) || {}).home || '';
       let note = where && where.toLowerCase() !== 'none' ? where : '';
+      /* "take Selfie Photo Booth 2" when the job names a unit, 2026-10-19 */
+      const named = isWk ? [] : (unitPicks(e)[p] || [])
+        .map(id => { const u = itemById(id); return u ? u.name : ''; }).filter(Boolean);
+      if (named.length) note = 'take ' + named.join(' and ') + (note ? ' - ' + note : '');
       /* NAME THE HOLDERS, 2026-09-30. "None free - all 40 are out" told the DJ
          to stop; it did not tell him who to text. Now that gear moves person to
          person, the useful fact is who has them. Biggest holder first. */
@@ -2769,6 +2806,56 @@ function poolsByCategory(){
   return CATEGORIES.concat(Object.keys(g).filter(c => !CATEGORIES.includes(c)).sort())
     .filter(c => g[c])
     .map(c => ({ cat: c, pools: g[c].sort((a, b) => String(a).localeCompare(String(b))) }));
+}
+/* PICK A SPECIFIC UNIT, 2026-10-19. Corey: "I want to be able to pick 'Selfie
+   Photo Booth 1' or 'Selfie Photo Booth 2' by name when it matters."
+
+   The dropdown keeps the grouped choice (the pool, counted) and ALSO lists each
+   numbered unit under it - but only for small pools. Uplights stay one choice:
+   "I don't want 88 separate uplight choices." The cut-off is a number, not a
+   category, so three speakers get the same treatment as two booths. A pool of
+   one gets no unit line: the grouped choice already IS that unit.
+
+   A row that names a unit is stored as pool + qty 1 + the unit's id (and its
+   name, so the row still reads right if the unit is ever deleted). The POOL
+   stays on the row on purpose: shortage maths, the hand-off chain, Still to
+   collect and the pull list all count by pool and keep counting correctly
+   without learning anything new. The unit id is read in one place only - which
+   unit the pull list hands out first (freeUnitFor). */
+const UNIT_PICK_MAX = 6;
+function pickableUnits(pool){
+  const units = S.items.filter(i => poolOf(i) === pool && i.status !== 'retired');
+  if (units.length < 2 || units.length > UNIT_PICK_MAX) return [];
+  if (!units.every(i => unitNum(i.name) > 0)) return [];   // unnumbered units cannot be told apart
+  return units.slice().sort((a, b) => unitNum(a.name) - unitNum(b.name));
+}
+/* pool -> [unit ids] named on an event, in row order */
+function unitPicks(ev){
+  const out = {};
+  ((ev && ev.gear) || []).forEach(g => {
+    if (g.pool && g.unitId) (out[g.pool] = out[g.pool] || []).push(g.unitId);
+  });
+  return out;
+}
+/* What gets saved from the sheet's rows: blank rows dropped, a unit row is
+   always one unit, and the same unit named twice counts once - two rows that
+   both say "Selfie Photo Booth 2" cannot mean two booths. */
+function assignRowsClean(rows){
+  const seen = new Set();
+  return (rows || []).filter(r => r && r.pool).filter(r => {
+    if (!r.unitId) return true;
+    if (seen.has(r.unitId)) return false;
+    seen.add(r.unitId); return true;
+  }).map(r => r.unitId
+    ? { pool: r.pool, qty: 1, unitId: r.unitId, unit: r.unit || '' }
+    : { pool: r.pool, qty: Math.max(1, Math.round(Number(r.qty) || 1)) });
+}
+/* The unit to hand out next for a pool: one the event names, if it is free,
+   otherwise any free one - the DJ is standing in the warehouse, so a named
+   unit that is out with someone else must not block the pickup. */
+function freeUnitFor(ev, pool){
+  const named = (unitPicks(ev)[pool] || []).map(itemById).filter(i => i && i.status === 'in');
+  return named[0] || S.items.find(i => poolOf(i) === pool && i.status === 'in') || null;
 }
 /* addon list on an event -> { poolName: unitsNeeded } */
 function addonNeeds(ev){
@@ -3690,8 +3777,9 @@ function assignDraft(ev){
     who: ev ? (ev.dj || S.me) : S.me,
     date: ev ? ev.date : today(),
     from: ev ? (ev.from || '') : '',
-    rows: ev && ev.gear && ev.gear.length ? ev.gear.map(g => ({ pool:g.pool, qty:g.qty }))
-                                          : [{ pool:'', qty:1 }]
+    rows: ev && ev.gear && ev.gear.length
+      ? ev.gear.map(g => ({ pool:g.pool, qty:g.qty, unitId: g.unitId || '', unit: g.unit || '' }))
+      : [{ pool:'', qty:1 }]
   };
 }
 function assignSheetHtml(d){
@@ -3720,22 +3808,42 @@ function assignSheetHtml(d){
     + 'to a warehouse that has not got it.</p>';
   h += '<label class="fl">What they need</label>';
   d.rows.forEach((r, k) => {
+    /* The grouped pool first, then its numbered units indented under it - see
+       pickableUnits for which pools get unit lines. A row whose unit has since
+       been deleted falls back to the grouped choice rather than to "Pick gear",
+       so saving the sheet again does not quietly drop it. */
+    const unitListed = !!(r.unitId && pickableUnits(r.pool).some(u => u.id === r.unitId));
+    const poolSel = !!(r.pool && !unitListed);
     h += '<div class="row2" style="gap:.5rem;margin-bottom:.5rem">'
       + '<select class="aPool" data-row="' + k + '" style="flex:2">'
       + '<option value="">Pick gear...</option>'
       + poolsByCategory().map(g => '<optgroup label="' + esc(g.cat) + '">'
-          + g.pools.map(pl => '<option' + (pl === r.pool ? ' selected' : '') + '>'
-              + esc(pl) + '</option>').join('')
+          + g.pools.map(pl => '<option' + (poolSel && pl === r.pool ? ' selected' : '') + '>'
+              + esc(pl) + '</option>'
+              + pickableUnits(pl).map(u => '<option value="unit:' + esc(u.id) + '"'
+                  + (unitListed && u.id === r.unitId ? ' selected' : '') + '>&nbsp;&nbsp;&nbsp;'
+                  + esc(u.name) + (u.status === 'repair' ? ' - needs attention' : '') + '</option>').join('')
+            ).join('')
           + '</optgroup>').join('')
       + '</select>'
-      + '<input type="number" class="aQty" data-row="' + k + '" value="' + (Number(r.qty) || 1)
-      + '" min="1" inputmode="numeric" style="flex:1;text-align:center">'
+      + '<input type="number" class="aQty" data-row="' + k + '" value="' + (unitListed ? 1 : (Number(r.qty) || 1))
+      + '" min="1" inputmode="numeric" style="flex:1;text-align:center"'
+      + (unitListed ? ' disabled title="One unit is one unit"' : '') + '>'
       + '</div>';
   });
   h += '<button class="btn sm" style="width:100%" data-addrow="1">Add another</button>';
   h += '<div style="margin-top:1.1rem">';
-  h += '<button class="btn primary" data-saveassign="1">Save</button>';
-  if (eventById(d.id)) h += '<button class="btn ghost" style="margin-top:.5rem" data-delassign="' + d.id + '">Delete this</button>';
+  if (d.confirmDel && eventById(d.id)) {
+    /* The are-you-sure step lives IN the sheet since 2026-10-19 - it was a
+       native confirm dialog; the data-delassign handler in bindSheet says why. */
+    h += '<p class="tiny" style="margin:0 0 .6rem">Remove this? The gear stays in your list - '
+      + 'this only removes the note that ' + esc(d.who) + ' needs it on ' + esc(plainDay(d.date)) + '.</p>';
+    h += '<button class="btn danger" data-delassign-yes="' + d.id + '">Yes, remove it</button>';
+    h += '<button class="btn ghost" style="margin-top:.5rem" data-delassign-no="1">Keep it</button>';
+  } else {
+    h += '<button class="btn primary" data-saveassign="1">Save</button>';
+    if (eventById(d.id)) h += '<button class="btn ghost" style="margin-top:.5rem" data-delassign="' + d.id + '">Delete this</button>';
+  }
   h += '</div>';
   return h;
 }
@@ -3755,14 +3863,21 @@ function assignRead(){
   document.querySelectorAll('.aPool').forEach(sel => {
     const k = sel.dataset.row;
     const q = document.querySelector('.aQty[data-row="' + k + '"]');
-    rows.push({ pool: sel.value, qty: Math.max(1, Math.round(Number(q ? q.value : 1) || 1)) });
+    const v = sel.value || '';
+    if (v.startsWith('unit:')) {
+      /* a specific numbered unit - see pickableUnits */
+      const u = itemById(v.slice(5));
+      rows.push(u ? { pool: poolOf(u), qty: 1, unitId: u.id, unit: u.name } : { pool: '', qty: 1 });
+    } else {
+      rows.push({ pool: v, qty: Math.max(1, Math.round(Number(q ? q.value : 1) || 1)) });
+    }
   });
   if (rows.length) d.rows = rows;
   return d;
 }
 async function assignSave(){
   const d = assignRead(); if (!d) return;
-  const gear = d.rows.filter(r => r.pool);
+  const gear = assignRowsClean(d.rows);
   if (!gear.length) { toast('Pick at least one piece of gear'); return; }
   /* Handing gear from someone to themselves is always a mis-tap, and it would
      render as "Give Noah ..." on Noah's own screen. Blocked, not warned. */
@@ -3995,11 +4110,12 @@ function bind(){
 
   v.querySelectorAll('[data-take]').forEach(el => el.onclick = async () => {
     const pool = el.dataset.take;
-    const unit = S.items.find(i => poolOf(i) === pool && i.status === 'in');
-    if (!unit) { toast('None free'); return; }
     let ev = null;
     if (el.dataset.ev === 'weekend') ev = (weekendPull(S.me).why[pool] || [])[0];
     else ev = eventById(el.dataset.ev);
+    /* the unit the job names, if it is free - see pickableUnits */
+    const unit = freeUnitFor(ev, pool);
+    if (!unit) { toast('None free'); return; }
     /* to the DJ the list belongs to, not to whoever is tapping. checkOut keeps
        holderUid empty when it is not you, which is what the audit trail needs. */
     await checkOut(unit, ev, pullPerson(el.dataset.ev === 'weekend' ? null : ev));
@@ -4023,9 +4139,9 @@ function bind(){
     for (const row of plan.rows) {
       const pool = row.pool, want = row.take;
       for (let k = 0; k < want; k++) {
-        const unit = S.items.find(i => poolOf(i) === pool && i.status === 'in');
-        if (!unit) { short.push(pool); break; }
         const forEv = isWk ? (wk.why[pool] || [])[0] : ev;
+        const unit = freeUnitFor(forEv, pool);   // the named unit first, 2026-10-19
+        if (!unit) { short.push(pool); break; }
         await putItem({ ...unit, status:'out', holder:who, holderUid: mine ? S.uid : '',
                         eventId: forEv ? forEv.id : '', since:new Date().toISOString() });
         n++;
@@ -4542,10 +4658,38 @@ function bindSheet(){
     bindSheet();
   });
   s.querySelectorAll('[data-saveassign]').forEach(el => el.onclick = () => assignSave());
-  s.querySelectorAll('[data-delassign]').forEach(el => el.onclick = async () => {
-    if (!confirm('Delete this? The gear stays in your list - this only removes the note that someone needs it.')) return;
-    await delEvent(el.dataset.delassign);
-    closeSheet(); toast('Removed');
+  /* A unit pick locks the count at 1 and a pool pick unlocks it, so the sheet
+     redraws on change - the same read-then-redraw "Add another" does above. */
+  s.querySelectorAll('.aPool').forEach(el => el.onchange = () => {
+    const d = assignRead(); if (!d) return;
+    $('sheetBody').innerHTML = assignSheetHtml(d);
+    bindSheet();
+  });
+  /* DELETE THIS, FIXED 2026-10-19. Corey: "The Delete this button is not
+     working for me on that entry." It gated on a native confirm dialog and
+     then ran a delete whose failure was swallowed - two ways to do nothing with
+     no message. A native confirm dialog silently answers "no" when the browser
+     has stopped the page from showing dialogs (Chrome's "prevent this page from
+     creating additional dialogs", a home-screen web app that will not show
+     them, a tab driven by automation that auto-dismisses), and the gear-report
+     agent drives this very page. So: the are-you-sure step is two taps inside
+     the sheet, and delEvent now reports a failed team delete instead of hiding
+     it. The confirm text is in assignSheetHtml. */
+  s.querySelectorAll('[data-delassign]').forEach(el => el.onclick = () => {
+    const d = assignRead(); if (!d) return;
+    d.confirmDel = true;
+    $('sheetBody').innerHTML = assignSheetHtml(d);
+    bindSheet();
+  });
+  s.querySelectorAll('[data-delassign-no]').forEach(el => el.onclick = () => {
+    const d = $('sheet')._adraft; if (!d) return;
+    d.confirmDel = false;
+    $('sheetBody').innerHTML = assignSheetHtml(d);
+    bindSheet();
+  });
+  s.querySelectorAll('[data-delassign-yes]').forEach(el => el.onclick = async () => {
+    const ok = await delEvent(el.dataset.delassignYes);
+    closeSheet(); toast(ok ? 'Removed' : 'Removed here - see the sync warning');
   });
   s.querySelectorAll('[data-giveitem]').forEach(el => el.onclick = async () => {
     const who = $('fGive') ? $('fGive').value : '';
@@ -4712,6 +4856,12 @@ function startSync(){
     S.rulesError = false; setDot('synced'); render();
   }, onErr));
   unsubs.push(onSnapshot(collection(db, C.events), snap => {
+    /* doc name per id field, for delEvent - see eventDocsFor */
+    eventDocIds = {};
+    snap.docs.forEach(x => {
+      const k = String((x.data() || {}).id || '');
+      (eventDocIds[k] = eventDocIds[k] || []).push(x.id);
+    });
     if (!snap.empty) S.events = snap.docs.map(d => d.data());
     else if (firstEvents && S.events.length) seedOnce(seedEvents);
     else if (!firstEvents && !seeding) S.events = d.events || [];
