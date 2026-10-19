@@ -222,9 +222,10 @@
   }
   .row-buttons {
     display: flex;
+    flex-wrap: wrap; /* 2026-10-19: the "Tell Corey" card puts 3 buttons here */
     gap: 0.55rem;
   }
-  .row-buttons > button { flex: 1; }
+  .row-buttons > button { flex: 1 1 110px; }
   .add-btn-top {
     width: 100%;
     background: var(--merlot);
@@ -631,6 +632,7 @@
         <li>Add the couple now — first nudge fires in 7 days</li>
         <li>Each time you reach out, tap <strong>I tried again</strong> — clock resets</li>
         <li>When they pick a date, tap <strong>They scheduled</strong> — it closes</li>
+        <li>After <strong>3 tries</strong> with no date, the card will tell you to loop in Corey</li>
       </ul>
     </div>
 
@@ -990,6 +992,18 @@ Wishing you both the best with everything,
     return 'active';
   }
 
+  // Added 2026-10-19: after 3 "I tried again" taps with no call booked, the
+  // card flips to a "Tell Corey" alert so he can try reaching the couple too.
+  // Once the DJ taps "I've told Corey" (toldCoreyAt set) the alert goes quiet
+  // but the DJ keeps chasing on the 7-day clock - Corey's call, not a hand-off.
+  const COREY_ALERT_AFTER = 3;
+  function needsCoreyAlert(item) {
+    return item.type === 'planning-call'
+      && !item.scheduled
+      && (item.attemptCount || 0) >= COREY_ALERT_AFTER
+      && !item.toldCoreyAt;
+  }
+
   function nextDueDate(item) {
     if (item.type === 'planning-call') {
       return addDays(item.lastAttemptDate || item.startDate, 7);
@@ -1131,6 +1145,13 @@ Wishing you both the best with everything,
     persist();
     render();
   }
+  function markToldCorey(itemId) {
+    const item = leads.find(l => l.id === itemId);
+    if (!item) return;
+    item.toldCoreyAt = todayStr();
+    persist();
+    render();
+  }
   function reopenItem(itemId) {
     const item = leads.find(l => l.id === itemId);
     if (!item) return;
@@ -1212,32 +1233,63 @@ Wishing you both the best with everything,
       ? `Last reached out ${prettyDate(item.lastAttemptDate)}`
       : `Added ${prettyDate(item.startDate)} — no attempts yet`;
 
+    const alertCorey = needsCoreyAlert(item);
+    const toldCorey = !!item.toldCoreyAt;
+
     const div = document.createElement('div');
-    div.className = 'lead' + (when.urgent ? ' due-now' : '');
-    const banner = when.urgent
-      ? `<div class="due-banner">${diffDays(todayStr(), dueDate) < 0 ? 'Overdue — chase the call' : 'Time to chase the call'}</div>`
+    div.className = 'lead' + ((when.urgent || alertCorey) ? ' due-now' : '');
+    let banner = '';
+    if (alertCorey) {
+      banner = `<div class="due-banner">Tell Corey - ${attempts} tries, no call booked</div>`;
+    } else if (when.urgent) {
+      banner = `<div class="due-banner">${diffDays(todayStr(), dueDate) < 0 ? 'Overdue — chase the call' : 'Time to chase the call'}</div>`;
+    }
+    let pills = '';
+    if (alertCorey) {
+      pills = `<span class="status due-now">Tell Corey</span>`;
+    } else {
+      if (!when.urgent) pills += `<span class="status upcoming">Upcoming</span> `;
+      if (toldCorey) pills += `<span class="status returned">Corey knows &middot; told ${prettyDate(item.toldCoreyAt)}</span>`;
+    }
+    const alertNote = alertCorey
+      ? `<div class="step-note"><strong>You've reached out ${attempts} times and they still haven't picked a date.</strong> Text or email Corey so he can try to get hold of them too. Keep chasing on your side - the 7-day clock still runs.</div>`
       : '';
-    div.innerHTML = `
-      ${banner}
-      <div class="top">
-        <p class="couple"></p>
-        <span class="handoff">planning call</span>
-      </div>
-      ${when.urgent ? '' : `<span class="status upcoming">Upcoming</span>`}
-      <div class="step-label">Attempt ${attempts + 1} — nudge them about the planning call</div>
-      <div class="step-when">${when.text}</div>
-      <div class="step-note">${lastReached}. Email, text, or call — whichever feels right. After you try, tap "I tried again" to reset the 7-day clock.</div>
+    const actions = alertCorey
+      ? `
+      <div class="actions">
+        <button class="btn-primary" data-told-corey>I've told Corey</button>
+        <div class="row-buttons">
+          <button class="btn-ghost" data-attempted>I tried again</button>
+          <button class="btn-ghost" data-scheduled>They scheduled</button>
+          <button class="btn-danger-ghost" data-delete>Delete</button>
+        </div>
+      </div>`
+      : `
       <div class="actions">
         <button class="btn-primary" data-attempted>I tried again — reset 7 days</button>
         <div class="row-buttons">
           <button class="btn-ghost" data-scheduled>They scheduled</button>
           <button class="btn-danger-ghost" data-delete>Delete</button>
         </div>
+      </div>`;
+    div.innerHTML = `
+      ${banner}
+      <div class="top">
+        <p class="couple"></p>
+        <span class="handoff">planning call</span>
       </div>
+      ${pills}
+      <div class="step-label">Attempt ${attempts + 1} — nudge them about the planning call</div>
+      <div class="step-when">${when.text}</div>
+      ${alertNote}
+      <div class="step-note">${lastReached}. Email, text, or call — whichever feels right. After you try, tap "I tried again" to reset the 7-day clock.</div>
+      ${actions}
     `;
     div.querySelector('.couple').textContent = item.coupleName;
     div.querySelector('[data-attempted]').addEventListener('click', () => markCallAttempted(item.id));
     div.querySelector('[data-scheduled]').addEventListener('click', () => markCallScheduled(item.id));
+    const toldBtn = div.querySelector('[data-told-corey]');
+    if (toldBtn) toldBtn.addEventListener('click', () => markToldCorey(item.id));
     div.querySelector('[data-delete]').addEventListener('click', () => {
       if (confirm('Delete ' + item.coupleName + '? This cannot be undone.')) deleteLead(item.id);
     });
