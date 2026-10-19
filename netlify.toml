@@ -121,6 +121,23 @@
     Cache-Control = "no-store"
     X-Robots-Tag = "noindex, nofollow, noarchive"
 
+# The Green Room at /green-room/ (and its /green-room/thank-you/ page) is the
+# third internal team app and had NO block here until 2026-10-19, so it fell
+# through to the generic rules above. That is why, on 2026-09-10, Corey tested
+# a Green Room change on the live site and saw the old version. Same shape as
+# /gear/ above: never cache, never index.
+[[headers]]
+  for = "/green-room/*"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
+[[headers]]
+  for = "/green-room"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
 # INTERNAL FILES MUST NOT BE SERVED. publish = "." makes every repo file a public URL;
 # on 2026-09-17 these returned 200 on the live domain. Netlify has no /*.md splat, so
 # root files are listed by name; folders use a trailing splat. "to" is the homepage
