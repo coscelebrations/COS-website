@@ -19,6 +19,7 @@
     header { margin-bottom: 2rem; }
     header h1 { margin: 0 0 0.25rem; font-size: 1.75rem; font-weight: 600; }
     header p { margin: 0; color: #666; font-size: 0.95rem; }
+    header .back-link { display: inline-block; margin-bottom: 0.5rem; font-size: 0.85rem; color: #722F37; text-decoration: none; }
 
     section.card {
       background: white;
@@ -403,6 +404,9 @@
 <body>
   <div class="wrap">
     <header>
+      <!-- Added 2026-10-20: linked from the Green Room's tools row, so give the
+           DJs a way back. The whole header is display:none in print. -->
+      <a href="/green-room/" class="back-link">&lsaquo; green room</a>
       <h1>Script Builder</h1>
       <p>Fill in the wedding info, pick your moments in order, print. Auto-saves as you go.</p>
     </header>

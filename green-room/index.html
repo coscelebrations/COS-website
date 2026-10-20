@@ -65,6 +65,25 @@
     text-decoration: none;
     margin-left: 0.5rem;
   }
+  nav.tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: -0.25rem 0 1rem;
+  }
+  nav.tools a {
+    flex: 1 1 auto;
+    text-align: center;
+    background: white;
+    border: 1px solid var(--rose);
+    color: var(--merlot);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.55rem 0.9rem;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+  nav.tools a:hover { background: var(--cream); }
   .sync-dot {
     display: inline-block;
     width: 7px;
@@ -492,6 +511,12 @@
     margin-top: 0.25rem;
     line-height: 1.45;
   }
+  .monday-copy-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
   .monday-copy-link {
     background: white;
     border: 1px solid var(--rose);
@@ -500,7 +525,6 @@
     padding: 0.3rem 0.65rem;
     border-radius: 6px;
     cursor: pointer;
-    margin-top: 0.5rem;
     font-weight: 600;
     width: auto;
   }
@@ -589,22 +613,21 @@
     <div class="who">
       <span id="whoLabel"></span>
       <span class="sync-dot" id="syncDot" data-state="connecting" title="Sync status"></span>
-      <!-- Added 2026-09-24. The Gear Room went live the same day and nothing
-           anywhere pointed at it, so the only way in was knowing the URL. The
-           DJs open this app daily, so this is where they will find it. A plain
-           link on purpose: no handler, no JS, nothing to break in an app that
-           six people use every day and that has no test suite. Their Green Room
-           login already works there - same Firebase project. -->
-      <a href="/gear/" id="gearRoomLink">gear room</a>
-      <!-- Added 2026-10-19: the after-the-weekend thank-you text maker lives
-           at /green-room/thank-you/. No login there (it holds no data), so
-           this is a plain link like the gear room one above. -->
-      <a href="/green-room/thank-you/" id="thankYouLink">thank-you text</a>
       <a href="#" id="signOutLink">sign out</a>
       <a href="#" id="editNameLink">edit name</a>
       <a href="#" id="reimportLink">re-import</a>
     </div>
   </header>
+
+  <!-- Team tools. Added 2026-10-20: the gear room (2026-09-24) and thank-you
+       text (2026-10-19) links used to live in the .who row above; with the
+       Script Builder joining they outgrew it. Plain links on purpose, no JS -
+       this app has no test suite. Add future tools here. -->
+  <nav class="tools" aria-label="Team tools">
+    <a href="/gear/">Gear Room</a>
+    <a href="/script-builder/">Script Builder</a>
+    <a href="/green-room/thank-you/">Thank-you text</a>
+  </nav>
 
   <div id="mondayCardSlot"></div>
 
@@ -768,13 +791,19 @@ const db = getFirestore(app);
 
 If you have any questions about the setup space, just let us know — we're happy to help you plan it out.`;
 
+  // Added 2026-10-20 at Corey's request: a second copy button on the PDF task.
+  // Power applies to every wedding, so the task note asks for it on every send.
+  const POWER_REMINDER_TEXT = `Just a quick reminder as well: we need power within 25 feet of wherever we'll be set up, so please check with the venue that there's an outlet that close (or that they can run one to us).`;
+
   const MONDAY_TASKS = [
     {
       key: 'pdf',
       label: 'Clean up & send the PDF to the couple',
-      note: 'Review the event PDF, tidy it up, and send it to the couple ahead of the weekend. If the reception is outdoors, paste the outdoor reminder into the same email.',
-      copyLabel: 'Copy outdoor reminder',
-      copyText: OUTDOOR_REMINDER_TEXT
+      note: 'Review the event PDF, tidy it up, and send it to the couple ahead of the weekend. Paste the power reminder into the email, and the outdoor reminder too if the reception is outdoors.',
+      copies: [
+        { label: 'Copy outdoor reminder', text: OUTDOOR_REMINDER_TEXT },
+        { label: 'Copy power reminder', text: POWER_REMINDER_TEXT }
+      ]
     },
     {
       key: 'crate',
@@ -860,16 +889,23 @@ If you have any questions about the setup space, just let us know — we're happ
       row.querySelector('.monday-task-label-text').textContent = task.label;
       row.querySelector('.monday-task-note').textContent = task.note;
 
-      if (task.copyText) {
-        const copyBtn = document.createElement('button');
-        copyBtn.type = 'button';
-        copyBtn.className = 'monday-copy-link';
-        copyBtn.textContent = task.copyLabel || 'Copy';
-        copyBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          copyToClipboard(task.copyText, copyBtn);
+      // 2026-10-20: a task may carry several copy buttons (copies: [{label, text}]).
+      // The row-click guard below keys off .monday-copy-link, so it covers all of them.
+      if (task.copies && task.copies.length) {
+        const copyRow = document.createElement('div');
+        copyRow.className = 'monday-copy-row';
+        task.copies.forEach(copy => {
+          const copyBtn = document.createElement('button');
+          copyBtn.type = 'button';
+          copyBtn.className = 'monday-copy-link';
+          copyBtn.textContent = copy.label || 'Copy';
+          copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            copyToClipboard(copy.text, copyBtn);
+          });
+          copyRow.appendChild(copyBtn);
         });
-        row.querySelector('.monday-task-body').appendChild(copyBtn);
+        row.querySelector('.monday-task-body').appendChild(copyRow);
       }
 
       row.addEventListener('click', (e) => {

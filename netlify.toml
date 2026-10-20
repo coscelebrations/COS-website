@@ -138,6 +138,22 @@
     Cache-Control = "no-store"
     X-Robots-Tag = "noindex, nofollow, noarchive"
 
+# The Script Builder at /script-builder/ is the fourth internal team tool and
+# had no block here until 2026-10-20 (the day it got linked from the Green
+# Room). Same shape as /gear/ and /green-room/: never cache, never index. The
+# page already carries its own noindex meta; this adds the header + no-store.
+[[headers]]
+  for = "/script-builder/*"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
+[[headers]]
+  for = "/script-builder"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
 # INTERNAL FILES MUST NOT BE SERVED. publish = "." makes every repo file a public URL;
 # on 2026-09-17 these returned 200 on the live domain. Netlify has no /*.md splat, so
 # root files are listed by name; folders use a trailing splat. "to" is the homepage
