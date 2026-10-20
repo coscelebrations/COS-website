@@ -358,7 +358,7 @@ const C = { items:'gear_items', events:'gear_events', runs:'gear_runs',
             activity:'gear_activity', config:'gear_config' };
 
 /* ================= state ================= */
-const BUILD = '2026-10-20-a';   // shown at the bottom of More. Bump on any visible change.
+const BUILD = '2026-10-20-b';   // shown at the bottom of More. Bump on any visible change.
 /* WHO CAN HOLD GEAR vs WHO CAN SIGN IN. Added 2026-09-26: Corey took on
    assistants - Rory and others - who hold gear but have no company address and
    no login. Dropping them into ROSTER would have quietly made them pickable
@@ -880,19 +880,41 @@ function weekendEvents(who){
     .filter(e => !who || [e.dj, e.dj2, e.dj3].some(n => n && String(n).toLowerCase().includes(who.toLowerCase())))
     .sort((a,b) => a.date.localeCompare(b.date) || String(a.time||'').localeCompare(String(b.time||'')));
 }
-/* Everything one person needs across the weekend, as pool -> count.
-   Two events each wanting 16 uplights is 32 uplights in the van, so these add
-   up rather than dedupe. Shared one-off gear (a single booth) does not double. */
-function weekendPull(who){
-  const evs = weekendEvents(who);
-  const need = {}, why = {};
+/* SUM WITHIN A DAY, MAX ACROSS DAYS. Two jobs on one day run at once and add
+   up; a job tomorrow reuses what comes back in the van tonight. The most anyone
+   needs is the busiest single day. Shared by weekendPull and stillToCollect
+   since 2026-10-20 so the two screens cannot drift apart again. */
+function peakNeed(evs){
+  const byDay = {};
   evs.forEach(e => {
     const n = poolNeeds(e);
     Object.keys(n).forEach(p => {
-      need[p] = (need[p] || 0) + n[p];
-      (why[p] = why[p] || []).push(e);
+      byDay[p] = byDay[p] || {};
+      byDay[p][e.date] = (byDay[p][e.date] || 0) + n[p];
     });
   });
+  const need = {};
+  Object.keys(byDay).forEach(p => { need[p] = Math.max(...Object.values(byDay[p])); });
+  return need;
+}
+/* Everything one person needs across the weekend, as pool -> count, plus
+   `why`: every event that asked for each pool (the check-out stamp and the
+   subtitle both read it).
+
+   FIXED 2026-10-20. Corey: CJ needs 16 uplights Saturday and 16 Sunday, and
+   this list told him to take 32. The comment here used to say "two events each
+   wanting 16 uplights is 32 uplights in the van", and the 2026-09-27 fix to
+   stillToCollect left this function alone on the same reasoning - a weekend is
+   one trip, so both days' gear must go at once. But the gear comes back in the
+   van between jobs; only two jobs on the SAME day add up. peakNeed() above is
+   that rule, and it is now the one rule for both screens. */
+function weekendPull(who){
+  const evs = weekendEvents(who);
+  const why = {};
+  evs.forEach(e => {
+    Object.keys(poolNeeds(e)).forEach(p => { (why[p] = why[p] || []).push(e); });
+  });
+  const need = peakNeed(evs);
   /* never ask someone to take more than exists */
   Object.keys(need).forEach(p => {
     const owned = S.items.filter(i => poolOf(i) === p && i.status !== 'retired').length;
@@ -986,33 +1008,20 @@ function stillToCollect(days){
   /* SUM WITHIN A DAY, MAX ACROSS DAYS. Corey 2026-09-27: "it shows 8 uplights
      for cj needed. but he has his 16. how did that happen."
 
-     It was summing every job in the window, which is inherited from
-     weekendPull and is correct THERE - a weekend is one trip to the warehouse,
-     so Friday's 16 and Saturday's 16 both have to be in the van at once. Across
-     a whole WEEK it is nonsense: Monday's uplights come back before Saturday
-     needs them. Two jobs of 16 became 32, capped at what he owns, minus the 16
-     he was already holding - and the screen asked him to collect 8 more of
-     something he was standing next to.
+     It was summing every job in the window. Across a whole WEEK that is
+     nonsense: Monday's uplights come back before Saturday needs them. Two jobs
+     of 16 became 32, capped at what he owns, minus the 16 he was already
+     holding - and the screen asked him to collect 8 more of something he was
+     standing next to.
 
-     Two jobs on the SAME DAY still add up, because they genuinely run at once.
-     The most you can ever need is the busiest single day. */
-  const byWhoDay = {};
-  evs.forEach(e => {
-    const who = pullPerson(e);
-    const need = poolNeeds(e);
-    Object.keys(need).forEach(p => {
-      byWhoDay[who] = byWhoDay[who] || {};
-      byWhoDay[who][p] = byWhoDay[who][p] || {};
-      byWhoDay[who][p][e.date] = (byWhoDay[who][p][e.date] || 0) + need[p];
-    });
-  });
+     The 2026-09-27 version of this comment called the summing "correct" in
+     weekendPull because a weekend is one trip. It was not - CJ got told 32 for
+     a Saturday + Sunday pair on 2026-10-20. The rule now lives once, in
+     peakNeed(), and both screens use it. */
+  const byWhoEvs = {};
+  evs.forEach(e => { const who = pullPerson(e); (byWhoEvs[who] = byWhoEvs[who] || []).push(e); });
   const byWho = {};
-  Object.keys(byWhoDay).forEach(who => {
-    byWho[who] = {};
-    Object.keys(byWhoDay[who]).forEach(p => {
-      byWho[who][p] = Math.max(...Object.values(byWhoDay[who][p]));
-    });
-  });
+  Object.keys(byWhoEvs).forEach(who => { byWho[who] = peakNeed(byWhoEvs[who]); });
   return Object.keys(byWho).sort().map(who => {
     const want = byWho[who];
     const short = Object.keys(want).map(pl => {
@@ -1745,7 +1754,7 @@ function viewWeek(){
      then went missing on the overdue-only path too. 2026-09-27. */
   h += '<p class="tiny" style="margin:-.2rem 0 .2rem">This covers the next 7 days, '
     + 'and shows the most anyone needs on any ONE day - gear comes back between jobs. '
-    + 'The weekend pickup list on Today is the one trip to the warehouse.</p>';
+    + 'The weekend pickup list on Today counts the same way.</p>';
 
 
   /* "Not back yet" REMOVED 2026-09-30. It was a per-person card list of every
