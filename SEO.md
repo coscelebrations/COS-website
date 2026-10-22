@@ -1,7 +1,146 @@
 # COS Celebrations & AE Entertainment - SEO Working Document
-## Last Updated: September 23, 2026
+## Last Updated: October 21, 2026
 
 ---
+
+## Session: October 22, 2026 - Agent wave shipped: Tampa push, sax phrasing, technical fixes, queue guard, three bake-offs
+
+Plan: `~/.claude/plans/lucky-waddling-sunrise.md`. Corey's decisions: **Tampa is a go** ("starting
+to market strong in Tampa"); **Treasury page stays** (they recommend us and hand out a list we
+are on; their website is behind). Four agents built it in parallel, one localhost review, then
+commits cos-website 3 / ae-entertainment 2 / cos-operations 1, all verified live within 20s.
+
+**Shipped (live 2026-10-22):**
+- COS `/tampa-wedding-dj/` title "Tampa Wedding DJ + Live Sax | From $1,500", meta carries
+  "Wedding DJs in Tampa", H2 "What's Included With a Wedding Reception DJ in Tampa". AE
+  `/tampa-wedding-dj/` title "Affordable Tampa Wedding DJ | From $800", H1 matches, FAQ H2 carries
+  "Wedding DJs in Tampa". No new internal links needed: all 14 Tampa-area venue pages and both
+  homepages already body-link the Tampa page. 8 Tampa queries added to `kw_list.json` (129 -> 137).
+- COS `/services/wedding-saxophonist/` title/H1 "Wedding Saxophone Player", one H2 "Sax Player",
+  meta 158 chars, visible date Oct 2026. Cost section and FAQs untouched.
+- AE `netlify.toml`: 11 cache rules (AE had NONE; every asset was max-age=0), noindex headers on
+  /expo /welcome /go /first-call, 404 for /package.json and /scripts/*, llms.txt removed. COS
+  `netlify.toml`: 404 for /package.json, /scripts/*, /components/*, /content-drafts/*, /mockups/*
+  (every live .html/.css/.js grepped first; nothing loads from them). Walkers Landing hero
+  272 KB -> 116 KB (sips cannot write WebP here; cwebp at /opt/homebrew/bin).
+- `gsc/detect_downtrends.py`: zero_ctr / impression_decay suppressed for venue pages at
+  position <= 5 (decided 2026-09-23, implemented now; 16-check test). Treasury's phantom refresh
+  is out of the top 5. The White Room stays on `click_decay` alone (3 -> 0 clicks), labelled.
+
+**Bake-off league after three questions, three different winners:** diagnose -> our-own-data
+85.5; trend -> open web 82.9; prospect -> Perplexity 79.0. Perplexity is not losing "trend"
+three times yet, so the monthly guidelines pull stays. Judge bonus find: Charlotte Patin's
+preferred-vendor page links COS to `/go/?gclid=...` (an ad-tracking URL) - easiest link ask on
+the list is "please point it at coscelebrations.com". Files under `~/seo-data/research/bakeoff/`.
+
+**Outcome records opened** (scored by GSC movement after 28 days, end of run_weekly.sh): COS Tampa
+"tampa wedding dj" baseline 8.7; AE Tampa 18.1; COS sax "saxophone player for wedding" 17.3.
+
+**Request indexing (done via Corey's Chrome, account slot /u/1):** COS 9 confirmed (Tampa,
+sax, St. Augustine music, Lightner, TPC Sawgrass, 9 Aviles, Palatka, Golden Creek, Fern Oak),
+then Quota Exceeded on Le Meridien. AE: Tampa confirmed, then Quota Exceeded on /services/ -
+AE's slots were already spent today. **Queued for tomorrow after 10:30:** COS /le-meridien-tampa-wedding-dj/;
+AE /services/, /omni-amelia-island-wedding-dj/, /ritz-carlton-amelia-island-wedding-dj/,
+/castle-hotel-orlando-wedding-dj/, /leu-gardens-wedding-dj/, /dr-phillips-house-wedding-dj/,
+/casa-feliz-wedding-dj/, /st-johns-golf-wedding-dj/, /river-club-jacksonville-wedding-dj/.
+Lesson: the chrome-devtools MCP profile is signed in as corey@ only; the claude-in-chrome
+extension reaches Corey's real Chrome where /u/1 is the gmail owner. Its JS calls cap at 45s,
+so run `__submit` fire-and-forget (window.__run / window.__results) and poll.
+
+**Corey's list:** five link asks from the scout
+list; Tampa and Orlando photos; GBP -> GA4 link; GSC "Search generative AI" setting; AE GBP
+Performance read. Left alone: 9 raw em dashes in old AE Tampa copy; 12 Tampa venue links without
+a title attribute; preferred-vendor wording on 42 other COS pages (Rule #9 vs memory
+`feedback_referral_details_stay_offline` - a later call).
+
+## Session: October 21, 2026 (later) - Research agents that compete: built, tested, first bake-off judged
+
+Plan: `~/.claude/plans/lucky-waddling-sunrise.md`. Memory: `seo_research_bakeoff`. Tests:
+`bash ~/cos-tools/research-tests/run.sh` (78 assertions, green). Front Desk stayed the One Thing.
+
+**Built.** `links/link_gaps.py` (monthly via `research/monthly_refresh.sh`, DataForSEO, cap $1.50,
+first run $1.01) and `serpgap/serp_gap.py` (weekly step [4b/5] in `dataforseo/run_weekly.sh`, $0).
+`scrape_lib.py` extracted from `pull.py` (parity verified). `from_link_gaps` adapter in
+`unify_actions.py` (source `link-gaps`, rule `L1-link-gap`, off-page, 90-day cooldown, page1 score
+240+impact; 20 human items, none in top5 by design). Agents: `link-scout`, `serp-gap-analyst`,
+`researcher-perplexity` / `-web` / `-data`, `research-judge`. Skill `/bakeoff`. `league.py` with
+outcome scoring at the end of the weekly chain. `competitors.json` `linkProfile` flag is the one
+competitor list the link pull reads; Jacksonville DJs and White Tie added.
+
+**First bake-off, `jax-ydj-outranks` (why Y Entertainment outranks COS in Jacksonville), blind
+judge:** our-own-data method **85.5**, open web 79.0, Perplexity 74.3. The winner was the only one
+to find that **COS fell, Y did not climb**: COS 9-12 in every sweep through Aug 30, then 18-25 from
+Sep 6; GSC query position 7-10 weekly through Aug 24, then 12.5-18 from Aug 31. The only on-page
+change in the window was the Aug 23 entity-unification commit e35aae7 that moved three Review
+addresses from Jacksonville to St. Augustine (timing, not proof). Perplexity's brief failed a
+spot-check (claimed a title that has not been live since Oct 2). Files:
+`~/seo-data/research/bakeoff/2026-10-21-jax-ydj-outranks/`.
+
+**Link scout (`links/link-scout-2026-10-21.md`), the afternoon's work for Corey:** Premier Bride 904
+has a COS profile with no link; First Coast Weddings names COS twice on a July post, unlinked, and
+Heather is also Bowing Oaks' sales manager; The Monarch and Rob Futrell already link us and
+DataForSEO has not indexed it; Sara Purdy names COS on the Lightner post, unlinked. AE is named
+on none of the 20 sites.
+
+**NEEDS A DECISION - Treasury on the Plaza:** their live /preferred-vendors/ DJ list has 8 names
+and COS is not one of them, while `/treasury-on-the-plaza-wedding-dj/` says "preferred wedding DJ
+vendor" in 9 places. Memory `feedback_referral_details_stay_offline` says never publish list
+membership at all. Not edited; Corey decides (Brandy gatekeeps; Sept load-in incident is recent).
+
+**SERP gap (`serpgap/serp-gap-analyst-2026-10-21.md`):** on every striking-distance cluster we
+already out-structure the top 10; the one recurring measured deficit is image count (Orlando 3 vs
+18.5 median, Tampa 7 vs 17, AE home 6 vs 53), and no such photos exist on disk. Jacksonville: no
+page-level lever, it is links + GBP. AE's homepage, not its city pages, is what Google serves for
+every AE city query - re-read the Jul 7 St. Augustine pivot by page before scaling it.
+
+**Instruments fixed today, all caught by the agents on their first run:** `serp_gap.py` city
+check missed "St. Augustine" with the period; JS-shell pages (Y's Jax page, 8 visible words) now
+excluded from medians; `link_gaps.py` classifier treats DJ/entertainment domains as competitors
+(Amplify's orlandoweddingdj.com came through as a "venue"). Agent files under `~/.claude/agents/`
+register at session start, not on write.
+
+## Session: October 21, 2026 - Full report, both brands: the gap is links, not pages
+
+Full report with every table: `~/seo-data/reports/full-seo-report-2026-10-21.md`. This entry
+is the summary so the next session does not have to re-derive it.
+
+**Non-brand search is still nearly zero.** Last 28 days, query dimension: COS 82 brand clicks
+vs **6 non-brand**; AE 30 brand vs **4 non-brand**. COS clicks have sat in a 136-211/month band
+for twelve months. AE grew from 9 to 64 clicks/month and position 52 -> 22, all on-page.
+
+**First link-profile measurement ever (DataForSEO, live today).** The ~2,150 "referring
+domains" every DJ site shows are one spam network (.space/.shop/.store SEO-checker domains).
+Strip it and: COS has **6** real referring domains with authority (voyagejacksonville, oldcitypr,
+united-local, two photographers, Ricker Films). AE has **0**. Y Entertainment, which outranks
+COS for "jacksonville wedding dj" (#4 vs #25), has 14: Treasury on the Plaza, First Coast
+Weddings, Sara Purdy, Premier Bride 904, I Said Yes FL, The Monarch. These are people we work
+with. Files: `~/seo-data/dataforseo/refdomains-real-2026-10-21.json`.
+
+**Striking distance, Search Console 90d:** COS Tampa cluster ~2,000 impressions at 10-15
+(decision on Tampa still open since Sep 23); COS Jacksonville at 9-10; sax "player" phrasings
+still 21-22 while the cost queries hold 5-7; AE "affordable wedding dj" 641 impressions at 12.9;
+AE /tampa-wedding-dj/ 12,571 impressions at 26. AE venue pages at #1 (Epping Forest 1.0,
+Timuquana 1.4, River House 1.2) earn 0-1 clicks - venue-name queries do not convert.
+
+**AI visibility:** COS fell 100% -> 50% since Aug 13, losing all three Jacksonville queries.
+AE 100%. GBP-driven per guidelines S3.10.
+
+**Indexing (Oct 18, URL Inspection):** COS 86/120, flat four weeks; AE 96/113. COS unindexed
+includes /st-augustine-wedding-music/, Lightner, TPC Sawgrass, 9 Aviles, Palatka, Golden Creek,
+Fern Oak, all 5 add-on pages, 17 vendor pages.
+
+**Technical:** both sites clean on links, titles, schema, mojibake, redirects. Found: AE has
+ZERO Cache-Control rules (every asset max-age=0, COS has 19); dev files live on both
+(/package.json, COS /scripts/logo-sources/out/, /content-drafts/, /components/, /mockups/; AE
+/llms.txt still served after the Aug 24 retirement); 76 COS / 28 AE titles over 60 chars;
+/vip-login/ indexable and in the sitemap; /team/djs/ links the dead /team/corey-peterson/ URL;
+AE mentions COS 8 times on its homepage.
+
+**Fixed this session:** `build_weekly.py` had hardcoded "AE's Business Profile - still
+unverified" since Aug 26; AE was verified Sep 23. Corrected with a dated comment.
+
+**Still not done from Sep 23:** suppress `zero_ctr` for venue pages at position <= 5 in
+`unify_actions.py` - the top5 is still five venue refreshes. Tampa decision. GBP -> GA4 link.
 
 ## Session: September 23, 2026 - The August impression spike deflated, and it cost us nothing
 
