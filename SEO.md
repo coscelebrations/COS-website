@@ -39,7 +39,12 @@ the list is "please point it at coscelebrations.com". Files under `~/seo-data/re
 **Request indexing (done via Corey's Chrome, account slot /u/1):** COS 9 confirmed (Tampa,
 sax, St. Augustine music, Lightner, TPC Sawgrass, 9 Aviles, Palatka, Golden Creek, Fern Oak),
 then Quota Exceeded on Le Meridien. AE: Tampa confirmed, then Quota Exceeded on /services/ -
-AE's slots were already spent today. **Queued for tomorrow after 10:30:** COS /le-meridien-tampa-wedding-dj/;
+AE's slots were already spent today. **Verified by lastCrawlTime 15:41Z:** 8 of 9 COS pages crawled within 10 minutes and now read
+"Submitted and indexed" - including Lightner, TPC Sawgrass, 9 Aviles, Palatka, Golden Creek,
+Fern Oak and the St. Augustine music page, which had sat "Discovered - not indexed" for weeks.
+The sax page's crawl is still 2026-10-15: its request was in the batch the 45s call limit cut
+off, so it did not go through. **Queued for tomorrow after 10:30:** COS /services/wedding-saxophonist/,
+/le-meridien-tampa-wedding-dj/;
 AE /services/, /omni-amelia-island-wedding-dj/, /ritz-carlton-amelia-island-wedding-dj/,
 /castle-hotel-orlando-wedding-dj/, /leu-gardens-wedding-dj/, /dr-phillips-house-wedding-dj/,
 /casa-feliz-wedding-dj/, /st-johns-golf-wedding-dj/, /river-club-jacksonville-wedding-dj/.
