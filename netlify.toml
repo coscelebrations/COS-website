@@ -201,3 +201,50 @@
   status = 404
   force = true
 
+# 2026-10-21 audit: more dev files that returned 200 on the live domain. None of
+# them is loaded by a live page. Checked with
+#   grep -rl --include='*.html' --include='*.css' --include='*.js' '/<folder>/'
+# across the repo (node_modules and .git excluded), plus a second pass for the
+# slash-less form inside src/href/url():
+#   /package.json    - npm aliases for scripts/*.py and ../cos-tools; no page loads it.
+#   /scripts/*       - 0 hits. Only mentions are HTML comments naming
+#                      "scripts/build-logos.py" (index.html:81, jacksonville and
+#                      st-augustine city pages) and a comment in group-reply/pages.js;
+#                      none is a src/href. No [build] command and no [functions]
+#                      block in this file reference it (the functions block was
+#                      removed 2026-08-29). google-indexing-credentials.json lives
+#                      here but is gitignored, so it never reached Netlify anyway.
+#   /components/*    - 0 hits. review-carousel.{css,js,example.html} are unused.
+#   /content-drafts/* - 0 hits. treasury-enhanced-content.html is a draft only.
+#   /mockups/*       - 1 hit, and it is mockups/stat-block-trust-signals.html
+#                      naming its own localhost URL in a "MOCKUP - not live" note.
+#                      Nothing outside mockups/ links in.
+[[redirects]]
+  from = "/package.json"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/scripts/*"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/components/*"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/content-drafts/*"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/mockups/*"
+  to = "/"
+  status = 404
+  force = true
