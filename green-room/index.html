@@ -870,6 +870,15 @@ If you have any questions about the setup space, just let us know — we're happ
       note: 'Put together the formality crate so the key moments are ready and organized.'
     },
     {
+      // 2026-10-29: Corey asked for script-building on the weekly list.
+      key: 'script',
+      label: 'Build the script for your couple',
+      note: 'Open the Script Builder and put together this weekend\'s script - names, pronunciations, the timeline, and every announcement - so you are not writing it in the car.',
+      links: [
+        { label: 'Open Script Builder', href: '/script-builder/' }
+      ]
+    },
+    {
       key: 'gear',
       label: 'Know your gear & add-ons for the week',
       note: 'Check every event this week for add-ons (uplighting, selfie booth, extra speakers, ceremony setup, etc.) and make sure you have what you need. If a teammate has a piece you need, or you have one they need, arrange the pickup or hand-off now, not Friday.'
@@ -950,10 +959,20 @@ If you have any questions about the setup space, just let us know — we're happ
 
       // 2026-10-20: a task may carry several copy buttons (copies: [{label, text}]).
       // The row-click guard below keys off .monday-copy-link, so it covers all of them.
-      if (task.copies && task.copies.length) {
+      // 2026-10-29: a task may also carry links: [{label, href}] - rendered as
+      // anchors in the same row with the same class, so the guard covers them.
+      if ((task.copies && task.copies.length) || (task.links && task.links.length)) {
         const copyRow = document.createElement('div');
         copyRow.className = 'monday-copy-row';
-        task.copies.forEach(copy => {
+        (task.links || []).forEach(link => {
+          const a = document.createElement('a');
+          a.className = 'monday-copy-link';
+          a.href = link.href;
+          a.textContent = link.label;
+          a.addEventListener('click', (e) => e.stopPropagation());
+          copyRow.appendChild(a);
+        });
+        (task.copies || []).forEach(copy => {
           const copyBtn = document.createElement('button');
           copyBtn.type = 'button';
           copyBtn.className = 'monday-copy-link';
