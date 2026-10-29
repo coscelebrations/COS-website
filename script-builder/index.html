@@ -1128,7 +1128,14 @@
 
     function genFirstDance(d, g) {
       const preface = d.partyOnFloor ? `Guests ${h('and wedding party')}, you may take your seats` : `Guests, you may take your seats`;
-      return `<p>${preface} — but please keep your eyes and attention to the dance floor as ${h(g.couple)} are going to have their first dance.</p>`;
+      let out = `<p>${preface} — but please keep your eyes and attention to the dance floor as ${h(g.couple)} are going to have their first dance.</p>`;
+      // Added 2026-10-29 (Corey): close the dance the same way the parent dances do.
+      // "Laura + Dusko" is spoken as "Laura and Dusko" here.
+      const names = g.couple.split('+').map(s => s.trim()).filter(Boolean);
+      const spoken = names.length === 2 ? `${names[0]} and ${names[1]}` : g.couple;
+      out += `<p class="stage-dir">[as you're fading out the song]</p>`;
+      out += `<p>A big round of applause for ${h(spoken)}!</p>`;
+      return out;
     }
 
     function genParentDance(d, g, prevEv) {
