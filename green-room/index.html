@@ -216,6 +216,41 @@
   button:active, .btn:active { transform: scale(0.98); }
   .btn-primary { background: var(--merlot); color: white; }
   .btn-primary:hover { background: var(--merlot-dark); }
+  /* 2026-10-29: the planning-call "I tried again" button stays locked until
+     the DJ confirms they texted or called as well as emailed. */
+  .btn-primary:disabled, .btn-ghost:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .btn-primary:disabled:hover { background: var(--merlot); }
+  .btn-primary:disabled:active, .btn-ghost:disabled:active { transform: none; }
+  .confirm-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.6rem 0.75rem;
+    margin-bottom: 0.85rem;
+    border: 1px solid var(--rose);
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(114,47,55,0.08);
+    user-select: none;
+  }
+  .confirm-row.done { border-color: var(--merlot); }
+  .confirm-row.done .monday-check { background: var(--merlot); }
+  .confirm-row.done .monday-check::after { transform: rotate(45deg) scale(1); }
+  .confirm-row-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    line-height: 1.35;
+  }
+  .confirm-row-sub {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    margin-top: 0.15rem;
+  }
   .btn-ghost {
     background: white;
     color: var(--merlot);
@@ -343,6 +378,22 @@
     font-family: inherit;
   }
   input:focus { outline: 2px solid var(--merlot); outline-offset: -1px; }
+  /* 2026-10-29: COS / AE pick on the add-planning-call screen. Same .seg
+     look as /green-room/thank-you/. */
+  .seg { display: flex; gap: 0.55rem; }
+  .seg button {
+    flex: 1 1 0;
+    background: white;
+    color: var(--merlot);
+    border: 1px solid var(--rose);
+    padding: 0.75rem 0.5rem;
+    font-size: 0.95rem;
+  }
+  .seg button[aria-pressed="true"] {
+    background: var(--merlot);
+    border-color: var(--merlot);
+    color: white;
+  }
   .hint {
     font-size: 0.8rem;
     color: var(--text-soft);
@@ -657,11 +708,19 @@
       Use this for couples who've already booked but haven't scheduled their planning call yet. You will get a nudge every <strong>7 days</strong>.
       <ul class="steps-mini">
         <li>Add the couple now — first nudge fires in 7 days</li>
+        <li>Every nudge needs an email <strong>plus</strong> a text or call - the reset button stays locked until you confirm you did both</li>
         <li>Each time you reach out, tap <strong>I tried again</strong> — clock resets</li>
         <li>When they pick a date, tap <strong>They scheduled</strong> — it closes</li>
         <li>After <strong>3 tries</strong> with no date, the card will tell you to loop in Corey</li>
       </ul>
     </div>
+
+    <label>Brand</label>
+    <div class="seg" id="callBrand">
+      <button type="button" data-v="COS Celebrations" aria-pressed="true">COS Celebrations</button>
+      <button type="button" data-v="AE Entertainment" aria-pressed="false">AE Entertainment</button>
+    </div>
+    <p class="hint">Which company booked them. Fills in the text and voicemail wording below the card.</p>
 
     <label for="callCoupleInput">Couple's names</label>
     <input type="text" id="callCoupleInput" autocomplete="off" placeholder="e.g. Sarah & Mike">
@@ -980,11 +1039,39 @@ Wishing you both the best with everything,
     }
   };
 
+  // 2026-10-29: planning-call nudges now require a text or call on top of the
+  // email, so the card hands the DJ both. Edit wording here.
+  const PLANNING_CALL_TEMPLATES = {
+    // Points at the scheduling link in the email on purpose - asking for
+    // availability means replies get lost or the slot is gone by the time
+    // they answer (Corey, 2026-10-29). {{brand}} = the company that booked them.
+    // This fires a week or more after the original email, so the text
+    // bumps that email (the link lives there) instead of claiming a new send.
+    text: `Hi {{coupleName}}, it's {{senderName}} with {{brand}}! I just sent a quick follow-up email so it's back at the top of your inbox - the scheduling link for your planning call is in my original email. Pick whatever time works best and it goes straight onto my calendar. Looking forward to it!`,
+    voicemail: `Hey {{coupleName}}, this is {{senderName}} with {{brand}}. I just sent a follow-up email to bump it to the top of your inbox - the scheduling link for your planning call is in my original email. Whenever you get a sec, grab a time that works and it locks right in on my calendar. If it's easier, text me back and I'll send the link that way too. Talk soon!`
+  };
+
+  const DEFAULT_BRAND = 'COS Celebrations';
+
+  // 2026-10-29: if the DJ never typed a name, use the signed-in account
+  // instead of "[Your name]" - cj@coscelebrations.com -> "CJ",
+  // noah@ -> "Noah". "edit name" in the header still overrides it.
+  function nameFromEmail(email) {
+    const local = String(email || '').split('@')[0].replace(/[^a-z]/gi, '');
+    if (!local) return '';
+    return local.length <= 2 ? local.toUpperCase() : local[0].toUpperCase() + local.slice(1).toLowerCase();
+  }
+  function senderName() {
+    return (localStorage.getItem(NAME_KEY) || '').trim()
+      || nameFromEmail(currentUser && currentUser.email)
+      || '[Your name]';
+  }
+
   function fillTemplate(str, lead) {
-    const name = (localStorage.getItem(NAME_KEY) || '').trim() || '[Your name]';
     return str
       .replace(/\{\{coupleName\}\}/g, lead.coupleName || 'there')
-      .replace(/\{\{senderName\}\}/g, name);
+      .replace(/\{\{senderName\}\}/g, senderName())
+      .replace(/\{\{brand\}\}/g, lead.brand || DEFAULT_BRAND);
   }
 
   async function copyToClipboard(text, btn) {
@@ -1154,11 +1241,12 @@ Wishing you both the best with everything,
     render();
   }
 
-  function addPlanningCall(coupleName, startDate) {
+  function addPlanningCall(coupleName, startDate, brand) {
     const item = {
       id: uuid(),
       type: 'planning-call',
       coupleName: coupleName.trim(),
+      brand: brand || DEFAULT_BRAND, // 2026-10-29; older items have no brand and read as COS
       startDate: startDate,
       lastAttemptDate: startDate,
       attemptCount: 0,
@@ -1294,19 +1382,40 @@ Wishing you both the best with everything,
     const alertNote = alertCorey
       ? `<div class="step-note"><strong>You've reached out ${attempts} times and they still haven't picked a date.</strong> Text or email Corey so he can try to get hold of them too. Keep chasing on your side - the 7-day clock still runs.</div>`
       : '';
+    // 2026-10-29: Corey's rule - a nudge is email PLUS a text or call. The
+    // reset button is disabled until the DJ ticks the confirm row. Not saved;
+    // it is a confirmation at the moment of tapping, so it resets every render.
+    const templateKeys = Object.keys(PLANNING_CALL_TEMPLATES);
+    const templateBoxesHTML = templateKeys.map(key => `
+      <div class="template-box" data-template-key="${key}">
+        <div class="template-box-head">
+          <span class="template-box-label">${TEMPLATE_LABELS[key] || key}</span>
+          <button class="btn-copy" data-copy type="button">Copy</button>
+        </div>
+        <div class="template-body"></div>
+      </div>
+    `).join('');
+    const confirmRowHTML = `
+      <div class="confirm-row" data-confirm role="checkbox" aria-checked="false" tabindex="0">
+        <div class="monday-check"></div>
+        <div>
+          <div class="confirm-row-label">I texted or called them too - not just email</div>
+          <div class="confirm-row-sub">Tick this to unlock the reset button.</div>
+        </div>
+      </div>`;
     const actions = alertCorey
       ? `
       <div class="actions">
         <button class="btn-primary" data-told-corey>I've told Corey</button>
         <div class="row-buttons">
-          <button class="btn-ghost" data-attempted>I tried again</button>
+          <button class="btn-ghost" data-attempted disabled>I tried again</button>
           <button class="btn-ghost" data-scheduled>They scheduled</button>
           <button class="btn-danger-ghost" data-delete>Delete</button>
         </div>
       </div>`
       : `
       <div class="actions">
-        <button class="btn-primary" data-attempted>I tried again — reset 7 days</button>
+        <button class="btn-primary" data-attempted disabled>I tried again — reset 7 days</button>
         <div class="row-buttons">
           <button class="btn-ghost" data-scheduled>They scheduled</button>
           <button class="btn-danger-ghost" data-delete>Delete</button>
@@ -1316,17 +1425,40 @@ Wishing you both the best with everything,
       ${banner}
       <div class="top">
         <p class="couple"></p>
-        <span class="handoff">planning call</span>
+        <span class="handoff">planning call${item.brand === 'AE Entertainment' ? ' &middot; AE' : ''}</span>
       </div>
       ${pills}
       <div class="step-label">Attempt ${attempts + 1} — nudge them about the planning call</div>
       <div class="step-when">${when.text}</div>
       ${alertNote}
-      <div class="step-note">${lastReached}. Email, text, or call — whichever feels right. After you try, tap "I tried again" to reset the 7-day clock.</div>
+      <div class="step-note">${lastReached}. Email them, <strong>and</strong> text or call. Tick the box once you've done both - that unlocks the reset button.</div>
+      ${templateBoxesHTML}
+      ${confirmRowHTML}
       ${actions}
     `;
     div.querySelector('.couple').textContent = item.coupleName;
-    div.querySelector('[data-attempted]').addEventListener('click', () => markCallAttempted(item.id));
+    templateKeys.forEach(key => {
+      const box = div.querySelector('.template-box[data-template-key="' + key + '"]');
+      const filled = fillTemplate(PLANNING_CALL_TEMPLATES[key], item);
+      box.querySelector('.template-body').textContent = filled;
+      const copyBtn = box.querySelector('[data-copy]');
+      copyBtn.addEventListener('click', () => copyToClipboard(filled, copyBtn));
+    });
+    const confirmRow = div.querySelector('[data-confirm]');
+    const attemptedBtn = div.querySelector('[data-attempted]');
+    const toggleConfirm = () => {
+      const on = confirmRow.classList.toggle('done');
+      confirmRow.setAttribute('aria-checked', on ? 'true' : 'false');
+      attemptedBtn.disabled = !on;
+    };
+    confirmRow.addEventListener('click', toggleConfirm);
+    confirmRow.addEventListener('keydown', (e) => {
+      if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggleConfirm(); }
+    });
+    attemptedBtn.addEventListener('click', () => {
+      if (attemptedBtn.disabled) return;
+      markCallAttempted(item.id);
+    });
     div.querySelector('[data-scheduled]').addEventListener('click', () => markCallScheduled(item.id));
     const toldBtn = div.querySelector('[data-told-corey]');
     if (toldBtn) toldBtn.addEventListener('click', () => markToldCorey(item.id));
@@ -1365,7 +1497,7 @@ Wishing you both the best with everything,
     if (item.type === 'planning-call') {
       statusClass = 'closed';
       statusText = 'Call scheduled';
-      sublabel = `planning call · started ${prettyDate(item.startDate)}`;
+      sublabel = `planning call${item.brand === 'AE Entertainment' ? ' · AE' : ''} · started ${prettyDate(item.startDate)}`;
     } else if (item.replied) {
       statusClass = 'closed';
       statusText = 'They replied';
@@ -1502,9 +1634,17 @@ Wishing you both the best with everything,
   function hideAddScreen() {
     $('#screen-add').classList.remove('open');
   }
+  let callBrand = DEFAULT_BRAND;
+  function setCallBrand(v) {
+    callBrand = v;
+    document.querySelectorAll('#callBrand button').forEach(b => {
+      b.setAttribute('aria-pressed', b.getAttribute('data-v') === v ? 'true' : 'false');
+    });
+  }
   function showAddCallScreen() {
     $('#callDateInput').value = todayStr();
     $('#callCoupleInput').value = '';
+    setCallBrand(DEFAULT_BRAND);
     $('#screen-add-call').classList.add('open');
     setTimeout(() => $('#callCoupleInput').focus(), 50);
   }
@@ -1656,12 +1796,15 @@ Wishing you both the best with everything,
     render();
   });
 
+  document.querySelectorAll('#callBrand button').forEach(b => {
+    b.addEventListener('click', () => setCallBrand(b.getAttribute('data-v')));
+  });
   $('#saveCall').addEventListener('click', () => {
     const name = $('#callCoupleInput').value.trim();
     const date = $('#callDateInput').value;
     if (!name) { alert('Type the couple’s names.'); return; }
     if (!date) { alert('Pick the start date.'); return; }
-    addPlanningCall(name, date);
+    addPlanningCall(name, date, callBrand);
     hideAddCallScreen();
     render();
   });
